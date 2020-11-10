@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="563.0" prefWidth="459.0" stylesheets="@mainscreen.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="mainPane" prefHeight="564.0" prefWidth="459.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <effect>
+            <ColorAdjust brightness="-0.5" />
+         </effect>
+      </AnchorPane>
+      <Button layoutX="107.0" layoutY="316.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="270.0" text="Scoreboard">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="107.0" layoutY="181.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="270.0" text="Start Game">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="106.0" layoutY="382.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="270.0" text="Manage Questions">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="107.0" layoutY="250.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="270.0" text="Load Game">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="107.0" fitWidth="112.0" layoutX="352.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/Pieace_2_1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="107.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/Pieace_5.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="20.0" layoutY="503.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="135.0" text="Exit" />
+      <ImageView fitHeight="61.0" fitWidth="285.0" layoutX="160.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/Pieace_6.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
