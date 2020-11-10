@@ -22,7 +22,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -32,7 +32,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -42,7 +42,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -52,7 +52,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -61,17 +61,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -81,7 +71,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -91,7 +81,17 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
+               <children>
+                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -102,7 +102,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -112,7 +112,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -122,7 +122,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -132,7 +132,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -141,7 +141,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/yellow.png" />
+                        <Image url="@pictures/yellow.png" />
                      </image>
                   </ImageView>
                </children>
@@ -151,7 +151,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/yellow.png" />
+                        <Image url="@pictures/yellow.png" />
                      </image>
                   </ImageView>
                </children>
@@ -173,7 +173,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/yellow.png" />
+                        <Image url="@pictures/yellow.png" />
                      </image>
                   </ImageView>
                </children>
@@ -184,7 +184,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -194,7 +194,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                      <effect>
                         <DropShadow color="WHITE" height="53.25" radius="26.2175" spread="0.69" width="53.62" />
@@ -207,7 +207,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -217,7 +217,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -228,7 +228,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -238,7 +238,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -248,7 +248,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -258,7 +258,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -267,17 +267,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -287,7 +277,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -297,7 +287,17 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Desktop/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_4.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
+               <children>
+                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@pictures/Pieace_4.png" />
                      </image>
                   </ImageView>
                </children>
@@ -496,7 +496,7 @@
       </Label>
       <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/Pieace_4.png" />
+            <Image url="@pictures/Pieace_4.png" />
          </image>
          <effect>
             <DropShadow color="RED" height="134.41" radius="66.705" spread="0.27" width="134.41" />
@@ -504,7 +504,7 @@
       </ImageView>
       <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="181.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/icons8-down-right-100.png" />
+            <Image url="@pictures/icons8-down-right-100.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -515,7 +515,7 @@
       </ImageView>
       <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="87.0" layoutY="639.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/icons8-up-left-100.png" />
+            <Image url="@pictures/icons8-up-left-100.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -523,7 +523,7 @@
       </ImageView>
       <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="83.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/icons8-down-left-100.png" />
+            <Image url="@pictures/icons8-down-left-100.png" />
          </image>
          <effect>
             <ColorAdjust brightness="0.86" />
@@ -531,7 +531,7 @@
       </ImageView>
       <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="187.0" layoutY="639.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/icons8-up-right-100.png" />
+            <Image url="@pictures/icons8-up-right-100.png" />
          </image>
          <effect>
             <ColorAdjust />
@@ -547,7 +547,7 @@
       </Label>
       <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/Pieace_2.png" />
+            <Image url="@pictures/Pieace_2.png" />
          </image>
       </ImageView>
       <Label layoutX="105.0" layoutY="407.0" text="Player2">
@@ -591,7 +591,7 @@
       </TextField>
       <ImageView fitHeight="67.0" fitWidth="90.0" layoutX="15.0" layoutY="872.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/angry-panda-1861481-1586368.png" />
+            <Image url="@pictures/angry-panda-1861481-1586368.png" />
          </image>
       </ImageView>
       <Button layoutX="92.0" layoutY="893.0" mnemonicParsing="false" text="Give Up">

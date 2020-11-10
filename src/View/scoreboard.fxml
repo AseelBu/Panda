@@ -31,7 +31,7 @@
                      <effect>
                         <ImageInput>
                            <source>
-                              <Image url="file:/C:/Users/firas/eclipse-workspace/Damka_Panda/bin/View/pictures/icons8-back-arrow-64.png" />
+                              <Image url="@pictures/icons8-back-arrow-64.png" />
                            </source>
                         </ImageInput>
                      </effect>

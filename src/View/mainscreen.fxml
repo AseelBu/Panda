@@ -36,18 +36,18 @@
       </Button>
       <ImageView fitHeight="107.0" fitWidth="112.0" layoutX="352.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/Pieace_2_1.png" />
+            <Image url="@pictures/Pieace_2_1.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="107.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/Pieace_5.png" />
+            <Image url="@pictures/Pieace_5.png" />
          </image>
       </ImageView>
       <Button layoutX="20.0" layoutY="503.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="135.0" text="Exit" />
       <ImageView fitHeight="61.0" fitWidth="285.0" layoutX="160.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Desktop/Pieace_6.png" />
+            <Image url="@pictures/Pieace_6.png" />
          </image>
       </ImageView>
    </children>
