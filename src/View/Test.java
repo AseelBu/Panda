@@ -13,7 +13,7 @@ public class Test extends Application {
 		try {
 			AnchorPane root = new AnchorPane();
 			root = FXMLLoader.load(getClass().getResource("mainscreen.fxml"));
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("mainscreen.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

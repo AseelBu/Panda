@@ -1,0 +1,6 @@
+#background{
+	-fx-background-image: url("pictures/3.jpg");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: cover;
+	-fx-opacity: 0.46;
+}

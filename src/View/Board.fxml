@@ -6,27 +6,20 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="958.0" prefWidth="1308.0" stylesheets="@mainscreen.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="958.0" prefWidth="1308.0" stylesheets="@board.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+         <AnchorPane fx:id="background" layoutX="238.0" layoutY="35.0" prefHeight="958.0" prefWidth="1327.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+  
       <FlowPane layoutX="477.0" layoutY="80.0" prefHeight="800.0" prefWidth="800.0">
          <children>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
                <children>
@@ -42,30 +35,16 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@pictures/Pieace_2.png" />
+                        <Image url="@pictures/Pieace_2_1.png" />
                      </image>
                   </ImageView>
                </children>
             </FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
                <children>
@@ -77,66 +56,16 @@
                </children>
             </FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
@@ -162,14 +91,11 @@
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <effect>
-                  <InnerShadow choke="0.14" color="#ffaa00" height="195.94" radius="75.2325" width="106.99" />
-               </effect></FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
+            <FlowPane fx:id="tttt" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane fx:id="tetstssa" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -179,16 +105,8 @@
                </children>
             </FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane fx:id="ttt" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_4.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
                <children>
@@ -203,11 +121,18 @@
                </children>
             </FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@pictures/Pieace_4.png" />
+                        <Image url="@pictures/blue.png" />
                      </image>
                   </ImageView>
                </children>
@@ -217,81 +142,26 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@pictures/Pieace_4.png" />
+                        <Image url="@pictures/redTile.png" />
                      </image>
                   </ImageView>
                </children>
             </FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@pictures/Pieace_4.png" />
+                        <Image url="@pictures/Pieace_5.png" />
                      </image>
                   </ImageView>
                </children>
             </FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_4.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_4.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_4.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_4.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_4.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@pictures/Pieace_4.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </FlowPane>
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
                <children>
@@ -481,12 +351,12 @@
             </Label>
          </children>
       </FlowPane>
-      <TextField alignment="CENTER" disable="true" editable="false" layoutX="266.0" layoutY="328.0" prefHeight="60.0" prefWidth="108.0" style="-fx-opacity: 1;" text="01:45">
+      <TextField alignment="CENTER" disable="true" editable="false" layoutX="266.0" layoutY="270.0" prefHeight="60.0" prefWidth="108.0" style="-fx-opacity: 1;" text="00:22">
          <font>
             <Font size="28.0" />
          </font>
       </TextField>
-      <Label layoutX="105.0" layoutY="209.0" text="Player1">
+      <Label layoutX="105.0" layoutY="151.0" text="Player1">
          <font>
             <Font size="28.0" />
          </font>
@@ -494,7 +364,7 @@
             <DropShadow color="RED" height="134.41" radius="66.52" spread="0.71" width="133.67" />
          </effect>
       </Label>
-      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/Pieace_4.png" />
          </image>
@@ -502,7 +372,7 @@
             <DropShadow color="RED" height="134.41" radius="66.705" spread="0.27" width="134.41" />
          </effect>
       </ImageView>
-      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="181.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="182.0" layoutY="650.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/icons8-down-right-100.png" />
          </image>
@@ -513,7 +383,7 @@
             <ColorAdjust brightness="0.86" />
          </effect>
       </ImageView>
-      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="87.0" layoutY="639.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="88.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/icons8-up-left-100.png" />
          </image>
@@ -521,7 +391,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="83.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="84.0" layoutY="650.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/icons8-down-left-100.png" />
          </image>
@@ -529,7 +399,7 @@
             <ColorAdjust brightness="0.86" />
          </effect>
       </ImageView>
-      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="187.0" layoutY="639.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="188.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/icons8-up-right-100.png" />
          </image>
@@ -540,17 +410,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Label layoutX="84.0" layoutY="569.0" text="Move Your Piece">
+      <Label layoutX="85.0" layoutY="481.0" text="Move Your Piece">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/Pieace_2.png" />
          </image>
       </ImageView>
-      <Label layoutX="105.0" layoutY="407.0" text="Player2">
+      <Label layoutX="105.0" layoutY="349.0" text="Player2">
          <font>
             <Font size="28.0" />
          </font>
@@ -558,12 +428,12 @@
             <ColorAdjust />
          </effect>
       </Label>
-      <Label layoutX="183.0" layoutY="338.0" text="vs">
+      <Label layoutX="183.0" layoutY="280.0" text="vs">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label layoutX="106.0" layoutY="253.0" text="Points:">
+      <Label layoutX="106.0" layoutY="195.0" text="Points:">
          <font>
             <Font size="20.0" />
          </font>
@@ -571,7 +441,7 @@
             <ColorAdjust />
          </effect>
       </Label>
-      <Label layoutX="106.0" layoutY="447.0" text="Points:">
+      <Label layoutX="106.0" layoutY="389.0" text="Points:">
          <font>
             <Font size="20.0" />
          </font>
@@ -579,12 +449,12 @@
             <ColorAdjust />
          </effect>
       </Label>
-      <TextField alignment="CENTER" disable="true" editable="false" layoutX="175.0" layoutY="249.0" prefHeight="24.0" prefWidth="81.0" style="-fx-opacity: 1;" text="0">
+      <TextField alignment="CENTER" disable="true" editable="false" layoutX="175.0" layoutY="191.0" prefHeight="24.0" prefWidth="81.0" style="-fx-opacity: 1;" text="1500">
          <font>
             <Font size="17.0" />
          </font>
       </TextField>
-      <TextField alignment="CENTER" disable="true" editable="false" layoutX="175.0" layoutY="443.0" prefHeight="24.0" prefWidth="81.0" style="-fx-opacity: 1;" text="0">
+      <TextField alignment="CENTER" disable="true" editable="false" layoutX="175.0" layoutY="385.0" prefHeight="24.0" prefWidth="81.0" style="-fx-opacity: 1;" text="1200">
          <font>
             <Font size="17.0" />
          </font>
@@ -599,7 +469,7 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <TextField alignment="CENTER" disable="true" editable="false" layoutX="166.0" layoutY="25.0" prefHeight="60.0" prefWidth="144.0" style="-fx-opacity: 1;" text="00:01:45">
+      <TextField alignment="CENTER" disable="true" editable="false" layoutX="166.0" layoutY="25.0" prefHeight="60.0" prefWidth="144.0" style="-fx-opacity: 1;" text="01:25:22">
          <font>
             <Font size="28.0" />
          </font>
@@ -609,5 +479,10 @@
             <Font size="28.0" />
          </font>
       </Label>
+      <Button disable="true" layoutX="130.0" layoutY="766.0" mnemonicParsing="false" text="Finish Turn">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
