@@ -5,10 +5,7 @@ import View.Test;
 
 public class Main {
 	public static void main(String[] args) {
-		
-		SysData.getInstance().LoadQuestion();
-		
-		
+						
         //Test.main(args);
     }
 }
