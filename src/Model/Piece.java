@@ -1,12 +1,36 @@
-/**
- * 
- */
+
 package Model;
 
-/**
- * @author aseel
- *
- */
+import java.util.ArrayList;
+
 public abstract class Piece {
+	private String color;
+	private ArrayList<Location> location;
+	
+	public Piece(String color, ArrayList<Location> location) {
+		super();
+		this.color = color;
+		this.location = location;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public ArrayList<Location> getLocation() {
+		return location;
+	}
+	public void setLocation(ArrayList<Location> location) {
+		this.location = location;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "Piece [color=" + color + ", location=" + location + "]";
+	}
+	
 
 }
