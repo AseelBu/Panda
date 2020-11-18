@@ -9,6 +9,13 @@ public class Game {
 	private ArrayList<Player> players;
 	private ArrayList<Turn> turn;
 	private Timer timer;
+	private static Game instance;
+
+	public static void setInstance(Game instance) {
+		Game.instance = instance;
+	}
+
+
 	
 	public Game(ArrayList<Board> board, ArrayList<Player> players, ArrayList<Turn> turn, Timer timer) {
 		super();
