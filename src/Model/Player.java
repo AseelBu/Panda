@@ -51,7 +51,6 @@ public class Player {
 			setCurrentScore(newScore);
 			return;
 		}
-		
 	/**
 	 * 
 	 * @param score
