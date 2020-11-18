@@ -3,23 +3,23 @@ package Model;
 
 import java.util.ArrayList;
 
-import Utils.SeconderyTileColor;
+import Utils.MainColor;
 
 public abstract class Piece {
-	private SeconderyTileColor color;
+	private MainColor color;
 	private ArrayList<Location> location;
 	
 	
-	public Piece(SeconderyTileColor color, ArrayList<Location> location) {
+	public Piece(MainColor color, ArrayList<Location> location) {
 		super();
 		this.color = color;
 		this.location = location;
 	}
 	
-	public SeconderyTileColor getColor() {
+	public MainColor getColor() {
 		return color;
 	}
-	public void setColor(SeconderyTileColor color) {
+	public void setColor(MainColor color) {
 		this.color = color;
 	}
 	public ArrayList<Location> getLocation() {

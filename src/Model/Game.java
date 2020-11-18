@@ -1,61 +1,139 @@
 package Model;
 
-import java.util.ArrayList;
-
-import com.sun.glass.ui.Timer;
-
+/**
+ * 
+ * @author firas
+ *
+ */
 public class Game {
-	private ArrayList<Board> board;
-	private ArrayList<Player> players;
-	private ArrayList<Turn> turn;
-	private Timer timer;
-	private static Game instance;
 
-	public static void setInstance(Game instance) {
-		Game.instance = instance;
-	}
-
-
+	private Board board;
+	private Player players[];
+	private GameTimer timer;
+	private Turn turn;
 	
-	public Game(ArrayList<Board> board, ArrayList<Player> players, ArrayList<Turn> turn, Timer timer) {
+	
+	public Game(Player[] players) throws Exception {
 		super();
-		this.board = board;
-		this.players = players;
-		this.turn = turn;
-		this.timer = timer;
+		if(players != null) {
+			if(players.length != 2) throw new Exception("Invalid Game");
+			setBoard(new Board());
+			setPlayers(players);
+			timer = new GameTimer();
+		}
+		else throw new Exception("Invalid Game");
+	}
+
+	/**
+	 * 
+	 * @return game time in seconds (float)
+	 */
+	public float getGameTime() {
+		return timer.getSeconds();
+	}
+
+	/**
+	 * 
+	 * @param seconds (int)
+	 */
+	public void setGameTime(int seconds) {
+		timer.startTimer(seconds);
+	}
+
+
+	/**
+	 * Start a game
+	 */
+	public void startGame() {
+		board = new Board();
+		timer.startTimer();
 	}
 	
+	/**
+	 * Pause a game
+	 */
+	public void pauseGame() {
+		
+	}
+	/*
+	 * un-pause a game
+	 */
+	public void unpauseGame() {
+		
+	}
+	/**
+	 * save game as txt file
+	 */
+	public void saveGame() {
+		
+	}
+	/**
+	 * load game from txt file
+	 */
+	public void loadGame() {
+		
+	}
+	/**
+	 * finish a game
+	 */
+	public void finishGame() {
+			
+	}
+	/**
+	 * switching turns between players
+	 */
+	public void switchTurn(){
+		
+	}
 	
-	public ArrayList<Board> getBoard() {
+	/**
+	 * 
+	 * @return game board
+	 */
+	public Board getBoard() {
 		return board;
 	}
-	public void setBoard(ArrayList<Board> board) {
+
+	/**
+	 * 
+	 * @param board
+	 */
+	public void setBoard(Board board) {
 		this.board = board;
 	}
-	public ArrayList<Player> getPlayers() {
+
+	/**
+	 * 
+	 * @return array of players
+	 */
+	public Player[] getPlayers() {
 		return players;
 	}
-	public void setPlayers(ArrayList<Player> players) {
+
+	/**
+	 * set players of the game
+	 * @param players
+	 */
+	public void setPlayers(Player[] players) {
 		this.players = players;
 	}
-	public ArrayList<Turn> getTurn() {
+	
+	/**
+	 * 
+	 * @return Turn of a player
+	 */
+	public Turn getTurn() {
 		return turn;
 	}
-	public void setTurn(ArrayList<Turn> turn) {
+
+	/**
+	 * sets the turn of a player in a game
+	 * @param turn
+	 */
+	public void setTurn(Turn turn) {
 		this.turn = turn;
 	}
-	public Timer getTimer() {
-		return timer;
-	}
-	public void setTimer(Timer timer) {
-		this.timer = timer;
-	}
 	
-	@Override
-	public String toString() {
-		return "Game [board=" + board + ", players=" + players + ", turn=" + turn + ", timer=" + timer + "]";
-	}
-
-
-
+	
+	
 }

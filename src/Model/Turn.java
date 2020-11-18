@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import com.sun.glass.ui.Timer;
 
 public class Turn {
-	private Timer timer;
+	private GameTimer timer;
 	private int MoveCounter;
 	private ArrayList<Piece> LastPieceMoved;
 	private ArrayList<Piece> currentPlayer;
 	
-	public Turn(Timer timer, int moveCounter, ArrayList<Piece> lastPieceMoved, ArrayList<Piece> currentPlayer) {
+	public Turn(GameTimer timer, int moveCounter, ArrayList<Piece> lastPieceMoved, ArrayList<Piece> currentPlayer) {
 		super();
 		this.timer = timer;
 		MoveCounter = moveCounter;
@@ -18,10 +18,10 @@ public class Turn {
 		this.currentPlayer = currentPlayer;
 	}
 	
-	public Timer getTimer() {
+	public GameTimer getTimer() {
 		return timer;
 	}
-	public void setTimer(Timer timer) {
+	public void setTimer(GameTimer timer) {
 		this.timer = timer;
 	}
 	public int getMoveCounter() {
