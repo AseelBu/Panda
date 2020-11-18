@@ -14,9 +14,9 @@ public class Board {
 	private ArrayList<Tile> tiles;
 	private ArrayList<Piece> pieces;
 	
-	/**
-	 *
-	 */
+	
+	//Constructor
+
 	public Board() {
 		super();
 		tiles = new ArrayList<Tile>();

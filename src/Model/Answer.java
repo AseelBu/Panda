@@ -7,6 +7,8 @@ public class Answer {
 	private String content;
 	private boolean isCorrect;
 	
+	//Constructor
+
 	public Answer(int id, String content, boolean isCorrect) {
 		super();
 		this.id = id;

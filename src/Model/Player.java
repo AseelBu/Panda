@@ -6,6 +6,8 @@ public class Player {
 	public String Color;
 	public int currentScore;
 	
+	//Constructor
+
 	public Player(String nickname, String color, int currentScore) {
 		super();
 		Nickname = nickname;
@@ -36,7 +38,32 @@ public class Player {
 		return "Player [Nickname=" + Nickname + ", Color=" + Color + ", currentScore=" + currentScore + "]";
 	}
 	
-
+	/**
+	 * 
+	 * @param score
+	 * @add score to CurrentScore
+	 */
+	public void AddScore(int score) 
+		{
+			
+		   int newScore;
+		   newScore=getCurrentScore()+score;
+			setCurrentScore(newScore);
+			return;
+		}
+		
+	/**
+	 * 
+	 * @param score
+	 * @deduct score from CurrentScore
+	 */
+	public void DeductScore(int score) {
+		   int newScore;
+		   newScore=getCurrentScore()-score;
+			setCurrentScore(newScore);
+			return;
+		
+	}
 
 
 }

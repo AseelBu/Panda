@@ -16,7 +16,8 @@ public class Game {
 	}
 
 
-	
+	//Constructor
+
 	public Game(ArrayList<Board> board, ArrayList<Player> players, ArrayList<Turn> turn, Timer timer) {
 		super();
 		this.board = board;

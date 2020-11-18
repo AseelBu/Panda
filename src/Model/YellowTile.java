@@ -3,6 +3,8 @@ package Model;
 public class YellowTile {
 	private int questionId;
 	
+	//Constructor
+
 	public YellowTile(int questionId) {
 		super();
 		this.questionId = questionId;

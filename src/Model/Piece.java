@@ -9,7 +9,8 @@ public abstract class Piece {
 	private SeconderyTileColor color;
 	private ArrayList<Location> location;
 	
-	
+	//Constructor
+
 	public Piece(SeconderyTileColor color, ArrayList<Location> location) {
 		super();
 		this.color = color;
