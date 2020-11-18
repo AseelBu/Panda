@@ -15,6 +15,8 @@ public class Location {
 	 * @param row
 	 * @param column
 	 */
+	//Constructor
+
 	public Location(int row, char column) {
 		super();
 		this.row = row;

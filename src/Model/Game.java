@@ -13,6 +13,11 @@ public class Game {
 	private Turn turn;
 	
 	
+	/**
+	 * Game constructor
+	 * @param players only 2 players allowed
+	 * @throws Exception thown whenever provided wrong player count
+	 */
 	public Game(Player[] players) throws Exception {
 		super();
 		if(players != null) {

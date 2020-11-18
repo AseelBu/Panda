@@ -9,7 +9,8 @@ public abstract class Piece {
 	private MainColor color;
 	private ArrayList<Location> location;
 	
-	
+	//Constructor
+
 	public Piece(MainColor color, ArrayList<Location> location) {
 		super();
 		this.color = color;

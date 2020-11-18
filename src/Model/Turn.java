@@ -10,6 +10,7 @@ public class Turn {
 	private ArrayList<Piece> LastPieceMoved;
 	private ArrayList<Piece> currentPlayer;
 	
+	//Constructor
 	public Turn(GameTimer timer, int moveCounter, ArrayList<Piece> lastPieceMoved, ArrayList<Piece> currentPlayer) {
 		super();
 		this.timer = timer;

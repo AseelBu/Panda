@@ -26,6 +26,8 @@ public class Question {
 	 * @param answers
 	 * @param team
 	 */
+	//Constructor
+
 	public Question(int id, String content, DifficultyLevel difficulty, ArrayList<Answer> answers, String team) {
 		super();
 		this.id = id;
