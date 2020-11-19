@@ -128,6 +128,24 @@ public class Question {
 		
 	}
 	
+	public void updateAnswers(ArrayList<Answer> updatedAnswers) {
+		this.answers = new ArrayList<Answer>();
+		
+		for(Answer a : updatedAnswers) {
+			this.addAnswer(a);
+		}
+	}
+
+
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", content=" + content + ", difficulty=" + difficulty + ", answers=" + answers
+				+ ", team=" + team + "]";
+	}
+	
+	
+	
+	
 	
 
 }
