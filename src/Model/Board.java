@@ -5,17 +5,20 @@ package Model;
 
 import java.util.ArrayList;
 
+import Utils.MainColor;
+
+
 /**
  * @author aseel
  *
  */
 public class Board {
-	
+
 	private ArrayList<Tile> tiles;
 	private ArrayList<Piece> pieces;
-	
+
 	/**
-	 *
+	 *Board constructor 
 	 */
 	public Board() {
 		super();
@@ -24,7 +27,7 @@ public class Board {
 		System.out.println("Board created..");
 	}
 
-	
+
 	public ArrayList<Tile> getTiles() {
 		return tiles;
 	}
@@ -37,18 +40,23 @@ public class Board {
 	 * @param tile
 	 */
 	public Boolean addTile(Tile tile) {
-		
-		return this.tiles.add(tile);
+		if(tile != null) {
+			return this.tiles.add(tile);
+		}
+		return false;
+
 	}
-	
+
 	/**
 	 * @param piece
 	 */
 	public Boolean addPiece(Piece piece) {
-		
-		return this.pieces.add(piece);
+		if(piece != null) {
+			return this.pieces.add(piece);
+		}
+		return false;
 	}
-	
+
 	//TODO
 	/**
 	 * @param piece
@@ -57,21 +65,21 @@ public class Board {
 	 */
 	public Boolean canPieceMove(Piece piece, Location targetLocation) {
 		return null;
-		
+
 	}
-	
+
 	//TODO
-		/**
-		 * 
-		 * @param piece that we want to check
-		 * 
-		 * @return list of pieces that are edible, null if piece can't eat
-		 */
-		public ArrayList<Piece> canPieceEat(Piece piece) {
-			return null;
-			
-		}
-	
+	/**
+	 * 
+	 * @param piece that we want to check
+	 * 
+	 * @return list of pieces that are edible, null if piece can't eat
+	 */
+	public ArrayList<Piece> canPieceEat(Piece piece) {
+		return null;
+
+	}
+
 	//TODO
 	/**
 	 * 
@@ -79,40 +87,52 @@ public class Board {
 	 */
 	public ArrayList<Piece> getBlackPieces(){
 		return pieces;
+
+	}
+
+	//TODO
+	/**
+	 * 
+	 * @return list of white pieces on the board
+	 */
+	public ArrayList<Piece> getWhitePieces(){
+		return pieces;
+
+	}
+	
+	public Location getRandomFreeLocation() {
+		Location loc = null;
+		return loc;
+	}
+	
+	public ArrayList<Tile> getLegalMoves(MainColor color) {
+		ArrayList<Tile> possibleTiles= new ArrayList<Tile>();
+		return possibleTiles;
 		
 	}
 	
-	//TODO
-		/**
-		 * 
-		 * @return list of white pieces on the board
-		 */
-		public ArrayList<Piece> getWhitePieces(){
-			return pieces;
-			
-		}
-	
-	
+
+
 	public void printBoard() {
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles
 		for (Tile tile : this.tiles) {
-			
+
 			//[black/white/colorful tile-piece details]
 			String tileDetails= "["+tile.getColorName()+" tile-"+tile.getPiece()+"]";
 			board.add(tileDetails);
 			System.out.println(tileDetails);
 		}
-		
+
 		if(board.isEmpty()) {
 			System.out.println("board has no tiles yet"); 
 		}
-		
-		
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 }
