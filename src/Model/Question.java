@@ -128,12 +128,28 @@ public class Question {
 		
 	}
 	
+	
 	public void updateAnswers(ArrayList<Answer> updatedAnswers) {
 		this.answers = new ArrayList<Answer>();
 		
 		for(Answer a : updatedAnswers) {
 			this.addAnswer(a);
 		}
+	}
+	
+	/**
+	 * returns the correct answer
+	 * @return answer-the correct answer of the question
+	 * @throws Exception 
+	 */
+	public Answer getCorrectAnswer() throws Exception {
+		for(Answer a : this.answers) {
+			if (a.isCorrect()==true) {
+				return a;
+			}
+		}
+		throw new Exception("The question doesn't have correct answer");
+		
 	}
 
 
