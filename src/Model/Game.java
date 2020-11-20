@@ -22,7 +22,8 @@ public class Game {
 		super();
 		if(players != null) {
 			if(players.length != 2) throw new Exception("Invalid Game");
-			setBoard(new Board());
+			
+			setBoard(Board.getInstance());
 			setPlayers(players);
 			timer = new GameTimer();
 		}
@@ -50,7 +51,7 @@ public class Game {
 	 * Start a game
 	 */
 	public void startGame() {
-		board = new Board();
+		board = Board.getInstance();
 		timer.startTimer();
 	}
 	

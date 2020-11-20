@@ -5,8 +5,7 @@ package Model;
 
 import java.util.ArrayList;
 
-import Utils.MainColor;
-
+import Utils.PrimaryColor;
 
 /**
  * @author aseel
@@ -14,22 +13,30 @@ import Utils.MainColor;
  */
 public class Board {
 
+	final int BOARD_SIZE = 8;
+	
 	private ArrayList<Tile> tiles;
 	private ArrayList<Piece> pieces;
+	
+	//Singleton Class
+
+	private static Board instance = new Board();
 
 
-	/**
-	 *Board constructor 
-	 */
-
-	public Board() {
-		super();
+	private Board(){
 		tiles = new ArrayList<Tile>();
 		pieces = new ArrayList<Piece>();
 		System.out.println("Board created..");
 	}
 
+	//Get the only object available
+	public static Board getInstance(){
+		return instance;
+	}
 
+
+	// getters &setters 
+	
 	public ArrayList<Tile> getTiles() {
 		return tiles;
 	}
@@ -38,6 +45,12 @@ public class Board {
 		return pieces;
 	}
 
+	public int getBoardSize(){
+		return BOARD_SIZE;
+	}
+	
+	//Methods
+	
 	/**
 	 * @param tile
 	 */
@@ -101,19 +114,43 @@ public class Board {
 		return pieces;
 
 	}
-	
+
+	//TODO
 	public Location getRandomFreeLocation() {
 		Location loc = null;
 		return loc;
 	}
-	
-	public ArrayList<Tile> getLegalMoves(MainColor color) {
+
+	//TODO
+	public ArrayList<Tile> getLegalMoves(PrimaryColor color) {
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>();
 		return possibleTiles;
-		
-	}
-	
 
+	}
+
+	//TODO
+	public void upgradeSoldier() {
+
+	}
+
+	//TODO
+	public void eat() {
+		// TODO Auto-generated method stub
+
+	}
+
+	//TODO
+	public boolean isAllPiecesEaten() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	//TODO
+	public boolean isPlayerStuck() {
+		// TODO Auto-generated method stub
+		return false;
+
+	}
 
 	public void printBoard() {
 		ArrayList<String> board = new ArrayList<String>();
