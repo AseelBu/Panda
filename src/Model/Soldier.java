@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Utils.PrimaryColor;
 
-public class Solider extends Piece{
+public class Soldier extends Piece{
 
 	/**
 	 * Constructor
@@ -12,7 +12,7 @@ public class Solider extends Piece{
 	 * @param color
 	 * @param location
 	 */
-	public Solider(PrimaryColor color, Location location) {
+	public Soldier(PrimaryColor color, Location location) {
 		super(color, location);
 		// TODO Auto-generated constructor stub
 	}
