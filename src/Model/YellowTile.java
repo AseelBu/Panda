@@ -1,25 +1,62 @@
 package Model;
 
-public class YellowTile {
-	private int questionId;
-	
-	//Constructor
+import Utils.PrimaryColor;
+import Utils.SeconderyTileColor;
 
-	public YellowTile(int questionId) {
-		super();
-		this.questionId = questionId;
-	}
-	
-	public int getQuestionId() {
-		return questionId;
+public class YellowTile extends Tile {
+
+
+	private Question question;
+
+
+	/**
+	 * Constructor
+	 * 
+	 * @param location
+	 * @param color1
+	 * @param color2
+	 * @param piece
+	 * @param questionId
+	 */
+	public YellowTile(Location location,PrimaryColor color1,SeconderyTileColor color2,Piece piece) {
+		super(location, color1, color2, piece);
+		SysData sysData= SysData.getInstance();
+		this.question = sysData.getRandomQuestion();
+
 	}
 
-	public void setQuestionId(int questionId) {
-		this.questionId = questionId;
+	//getters & setters
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestionId(Question question) {
+		this.question = question;
+	}
+
+
+	//	public void drawQuestion() {
+	//		// TODO Auto-generated method stub
+	//		SysData sysData= SysData.getInstance()
+	//;		int index = randomGenerator.nextInt(sysData);
+	//	}
+
+	public boolean isAnswerCorrect(Answer answer) {
+		// TODO Auto-generated method stub
+		boolean result= false;
+		try {
+			if(this.question.getCorrectAnswer().equals(answer)) {
+				result = true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override
 	public String toString() {
-		return "YellowTile [questionId=" + questionId + "]";
+		return "YellowTile: [question=" + question + "]\n";
 	}
 }
