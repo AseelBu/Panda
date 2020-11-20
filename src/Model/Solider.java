@@ -29,11 +29,7 @@ public class Solider extends Piece{
 			}
 		}
 
-
-
 	}
-
-
 
 
 	@Override
@@ -53,7 +49,7 @@ public class Solider extends Piece{
 			legalRow=true;
 		}
 
-		if(legalRow && (targetCol == (char)(curCol+1) || targetCol == (char)(curCol-1))) {
+		if(legalRow && (targetCol == (char)(curCol+1) || targetCol == (char)(curCol-1)|| targetCol==(char)(curCol+2) ||targetCol==(char)(curCol-2))) {
 			return true;
 		}
 		return false;
