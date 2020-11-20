@@ -253,6 +253,4 @@ public class Game {
 			this.availableQuestions = availableQuestions;
 	}
 	
-	////////////////////////// End Getters & Setters
-	
 }
