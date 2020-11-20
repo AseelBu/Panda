@@ -407,14 +407,7 @@ public class SysData {
 	}
 
 
-	/**
-	 * gets random question from the questions array list
-	 * @return random question
-	 */
-	public Question getRandomQuestion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 
