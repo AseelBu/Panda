@@ -8,10 +8,10 @@ public class Turn {
 	private GameTimer timer;
 	private int MoveCounter;
 	private ArrayList<Piece> LastPieceMoved;
-	private ArrayList<Piece> currentPlayer;
+	private Player currentPlayer;
 	
 	//Constructor
-	public Turn(GameTimer timer, int moveCounter, ArrayList<Piece> lastPieceMoved, ArrayList<Piece> currentPlayer) {
+	public Turn(GameTimer timer, int moveCounter, ArrayList<Piece> lastPieceMoved, Player currentPlayer) {
 		super();
 		this.timer = timer;
 		MoveCounter = moveCounter;
@@ -37,10 +37,10 @@ public class Turn {
 	public void setLastPieceMoved(ArrayList<Piece> lastPieceMoved) {
 		LastPieceMoved = lastPieceMoved;
 	}
-	public ArrayList<Piece> getCurrentPlayer() {
+	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
-	public void setCurrentPlayer(ArrayList<Piece> currentPlayer) {
+	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
 
