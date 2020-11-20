@@ -4,6 +4,8 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 import Utils.PrimaryColor;
 
@@ -13,19 +15,21 @@ import Utils.PrimaryColor;
  */
 public class Board {
 
-	final int BOARD_SIZE = 8;
-	
-	private ArrayList<Tile> tiles;
+	private final int BOARD_SIZE = 8;
+
+	//TODO change to hashmap
 	private ArrayList<Piece> pieces;
-	
+	private HashMap<Integer, ArrayList<Tile>> tiles; //key:row number,vale: array list of tiles ordered by column
+
 	//Singleton Class
 
 	private static Board instance = new Board();
 
 
 	private Board(){
-		tiles = new ArrayList<Tile>();
+
 		pieces = new ArrayList<Piece>();
+		tiles = new HashMap<Integer, ArrayList<Tile>>(BOARD_SIZE);
 		System.out.println("Board created..");
 	}
 
@@ -36,8 +40,8 @@ public class Board {
 
 
 	// getters &setters 
-	
-	public ArrayList<Tile> getTiles() {
+
+	public HashMap<Integer, ArrayList<Tile>> getTilesMap() {
 		return tiles;
 	}
 
@@ -48,22 +52,103 @@ public class Board {
 	public int getBoardSize(){
 		return BOARD_SIZE;
 	}
-	
+
 	//Methods
-	
+
 	/**
+	 * returns all tiles in the board
+	 * @return ArrayList<Tile> all tiles in board
+	 */
+	public ArrayList<Tile> getAllBoardTiles() {
+		// TODO Auto-generated method stub
+		ArrayList<ArrayList<Tile>> tilesMapValues=new ArrayList<ArrayList<Tile>>(getTilesMap().values()) ;
+		ArrayList<Tile> allTiles =new ArrayList<Tile>() ;
+		for(ArrayList<Tile> tileList : tilesMapValues) {
+			Collections.copy(allTiles,tileList);
+		}
+		return allTiles;
+	}
+
+	/**
+	 * Given row returns all the tiles in specified row
+	 * 
+	 * @param row -wanted tiles' row number
+	 * @return ArrayList<Tile> of tiles in given row
+	 */
+	public ArrayList<Tile> getTilesinRow(int row) {
+		
+		return getTilesMap().get(row);
+	}
+
+	/**
+	 * Given column returns all the tiles in specified column
+	 * 
+	 * @param Col -wanted tiles' column letter
+	 * @return ArrayList<Tile> of tiles in given column
+	 */
+	public ArrayList<Tile> getTilesinCol(char Col) {
+		
+		ArrayList<Tile> tilesInCol=new ArrayList<Tile>();
+		for (int row : this.tiles.keySet()) {
+			ArrayList<Tile> tilesInRow= this.tiles.get(row);
+			Tile tile=tilesInRow.get(Col);
+			tilesInCol.add(tile);
+		}
+		return tilesInCol;
+	}
+
+	/**
+	 * Given location returns the tile in specified location
+	 * 
+	 * @param location object
+	 * @return Tile-tile in the requested location
+	 * @throws Exception-row [number] in board doesn't have tiles
+	 */
+	public Tile getTileInLocation(Location location) throws Exception {
+		
+		if (location == null) return null;
+		ArrayList<Tile> tilesInRow = getTilesinRow(location.getRow());
+		if(tilesInRow != null) {
+			return tilesInRow.get(location.getColumn());
+		}else {
+			throw new Exception("Error: Row "+location.getRow()+" has no tiles");
+		}
+
+	}
+	/**
+	 * Adds tile to tiles map 
+	 * 
 	 * @param tile
+	 * @return true if added successfully,otherwise false
 	 */
 	public Boolean addTile(Tile tile) {
-		if(tile != null) {
-			return this.tiles.add(tile);
+
+		boolean isSuccess = false;
+		int tileRow = tile.getLocation().getRow();
+		int tileCol = tile.getLocation().getColumn();
+
+		ArrayList<Tile> boardRow= null;
+
+		if(tiles.containsKey(tileRow)) {
+			boardRow=tiles.get(tileRow);
+			if(boardRow == null) {
+				boardRow = new ArrayList<Tile>();
+			}
 		}
-		return false;
+		else {
+			boardRow= new ArrayList<Tile>();
+		}
+		boardRow.add(tileCol, tile);
+		this.tiles.put(tileRow, boardRow);
+		isSuccess = true;
+
+		return isSuccess;
 
 	}
 
 	/**
 	 * @param piece
+	 * @return true if added successfully,otherwise false
 	 */
 	public Boolean addPiece(Piece piece) {
 		if(piece != null) {
@@ -155,7 +240,8 @@ public class Board {
 	public void printBoard() {
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles
-		for (Tile tile : this.tiles) {
+		ArrayList<Tile> boardTiles=getAllBoardTiles();
+		for (Tile tile : boardTiles) {
 
 			//[black/white/colorful tile-piece details]
 			String tileDetails= "["+tile.getColorName()+" tile-"+tile.getPiece()+"]";
