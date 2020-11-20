@@ -7,6 +7,6 @@ package Utils;
  * @author aseel
  *
  */
-public enum MainColor {
+public enum PrimaryColor {
 	BLACK,WHITE
 }
