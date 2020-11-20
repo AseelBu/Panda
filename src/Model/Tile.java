@@ -22,6 +22,8 @@ public class Tile {
 	 * @param color1
 	 * @param piece
 	 */
+	//Constructor
+
 	public Tile(Location location, MainColor color1, Piece piece) {
 		super();
 		this.location = location;

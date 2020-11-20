@@ -26,6 +26,8 @@ public class Question {
 	 * @param answers
 	 * @param team
 	 */
+	//Constructor
+
 	public Question(int id, String content, DifficultyLevel difficulty, ArrayList<Answer> answers, String team) {
 		super();
 		this.id = id;
@@ -125,6 +127,24 @@ public class Question {
 		return false;
 		
 	}
+	
+	public void updateAnswers(ArrayList<Answer> updatedAnswers) {
+		this.answers = new ArrayList<Answer>();
+		
+		for(Answer a : updatedAnswers) {
+			this.addAnswer(a);
+		}
+	}
+
+
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", content=" + content + ", difficulty=" + difficulty + ", answers=" + answers
+				+ ", team=" + team + "]";
+	}
+	
+	
+	
 	
 	
 
