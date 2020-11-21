@@ -3,8 +3,9 @@ package Model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Utils.PrimaryColor;
+
 /**
- * Game class is singleton
  * 
  * @author firas
  *
@@ -26,22 +27,31 @@ public class Game {
 	/**
 	 * Game constructor
 	 * @param players only 2 players allowed
+	 * @throws Exception 
 	 */
-	private Game(Player[] players) {
+	public Game(Player[] players) throws Exception {
 		super();
-		setBoard(Board.getInstance());
-		setPlayers(players);
-		timer = new GameTimer();
-	}
-	
-	/**
-	 * 
-	 * @param players only 2 players allowed
-	 * @param pieces - a 64 sized array, 8 rows, 8 columns
-	 */
-	
-	private Game(Player[] players, ArrayList<Piece> pieces) {
-		super();
+		if(players != null) {
+			if(players.length != 2) throw new Exception("Invalid Game Initiation");
+		}
+		else throw new Exception("Invalid Game Initiation");	
+		
+		ArrayList<Piece> pieces = new ArrayList<>();
+		
+		for(int i = 1 ; i <= 3 ; i++)
+			for(char c = 'A' ; c <= 'H' ; c+=2) {
+				if(i == 2 && c == 'A') c = 'B';
+				Piece soldier = new Soldier(PrimaryColor.WHITE, new Location(i,c));
+				pieces.add(soldier);
+			}
+		
+		for(int i = 6 ; i <= 8 ; i++)
+			for(char c = 'B' ; c <= 'H' ; c+=2) {
+				if(i == 7 && c == 'B') c = 'A';
+				Piece soldier = new Soldier(PrimaryColor.BLACK, new Location(i,c));
+				pieces.add(soldier);
+			}
+		
 		setBoard(Board.getInstance());
 		setPlayers(players);
 		timer = new GameTimer();
@@ -49,51 +59,34 @@ public class Game {
 		for(Piece piece : pieces)
 			board.addPiece(piece);
 	}
-
-	/**
-	 * a static method used to initiate Game class
-	 * @param players only 2 players allowed
-	 * @throws Exception - if provided invalid players array
-	 */
-	public static void initiateGame(Player[] players) throws Exception {	
-		if(players != null) {
-			if(players.length != 2) throw new Exception("Invalid Game");
-		}
-		else throw new Exception("Invalid Game");	
-		instance = new Game(players);
-	}
 	
 	/**
 	 * 
-	 * @param players players only 2 players allowed
-	 * @param pieces pieces to be added to the start of the game
-	 * @throws Exception - if provided invalid players array
+	 * @param players only 2 players allowed
+	 * @param pieces - a 64 sized array, 8 rows, 8 columns
+	 * @throws Exception 
 	 */
-	public static void initiateGame(Player[] players, ArrayList<Piece> pieces) throws Exception {	
+	
+	public Game(Player[] players, ArrayList<Piece> pieces) throws Exception {
+		super();
 		if(players != null) {
-			if(players.length != 2) throw new Exception("Invalid Game");
+			if(players.length != 2) throw new Exception("Invalid Game Initiation");
 		}
-		else throw new Exception("Invalid Game");	
+		else throw new Exception("Invalid Game Initiation");	
 		if(pieces == null)
 		{
-			System.out.println("Invalid Game Initiation, Standard game has been created!");
-			initiateGame(players);
-			return;
+			throw new Exception("Invalid Game Initiation");
 		}
 		else if (pieces.size() < 2) {
-			System.out.println("Invalid Game Initiation, Standard game has been created!");
-			initiateGame(players);
-			return;
+			throw new Exception("Invalid Game Initiation");
 		}
-		instance = new Game(players, pieces);
-	}
-	
-	/**
-	 * 
-	 * @return class instance
-	 */
-	public static Game getInstance(){
-		return instance;
+		
+		setBoard(Board.getInstance());
+		setPlayers(players);
+		timer = new GameTimer();
+		
+		for(Piece piece : pieces)
+			board.addPiece(piece);
 	}
 	
 	/**
@@ -117,21 +110,47 @@ public class Game {
 	 * Start a game
 	 */
 	public void startGame() {
+		if(isGameRunning()) {
+			System.err.println("A Game has already started");
+			return;
+		}
 		board = Board.getInstance();
 		timer.startTimer();
+		//turn = new Turn(players[0]); Turn class constructor should have only 1 parameter (Player)
+		System.out.println("Game has started");
 	}
 	
 	/**
 	 * Pause a game
 	 */
 	public void pauseGame() {
-		
+		if(!isGameRunning()) {
+			System.err.println("No Game is currrently running..");
+			return;
+		}
+		if(timer.getPauseTime() > 0) {
+			System.err.println("Game paused already..");
+			return;
+		}
+		// turn.pause()  to be added to turn class
+		timer.pauseTimer();
+		System.out.printf("Game paused || Full Game Timer %.2f Seconds.\n", timer.getSeconds());
 	}
 	/*
 	 * un-pause a game
 	 */
 	public void unpauseGame() {
-		
+		if(!isGameRunning()) {
+			System.err.println("No Game is currrently running..");
+			return;
+		}
+		if(timer.getPauseTime() < 0) {
+			System.err.println("Game is not paused..");
+			return;
+		}
+		// turn.unpause()  to be added to turn class
+		timer.unpauseTimer();
+		System.out.printf("Game unpaused || Full Game Timer %.2f Seconds.\n", timer.getSeconds());
 	}
 	/**
 	 * save game as txt file
@@ -142,20 +161,87 @@ public class Game {
 	/**
 	 * load game from txt file
 	 */
-	public void loadGame() {
-		
+	public void loadGame(ArrayList<Piece> pieces) {
+		boolean invalid = false;
+		if(pieces.size() < 2) {
+			invalid = true;
+		}
+		boolean hasBlack = false;
+		boolean hasWhite = false;
+		for(Piece p : pieces) {
+			if(p.getColor() == PrimaryColor.BLACK)
+				hasBlack = true;
+			else if(p.getColor() == PrimaryColor.WHITE)
+				hasWhite = true;
+		}
+		if(invalid || !hasWhite || !hasBlack) {
+			System.err.println("Load Game Failed..");
+		}
+		for(Piece p : pieces)
+			board.addPiece(p);
 	}
 	/**
 	 * finish a game
 	 */
 	public void finishGame() {
-			
+		int winner = -1;
+		if(players[0].getCurrentScore() > players[1].getCurrentScore())
+			winner = 1;
+		else if (players[0].getCurrentScore() < players[1].getCurrentScore())
+			winner = 2;
+		else {
+			if(board.getBlackPieces().size() == 0) winner = 1;
+			else if(board.getWhitePieces().size() == 0) winner = 2;
+		}
+		
+		switch(winner){
+			case 1: {
+				System.out.println(players[0].getNickname() + " Has Won, Congratulations!!!");
+				break;
+			}
+			case 2 : {
+				System.out.println(players[1].getNickname() + " Has Won, Congratulations!!!");
+				break;
+			}
+			default:{
+				System.out.println("It's a tie (draw)..");
+			}	
+		}
+		
 	}
+	
 	/**
 	 * switching turns between players
 	 */
 	public void switchTurn(){
 		
+	}
+	/**
+	 * 
+	 * @return true if the game is running, otherwise false
+	 */
+	public boolean isGameRunning() {
+		if(timer.getStartTime() == -1) return false;
+		return true;
+	}
+	/**
+	 * Add standard tiles to the game.
+	 */
+	public void standardGameTiles() {
+		int count = 0;
+		for(int i = 1 ; i <= 8 ; i+=2) {
+			for(char c = 'A' ; c <= 'H' ; c+=2) {
+				board.addTile(new Tile(new Location(i, c), PrimaryColor.BLACK, null));
+				board.addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE, null));
+			}
+		}
+		
+		for(int i = 2 ; i <= 8 ; i+=2) {
+			for(char c = 'A' ; c <= 'H' ; c+=2) {
+				board.addTile(new Tile(new Location(i, c), PrimaryColor.WHITE, null));
+				board.addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK, null));
+			}
+		}
 	}
 	
 	//////////////////////////  Questions Related
@@ -252,5 +338,4 @@ public class Game {
 		else
 			this.availableQuestions = availableQuestions;
 	}
-	
 }
