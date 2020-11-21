@@ -82,13 +82,13 @@ public class GameTimer {
 	/**
 	 * getters/setters for internal use
 	 */
-	private long getStartTime() {
+	public long getStartTime() {
 		return startTime;
 	}
 	private void setStartTime(long startTime) {
 		this.startTime = startTime;
 	}
-	private long getPauseTime() {
+	public long getPauseTime() {
 		return pauseTime;
 	}
 	private void setPauseTime(long pauseTime) {
