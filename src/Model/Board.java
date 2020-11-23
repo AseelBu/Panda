@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import Utils.PrimaryColor;
+import Utils.SeconderyTileColor;
 
 /**
  * @author aseel
@@ -68,6 +69,8 @@ public class Board {
 		}
 		return allTiles;
 	}
+	
+	
 
 	/**
 	 * Given row returns all the tiles in specified row
@@ -207,7 +210,7 @@ public class Board {
 	}
 
 	//TODO
-	public ArrayList<Tile> getLegalMoves(PrimaryColor color) {
+	public ArrayList<Tile> getLegalMoves(SeconderyTileColor color) {
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>();
 		return possibleTiles;
 

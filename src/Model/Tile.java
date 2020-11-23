@@ -13,7 +13,7 @@ import Utils.SeconderyTileColor;
 public class Tile implements Comparable<Tile>{
 	
 	private Location location;
-	private PrimaryColor color1;
+	public PrimaryColor color1;
 	private SeconderyTileColor color2=null;
 	private Piece piece;
 	

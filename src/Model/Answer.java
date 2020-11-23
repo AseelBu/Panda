@@ -1,6 +1,9 @@
-
 package Model;
-
+/**
+ * 
+ * @author Maryam
+ *
+ */
 public class Answer {
 	
 	private int id;
