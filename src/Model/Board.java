@@ -64,7 +64,8 @@ public class Board {
 		ArrayList<ArrayList<Tile>> tilesMapValues=new ArrayList<ArrayList<Tile>>(getTilesMap().values()) ;
 		ArrayList<Tile> allTiles =new ArrayList<Tile>() ;
 		for(ArrayList<Tile> tileList : tilesMapValues) {
-			Collections.copy(allTiles,tileList);
+			allTiles.addAll(tileList);
+			
 		}
 		return allTiles;
 	}
@@ -147,6 +148,8 @@ public class Board {
 	}
 
 	/**
+	 * adds piece to board
+	 * 
 	 * @param piece
 	 * @return true if added successfully,otherwise false
 	 */
@@ -159,11 +162,13 @@ public class Board {
 
 	//TODO
 	/**
+	 * checks if the piece can move depending on all pieces locations on board
 	 * @param piece
 	 * @param targetLocation
 	 * @return true if it's legal to move the piece ,otherwise false
 	 */
 	public Boolean canPieceMove(Piece piece, Location targetLocation) {
+		if(piece instanceof Soldier)
 		return null;
 
 	}
