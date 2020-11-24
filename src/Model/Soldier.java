@@ -26,7 +26,7 @@ public class Soldier extends Piece{
 		// TODO Auto-generated method stub
 		Location targetLocation = targetTile.getLocation();
 		if(this.isMoveLegal(targetLocation)) {
-			if(Board.getInstance().canPieceMove(this, targetLocation)) {
+			if(Board.getInstance().canPieceMove(this, targetLocation, null)) {
 				//			TODO does moving contains eating?
 				this.setLocation(targetLocation);
 			}
