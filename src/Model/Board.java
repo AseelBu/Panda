@@ -263,7 +263,7 @@ public class Board {
 	 * @param targetLocation
 	 * @return true if it's legal to move the piece ,otherwise false
 	 */
-	public Boolean canPieceMove(Piece piece, Location targetLocation) {
+	public Boolean canPieceMove(Piece piece, Location targetLocation, Directions direction) {
 		// is tile black location
 		Tile targetTile=null;
 		try {
@@ -298,7 +298,12 @@ public class Board {
 
 		}
 		else if (piece instanceof Queen) {
-			//TODO handle queen
+			if(((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) {
+				if(!((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) {
+					Piece eaten = ((Queen) piece).getEdiblePieceByDirections(targetLocation, direction);
+					removePieceFromBoardTile(eaten);
+				}
+			}
 		}
 
 		return true;
