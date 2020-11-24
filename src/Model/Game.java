@@ -84,6 +84,7 @@ public class Game {
 		}
 		setPlayers(players);
 		board = Board.getInstance();
+		standardGameTiles();
 		for(Piece piece : pieces)
 			board.addPiece(piece);
 		timer.startTimer();

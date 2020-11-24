@@ -203,6 +203,7 @@ public class Board {
 		return false;
 	}
 
+	
 	//helping method that adds piece to tile in board
 	//assumes tile already exist in board
 	private boolean addPieceToBoardTile(Piece piece) {
@@ -298,12 +299,8 @@ public class Board {
 
 		}
 		else if (piece instanceof Queen) {
-			if(((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) {
-				if(!((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) {
-					Piece eaten = ((Queen) piece).getEdiblePieceByDirections(targetLocation, direction);
-					removePieceFromBoardTile(eaten);
-				}
-			}
+			if(!((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) return false;
+			if(((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) return false;
 		}
 
 		return true;
@@ -527,10 +524,18 @@ public class Board {
 					System.out.print(i + " |");
 				} 
 				if(this.tiles.get(i).get(j).getPiece() != null) {
-					if(this.tiles.get(i).get(j).getPiece().getColor() == PrimaryColor.BLACK)
-						System.out.print(" B |");
-					else 
-						System.out.print(" W |");
+					if(this.tiles.get(i).get(j).getPiece().getColor() == PrimaryColor.BLACK) {
+						if(this.tiles.get(i).get(j).getPiece() instanceof Soldier)
+							System.out.print(" B |");
+						else
+							System.out.print("B Q|");
+					}
+					else {
+						if(this.tiles.get(i).get(j).getPiece() instanceof Soldier)
+							System.out.print(" W |");
+						else
+							System.out.print("W Q|");
+					}
 				}else {
 					System.out.print("   |");
 				}
