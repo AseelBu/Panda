@@ -6,7 +6,9 @@ package Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
+import Utils.Directions;
 import Utils.PrimaryColor;
 
 /**
@@ -17,9 +19,9 @@ public class Board {
 
 	private final int BOARD_SIZE = 8;
 
-	//TODO change to hashmap
+
 	private ArrayList<Piece> pieces;
-	private HashMap<Integer, ArrayList<Tile>> tiles; //key:row number,vale: array list of tiles ordered by column
+	private HashMap<Integer, ArrayList<Tile>> tiles; //key:row number,value: array list of tiles ordered by column
 
 	//Singleton Class
 
@@ -53,6 +55,12 @@ public class Board {
 		return BOARD_SIZE;
 	}
 
+	public char getColumnUpperbond(){
+		return (char)('A'+(this.getBoardSize())-1);
+	}
+	public char getColumnLowerbond(){
+		return 'A';
+	}
 	//Methods
 
 	/**
@@ -65,7 +73,7 @@ public class Board {
 		ArrayList<Tile> allTiles =new ArrayList<Tile>() ;
 		for(ArrayList<Tile> tileList : tilesMapValues) {
 			allTiles.addAll(tileList);
-			
+
 		}
 		return allTiles;
 	}
@@ -77,7 +85,7 @@ public class Board {
 	 * @return ArrayList<Tile> of tiles in given row
 	 */
 	public ArrayList<Tile> getTilesinRow(int row) {
-		
+
 		return getTilesMap().get(row);
 	}
 
@@ -88,7 +96,7 @@ public class Board {
 	 * @return ArrayList<Tile> of tiles in given column
 	 */
 	public ArrayList<Tile> getTilesinCol(char Col) {
-		
+
 		ArrayList<Tile> tilesInCol=new ArrayList<Tile>();
 		for (int row : this.tiles.keySet()) {
 			ArrayList<Tile> tilesInRow= this.tiles.get(row);
@@ -106,7 +114,7 @@ public class Board {
 	 * @throws Exception-row [number] in board doesn't have tiles
 	 */
 	public Tile getTileInLocation(Location location) throws Exception {
-		
+
 		if (location == null) return null;
 		ArrayList<Tile> tilesInRow = getTilesinRow(location.getRow());
 		if(tilesInRow != null) {
@@ -116,13 +124,14 @@ public class Board {
 		}
 
 	}
+
 	/**
 	 * Adds tile to tiles map 
 	 * 
 	 * @param tile
 	 * @return true if added successfully,otherwise false
 	 */
-	public Boolean addTile(Tile tile) {
+	public boolean addTile(Tile tile) {
 
 		boolean isSuccess = false;
 		int tileRow = tile.getLocation().getRow();
@@ -148,19 +157,79 @@ public class Board {
 	}
 
 	/**
+	 * Replaces tile in tiles map 
+	 * 
+	 * @param tile
+	 * @return true if replaced successfully,otherwise false
+	 */
+	private boolean replaceTile(Tile tile) {
+
+		boolean isSuccess = false;
+		int tileRow = tile.getLocation().getRow();
+		int tileCol = tile.getLocation().getColumn();
+
+		ArrayList<Tile> boardRow= tiles.get(tileRow);
+
+		boardRow.set(tileCol, tile);
+		this.tiles.put(tileRow, boardRow);
+		isSuccess = true;
+
+		return isSuccess;
+
+	}
+
+	/**
 	 * adds piece to board
 	 * 
 	 * @param piece
 	 * @return true if added successfully,otherwise false
 	 */
-	public Boolean addPiece(Piece piece) {
+	public boolean addPiece(Piece piece) {
 		if(piece != null) {
-			return this.pieces.add(piece);
+			return this.pieces.add(piece) && addPieceToBoardTile(piece);
 		}
 		return false;
 	}
 
-	//TODO
+	//helping method that adds piece to tile in board
+	//assumes tile already exist in board
+	private boolean addPieceToBoardTile(Piece piece) {
+
+		if(piece == null) return false; 
+		Location pieceLoc = piece.getLocation();
+
+		Tile tile=null;
+		try {
+			tile = getTileInLocation(pieceLoc);
+			tile.setPiece(piece);
+			this.replaceTile(tile);
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	//helping method that removes piece from tile in board
+	private boolean removePieceFromBoardTile(Piece piece) {
+
+		if(piece == null) return false; 
+		Location pieceLoc = piece.getLocation();
+
+		Tile tile=null;
+		try {
+			tile = getTileInLocation(pieceLoc);
+			tile.setPiece(null);
+			this.replaceTile(tile);
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	//TODO 
 	/**
 	 * checks if the piece can move depending on all pieces locations on board
 	 * @param piece
@@ -168,70 +237,237 @@ public class Board {
 	 * @return true if it's legal to move the piece ,otherwise false
 	 */
 	public Boolean canPieceMove(Piece piece, Location targetLocation) {
-		if(piece instanceof Soldier)
-		return null;
+		// is tile black location
+		Tile targetTile=null;
+		try {
+			targetTile = getTileInLocation(targetLocation);
+			if (targetTile.getColor1()!=PrimaryColor.BLACK) {
+				System.out.println("can't move to this "+targetLocation+", you can move only on black tiles! ");
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+
+		// does tile contain another piece
+		if(targetTile.getPiece() != null) {
+			System.out.println("can't move to this "+targetLocation+", it contains another Piece!");
+			return false;
+		}
+		if(piece instanceof Soldier) {
+
+			//TODO if its moving in 2 make sure:
+			//there is a piece we are eating by moving like that
+			//NOT DONE
+			piece.getLocation().relativeLocationTo(targetLocation);
+			piece.getEdiblePieces();
+
+			// TODO if it's moving backwards it's because it's eating for second time
+
+
+
+
+		}
+		else if (piece instanceof Queen) {
+			//TODO handle queen
+		}
+
+		return true;
 
 	}
 
-	//TODO
+	//	//TODO
+	//	private void isEdiableBy(Piece currentPiece, Piece targetPiece) {
+	//		// TODO Auto-generated method stub
+	//		Location currLocation = currentPiece.getLocation();
+	//		Location targetLocation = targetPiece.getLocation();
+	//		if(currLocation.addToLocationDiagonally(Directions.UP_LEFT, 1))
+	//
+	//	}
+
+
 	/**
-	 * 
-	 * @param piece that we want to check
-	 * 
-	 * @return list of pieces that are edible, null if piece can't eat
+	 * gets all the color pieces on the board
+	 * @param PrimaryColor color-black/white
+	 * @return ArrayList<Piece> of color pieces on the board
 	 */
-	public ArrayList<Piece> canPieceEat(Piece piece) {
-		return null;
+	public ArrayList<Piece> getColorPieces(PrimaryColor color){
+		ArrayList<Piece> colorPieces = new ArrayList<Piece>();
+
+		for(Piece p : this.pieces) {
+			if(p.getColor()== color) {
+				colorPieces.add(p);
+			}
+		}
+		return colorPieces;
 
 	}
 
-	//TODO
 	/**
+	 * gets all black tiles on board the don't have a piece on them 
 	 * 
-	 * @return list of black pieces on the board
+	 * @return ArrayList<Tile> of empty tiles
 	 */
-	public ArrayList<Piece> getBlackPieces(){
-		return pieces;
-
+	public ArrayList<Tile> getEmptyTiles(){
+		ArrayList<Tile> emptyTiles = new ArrayList<Tile>();
+		ArrayList<Tile> boardTiles = getAllBoardTiles();
+		for (Tile tile : boardTiles) {
+			if(tile.getPiece()== null && tile.getColor1()!= PrimaryColor.WHITE) {
+				emptyTiles.add(tile);
+			}
+		}
+		return emptyTiles;
 	}
 
-	//TODO
+
 	/**
+	 * gets all black locations on board the don't have a piece on them
 	 * 
-	 * @return list of white pieces on the board
+	 * @return ArrayList<Location> of empty locations
 	 */
-	public ArrayList<Piece> getWhitePieces(){
-		return pieces;
+	public ArrayList<Location> getEmptyLocations(){
 
+		ArrayList<Tile> emptyTiles = getEmptyTiles();
+		ArrayList<Location> emptyLocations = new ArrayList<Location>();
+
+		for (Tile t : emptyTiles) {
+
+			emptyLocations.add(t.getLocation());
+
+		}
+		return emptyLocations;
 	}
 
-	//TODO
+
+	/**
+	 * gets a piece free random black location on board
+	 * @return Location- random black location
+	 */
 	public Location getRandomFreeLocation() {
-		Location loc = null;
-		return loc;
+
+		Random random = new Random();
+		ArrayList<Location> emptyLocations = getEmptyLocations();
+		Location randomLocation = emptyLocations.get( random.nextInt(emptyLocations.size()));
+		return randomLocation;
+	}
+
+
+	/**
+	 * gets a piece free random black tile on board
+	 * @return Tile- random board tile
+	 */
+	public Tile getRandomFreeTile() {
+
+		Random random = new Random();
+		ArrayList<Tile> emptyTiles = getEmptyTiles();
+		Tile randomTile  = emptyTiles.get( random.nextInt(emptyTiles.size()));
+		return randomTile;
+	}
+
+
+	/**
+	 * upgrade soldier to queen
+	 * @param Soldier-soldier we want to upgrade
+	 */
+	public void upgradeSoldier(Soldier soldier) {
+
+		Queen newQueen = new Queen(soldier.getId(), soldier.getColor(), soldier.getLocation());
+
+		//update in pieces list
+
+		//replace soldier with queen on board
+		this.pieces.set(this.pieces.indexOf(soldier), newQueen);
+
+
+		//update in tiles map
+		addPieceToBoardTile(soldier);
+
+		System.out.println("soldier updated to queen successfully");
+
 	}
 
 	//TODO
+	/**
+	 * gets all possible moves for certain color (player)
+	 * 
+	 * @param PrimaryColor color-BLACK/WHITE
+	 * @return ArrayList<Tile> of legal moves for the color
+	 */
 	public ArrayList<Tile> getLegalMoves(PrimaryColor color) {
+
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>();
+
+		ArrayList<Tile> emptyTiles = getEmptyTiles();
+		ArrayList<Piece> colorPieces = getColorPieces(color);
+
+
+
 		return possibleTiles;
 
 	}
 
 	//TODO
-	public void upgradeSoldier() {
+	/**
+	 * gets all the pieces that can be eaten by specific player
+	 * @param player color PrimaryColor BLACK,WHITE
+	 * @return ArrayList<Piece> that are edible for color player
+	 */
+	public ArrayList<Piece> getAllEdiblePiecesForColor(PrimaryColor playerColor){
+		ArrayList<Piece> ediblePieces= new ArrayList<Piece>();
+		ArrayList<Piece> colorPieces=getColorPieces(playerColor);
+
+		for (Piece p : pieces) {
+			ediblePieces.addAll(p.getEdiblePieces());
+		}
+
+		return ediblePieces;
+	}
+
+
+	/**
+	 * removes piece from board pieces and from board tiles
+	 * @param piece burning piece
+	 * @return true if removed successfully from board, false otherwise
+	 */
+	public boolean burn(Piece piece) {
+		if(piece == null) return false;
+
+		boolean result =false;
+		//remove from list of pieces
+		result= this.pieces.remove(piece);
+
+		//remove from board tile
+		Location pieceLocation = piece.getLocation();
+		result=result && removePieceFromBoardTile(piece);
+
+		if (result) System.out.println(piece+" is burnt !!");
+		else System.out.println("Error: wasn't able to burn piece "+ piece);
+
+		return result;
 
 	}
 
 	//TODO
+	//points
 	public void eat() {
 		// TODO Auto-generated method stub
-
 	}
 
-	//TODO
-	public boolean isAllPiecesEaten() {
+
+	/**
+	 *  checks if there is more eating left for color player
+	 *  
+	 * @param playerColor PrimaryColor BLACK,WHITE
+	 * @return true if there is no more eating left for color player,otherwise false
+	 */
+	public boolean isAllPiecesEaten(PrimaryColor playerColor) {
 		// TODO Auto-generated method stub
+		ArrayList<Piece> ediblePieces= getAllEdiblePiecesForColor(playerColor);
+		if(ediblePieces.isEmpty()) {
+			return true;
+		}
 		return false;
 	}
 

@@ -15,16 +15,46 @@ public class Tile implements Comparable<Tile>{
 	private Location location;
 	private PrimaryColor color1;
 	private SeconderyTileColor color2=null;
-	private Piece piece;
+	private Piece piece = null;
+	
+	
 	
 	/**
-	 * Constructor for regular tile
+	 * Constructor for regular tile without piece
+	 * 
+	 * @param location
+	 * @param color1
+	 */
+	//
+
+	public Tile(Location location, PrimaryColor color1) {
+		super();
+		this.location = location;
+		this.color1 = color1;		
+	}
+	
+	/**
+	 * Constructor for Special tile without piece
+	 * 
+	 * @param location
+	 * @param color1
+	 * @param color2
+	 */
+	public Tile(Location location, PrimaryColor color1, SeconderyTileColor color2) {
+		super();
+		this.location = location;
+		this.color1 = color1;
+		this.color2 = color2;
+		
+	}
+	
+	/**
+	 * Constructor for regular tile with piece
 	 * 
 	 * @param location
 	 * @param color1
 	 * @param piece
 	 */
-	//
 
 	public Tile(Location location, PrimaryColor color1, Piece piece) {
 		super();
@@ -34,7 +64,7 @@ public class Tile implements Comparable<Tile>{
 	}
 	
 	/**
-	 * Constructor for Special tile
+	 * Constructor for Special tile with piece
 	 * 
 	 * @param location
 	 * @param color1
@@ -48,6 +78,7 @@ public class Tile implements Comparable<Tile>{
 		this.color2 = color2;
 		this.piece = piece;
 	}
+	
 	
 	
 	@Override
