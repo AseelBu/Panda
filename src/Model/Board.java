@@ -26,11 +26,10 @@ public class Board {
 
 	//Singleton Class
 
-	private static Board instance = new Board();
+	private static Board instance;
 
 
 	private Board(){
-
 		pieces = new ArrayList<Piece>();
 		tiles = new HashMap<Integer, ArrayList<Tile>>(BOARD_SIZE);
 		System.out.println("Board created..");
@@ -38,7 +37,11 @@ public class Board {
 
 	//Get the only object available
 	public static Board getInstance(){
-		return instance;
+        if (instance == null) 
+        { 
+        	instance = new Board(); 
+        } 
+        return instance; 
 	}
 
 
@@ -121,7 +124,7 @@ public class Board {
 		if (location == null) return null;
 		ArrayList<Tile> tilesInRow = getTilesinRow(location.getRow());
 		if(tilesInRow != null) {
-			return tilesInRow.get(location.getColumn());
+			return tilesInRow.get('H' - location.getColumn());
 		}else {
 			throw new Exception("Error: Row "+location.getRow()+" has no tiles");
 		}
@@ -145,13 +148,19 @@ public class Board {
 		if(tiles.containsKey(tileRow)) {
 			boardRow=tiles.get(tileRow);
 			if(boardRow == null) {
-				boardRow = new ArrayList<Tile>();
+				boardRow = new ArrayList<Tile>(8);
+				for (int i = 0; i < 8; i++) {
+					boardRow.add(0,null);
+				}
 			}
 		}
 		else {
-			boardRow= new ArrayList<Tile>();
+			boardRow= new ArrayList<Tile>(8);
+			for (int i = 0; i < 8; i++) {
+				boardRow.add(0,null);
+			}
 		}
-		boardRow.add(tileCol, tile);
+		boardRow.set('H' - tileCol, tile);
 		this.tiles.put(tileRow, boardRow);
 		isSuccess = true;
 
@@ -173,7 +182,7 @@ public class Board {
 
 		ArrayList<Tile> boardRow= tiles.get(tileRow);
 
-		boardRow.set(tileCol, tile);
+		boardRow.set('H' - tileCol, tile);
 		this.tiles.put(tileRow, boardRow);
 		isSuccess = true;
 
@@ -249,7 +258,7 @@ public class Board {
 	}
 	//TODO 
 	/**
-	 * checks if the piece can move depending on all pieces locations on board
+	 * checks if the piece can move to targetLocation depending on all pieces locations on board
 	 * @param piece
 	 * @param targetLocation
 	 * @return true if it's legal to move the piece ,otherwise false
@@ -421,7 +430,7 @@ public class Board {
 		ArrayList<Tile> emptyTiles = getEmptyTiles();
 		ArrayList<Piece> colorPieces = getColorPieces(color);
 
-
+		//TODO handle queen
 
 		return possibleTiles;
 
@@ -472,6 +481,9 @@ public class Board {
 	//points
 	public void eat() {
 		// TODO Auto-generated method stub
+		//TODO handle soldier
+		
+		//TODO handle queen
 	}
 
 
@@ -497,6 +509,7 @@ public class Board {
 
 	}
 
+	//TODO touch ups for better view
 	public void printBoard() {
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles

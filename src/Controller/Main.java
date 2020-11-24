@@ -9,7 +9,9 @@ import Model.Player;
 
 
 public class Main {
+	
 	static Game game = null;
+	static Player[] players;
 	
 	
 	public static void main(String[] args) {
@@ -22,21 +24,17 @@ public class Main {
 		String name2 = scanner.nextLine();
 
 		// scores & color should not be provided --- only name
-		Player[] players = {new Player(name1, "White", 0),new Player(name2, "Black", 0)};
+		players = new Player[] {
+				new Player(name1, "White", 0),
+				new Player(name2, "Black", 0)
+				};
 		
 		if(players != null) {
 			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
 			System.out.println("Player 2 : " + players[1].getNickname());
 		}
 		
-		
-		try {
-			game = new Game(players);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.err.println(e.getMessage());
-			System.exit(1);
-		}
+		game = Game.getInstance();
 		System.out.println("Write /start to start the game");
 		System.out.println("Please enter a command:");
 		
@@ -54,9 +52,15 @@ public class Main {
 	private static void command(String cmd) {
 		switch(cmd) {
 			case "start":
-				game.startGame();
-//				game.standardGameTiles();
-//				game.getBoard().printBoard();
+				try {
+					game.startGame(players);
+					game.getBoard().printBoard();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+//					System.err.println(e.getMessage());
+					e.printStackTrace();
+					return;
+				}
 				break;
 			case "pause":
 				game.pauseGame();
