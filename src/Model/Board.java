@@ -234,7 +234,7 @@ public class Board {
 	}
 	//TODO 
 	/**
-	 * checks if the piece can move depending on all pieces locations on board
+	 * checks if the piece can move to targetLocation depending on all pieces locations on board
 	 * @param piece
 	 * @param targetLocation
 	 * @return true if it's legal to move the piece ,otherwise false
@@ -406,7 +406,7 @@ public class Board {
 		ArrayList<Tile> emptyTiles = getEmptyTiles();
 		ArrayList<Piece> colorPieces = getColorPieces(color);
 
-
+		//TODO handle queen
 
 		return possibleTiles;
 
@@ -457,6 +457,9 @@ public class Board {
 	//points
 	public void eat() {
 		// TODO Auto-generated method stub
+		//TODO handle soldier
+		
+		//TODO handle queen
 	}
 
 
@@ -482,6 +485,7 @@ public class Board {
 
 	}
 
+	//TODO touch ups for better view
 	public void printBoard() {
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles
