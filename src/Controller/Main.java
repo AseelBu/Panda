@@ -24,11 +24,14 @@ public class Main {
 		String name2 = scanner.nextLine();
 
 		// scores & color should not be provided --- only name
+//		players = new Player[] {
+//				new Player(name1, "White", 0),
+//				new Player(name2, "Black", 0)
+//				};
 		players = new Player[] {
-				new Player(name1, "White", 0),
-				new Player(name2, "Black", 0)
-				};
-		
+								new Player(),
+								new Player()
+								};
 		if(players != null) {
 			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
 			System.out.println("Player 2 : " + players[1].getNickname());
