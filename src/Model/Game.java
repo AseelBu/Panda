@@ -23,71 +23,27 @@ public class Game {
 	private Turn turn;
 	private ArrayList<Question> availableQuestions;
 	private ArrayList<Question> unavailableQuestions;
-
-	/**
-	 * Game constructor
-	 * @param players only 2 players allowed
-	 * @throws Exception 
-	 */
-	public Game(Player[] players) throws Exception {
-		super();
-		if(players != null) {
-			if(players.length != 2) throw new Exception("Invalid Game Initiation");
-		}
-		else throw new Exception("Invalid Game Initiation");	
-		
-		ArrayList<Piece> pieces = new ArrayList<>();
-		
-		for(int i = 1 ; i <= 3 ; i++)
-			for(char c = 'A' ; c <= 'H' ; c+=2) {
-				if(i == 2 && c == 'A') c = 'B';
-				Piece soldier = new Soldier(PrimaryColor.WHITE, new Location(i,c));
-				pieces.add(soldier);
-			}
-		
-		for(int i = 6 ; i <= 8 ; i++)
-			for(char c = 'B' ; c <= 'H' ; c+=2) {
-				if(i == 7 && c == 'B') c = 'A';
-				Piece soldier = new Soldier(PrimaryColor.BLACK, new Location(i,c));
-				pieces.add(soldier);
-			}
-		
-		setBoard(Board.getInstance());
-		setPlayers(players);
-		timer = new GameTimer();
-		
-		for(Piece piece : pieces)
-			board.addPiece(piece);
-	}
 	
 	/**
 	 * 
-	 * @param players only 2 players allowed
-	 * @param pieces - a 64 sized array, 8 rows, 8 columns
-	 * @throws Exception 
+	 * Game Class Constructor
 	 */
-	
-	public Game(Player[] players, ArrayList<Piece> pieces) throws Exception {
+	private Game() {
 		super();
-		if(players != null) {
-			if(players.length != 2) throw new Exception("Invalid Game Initiation");
-		}
-		else throw new Exception("Invalid Game Initiation");	
-		if(pieces == null)
-		{
-			throw new Exception("Invalid Game Initiation");
-		}
-		else if (pieces.size() < 2) {
-			throw new Exception("Invalid Game Initiation");
-		}
-		
-		setBoard(Board.getInstance());
-		setPlayers(players);
 		timer = new GameTimer();
-		
-		for(Piece piece : pieces)
-			board.addPiece(piece);
 	}
+	/**
+	 * 
+	 * @return Game Singleton Instance
+	 */
+    public static Game getInstance() 
+    { 
+        if (instance == null) 
+        { 
+        	instance = new Game(); 
+        } 
+        return instance; 
+    } 
 	
 	/**
 	 * 
@@ -108,13 +64,69 @@ public class Game {
 
 	/**
 	 * Start a game
+	 * @throws Exception 
 	 */
-	public void startGame() {
+	public void startGame(Player[] players, ArrayList<Piece> pieces) throws Exception {
 		if(isGameRunning()) {
 			System.err.println("A Game has already started");
 			return;
 		}
+		if(players != null) {
+			if(players.length != 2) throw new Exception("Invalid Game Initiation");
+		}
+		else throw new Exception("Invalid Game Initiation");	
+		if(pieces == null)
+		{
+			throw new Exception("Invalid Game Initiation");
+		}
+		else if (pieces.size() < 2) {
+			throw new Exception("Invalid Game Initiation");
+		}
+		setPlayers(players);
 		board = Board.getInstance();
+		for(Piece piece : pieces)
+			board.addPiece(piece);
+		timer.startTimer();
+		//turn = new Turn(players[0]); Turn class constructor should have only 1 parameter (Player)
+		System.out.println("Game has started");
+	}
+	
+	/**
+	 * Start a game
+	 * @throws Exception 
+	 */
+	public void startGame(Player[] players) throws Exception {
+		if(isGameRunning()) {
+			System.err.println("A Game has already started");
+			return;
+		}
+		if(players != null) {
+			if(players.length != 2) throw new Exception("Invalid Game Initiation");
+		}
+		else throw new Exception("Invalid Game Initiation");	
+		
+		setPlayers(players);
+		board = Board.getInstance();
+		standardGameTiles();
+
+		ArrayList<Piece> pieces = new ArrayList<>();
+		
+		for(int i = 1 ; i <= 3 ; i++)
+			for(char c = 'A' ; c <= 'H' ; c+=2) {
+				if(i == 2 && c == 'A') c = 'B';
+				Piece soldier = new Soldier(pieces.size(), PrimaryColor.WHITE, new Location(i,c));
+				pieces.add(soldier);
+			}
+		
+		for(int i = 6 ; i <= 8 ; i++)
+			for(char c = 'B' ; c <= 'H' ; c+=2) {
+				if(i == 7 && c == 'B') c = 'A';
+				Piece soldier = new Soldier(pieces.size(), PrimaryColor.BLACK, new Location(i,c));
+				pieces.add(soldier);
+			}
+		for(Piece piece : pieces)
+			board.addPiece(piece);
+		
 		timer.startTimer();
 		//turn = new Turn(players[0]); Turn class constructor should have only 1 parameter (Player)
 		System.out.println("Game has started");
@@ -132,6 +144,7 @@ public class Game {
 			System.err.println("Game paused already..");
 			return;
 		}
+
 		// turn.pause()  to be added to turn class
 		timer.pauseTimer();
 		System.out.printf("Game paused || Full Game Timer %.2f Seconds.\n", timer.getSeconds());
@@ -207,7 +220,7 @@ public class Game {
 				System.out.println("It's a tie (draw)..");
 			}	
 		}
-		
+		timer.stopTimer();
 	}
 	
 	/**
@@ -231,15 +244,15 @@ public class Game {
 		int count = 0;
 		for(int i = 1 ; i <= 8 ; i+=2) {
 			for(char c = 'A' ; c <= 'H' ; c+=2) {
-				board.addTile(new Tile(new Location(i, c), PrimaryColor.BLACK, null));
-				board.addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE, null));
+				board.addTile(new Tile(new Location(i, c), PrimaryColor.BLACK));
+				board.addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE));
 			}
 		}
 		
 		for(int i = 2 ; i <= 8 ; i+=2) {
 			for(char c = 'A' ; c <= 'H' ; c+=2) {
-				board.addTile(new Tile(new Location(i, c), PrimaryColor.WHITE, null));
-				board.addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK, null));
+				board.addTile(new Tile(new Location(i, c), PrimaryColor.WHITE));
+				board.addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK));
 			}
 		}
 	}
