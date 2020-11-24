@@ -9,6 +9,12 @@ public class GameTimer {
 
 	private long startTime;
 	private long anonStartTime;
+	public GameTimer(long startTime, long anonStartTime, long pauseTime) {
+		super();
+		this.startTime = startTime;
+		this.anonStartTime = anonStartTime;
+		this.pauseTime = pauseTime;
+	}
 	private long pauseTime;
 	
 	
@@ -94,10 +100,10 @@ public class GameTimer {
 	private void setPauseTime(long pauseTime) {
 		this.pauseTime = pauseTime;
 	}
-	private long getAnonStartTime() {
+	public long getAnonStartTime() {
 		return anonStartTime;
 	}
-	private void setAnonStartTime(long anonStartTime) {
+	public void setAnonStartTime(long anonStartTime) {
 		this.anonStartTime = anonStartTime;
 	}
 }

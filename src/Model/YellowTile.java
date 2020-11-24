@@ -20,9 +20,11 @@ public class YellowTile extends Tile {
 	 */
 	public YellowTile(Location location,PrimaryColor color1,SeconderyTileColor color2,Piece piece) {
 		super(location, color1, color2, piece);
+
 		//TODO Game.getInstance()
 		Game game= Game.getInstance();
-		this.question = game.getRandomQuestion();
+		this.question = game.getAvailableRandomQuestion();
+
 
 	}
 

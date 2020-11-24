@@ -1,5 +1,9 @@
 package Model;
-
+/**
+ * 
+ * @author Maryam
+ *
+ */
 public class Player {
 	
 	public String Nickname;
@@ -40,27 +44,27 @@ public class Player {
 	
 	/**
 	 * 
-	 * @param score
+	 * @param l
 	 * @add score to CurrentScore
 	 */
-	public void AddScore(int score) 
+	public long AddScore(long l) 
 		{
 			
 		   int newScore;
-		   newScore=getCurrentScore()+score;
+		   newScore=(int) (getCurrentScore()+l);
 			setCurrentScore(newScore);
-			return;
+			return getCurrentScore();
 		}
 	/**
 	 * 
-	 * @param score
+	 * @param l
 	 * @deduct score from CurrentScore
 	 */
-	public void DeductScore(int score) {
+	public long DeductScore(long l) {
 		   int newScore;
-		   newScore=getCurrentScore()-score;
+		   newScore=(int) (getCurrentScore()-l);
 			setCurrentScore(newScore);
-			return;
+			return getCurrentScore();
 		
 	}
 

@@ -10,6 +10,7 @@ import java.util.Random;
 
 import Utils.Directions;
 import Utils.PrimaryColor;
+import Utils.SeconderyTileColor;
 
 /**
  * @author aseel
@@ -77,6 +78,8 @@ public class Board {
 		}
 		return allTiles;
 	}
+	
+	
 
 	/**
 	 * Given row returns all the tiles in specified row
@@ -396,6 +399,7 @@ public class Board {
 	 * @return ArrayList<Tile> of legal moves for the color
 	 */
 	public ArrayList<Tile> getLegalMoves(PrimaryColor color) {
+
 
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>();
 
