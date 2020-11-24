@@ -11,9 +11,9 @@ public class GameTimer {
 	private long anonStartTime;
 	public GameTimer(long startTime, long anonStartTime, long pauseTime) {
 		super();
-		this.startTime = startTime;
-		this.anonStartTime = anonStartTime;
-		this.pauseTime = pauseTime;
+		this.startTime = startTime-1;
+		this.anonStartTime = anonStartTime-1;
+		this.pauseTime = pauseTime-1;
 	}
 	private long pauseTime;
 	

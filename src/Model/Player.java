@@ -1,4 +1,7 @@
 package Model;
+
+import Utils.PrimaryColor;
+
 /**
  * 
  * @author Maryam
@@ -7,28 +10,26 @@ package Model;
 public class Player {
 	
 	public String Nickname;
-	public String Color;
+	public PrimaryColor Color;
 	public int currentScore;
+	 private static Player instances[] = new Player[2];
+     private static Boolean initiated = false;
 	
 	//Constructor
 
-	public Player(String nickname, String color, int currentScore) {
-		super();
-		Nickname = nickname;
-		Color = color;
-		this.currentScore = currentScore;
+	public Player() {
+		
 	}
-	
 	public String getNickname() {
 		return Nickname;
 	}
 	public void setNickname(String nickname) {
 		Nickname = nickname;
 	}
-	public String getColor() {
+	public PrimaryColor getColor() {
 		return Color;
 	}
-	public void setColor(String color) {
+	public void setColor(PrimaryColor color) {
 		Color = color;
 	}
 	public int getCurrentScore() {
@@ -44,29 +45,56 @@ public class Player {
 	
 	/**
 	 * 
-	 * @param l
+	 * @param f
 	 * @add score to CurrentScore
 	 */
-	public long AddScore(long l) 
+	public long AddScore(float f) 
 		{
 			
 		   int newScore;
-		   newScore=(int) (getCurrentScore()+l);
+		   newScore=(int) (getCurrentScore()+f);
 			setCurrentScore(newScore);
 			return getCurrentScore();
 		}
 	/**
 	 * 
-	 * @param l
+	 * @param f
 	 * @deduct score from CurrentScore
 	 */
-	public long DeductScore(long l) {
+	public long DeductScore(float f) {
 		   int newScore;
-		   newScore=(int) (getCurrentScore()-l);
+		   newScore=(int) (getCurrentScore()-f);
 			setCurrentScore(newScore);
 			return getCurrentScore();
 		
 	}
+	
+	public static Player getInstance(int index)
+    {
+        tryInitiate();
+
+        if(instances[index] == null)
+        {
+            instances[index] = new Player();
+        }
+
+        return instances[index];
+    }
+
+    private static Boolean tryInitiate()
+    {
+        if(initiated) return false;
+
+        for (int i = 0; i < instances.length; i++)
+        {
+            instances[i] = null;
+        }
+
+        initiated = true;
+
+        return true;
+    }
+
 
 
 }

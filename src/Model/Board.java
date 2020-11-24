@@ -165,7 +165,7 @@ public class Board {
 	 * @param tile
 	 * @return true if replaced successfully,otherwise false
 	 */
-	private boolean replaceTile(Tile tile) {
+	public boolean replaceTile(Tile tile) {
 
 		boolean isSuccess = false;
 		int tileRow = tile.getLocation().getRow();
@@ -212,6 +212,21 @@ public class Board {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	//add color to board tile
+	public void addColorToBoardTile(Tile tilee,SeconderyTileColor color) {
+		Location tLoc =tilee.getLocation();
+
+		Tile tile=null;
+		try {
+			tile = getTileInLocation(tLoc);
+			tile.setColor2(color);
+			this.replaceTile(tile);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
 	//helping method that removes piece from tile in board

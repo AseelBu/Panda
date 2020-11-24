@@ -1,12 +1,16 @@
 package Controller;
 
 import java.util.Scanner;
+
+import Model.Board;
 import Model.Game;
+
 import Model.Player;
 
 
 public class Main {
 	static Game game = null;
+	
 	
 	public static void main(String[] args) {
 		
