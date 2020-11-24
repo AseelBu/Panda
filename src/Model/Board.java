@@ -148,15 +148,15 @@ public class Board {
 		if(tiles.containsKey(tileRow)) {
 			boardRow=tiles.get(tileRow);
 			if(boardRow == null) {
-				boardRow = new ArrayList<Tile>(8);
-				for (int i = 0; i < 8; i++) {
+				boardRow = new ArrayList<Tile>(BOARD_SIZE);
+				for (int i = 0; i < BOARD_SIZE; i++) {
 					boardRow.add(0,null);
 				}
 			}
 		}
 		else {
-			boardRow= new ArrayList<Tile>(8);
-			for (int i = 0; i < 8; i++) {
+			boardRow= new ArrayList<Tile>(BOARD_SIZE);
+			for (int i = 0; i < BOARD_SIZE; i++) {
 				boardRow.add(0,null);
 			}
 		}
@@ -520,9 +520,9 @@ public class Board {
 		//TODO sort Tiles
 		ArrayList<Tile> boardTiles=getAllBoardTiles();
 		System.out.println("    A | B | C | D | E | F | G | H");
-		for(int i = 8 ; i > 0 ; i--) {
+		for(int i = BOARD_SIZE ; i > 0 ; i--) {
 			System.out.println("   ___ ___ ___ ___ ___ ___ ___ ___");
-			for(int j = 0; j < 8 ; j++) {
+			for(int j = 0; j < BOARD_SIZE ; j++) {
 				if(j == 0) {
 					System.out.print(i + " |");
 				} 
@@ -535,7 +535,7 @@ public class Board {
 					System.out.print("   |");
 				}
 				
-				if(j==7) {
+				if(j==BOARD_SIZE-1) {
 					System.out.print(" " + i); 
 				}
 			}
