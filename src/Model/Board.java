@@ -124,7 +124,7 @@ public class Board {
 		if (location == null) return null;
 		ArrayList<Tile> tilesInRow = getTilesinRow(location.getRow());
 		if(tilesInRow != null) {
-			return tilesInRow.get('H' - location.getColumn());
+			return tilesInRow.get(location.getColumn() - 'A');
 		}else {
 			throw new Exception("Error: Row "+location.getRow()+" has no tiles");
 		}
@@ -160,7 +160,7 @@ public class Board {
 				boardRow.add(0,null);
 			}
 		}
-		boardRow.set('H' - tileCol, tile);
+		boardRow.set(tileCol - 'A', tile);
 		this.tiles.put(tileRow, boardRow);
 		isSuccess = true;
 
@@ -182,7 +182,7 @@ public class Board {
 
 		ArrayList<Tile> boardRow= tiles.get(tileRow);
 
-		boardRow.set('H' - tileCol, tile);
+		boardRow.set(tileCol - 'A', tile);
 		this.tiles.put(tileRow, boardRow);
 		isSuccess = true;
 
@@ -522,12 +522,12 @@ public class Board {
 		System.out.println("    A | B | C | D | E | F | G | H");
 		for(int i = 8 ; i > 0 ; i--) {
 			System.out.println("   ___ ___ ___ ___ ___ ___ ___ ___");
-			for(int j = 8; j > 0 ; j--) {
-				if(j == 8) {
+			for(int j = 0; j < 8 ; j++) {
+				if(j == 0) {
 					System.out.print(i + " |");
 				} 
-				if(this.tiles.get(i).get(j-1).getPiece() != null) {
-					if(this.tiles.get(i).get(j-1).getPiece().getColor() == PrimaryColor.BLACK)
+				if(this.tiles.get(i).get(j).getPiece() != null) {
+					if(this.tiles.get(i).get(j).getPiece().getColor() == PrimaryColor.BLACK)
 						System.out.print(" B |");
 					else 
 						System.out.print(" W |");
@@ -535,7 +535,7 @@ public class Board {
 					System.out.print("   |");
 				}
 				
-				if(j==1) {
+				if(j==7) {
 					System.out.print(" " + i); 
 				}
 			}
