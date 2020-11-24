@@ -10,6 +10,7 @@ public abstract class  Piece {
 	private int id;
 	private PrimaryColor color;
 	private Location location;
+	private int eatingCntr=0;
 	
 	
 	/**
@@ -69,7 +70,15 @@ public abstract class  Piece {
 		this.location = location;
 	}
 	
-	
+	public int getEatingCntr() {
+		return eatingCntr;
+	}
+
+
+	public void setEatingCntr(int eatingCntr) {
+		this.eatingCntr = eatingCntr;
+	}
+
 	
 
 	public abstract void move(Tile targetTile);
@@ -79,6 +88,8 @@ public abstract class  Piece {
 	
 	
 	
+	
+
 	@Override
 	public String toString() {
 		return "Piece [color=" + color + ", location=" + location + "]";
