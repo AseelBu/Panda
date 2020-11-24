@@ -514,20 +514,34 @@ public class Board {
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles
 		ArrayList<Tile> boardTiles=getAllBoardTiles();
-		for (Tile tile : boardTiles) {
-
-			//[black/white/colorful tile-piece details]
-			String tileDetails= "["+tile.getColorName()+" tile-"+tile.getPiece()+"]";
-			board.add(tileDetails);
-			System.out.println(tileDetails);
+		System.out.println("    A | B | C | D | E | F | G | H");
+		for(int i = 8 ; i > 0 ; i--) {
+			System.out.println("   ___ ___ ___ ___ ___ ___ ___ ___");
+			for(int j = 8; j > 0 ; j--) {
+				if(j == 8) {
+					System.out.print(i + " |");
+				} 
+				if(this.tiles.get(i).get(j-1).getPiece() != null) {
+					if(this.tiles.get(i).get(j-1).getPiece().getColor() == PrimaryColor.BLACK)
+						System.out.print(" B |");
+					else 
+						System.out.print(" W |");
+				}else {
+					System.out.print("   |");
+				}
+				
+				if(j==1) {
+					System.out.print(" " + i); 
+				}
+			}
+			System.out.println();
 		}
 
-		if(board.isEmpty()) {
-			System.out.println("board has no tiles yet"); 
-		}
-
-
+		System.out.println("   ___ ___ ___ ___ ___ ___ ___ ___");
+		System.out.println("    A | B | C | D | E | F | G | H");
+		
 	}
+
 
 
 
