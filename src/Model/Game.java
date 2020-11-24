@@ -190,8 +190,8 @@ public class Game {
 		else if (players[0].getCurrentScore() < players[1].getCurrentScore())
 			winner = 2;
 		else {
-			if(board.getBlackPieces().size() == 0) winner = 1;
-			else if(board.getWhitePieces().size() == 0) winner = 2;
+			if(board.getColorPieces(PrimaryColor.BLACK).size() == 0) winner = 1;
+			else if(board.getColorPieces(PrimaryColor.WHITE).size() == 0) winner = 2;
 		}
 		
 		switch(winner){
