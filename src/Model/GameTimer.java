@@ -3,21 +3,18 @@ package Model;
 /**
  * 
  * @author firas
- * 
+ * This class describes a timer that is used in a game.
+ * It can be used for total game time, turn time
  */
 public class GameTimer {
 
 	private long startTime;
 	private long anonStartTime;
-	public GameTimer(long startTime, long anonStartTime, long pauseTime) {
-		super();
-		this.startTime = startTime;
-		this.anonStartTime = anonStartTime;
-		this.pauseTime = pauseTime;
-	}
 	private long pauseTime;
 	
-	
+	/**
+	 * Class Constructor
+	 */
 	public GameTimer() {
 		super();
 		setPauseTime(-1);
@@ -59,12 +56,18 @@ public class GameTimer {
 		startTimer();
 	}
 	/**
+	 * resets the timer and stops it
+	 */
+	public void stopTimer() {
+		setPauseTime(-1);
+	}
+	/**
 	 * pause timer
 	 */
 	public void pauseTimer() {
 		setPauseTime(System.currentTimeMillis());
-
 	}
+	
 	/**
 	 * unpause timer
 	 */
@@ -91,7 +94,7 @@ public class GameTimer {
 	public long getStartTime() {
 		return startTime;
 	}
-	private void setStartTime(long startTime) {
+	public void setStartTime(long startTime) {
 		this.startTime = startTime;
 	}
 	public long getPauseTime() {
@@ -100,10 +103,10 @@ public class GameTimer {
 	private void setPauseTime(long pauseTime) {
 		this.pauseTime = pauseTime;
 	}
-	public long getAnonStartTime() {
+	private long getAnonStartTime() {
 		return anonStartTime;
 	}
-	public void setAnonStartTime(long anonStartTime) {
+	private void setAnonStartTime(long anonStartTime) {
 		this.anonStartTime = anonStartTime;
 	}
 }
