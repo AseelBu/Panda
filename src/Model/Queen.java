@@ -60,7 +60,7 @@ public class Queen extends Piece{
 	}
 
 	@Override
-	public boolean isMoveLegal(Location targetLocation) { //TODO NOT DONE
+	public boolean isMoveLegal(Location targetLocation) { 
 		Location currentLocation = getLocation();
 		if(currentLocation.getRow() == targetLocation.getRow() ||
 				currentLocation.getColumn() == targetLocation.getColumn())

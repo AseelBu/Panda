@@ -22,10 +22,19 @@ public class Soldier extends Piece{
 
 
 	@Override
-	//update in Turn lastPiece moved
+	//update in Turn lastPieceMoved
 	//call for eating if eating is possible by this move
+	// TODO NOT DONE
 	public void move(Tile targetTile) {
-		// TODO NOT DONE
+		//PSEUDO CODE
+		//check if move is legal by piece
+		//	check if move is legal by board
+		//		if legal- check if there is eating
+		// 			if there is eating -then eat
+		//		update piece.location and piece location on board (piece on tile)
+		//		update in Turn lastPieceMoved field to this piece
+		
+		
 		Location targetLocation = targetTile.getLocation();
 		if(this.isMoveLegal(targetLocation)) {
 			if(Board.getInstance().canPieceMove(this, targetLocation, null)) {
