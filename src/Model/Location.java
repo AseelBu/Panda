@@ -16,12 +16,13 @@ public class Location {
 	private int row;
 	private char column;
 
+	
+
 	/**
+	 * location Constructor
 	 * @param row
 	 * @param column
 	 */
-	//Constructor
-
 	public Location(int row, char column) {
 		super();
 		try {
@@ -34,7 +35,6 @@ public class Location {
 		}
 
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -71,9 +71,9 @@ public class Location {
 		return row;
 	}
 
-	//TODO check if set is in board boundaries!!!
+	
 	/**
-	 * 
+	 * sets row with checking if set is in board boundaries
 	 * @param row the row to set
 	 * @throws Exception - row out of board boundaries
 	 */
@@ -161,7 +161,7 @@ public class Location {
 			throw new IllegalArgumentException("Unexpected value: " + dir);
 		}
 
-
+		if(updatedLocation == null) System.out.println("new location is out of board boundries");
 		return updatedLocation;
 	}
 
@@ -173,10 +173,10 @@ public class Location {
 	 */
 	public HashMap<Directions,Integer>relativeLocationTo(Location targetLocation) {
 		HashMap<Directions,Integer> result= new HashMap<Directions,Integer>();
-		
+
 		Directions direction = getRelativeDirection(targetLocation);
 		Integer steps = getRelativeNumberOfSteps(targetLocation);
-		
+
 		result.put(direction, steps);
 		return result;
 	}
@@ -198,7 +198,7 @@ public class Location {
 
 		int rowCmp = targetRow-curRow;
 		int colCmp = targetCol-curCol;
-		
+
 		Directions dir = getRelativeDirection(targetLocation);
 		switch (dir) {
 		case DOWN_STRAIGHT: 
@@ -222,7 +222,7 @@ public class Location {
 		return steps;
 	};
 
-	
+
 	/**
 	 * gets the direction from this Location to targetLocation
 	 * @param targetLocation
@@ -230,7 +230,7 @@ public class Location {
 	 */
 	public Directions getRelativeDirection(Location targetLocation) {
 		Directions direction = null ;
-		
+
 		int curRow =this.row;
 		char curCol = this.column;
 		int targetRow = targetLocation.getRow();
@@ -287,6 +287,30 @@ public class Location {
 
 	};
 
+//	/**
+//	 * TODO
+//	 * @param loc
+//	 * @return
+//	 */
+//	public boolean isLocationInBoardBoundries(int row, char col) {
+//		Board board = Board.getInstance();
+//		boolean inBoundries =false;
+//		int row = loc.getRow();
+//		Character col =loc.getColumn();
+//
+//		if(row<1 || row>board.getBoardSize()) {
+//			System.out.println(in Loct);
+//		}
+//		else {
+//			inBoundries=true;
+//		}
+//		if (col.compareTo(board.getColumnLowerbond())<0 || col.compareTo(board.getColumnUpperbond())>0) {
+//			System.out.println();
+//		}else {
+//			inBoundries =true;
+//		}
+//		return inBoundries;
+//	}
 
 	@Override
 	public String toString() {
