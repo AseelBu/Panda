@@ -23,29 +23,29 @@ public class Game {
 	private Turn turn;
 	private ArrayList<Question> availableQuestions;
 	private ArrayList<Question> unavailableQuestions;
-	
+
 	/**
 	 * 
 	 * Game Class Constructor
 	 */
 	private Game() {
 		super();
-		
+
 		timer = new GameTimer();
 	}
 	/**
 	 * 
 	 * @return Game Singleton Instance
 	 */
-    public static Game getInstance() 
-    { 
-        if (instance == null) 
-        { 
-        	instance = new Game(); 
-        } 
-        return instance; 
-    } 
-	
+	public static Game getInstance() 
+	{ 
+		if (instance == null) 
+		{ 
+			instance = new Game(); 
+		} 
+		return instance; 
+	} 
+
 	/**
 	 * 
 	 * @return game time in seconds (float)
@@ -84,14 +84,17 @@ public class Game {
 			throw new Exception("Invalid Game Initiation");
 		}
 		setPlayers(players);
+
 		this.board = Board.getInstance();
+		standardGameTiles();
+
 		for(Piece piece : pieces)
 			board.addPiece(piece);
 		timer.startTimer();
 		//turn = new Turn(players[0]); Turn class constructor should have only 1 parameter (Player)
 		System.out.println("Game has started");
 	}
-	
+
 	/**
 	 * Start a game
 	 * @throws Exception 
@@ -105,20 +108,20 @@ public class Game {
 			if(players.length != 2) throw new Exception("Invalid Game Initiation");
 		}
 		else throw new Exception("Invalid Game Initiation");	
-		
+
 		setPlayers(players);
 		board = Board.getInstance();
 		standardGameTiles();
 
 		ArrayList<Piece> pieces = new ArrayList<>();
-		
+
 		for(int i = 1 ; i <= 3 ; i++)
 			for(char c = 'A' ; c <= 'H' ; c+=2) {
 				if(i == 2 && c == 'A') c = 'B';
 				Piece soldier = new Soldier(pieces.size(), PrimaryColor.WHITE, new Location(i,c));
 				pieces.add(soldier);
 			}
-		
+
 		for(int i = 6 ; i <= 8 ; i++)
 			for(char c = 'B' ; c <= 'H' ; c+=2) {
 				if(i == 7 && c == 'B') c = 'A';
@@ -127,12 +130,12 @@ public class Game {
 			}
 		for(Piece piece : pieces)
 			board.addPiece(piece);
-		
+
 		timer.startTimer();
 		//turn = new Turn(players[0]); Turn class constructor should have only 1 parameter (Player)
 		System.out.println("Game has started");
 	}
-	
+
 	/**
 	 * Pause a game
 	 */
@@ -170,7 +173,7 @@ public class Game {
 	 * save game as txt file
 	 */
 	public void saveGame() {
-		
+
 	}
 	/**
 	 * load game from txt file
@@ -207,28 +210,28 @@ public class Game {
 			if(board.getColorPieces(PrimaryColor.BLACK).size() == 0) winner = 1;
 			else if(board.getColorPieces(PrimaryColor.WHITE).size() == 0) winner = 2;
 		}
-		
+
 		switch(winner){
-			case 1: {
-				System.out.println(players[0].getNickname() + " Has Won, Congratulations!!!");
-				break;
-			}
-			case 2 : {
-				System.out.println(players[1].getNickname() + " Has Won, Congratulations!!!");
-				break;
-			}
-			default:{
-				System.out.println("It's a tie (draw)..");
-			}	
+		case 1: {
+			System.out.println(players[0].getNickname() + " Has Won, Congratulations!!!");
+			break;
+		}
+		case 2 : {
+			System.out.println(players[1].getNickname() + " Has Won, Congratulations!!!");
+			break;
+		}
+		default:{
+			System.out.println("It's a tie (draw)..");
+		}	
 		}
 		timer.stopTimer();
 	}
-	
+
 	/**
 	 * switching turns between players
 	 */
 	public void switchTurn(){
-		
+
 	}
 	/**
 	 * 
@@ -249,7 +252,7 @@ public class Game {
 				board.addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE));
 			}
 		}
-		
+
 		for(int i = 2 ; i <= 8 ; i+=2) {
 			for(char c = 'A' ; c <= 'H' ; c+=2) {
 				board.addTile(new Tile(new Location(i, c), PrimaryColor.WHITE));
@@ -257,9 +260,9 @@ public class Game {
 			}
 		}
 	}
-	
+
 	//////////////////////////  Questions Related
-	
+
 	/**
 	 * 
 	 * @param questions collection of questions
@@ -267,7 +270,7 @@ public class Game {
 	public void loadQuestions(ArrayList<Question> questions) {
 		setAvailableQuestions(questions);
 	}
-	
+
 	/**
 	 * 
 	 * @return random Question 
@@ -278,7 +281,7 @@ public class Game {
 		Random rand = new Random();
 		Question random = availableQuestions.get(rand.nextInt(availableQuestions.size()));
 
-		
+
 		if(availableQuestions.size() == 1) {
 			availableQuestions.addAll(unavailableQuestions);
 			unavailableQuestions.clear();
@@ -286,13 +289,13 @@ public class Game {
 			unavailableQuestions.add(random);
 			availableQuestions.remove(random);
 		}
-		
+
 		return random;
 	}
-	
+
 	//////////////////////////  End Questions Related
-	
-	
+
+
 	////////////////////////// Getters & Setters
 	/**
 	 * 
@@ -325,7 +328,7 @@ public class Game {
 	public void setPlayers(Player[] players) {
 		this.players = players;
 	}
-	
+
 	/**
 	 * 
 	 * @return Turn of a player

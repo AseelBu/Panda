@@ -42,10 +42,18 @@ public class Queen extends Piece{
 	//!! call for eating if eating is possible by this move!!
 	//update in Turn lastPieceMoved
 	public void move(Tile targetTile, Directions direction) { // TODO NOT DONE
+		Board board = Board.getInstance();	
 		Location targetLocation = targetTile.getLocation();
-		if(this.isMoveLegal(targetLocation)) {
-			if(Board.getInstance().canPieceMove(this, targetLocation, direction)) {
-				//			TODO does moving contains eating?
+		if(this.isMoveLegalByDirection(targetLocation, direction)) {
+			if(board.canPieceMove(this, targetLocation, direction)) {
+				Piece toEat = getEdiblePieceByDirection(targetTile.getLocation(), direction);
+				if(toEat != null)
+				{
+					board.getTilesMap().get(toEat.getLocation().getRow()).get(toEat.getLocation().getColumn() - board.getColumnLowerbond()).setPiece(null);
+					board.getPieces().remove(toEat);
+				}
+				board.getTilesMap().get(this.getLocation().getRow()).get(this.getLocation().getColumn() - board.getColumnLowerbond()).setPiece(null);
+				targetTile.setPiece(this);
 				this.setLocation(targetLocation);
 			}
 		}
@@ -74,6 +82,7 @@ public class Queen extends Piece{
 	 * @return true if it is legal, otherwise false
 	 */
 	public boolean isMoveLegalByDirection(Location targetLocation, Directions direction) {
+		Board board =Board.getInstance();
 		if(getLocation().getRow() == targetLocation.getRow() || getLocation().getColumn() == targetLocation.getColumn()) return false;
 		switch(direction) {
 			case UP_LEFT:{
@@ -84,9 +93,9 @@ public class Queen extends Piece{
 				do {
 					if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
 					i++;
-					c++;
-					if(i > Board.getInstance().getBoardSize()) i = 1;
-					if(c > Board.getInstance().getColumnLowerbond()) c = Board.getInstance().getColumnUpperbond();
+					c--;
+					if(i > board.getBoardSize()) i = 1;
+					if(c < board.getColumnLowerbond()) c = board.getColumnUpperbond();
 				}
 				while(i != getLocation().getRow() && c != getLocation().getColumn());
 
@@ -96,13 +105,12 @@ public class Queen extends Piece{
 				
 				int i = getLocation().getRow();
 				int c = getLocation().getColumn();
-
 				do {
 					if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
 					i++;
 					c++;
-					if(i > Board.getInstance().getBoardSize()) i = 1;
-					if(c > Board.getInstance().getColumnUpperbond()) c = Board.getInstance().getColumnLowerbond();
+					if(i > board.getBoardSize()) i = 1;
+					if(c > board.getColumnUpperbond()) c = board.getColumnLowerbond();
 				}
 				while(i != getLocation().getRow() && c != getLocation().getColumn());
 				
@@ -115,10 +123,10 @@ public class Queen extends Piece{
 
 				do {
 					if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
-					i++;
-					c++;
-					if(i == 1) i = Board.getInstance().getBoardSize();
-					if(c > Board.getInstance().getColumnLowerbond()) c = Board.getInstance().getColumnUpperbond();
+					i--;
+					c--;
+					if(i < 1) i = board.getBoardSize();
+					if(c < board.getColumnLowerbond()) c = board.getColumnUpperbond();
 				}
 				while(i != getLocation().getRow() && c != getLocation().getColumn());
 				
@@ -131,10 +139,10 @@ public class Queen extends Piece{
 
 				do {
 					if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
-					i++;
+					i--;
 					c++;
-					if(i == 1) i = Board.getInstance().getBoardSize();
-					if(c > Board.getInstance().getColumnUpperbond()) c = Board.getInstance().getColumnLowerbond();
+					if(i < 1) i = board.getBoardSize();
+					if(c > board.getColumnUpperbond()) c = board.getColumnLowerbond();
 				}
 				while(i != getLocation().getRow() && c != getLocation().getColumn());
 				
@@ -143,7 +151,7 @@ public class Queen extends Piece{
 			default: return false;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	
@@ -196,9 +204,9 @@ public class Queen extends Piece{
 						}
 					}
 					i++;
-					c++;
-					if(i > Board.getInstance().getBoardSize()) i = 1;
-					if(c > Board.getInstance().getColumnLowerbond()) c = Board.getInstance().getColumnUpperbond();
+					c--;
+					if(i > board.getBoardSize()) i = 1;
+					if(c < board.getColumnLowerbond()) c = board.getColumnUpperbond();
 				}
 				while(i != getLocation().getRow() && c != getLocation().getColumn());
 	
@@ -223,8 +231,8 @@ public class Queen extends Piece{
 					}
 					i++;
 					c++;
-					if(i > Board.getInstance().getBoardSize()) i = 1;
-					if(c > Board.getInstance().getColumnUpperbond()) c = Board.getInstance().getColumnLowerbond();
+					if(i > board.getBoardSize()) i = 1;
+					if(c > board.getColumnUpperbond()) c = board.getColumnLowerbond();
 				}
 				while(i != getLocation().getRow() && c != getLocation().getColumn());
 
@@ -246,10 +254,10 @@ public class Queen extends Piece{
 							return suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
 						}
 					}
-					i++;
-					c++;
-					if(i == 1) i = Board.getInstance().getBoardSize();
-					if(c > Board.getInstance().getColumnLowerbond()) c = Board.getInstance().getColumnUpperbond();
+					i--;
+					c--;
+					if(i < 1) i = board.getBoardSize();
+					if(c < board.getColumnLowerbond()) c = board.getColumnUpperbond();
 				}
 				while(i != getLocation().getRow() && c != getLocation().getColumn());
 
@@ -271,10 +279,10 @@ public class Queen extends Piece{
 							return suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
 						}
 					}
-					i++;
+					i--;
 					c++;
-					if(i == 1) i = Board.getInstance().getBoardSize();
-					if(c > Board.getInstance().getColumnUpperbond()) c = Board.getInstance().getColumnLowerbond();
+					if(i < 1) i = board.getBoardSize();
+					if(c > board.getColumnUpperbond()) c = board.getColumnLowerbond();
 				}
 				while(i != getLocation().getRow() && c != getLocation().getColumn());
 
@@ -305,10 +313,13 @@ public class Queen extends Piece{
 				int c = getLocation().getColumn();
 				int counter = 1;
 				do {
-					if(boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece() != null) {
-						if(suspectedToBlock != null) return null;
-						else {
-							suspectedToBlock = boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece();
+
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) {
+							if(suspectedToBlock != null) return null;
+							else {
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+							}
 						}
 					}else {
 						if(suspectedToBlock != null) {
@@ -316,13 +327,28 @@ public class Queen extends Piece{
 						}
 					}
 					i++;
-					c++;
+					c--;
 					counter++;
-					if(i > Board.getInstance().getBoardSize()) i = 1;
-					if(c > Board.getInstance().getColumnLowerbond()) c = Board.getInstance().getColumnUpperbond();
+					if(i > board.getBoardSize()) i = 1;
+					if(c < board.getColumnLowerbond()) c = board.getColumnUpperbond();
 				}
 				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 	
+				if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) {
+							if(suspectedToBlock != null) return null;
+							else {
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+							}
+						}
+					}else {
+						if(suspectedToBlock != null) {
+							return suspectedToBlock;
+						}
+					}
+				}
+				
 				break;
 			}
 			case UP_RIGHT:{
@@ -332,10 +358,14 @@ public class Queen extends Piece{
 				int counter = 1;
 	
 				do {
-					if(boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece() != null) {
-						if(suspectedToBlock != null) return null;
-						else {
-							suspectedToBlock = boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece();
+
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) {
+							if(suspectedToBlock != null) return null;
+							else {
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+							}
+
 						}
 					}else {
 						if(suspectedToBlock != null) {
@@ -346,11 +376,25 @@ public class Queen extends Piece{
 					c++;
 					counter++;
 	
-					if(i > Board.getInstance().getBoardSize()) i = 1;
-					if(c > Board.getInstance().getColumnUpperbond()) c = Board.getInstance().getColumnLowerbond();
+					if(i > board.getBoardSize()) i = 1;
+					if(c > board.getColumnUpperbond()) c = board.getColumnLowerbond();
 				}
 				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 	
+				if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) {
+							if(suspectedToBlock != null) return null;
+							else {
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+							}
+						}
+					}else {
+						if(suspectedToBlock != null) {
+							return suspectedToBlock;
+						}
+					}
+				}
 				break;
 			}
 			case DOWN_LEFT:{//
@@ -360,25 +404,43 @@ public class Queen extends Piece{
 				int counter = 1;
 	
 				do {
-					if(boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece() != null) {
-						if(suspectedToBlock != null) return null;
-						else {
-							suspectedToBlock = boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece();
+
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) {
+							if(suspectedToBlock != null) return null;
+							else {
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+							}
+
 						}
 					}else {
 						if(suspectedToBlock != null) {
 							return suspectedToBlock;
 						}
 					}
-					i++;
-					c++;
+					i--;
+					c--;
 					counter++;
 	
-					if(i == 1) i = Board.getInstance().getBoardSize();
-					if(c > Board.getInstance().getColumnLowerbond()) c = Board.getInstance().getColumnUpperbond();
+					if(i < 1) i = board.getBoardSize();
+					if(c < board.getColumnLowerbond()) c = board.getColumnUpperbond();
 				}
 				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 	
+				if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) {
+							if(suspectedToBlock != null) return null;
+							else {
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+							}
+						}
+					}else {
+						if(suspectedToBlock != null) {
+							return suspectedToBlock;
+						}
+					}
+				}
 				break;
 			}
 			case DOWN_RIGHT:{//
@@ -388,25 +450,44 @@ public class Queen extends Piece{
 				int counter = 1;
 	
 				do {
-					if(boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece() != null) {
-						if(suspectedToBlock != null) return null;
-						else {
-							suspectedToBlock = boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece();
+
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) {
+							if(suspectedToBlock != null) return null;
+							else {
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+							}
+
 						}
 					}else {
 						if(suspectedToBlock != null) {
 							return suspectedToBlock;
 						}
 					}
-					i++;
+					i--;
 					c++;
 					counter++;
 	
-					if(i == 1) i = Board.getInstance().getBoardSize();
-					if(c > Board.getInstance().getColumnUpperbond()) c = Board.getInstance().getColumnLowerbond();
+					if(i < 1) i = board.getBoardSize();
+					if(c > board.getColumnUpperbond()) c = board.getColumnLowerbond();
 				}
 				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 	
+				if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c -board.getColumnLowerbond()).getPiece().equals(this)) {
+							if(suspectedToBlock != null) return null;
+							else {
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+							}
+						}
+					}else {
+						if(suspectedToBlock != null) {
+							return suspectedToBlock;
+						}
+					}
+				}
+				
 				break;
 			}
 			default: return null;
@@ -418,7 +499,7 @@ public class Queen extends Piece{
 		Board board = Board.getInstance();
 		HashMap<Integer, ArrayList<Tile>> boardMap = board.getTilesMap();
 		Piece suspectedToBlock = null;
-		
+		if(boardMap.get(targetLocation.getRow()).get(targetLocation.getColumn() - board.getColumnLowerbond()).getPiece() != null) return true;
 		switch(direction) {
 			case UP_LEFT:{
 				
@@ -426,10 +507,13 @@ public class Queen extends Piece{
 				int c = getLocation().getColumn();
 				int counter = 1;
 				do {
-					if(boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece() != null) {
+
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) return true;
 						if(suspectedToBlock != null) return true;
 						else {
-							suspectedToBlock = boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece();
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+
 						}
 					}else {
 						if(suspectedToBlock != null) {
@@ -437,10 +521,10 @@ public class Queen extends Piece{
 						}
 					}
 					i++;
-					c++;
+					c--;
 					counter++;
-					if(i > Board.getInstance().getBoardSize()) i = 1;
-					if(c > Board.getInstance().getColumnLowerbond()) c = Board.getInstance().getColumnUpperbond();
+					if(i > board.getBoardSize()) i = 1;
+					if(c < board.getColumnLowerbond()) c = board.getColumnUpperbond();
 				}
 				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 	
@@ -453,10 +537,13 @@ public class Queen extends Piece{
 				int counter = 1;
 
 				do {
-					if(boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece() != null) {
+
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) return true;
 						if(suspectedToBlock != null) return true;
 						else {
-							suspectedToBlock = boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece();
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+
 						}
 					}else {
 						if(suspectedToBlock != null) {
@@ -467,8 +554,8 @@ public class Queen extends Piece{
 					c++;
 					counter++;
 
-					if(i > Board.getInstance().getBoardSize()) i = 1;
-					if(c > Board.getInstance().getColumnUpperbond()) c = Board.getInstance().getColumnLowerbond();
+					if(i > board.getBoardSize()) i = 1;
+					if(c > board.getColumnUpperbond()) c = board.getColumnLowerbond();
 				}
 				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 
@@ -481,21 +568,24 @@ public class Queen extends Piece{
 				int counter = 1;
 
 				do {
-					if(boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece() != null) {
+
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) return true;
 						if(suspectedToBlock != null) return true;
 						else {
-							suspectedToBlock = boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece();
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+
 						}
 					}else {
 						if(suspectedToBlock != null) {
 							suspectedToBlock = null;						}
 					}
-					i++;
-					c++;
+					i--;
+					c--;
 					counter++;
 
-					if(i == 1) i = Board.getInstance().getBoardSize();
-					if(c > Board.getInstance().getColumnLowerbond()) c = Board.getInstance().getColumnUpperbond();
+					if(i < 1) i = board.getBoardSize();
+					if(c < board.getColumnLowerbond()) c = board.getColumnUpperbond();
 				}
 				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 
@@ -508,22 +598,25 @@ public class Queen extends Piece{
 				int counter = 1;
 
 				do {
-					if(boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece() != null) {
+
+					if(boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece() != null) {
+						if((boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece().equals(this)) return true;
 						if(suspectedToBlock != null) return true;
 						else {
-							suspectedToBlock = boardMap.get(i).get(board.getColumnUpperbond() - c).getPiece();
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerbond()).getPiece();
+
 						}
 					}else {
 						if(suspectedToBlock != null) {
 							suspectedToBlock = null;
 						}
 					}
-					i++;
+					i--;
 					c++;
 					counter++;
 
-					if(i == 1) i = Board.getInstance().getBoardSize();
-					if(c > Board.getInstance().getColumnUpperbond()) c = Board.getInstance().getColumnLowerbond();
+					if(i < 1) i = board.getBoardSize();
+					if(c > board.getColumnUpperbond()) c = board.getColumnLowerbond();
 				}
 				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 
