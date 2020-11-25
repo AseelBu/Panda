@@ -6,6 +6,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Random;
 
 import Utils.Directions;
@@ -37,11 +38,11 @@ public class Board {
 
 	//Get the only object available
 	public static Board getInstance(){
-        if (instance == null) 
-        { 
-        	instance = new Board(); 
-        } 
-        return instance; 
+		if (instance == null) 
+		{ 
+			instance = new Board(); 
+		} 
+		return instance; 
 	}
 
 
@@ -81,8 +82,8 @@ public class Board {
 		}
 		return allTiles;
 	}
-	
-	
+
+
 
 	/**
 	 * Given row returns all the tiles in specified row
@@ -222,8 +223,13 @@ public class Board {
 			return false;
 		}
 	}
-	
-	//add color to board tile
+
+
+	/**
+	 * add color to board tile
+	 * @param tile
+	 * @param color
+	 */
 	public void addColorToBoardTile(Tile tilee,SeconderyTileColor color) {
 		Location tLoc =tilee.getLocation();
 
@@ -256,20 +262,20 @@ public class Board {
 			return false;
 		}
 	}
-	//TODO 
+	//TODO fix queen handling to return true false and remove the piece burning
 	/**
 	 * checks if the piece can move to targetLocation depending on all pieces locations on board
 	 * @param piece
 	 * @param targetLocation
 	 * @return true if it's legal to move the piece ,otherwise false
 	 */
-	public Boolean canPieceMove(Piece piece, Location targetLocation, Directions direction) {
+	public boolean canPieceMove(Piece piece, Location targetLocation, Directions direction) {
 		// is tile black location
 		Tile targetTile=null;
 		try {
 			targetTile = getTileInLocation(targetLocation);
 			if (targetTile.getColor1()!=PrimaryColor.BLACK) {
-				System.out.println("can't move to this "+targetLocation+", you can move only on black tiles! ");
+				System.out.println("piece can't move to this "+targetLocation+", you can move only on black tiles! ");
 				return false;
 			}
 		} catch (Exception e) {
@@ -280,27 +286,57 @@ public class Board {
 
 		// does tile contain another piece
 		if(targetTile.getPiece() != null) {
-			System.out.println("can't move to this "+targetLocation+", it contains another Piece!");
+			System.out.println("piece can't move to this "+targetLocation+", it contains another Piece!");
 			return false;
 		}
 		if(piece instanceof Soldier) {
 
-			//TODO if its moving in 2 make sure:
-			//there is a piece we are eating by moving like that
-			//NOT DONE
-			piece.getLocation().relativeLocationTo(targetLocation);
-			piece.getEdiblePieces();
+			int steps = piece.getLocation().getRelativeNumberOfSteps(targetLocation);
+			Piece ediblePiece = piece.getEdiblePieceByDirection( direction);
+			// if its moving in 2s make sure there is a piece we are eating by moving like that
+			if(direction == Directions.UP_LEFT || direction == Directions.UP_RIGHT) {
+				if(steps==2) {
+					//if no piece to eat
+					if(ediblePiece == null) {
+						System.out.println("soldier can't move 2 steps if you are not eating another piece");
+						return false;
+					}
+				}
+				else if (steps!=1) {
+					System.out.println("soldier can only move 2 steps if you are eating ,and 1 step if you are not");
+					return false;
+				}
 
-			// TODO if it's moving backwards it's because it's eating for second time
-
-
-
-
+			}// if it's moving backwards it's because it's eating for second time
+			else if( direction == Directions.DOWN_LEFT || direction == Directions.DOWN_RIGHT  ) {
+				if(steps !=2) {
+					System.out.println("soldier can't move backwards unless you are moving 2 steps while eating in sequence");
+					return false;
+				}//if 2 steps
+				else {
+					int eatingCntr =piece.getEatingCntr();
+					if (eatingCntr<1) {
+						System.out.println("soldier can't move backwards unless you are eating for the second time");
+						return false;
+					}//if in  eating sequence
+					else {
+						//if there is nothing to eat while moving in 2
+						if(ediblePiece == null) {
+							System.out.println("soldier can't move 2 steps if you are not eating another piece");
+							return false;
+						}
+					}
+				}
+			}
+			//not moving diagonally
+			else {
+				return false;
+			}
 		}
 		else if (piece instanceof Queen) {
 			if(((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) {
 				if(!((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) {
-					Piece eaten = ((Queen) piece).getEdiblePieceByDirections(targetLocation, direction);
+					Piece eaten = ((Queen) piece).getEdiblePieceByDirection(targetLocation, direction);
 					removePieceFromBoardTile(eaten);
 				}
 			}
@@ -310,7 +346,7 @@ public class Board {
 
 	}
 
-	//	//TODO
+	//	
 	//	private void isEdiableBy(Piece currentPiece, Piece targetPiece) {
 	//		// TODO Auto-generated method stub
 	//		Location currLocation = currentPiece.getLocation();
@@ -420,38 +456,79 @@ public class Board {
 
 	}
 
-	//TODO
+	//TODO handle queen missing
 	/**
-	 * gets all possible moves for certain color (player)
+	 * gets all possible moves (tiles to move to) for certain color (player)
 	 * 
 	 * @param PrimaryColor color-BLACK/WHITE
 	 * @return ArrayList<Tile> of legal moves for the color
 	 */
-	public ArrayList<Tile> getLegalMoves(PrimaryColor color) {
+	public ArrayList<Tile> getAllLegalMoves(PrimaryColor playerColor) {
 
+		final Directions[] upDirections = {Directions.UP_LEFT,Directions.UP_RIGHT};
+		final Directions[] downDirections = {Directions.DOWN_LEFT,Directions.DOWN_RIGHT};
 
-		ArrayList<Tile> possibleTiles= new ArrayList<Tile>();
+		LinkedHashSet<Tile> possibleTileSet = new LinkedHashSet<Tile>();
 
-		ArrayList<Tile> emptyTiles = getEmptyTiles();
-		ArrayList<Piece> colorPieces = getColorPieces(color);
+		ArrayList<Piece> colorPieces = getColorPieces(playerColor);
 
-		//TODO handle queen
-
+		for(Piece p : colorPieces) {
+			if(p instanceof Soldier) {
+				try {
+					//adding tiles without eating
+					Location pieceLocal = p.getLocation();
+					for (Directions dir :upDirections) {
+						Location tempLoc = pieceLocal.addToLocationDiagonally(dir, 1);
+						if(tempLoc != null) {
+							Tile locTile = getTileInLocation(tempLoc);
+							if( locTile.isEmpty()) {
+								possibleTileSet.add(locTile);
+							}
+						}
+					}
+					//adding tiles with eating
+					for (Directions dir :upDirections) {
+						Piece ediblePiece=p.getEdiblePieceByDirection(dir);
+						if(ediblePiece != null) {
+							Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
+							if(afterEatLoc != null) {
+								possibleTileSet.add(getTileInLocation(afterEatLoc));
+							}
+						}
+					}
+					if(p.getEatingCntr()>=1) {
+						for (Directions dir :downDirections) {
+							Piece ediblePiece=p.getEdiblePieceByDirection(dir);
+							if(ediblePiece != null) {
+								Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
+								if(afterEatLoc != null) {
+									possibleTileSet.add(getTileInLocation(afterEatLoc));
+								}
+							}
+						}
+					}
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			//TODO handle queen
+		}
+		ArrayList<Tile> possibleTiles= new ArrayList<Tile>(possibleTileSet);
 		return possibleTiles;
-
 	}
 
-	//TODO
+	
 	/**
-	 * gets all the pieces that can be eaten by specific player
+	 * gets all the pieces that can be eaten by specific player color
 	 * @param player color PrimaryColor BLACK,WHITE
 	 * @return ArrayList<Piece> that are edible for color player
 	 */
-	public ArrayList<Piece> getAllEdiblePiecesForColor(PrimaryColor playerColor){
+	public ArrayList<Piece> getAllEdiblePiecesByColor(PrimaryColor playerColor){
 		ArrayList<Piece> ediblePieces= new ArrayList<Piece>();
 		ArrayList<Piece> colorPieces=getColorPieces(playerColor);
 
-		for (Piece p : pieces) {
+		for (Piece p : colorPieces) {
 			ediblePieces.addAll(p.getEdiblePieces());
 		}
 
@@ -472,7 +549,7 @@ public class Board {
 		result= this.pieces.remove(piece);
 
 		//remove from board tile
-		Location pieceLocation = piece.getLocation();
+
 		result=result && removePieceFromBoardTile(piece);
 
 		if (result) System.out.println(piece+" is burnt !!");
@@ -482,13 +559,39 @@ public class Board {
 
 	}
 
-	//TODO
-	//points
-	public void eat() {
-		// TODO Auto-generated method stub
-		//TODO handle soldier
-		
-		//TODO handle queen
+	
+	/**
+	 * 
+	 * @param pieceEatig
+	 * @param targetPiece
+	 * @return Piece eaten if eating was successful ,null otherwise
+	 */
+	//	IMPORTANT NOTE !! 
+	//	eating is going to be called by move in piece(soldier/queen) so don't change pieceEatig location after eating!!
+	public Piece eat(Piece pieceEatig, Piece targetPiece) {
+		if(pieceEatig == null || targetPiece == null) {
+			System.out.println("null arguments in Board.eat method call");
+			return null;
+		}
+		Turn turn =Turn.getInstance();
+		Player currPlayer=turn.getCurrentPlayer();
+		if(pieceEatig.getColor() != currPlayer.getColor()) {
+			System.err.println("eating piece must be the same color as current player playing");
+			return null;
+		}
+
+		if(pieceEatig.canEatPiece(targetPiece)) {
+			if(burn(targetPiece)) {
+				pieceEatig.incEatingCntr(1);
+				currPlayer.AddScore(100);
+
+			}else {
+				return null;
+			}
+
+		}
+
+		return null;
 	}
 
 
@@ -499,22 +602,31 @@ public class Board {
 	 * @return true if there is no more eating left for color player,otherwise false
 	 */
 	public boolean isAllPiecesEaten(PrimaryColor playerColor) {
-		// TODO Auto-generated method stub
-		ArrayList<Piece> ediblePieces= getAllEdiblePiecesForColor(playerColor);
+		
+		ArrayList<Piece> ediblePieces= getAllEdiblePiecesByColor(playerColor);
 		if(ediblePieces.isEmpty()) {
 			return true;
 		}
 		return false;
 	}
 
-	//TODO
-	public boolean isPlayerStuck() {
-		// TODO Auto-generated method stub
+
+	/**
+	 * checks if player with playerColor has more possible moves on board
+	 * 
+	 * @param playerColor
+	 * @return true if player is stuck, false otherwise
+	 */
+	public boolean isPlayerStuck(PrimaryColor playerColor) {
+	
+		if(getAllLegalMoves(playerColor).isEmpty()) {
+			return true;
+		}
 		return false;
 
 	}
 
-	//TODO touch ups for better view
+	
 	public void printBoard() {
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles
@@ -534,7 +646,7 @@ public class Board {
 				}else {
 					System.out.print("   |");
 				}
-				
+
 				if(j==BOARD_SIZE-1) {
 					System.out.print(" " + i); 
 				}
@@ -544,7 +656,7 @@ public class Board {
 
 		System.out.println("   ___ ___ ___ ___ ___ ___ ___ ___");
 		System.out.println("    A | B | C | D | E | F | G | H");
-		
+
 	}
 
 
