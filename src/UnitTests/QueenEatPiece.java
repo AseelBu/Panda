@@ -42,7 +42,7 @@ public class QueenEatPiece {
 			e.printStackTrace();
 		}
 		Queen queen2 = (Queen) Game.getInstance().getBoard().getTilesMap().get(queen.getLocation().getRow()).get(queen.getLocation().getColumn() - 'A').getPiece();
-		Piece p = queen2.getEdiblePieceByDirections(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A').getLocation(),DIR);
+		Piece p = queen2.getEdiblePieceByDirection(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A').getLocation(),DIR);
 		assertEquals("F6 To be Eaten", "F6",p.getLocation().getColumn() + "" + p.getLocation().getRow());
 
 	}
