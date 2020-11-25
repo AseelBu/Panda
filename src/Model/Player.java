@@ -9,9 +9,9 @@ import Utils.PrimaryColor;
  */
 public class Player {
 	
-	public String Nickname;
-	public PrimaryColor Color;
-	public int currentScore;
+	private String Nickname;
+	private PrimaryColor Color;
+	private int currentScore;
 	 private static Player instances[] = new Player[2];
      private static Boolean initiated = false;
 	
