@@ -11,8 +11,8 @@ public abstract class  Piece {
 	private PrimaryColor color;
 	private Location location;
 	private int eatingCntr=0;
-	
-	
+
+
 	/**
 	 * constructor 
 	 * 
@@ -25,8 +25,8 @@ public abstract class  Piece {
 		this.color = color;
 		this.location = location;
 	}
-	
-	
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -48,7 +48,7 @@ public abstract class  Piece {
 			return false;
 		return true;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -56,7 +56,7 @@ public abstract class  Piece {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public PrimaryColor getColor() {
 		return color;
 	}
@@ -69,7 +69,7 @@ public abstract class  Piece {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
+
 	public int getEatingCntr() {
 		return eatingCntr;
 	}
@@ -79,23 +79,64 @@ public abstract class  Piece {
 		this.eatingCntr = eatingCntr;
 	}
 
-	
+	/**
+	 * increments eatingCntr field by amount
+	 * @param amount wanted to increment by
+	 * @return new EatingCntr value
+	 */
+	public int incEatingCntr(int amount) {
+		int updatedCntr=this.eatingCntr+amount;
+		this.eatingCntr=updatedCntr;
+		return updatedCntr;
+	}
+
+	/**
+	 * resets eatingCntr field for piece
+	 */
+	public void resetEatingCntr() {
+		
+	}
 
 	public abstract void move(Tile targetTile);
+	/**
+	 * checks if moving to target location is legal by specific piece moving rules (without taking into consideration board status)
+	 * 
+	 * @param targetLocation
+	 * @return boolean- true if move legal by piece moving rules,false otherwise
+	 */
 	public abstract boolean isMoveLegal(Location targetLocation);
+	/**
+	 * gets all edible pieces around this piece
+	 * @param piece that we want to check
+	 * @return list of pieces that are edible for specific piece, null if piece can't eat
+	 */
 	public abstract ArrayList<Piece> getEdiblePieces();
-	
-	
-	
-	
-	
+	/**
+	 * gets the piece that is going be eaten by soldier if it moves to direction
+	 * 
+	 * @param direction
+	 * @return Piece that is going to be eaten by moving in direction, null if no piece was found
+	 */
+	public abstract Piece getEdiblePieceByDirection( Directions direction);
+
+	/**
+	 * checks if this piece can eat targetPiece legally
+	 * @param targetPiece
+	 * @return true if this piece can eat targetPiece, false otherwise
+	 */
+	public abstract boolean canEatPiece(Piece targetPiece);
+
+
+
+
+
 
 	@Override
 	public String toString() {
 		return "Piece [color=" + color + ", location=" + location + "]";
 	}
 
-	
-	
+
+
 
 }
