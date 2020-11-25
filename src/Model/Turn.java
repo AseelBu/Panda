@@ -68,7 +68,7 @@ public class Turn {
 	public void ShowGreenAfter30()
 	{
 		 Random rand = new Random(); 
-		 ArrayList<Tile> t=Board.getInstance().getLegalMoves(currentPlayer.getColor());
+		 ArrayList<Tile> t=Board.getInstance().getAllLegalMoves(currentPlayer.getColor());
 		//	t.get(rand.nextInt(t.size())).setColor2(SeconderyTileColor.GREEN);
 			Board.getInstance().addColorToBoardTile(t.get(rand.nextInt(t.size())),SeconderyTileColor.GREEN);
 	}
@@ -76,7 +76,7 @@ public class Turn {
 	//An orange tile will appear after 90 seconds
 	public void  ShowOrangeAfter90()
 	{
-			 ArrayList<Tile> t=Board.getInstance().getLegalMoves(currentPlayer.getColor());
+			 ArrayList<Tile> t=Board.getInstance().getAllLegalMoves(currentPlayer.getColor());
 			 for(Tile e:t)
 			 {
 				 Board.getInstance().addColorToBoardTile(e,SeconderyTileColor.ORANGE);
@@ -149,7 +149,7 @@ public class Turn {
 		 int soldierCount=0,queenCount=0;
 		if( currentPlayer.getColor().equals(PrimaryColor.BLACK))
 		{
-		 ArrayList<Piece> piece1=Board.getInstance().getAllEdiblePiecesForColor(currentPlayer.getColor());
+		 ArrayList<Piece> piece1=Board.getInstance().getAllEdiblePiecesByColor(currentPlayer.getColor());
 		 for(Piece p:piece1)
 		 {
 			 if(p instanceof Soldier)
@@ -164,7 +164,7 @@ public class Turn {
 		}
 		else
 		{
-			 ArrayList<Piece> piece2=Board.getInstance().getAllEdiblePiecesForColor(currentPlayer.getColor());
+			 ArrayList<Piece> piece2=Board.getInstance().getAllEdiblePiecesByColor(currentPlayer.getColor());
 			 for(Piece t:piece2)
 			 {
 			 if(t instanceof Soldier)
