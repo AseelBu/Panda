@@ -30,6 +30,7 @@ public class Game {
 	 */
 	private Game() {
 		super();
+		
 		timer = new GameTimer();
 	}
 	/**
@@ -83,7 +84,7 @@ public class Game {
 			throw new Exception("Invalid Game Initiation");
 		}
 		setPlayers(players);
-		board = Board.getInstance();
+		this.board = Board.getInstance();
 		for(Piece piece : pieces)
 			board.addPiece(piece);
 		timer.startTimer();
