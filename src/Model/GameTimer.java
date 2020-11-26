@@ -36,6 +36,7 @@ public class GameTimer {
 	public void startTimer() {
 		setStartTime(System.currentTimeMillis());
 		setAnonStartTime(System.currentTimeMillis());
+		setPauseTime(-1);
 	}
 	
 	/**

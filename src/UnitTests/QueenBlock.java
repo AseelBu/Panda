@@ -24,7 +24,15 @@ public class QueenBlock {
 	
 	@Test
 	public void test() {
-		Player[] players = new Player[] {new Player(),new Player()};
+		Player player1 = Player.getInstance(0);
+		Player player2 = Player.getInstance(1);
+		player1.setNickname("Jack");
+		player2.setNickname("Max");
+
+		Player[] players = new Player[] {
+								player1,
+								player2
+								};
 		ArrayList<Piece> pieces = new ArrayList<>();
 		Piece queen = new Queen(1, PrimaryColor.WHITE, new Location(2,'B'));
 		Piece soldier = new Soldier(2, PrimaryColor.WHITE, new Location(6,'F'));

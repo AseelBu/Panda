@@ -14,14 +14,14 @@ public class Player implements Serializable {
 	private String Nickname;
 	private PrimaryColor Color;
 	private int currentScore;
-	 private static Player instances[] = new Player[2];
-     private static Boolean initiated = false;
-	
-	//Constructor
+	private static Player instances[] = new Player[2];
+    private static Boolean initiated = false;
 
-	public Player() {
-		
-	}
+    private Player(PrimaryColor color) {
+    	setColor(color);
+    	currentScore = 0;
+    }
+	
 	public String getNickname() {
 		return Nickname;
 	}
@@ -73,11 +73,16 @@ public class Player implements Serializable {
 	
 	public static Player getInstance(int index)
     {
+		if(index > 1 ) return null;
+		
         tryInitiate();
 
         if(instances[index] == null)
         {
-            instances[index] = new Player();
+            if(index == 0)
+                instances[index] = new Player(PrimaryColor.WHITE);
+            else
+                instances[index] = new Player(PrimaryColor.BLACK);
         }
 
         return instances[index];

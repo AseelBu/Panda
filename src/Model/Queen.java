@@ -648,4 +648,10 @@ public class Queen extends Piece{
 		return "Q-"+this.getColor();
 	}
 
+	@Override
+	public boolean canEatPiece(Piece targetPiece) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

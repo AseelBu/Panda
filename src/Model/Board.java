@@ -658,6 +658,24 @@ public class Board {
 	}
 
 	
+	public boolean movePiece(Location from, Location to, Directions direction) {
+		Piece piece = null;
+		Tile fromTile = null, toTile = null;
+		try {
+			fromTile = getTileInLocation(from);
+			toTile = getTileInLocation(to);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		piece = fromTile.getPiece();
+		if(piece == null) return false;
+		if(Game.getInstance().getTurn().getCurrentPlayer().getColor() != piece.getColor()) return false;
+		
+		piece.move(toTile, direction);
+		
+		return true;
+	}
+	
 	public void printBoard() {
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles

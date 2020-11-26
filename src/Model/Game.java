@@ -67,7 +67,7 @@ public class Game {
 	 * Start a game
 	 * @throws Exception 
 	 */
-	public void startGame(Player[] players, ArrayList<Piece> pieces) throws Exception {
+	public void startGame(Player[] players, ArrayList<Piece> pieces, char cturn) throws Exception {
 		if(isGameRunning()) {
 			System.err.println("A Game has already started");
 			return;
@@ -90,8 +90,12 @@ public class Game {
 
 		for(Piece piece : pieces)
 			board.addPiece(piece);
+		if(cturn == 'W')
+			turn = new Turn(Player.getInstance(0));
+		else
+			turn = new Turn(Player.getInstance(1));
 		timer.startTimer();
-		//turn = new Turn(players[0]); Turn class constructor should have only 1 parameter (Player)
+		turn.getTimer().startTimer();
 		System.out.println("Game has started");
 	}
 
@@ -131,8 +135,9 @@ public class Game {
 		for(Piece piece : pieces)
 			board.addPiece(piece);
 
+		turn = new Turn(Player.getInstance(0));
 		timer.startTimer();
-		//turn = new Turn(players[0]); Turn class constructor should have only 1 parameter (Player)
+		turn.getTimer().startTimer();
 		System.out.println("Game has started");
 	}
 
@@ -231,8 +236,13 @@ public class Game {
 	 * switching turns between players
 	 */
 	public void switchTurn(){
-
+		turn.finishTurn();
+		int index = (turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? 1 : 0;
+		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname());
+		this.turn = new Turn(Player.getInstance(index));
+		turn.getTimer().startTimer();
 	}
+	
 	/**
 	 * 
 	 * @return true if the game is running, otherwise false

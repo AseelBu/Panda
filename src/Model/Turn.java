@@ -19,11 +19,11 @@ public class Turn {
 
 	
 	//constructor
-	public Turn(GameTimer timer, int moveCounter, Piece lastPieceMoved, Player currentPlayer) {
+	public Turn(Player currentPlayer) {
 		super();
-		this.timer = timer;
-		MoveCounter = moveCounter;
-		LastPieceMoved = lastPieceMoved;
+		this.timer = new GameTimer();
+		MoveCounter = 0;
+		LastPieceMoved = null;
 		this.currentPlayer = currentPlayer;
 	}
 	
@@ -186,5 +186,14 @@ public class Turn {
 	 {
 		 timer.pauseTimer();
 	 }
-	
+	 public void unpauseTurn()
+	 {
+		 timer.unpauseTimer();
+	 }
+	 public void finishTurn()
+	 {
+		timer.stopTimer();
+		CalculateTimeScore();
+		LastPieceMoved.resetEatingCntr();
+	 }
 }

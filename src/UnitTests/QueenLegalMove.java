@@ -25,11 +25,19 @@ public class QueenLegalMove {
 	
 	@Test
 	public void test() {
-		Player[] players = new Player[] {new Player(),new Player()};
+		Player player1 = Player.getInstance(0);
+		Player player2 = Player.getInstance(1);
+		player1.setNickname("Jack");
+		player2.setNickname("Max");
+
+		Player[] players = new Player[] {
+								player1,
+								player2
+								};
 		ArrayList<Piece> pieces = new ArrayList<>();
 		Piece queen = new Queen(1, PrimaryColor.WHITE, new Location(2,'B'));
-		Piece soldier = new Soldier(2, PrimaryColor.BLACK, new Location(6,'F'));
-		Piece soldier2 = new Soldier(3, PrimaryColor.BLACK, new Location(5,'E'));
+		Piece soldier = new Soldier(2, PrimaryColor.BLACK, new Location(5,'G'));
+		Piece soldier2 = new Soldier(3, PrimaryColor.BLACK, new Location(7,'G'));
 		
 		pieces.add(queen);
 		pieces.add(soldier);
@@ -43,6 +51,8 @@ public class QueenLegalMove {
 			e.printStackTrace();
 		}
 		Queen queen2 = (Queen) Game.getInstance().getBoard().getTilesMap().get(queen.getLocation().getRow()).get(queen.getLocation().getColumn() - 'A').getPiece();
+//		queen2.move(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A'),DIR);
+//		Game.getInstance().getBoard().printBoard();
 
 		assertTrue("Can Move", queen2.isMoveLegalByDirection(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A').getLocation(),DIR));
 

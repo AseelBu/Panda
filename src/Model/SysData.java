@@ -702,7 +702,7 @@ public class SysData {
 		}
 		
 		
-		String path = "saved_games/game_" + Calendar.getInstance().getTime().toString();
+		String path = "saved_games/game_.txt";
 		
 		
 		 try {

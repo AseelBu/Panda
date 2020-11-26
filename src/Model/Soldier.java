@@ -38,7 +38,7 @@ public class Soldier extends Piece{
 		Turn turn = Game.getInstance().getTurn();
 		Location targetLocation = targetTile.getLocation();
 		if(this.isMoveLegal(targetLocation)) {
-			if(Board.getInstance().canPieceMove(this, targetLocation, null)) {
+			if(Board.getInstance().canPieceMove(this, targetLocation, direction)) {
 				Piece toEat = getEdiblePieceByDirection(targetTile.getLocation(), direction);
 				if(toEat != null)
 				{
