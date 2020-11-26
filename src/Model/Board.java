@@ -327,7 +327,8 @@ public class Board {
 			int steps = piece.getLocation().getRelativeNumberOfSteps(targetLocation);
 			Piece ediblePiece = piece.getEdiblePieceByDirection( direction);
 			// if its moving in 2s make sure there is a piece we are eating by moving like that
-			if(direction == Directions.UP_LEFT || direction == Directions.UP_RIGHT) {
+			if(((piece.getColor()==PrimaryColor.WHITE) && (direction == Directions.UP_LEFT || direction == Directions.UP_RIGHT)) 
+				|| ((piece.getColor()==PrimaryColor.BLACK) && (direction == Directions.DOWN_LEFT|| direction == Directions.DOWN_RIGHT))){
 				if(steps==2) {
 					//if no piece to eat
 					if(ediblePiece == null) {
@@ -341,7 +342,8 @@ public class Board {
 				}
 
 			}// if it's moving backwards it's because it's eating for second time
-			else if( direction == Directions.DOWN_LEFT || direction == Directions.DOWN_RIGHT  ) {
+			else if(((piece.getColor()==PrimaryColor.BLACK) && (direction == Directions.UP_LEFT || direction == Directions.UP_RIGHT)) 
+					|| ((piece.getColor()==PrimaryColor.WHITE) && (direction == Directions.DOWN_LEFT|| direction == Directions.DOWN_RIGHT))  ) {
 				if(steps !=2) {
 					System.out.println("soldier can't move backwards unless you are moving 2 steps while eating in sequence");
 					return false;
