@@ -66,8 +66,15 @@ public abstract class  Piece {
 	public Location getLocation() {
 		return location;
 	}
-	public void setLocation(Location location) {
+	
+	public void setLocation(Location location) throws Exception {
+		Board board=Board.getInstance();
+		Tile tile = board.getTileInLocation(location);
+		if(tile.getColor1()==PrimaryColor.BLACK) {
 		this.location = location;
+		}else {
+			throw new Exception("you can't locate piece on white tile ");
+		}
 	}
 
 	public int getEatingCntr() {
@@ -97,7 +104,14 @@ public abstract class  Piece {
 		
 	}
 
-	public abstract void move(Tile targetTile);
+	/**
+	 * moves location from current location to targetLocation. if the move includes eating ,it will make the eating
+	 * @param targetTile to move to
+	 * @param direction of movement
+	 * @return true if move was done,false if something prevented the move to finish
+	 */
+	public abstract boolean move(Tile targetTile,Directions direction);
+	
 	/**
 	 * checks if moving to target location is legal by specific piece moving rules (without taking into consideration board status)
 	 * 
@@ -105,12 +119,14 @@ public abstract class  Piece {
 	 * @return boolean- true if move legal by piece moving rules,false otherwise
 	 */
 	public abstract boolean isMoveLegal(Location targetLocation);
+	
 	/**
 	 * gets all edible pieces around this piece
 	 * @param piece that we want to check
 	 * @return list of pieces that are edible for specific piece, null if piece can't eat
 	 */
 	public abstract ArrayList<Piece> getEdiblePieces();
+	
 	/**
 	 * gets the piece that is going be eaten by soldier if it moves to direction
 	 * 
@@ -118,6 +134,14 @@ public abstract class  Piece {
 	 * @return Piece that is going to be eaten by moving in direction, null if no piece was found
 	 */
 	public abstract Piece getEdiblePieceByDirection( Directions direction);
+	
+	/**
+	 * 
+	 * @param targetLocation
+	 * @param direction
+	 * @return Piece edible piece
+	 */
+	public abstract Piece getEdiblePieceByDirection(Location targetLocation, Directions direction) ;
 
 	/**
 	 * checks if this piece can eat targetPiece legally
