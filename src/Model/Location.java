@@ -312,6 +312,15 @@ public class Location {
 //		return inBoundries;
 //	}
 
+	public boolean isEndOfBoard(){
+		Board board = Board.getInstance();
+		if(this.row == board.getBoardSize()) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return "Location :("+row+", "+column+")";

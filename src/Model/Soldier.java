@@ -46,10 +46,20 @@ public class Soldier extends Piece{
 				}
 				board.burn(this);
 				try {
+					//islocation end of board? if yes turn to queen
+					if(targetLocation.isEndOfBoard()) {
+						Queen newQueen= new Queen(getId(), getColor(), targetLocation);
+						board.addPiece(newQueen);
+						turn.setLastPieceMoved(newQueen);
+						return true;
+					}else {
 					this.setLocation(targetLocation);
 					board.addPiece(this);
 					turn.setLastPieceMoved(this);
 					return true;
+					}
+	
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
