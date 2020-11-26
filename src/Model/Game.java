@@ -260,7 +260,7 @@ public class Game {
 	 * switching turns between players
 	 */
 	public void switchTurn(){
-		System.out.println("\r\n********************************************\r\n");
+		System.out.println("\r\n********************************************");
 		System.out.println(Player.getInstance(0).getNickname() + " Score: " + Player.getInstance(0).getCurrentScore());
 		System.out.println(Player.getInstance(1).getNickname() + " Score: " + Player.getInstance(1).getCurrentScore());
 		turn.finishTurn();
@@ -269,11 +269,11 @@ public class Game {
 			finishGame();
 			return;
 		}
-		System.out.println("\r\n********************************************\r\n");
 		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname() + " | Color: " + Player.getInstance(index).getColor());
 		this.turn = new Turn(Player.getInstance(index));
 		turn.getTimer().startTimer();
-		System.out.println("\r\n********************************************\r\n");
+		System.out.println("********************************************\r\n");
+
 	}
 	
 	/**

@@ -56,6 +56,7 @@ public class Soldier extends Piece{
 					}else {
 						this.setLocation(targetLocation);
 						board.addPiece(this);
+						
 						turn.setLastPieceMoved(this);
 						return true;
 					}

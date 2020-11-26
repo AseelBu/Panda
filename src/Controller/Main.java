@@ -49,21 +49,64 @@ public class Main {
 				game.getBoard().printBoard();
 				
 				game.getBoard().movePiece(new Location(3, 'E'), new Location(4, 'F'), Directions.UP_RIGHT);
-				
 				game.getBoard().printBoard();
-				game.switchTurn();
 				
 				game.getBoard().movePiece(new Location(6, 'D'), new Location(5, 'E'), Directions.DOWN_RIGHT);
 				game.getBoard().printBoard();
-				game.switchTurn();
 
 				game.getBoard().movePiece(new Location(4, 'F'), new Location(6, 'D'), Directions.UP_LEFT);
 				game.getBoard().printBoard();
-				game.switchTurn();
 				
 				game.getBoard().movePiece(new Location(7, 'E'), new Location(5, 'C'), Directions.DOWN_LEFT);
 				game.getBoard().printBoard();
-				game.switchTurn();
+				
+				game.getBoard().movePiece(new Location(3, 'A'), new Location(5, 'B'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(2, 'F'), new Location(3, 'E'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(8, 'F'), new Location(7, 'E'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(3, 'C'), new Location(4, 'D'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(7, 'E'), new Location(6, 'D'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(2, 'B'), new Location(3, 'C'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(8, 'D'), new Location(7, 'E'), Directions.DOWN_RIGHT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(3, 'G'), new Location(4, 'H'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(6, 'B'), new Location(5, 'A'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(4, 'D'), new Location(6, 'B'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
+				
+				game.getBoard().movePiece(new Location(6, 'D'), new Location(5, 'C'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(6, 'B'), new Location(8, 'D'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(6, 'F'), new Location(5, 'E'), Directions.DOWN_RIGHT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(4, 'H'), new Location(5, 'G'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(6, 'H'), new Location(4, 'F'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(8, 'D'), new Location(2, 'F'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+//				game.getBoard().movePiece(new Location(6, 'B'), new Location(8, 'D'), Directions.UP_RIGHT);
+//				game.getBoard().printBoard();
+				
+				//Last move has to be for white piece rather than black
+				//eat several pieces in a row
 				break;
 			}
 			case 2:

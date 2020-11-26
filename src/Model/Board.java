@@ -597,12 +597,18 @@ public class Board {
 	 * @param piece burning piece
 	 * @return true if removed successfully from board, false otherwise
 	 */
-	public boolean burn(Piece piece) {
+	public boolean burn(Piece piece, boolean isEaten) {
 		if(piece == null) return false;
 
 		boolean result =removePiece(piece);
 
-		if (result) System.out.println(piece+" is burnt !!");
+		if (result) {
+			if(isEaten) {
+				System.out.println(piece+" has been eaten !!");
+			}else {
+				System.out.println(piece+" is burnt !!");
+			}
+		}
 		else System.out.println("Error: wasn't able to burn piece "+ piece);
 
 		return result;
@@ -631,7 +637,7 @@ public class Board {
 		}
 
 		if(pieceEatig.canEatPiece(targetPiece)) {
-			if(burn(targetPiece)) {
+			if(burn(targetPiece, true)) {
 				pieceEatig.incEatingCntr(1);
 				currPlayer.AddScore(100);
 
@@ -640,6 +646,7 @@ public class Board {
 			}
 
 		}
+		pieceEatig.incEatingCntr(1);
 
 		return null;
 	}
@@ -705,6 +712,7 @@ public class Board {
 		if(piece.move(toTile, direction)) {
 			if(piece instanceof Queen) System.out.println("Queen has been moved!");
 			else System.out.println("Soldier has been moved!");
+			Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
 		}
 		
 		return true;

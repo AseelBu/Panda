@@ -51,20 +51,24 @@ public class Queen extends Piece{
 				Piece toEat = getEdiblePieceByDirection(targetTile.getLocation(), direction);
 				if(toEat != null)
 				{
-//					board.eat(this, toEat);
-					if(toEat instanceof Queen) {
-						System.out.println("You ate a Queen, Good Job! +100 Points");						
-					}else {
-						System.out.println("You ate a Soldier, Good Job! +100 Points");						
-					}
-					board.getTilesMap().get(toEat.getLocation().getRow()).get(toEat.getLocation().getColumn() - board.getColumnLowerBound()).setPiece(null);
-					board.getPieces().remove(toEat);
+					board.eat(this, toEat);
+//					if(toEat instanceof Queen) {
+//						System.out.println("You ate a Queen, Good Job! +100 Points");						
+//					}else {
+//						System.out.println("You ate a Soldier, Good Job! +100 Points");						
+//					}
+//					board.getTilesMap().get(toEat.getLocation().getRow()).get(toEat.getLocation().getColumn() - board.getColumnLowerBound()).setPiece(null);
+//					board.getPieces().remove(toEat);
 				}
 				//board.burn(this);
-				board.getTilesMap().get(this.getLocation().getRow()).get(this.getLocation().getColumn() - board.getColumnLowerBound()).setPiece(null);
-				targetTile.setPiece(this);
+				
+				board.removePiece(this);
+				
+//				board.getTilesMap().get(this.getLocation().getRow()).get(this.getLocation().getColumn() - board.getColumnLowerBound()).setPiece(null);
+//				targetTile.setPiece(this);
 				try {
 					this.setLocation(targetLocation);
+					board.addPiece(this);
 					turn.setLastPieceMoved(this);
 					return true;
 				} catch (Exception e) {
@@ -195,7 +199,6 @@ public class Queen extends Piece{
 		return pieces;
 	}
 	
-	//TODO check if 'H' needs to be fixed also
 	/**
 	 * 
 	 * @param direction
@@ -214,14 +217,14 @@ public class Queen extends Piece{
 				int c = getLocation().getColumn();
 	
 				do {
-					if(boardMap.get(i).get('H' - c).getPiece() != null) {
+					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
 						if(suspectedToAdd != null) break;
 						else {
-							suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
+							suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 						}
 					}else {
 						if(suspectedToAdd != null) {
-							return suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
+							return suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 						}
 					}
 					i++;
@@ -239,14 +242,14 @@ public class Queen extends Piece{
 				int c = getLocation().getColumn();
 	
 				do {
-					if(boardMap.get(i).get('H' - c).getPiece() != null) {
+					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
 						if(suspectedToAdd != null) break;
 						else {
-							suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
+							suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 						}
 					}else {
 						if(suspectedToAdd != null) {
-							return suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
+							return suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 
 						}
 					}
@@ -265,14 +268,14 @@ public class Queen extends Piece{
 				int c = getLocation().getColumn();
 	
 				do {
-					if(boardMap.get(i).get('H' - c).getPiece() != null) {
+					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
 						if(suspectedToAdd != null) break;
 						else {
-							suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
+							suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 						}
 					}else {
 						if(suspectedToAdd != null) {
-							return suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
+							return suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 						}
 					}
 					i--;
@@ -290,14 +293,14 @@ public class Queen extends Piece{
 				int c = getLocation().getColumn();
 	
 				do {
-					if(boardMap.get(i).get('H' - c).getPiece() != null) {
+					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
 						if(suspectedToAdd != null) break;
 						else {
-							suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
+							suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 						}
 					}else {
 						if(suspectedToAdd != null) {
-							return suspectedToAdd = boardMap.get(i).get('H' - c).getPiece();
+							return suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 						}
 					}
 					i--;
