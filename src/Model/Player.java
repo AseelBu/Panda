@@ -1,5 +1,7 @@
 package Model;
 
+import java.io.Serializable;
+
 import Utils.PrimaryColor;
 
 /**
@@ -7,7 +9,7 @@ import Utils.PrimaryColor;
  * @author Maryam
  *
  */
-public class Player {
+public class Player implements Serializable {
 	
 	private String Nickname;
 	private PrimaryColor Color;

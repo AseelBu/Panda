@@ -22,8 +22,8 @@ public class YellowTile extends Tile {
 		super(location, color1, color2, piece);
 
 		
-		Game game= Game.getInstance();
-		this.question = game.getAvailableRandomQuestion();
+		//Game game= Game.getInstance();
+		//this.question = game.getAvailableRandomQuestion();
 
 
 	}
@@ -36,13 +36,25 @@ public class YellowTile extends Tile {
 	public void setQuestionId(Question question) {
 		this.question = question;
 	}
+	
+	
+	
+	/**
+	 * Draws an available random question
+	 */
 
-
-	//	public void drawQuestion() {
-	//		// TODO Auto-generated method stub
-	//		SysData sysData= SysData.getInstance()
-	//;		int index = randomGenerator.nextInt(sysData);
-	//	}
+	public void drawQuestion() {
+		
+		Question k = Game.getInstance().getAvailableRandomQuestion();
+		this.setQuestionId(k);
+		
+	}
+	
+	/**
+	 * Checks if chosen answer is correct
+	 * @param answer chosen answer
+	 * @return correct/not correct
+	 */
 
 	public boolean isAnswerCorrect(Answer answer) {
 		// TODO Auto-generated method stub
