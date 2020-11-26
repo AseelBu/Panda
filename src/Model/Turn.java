@@ -126,16 +126,17 @@ public class Turn {
 //		
 //	}
 	
-	//Scoring calculation according to the time of the queue
+	//Scoring calculation according to the time of the turn
 	 public long CalculateTimeScore()
 	 {
 		 if(timer.getSeconds()>60)
 		 {
-			 return(currentPlayer.DeductScore(timer.getSeconds()));
+			 return(currentPlayer.DeductScore(timer.getSeconds()-60));
 		 }
 		 else
 		 {
-			 return(currentPlayer.AddScore(timer.getSeconds()));
+			 System.out.println(timer.getSeconds());
+			 return(currentPlayer.AddScore(60-timer.getSeconds()));
 		 }
 	 }
 	 

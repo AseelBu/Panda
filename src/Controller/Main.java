@@ -50,7 +50,7 @@ public class Main {
 				
 				game.getBoard().movePiece(new Location(3, 'E'), new Location(4, 'F'), Directions.UP_RIGHT);
 				game.getBoard().printBoard();
-				
+
 				game.getBoard().movePiece(new Location(6, 'D'), new Location(5, 'E'), Directions.DOWN_RIGHT);
 				game.getBoard().printBoard();
 
