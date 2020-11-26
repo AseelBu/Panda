@@ -44,7 +44,7 @@ public class Soldier extends Piece{
 				{
 					board.eat(this, toEat);
 				}
-				board.burn(this);
+				board.removePiece(this);
 				try {
 					//islocation end of board? if yes turn to queen
 					if(targetLocation.isEndOfBoard()) {
