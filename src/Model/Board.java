@@ -60,14 +60,36 @@ public class Board {
 		return BOARD_SIZE;
 	}
 
-	public char getColumnUpperbond(){
+	public char getColumnUpperBound(){
 		return (char)('A'+(this.getBoardSize())-1);
 	}
-	public char getColumnLowerbond(){
+	public char getColumnLowerBound(){
 		return 'A';
 	}
 	//Methods
 
+	/**
+	 * Add standard tiles to the game.
+	 */
+	public void initBoardTiles() {
+		int count = 0;
+		for(int i = 1 ; i <= BOARD_SIZE ; i+=2) {
+			for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
+				addTile(new Tile(new Location(i, c), PrimaryColor.BLACK));
+				addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE));
+			}
+		}
+		for(int i = 2 ; i <= BOARD_SIZE ; i+=2) {
+			for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
+		
+				addTile(new Tile(new Location(i, c), PrimaryColor.WHITE));
+				addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK));
+			}
+		}
+	}
+
+	
+	
 	/**
 	 * returns all tiles in the board
 	 * @return ArrayList<Tile> all tiles in board
@@ -205,8 +227,14 @@ public class Board {
 	}
 
 	
-	//helping method that adds piece to tile in board
-	//assumes tile already exist in board
+	/**
+	 * adds piece to tile in board
+	 * NOTE - assumes tile already exist in board
+	 * 
+	 * @param piece
+	 * @return true if added successfully, false otherwise
+	 */
+
 	private boolean addPieceToBoardTile(Piece piece) {
 
 		if(piece == null) return false; 
@@ -245,6 +273,9 @@ public class Board {
 		}	
 	}
 
+
+	
+	
 	//helping method that removes piece from tile in board
 	private boolean removePieceFromBoardTile(Piece piece) {
 
@@ -573,7 +604,7 @@ public class Board {
 			System.out.println("null arguments in Board.eat method call");
 			return null;
 		}
-		Turn turn =Turn.getInstance();
+		Turn turn =Game.getInstance().getTurn();
 		Player currPlayer=turn.getCurrentPlayer();
 		if(pieceEatig.getColor() != currPlayer.getColor()) {
 			System.err.println("eating piece must be the same color as current player playing");

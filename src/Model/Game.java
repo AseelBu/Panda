@@ -86,7 +86,7 @@ public class Game {
 		setPlayers(players);
 
 		this.board = Board.getInstance();
-		standardGameTiles();
+		board.initBoardTiles();
 
 		for(Piece piece : pieces)
 			board.addPiece(piece);
@@ -111,7 +111,7 @@ public class Game {
 
 		setPlayers(players);
 		board = Board.getInstance();
-		standardGameTiles();
+		board.initBoardTiles();
 
 		ArrayList<Piece> pieces = new ArrayList<>();
 
@@ -241,26 +241,7 @@ public class Game {
 		if(timer.getStartTime() == -1) return false;
 		return true;
 	}
-	/**
-	 * Add standard tiles to the game.
-	 */
-	public void standardGameTiles() {
-		int count = 0;
-		for(int i = 1 ; i <= 8 ; i+=2) {
-			for(char c = 'A' ; c <= 'H' ; c+=2) {
-				board.addTile(new Tile(new Location(i, c), PrimaryColor.BLACK));
-				board.addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE));
-			}
-		}
-
-		for(int i = 2 ; i <= 8 ; i+=2) {
-			for(char c = 'A' ; c <= 'H' ; c+=2) {
-				board.addTile(new Tile(new Location(i, c), PrimaryColor.WHITE));
-				board.addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK));
-			}
-		}
-	}
-
+	
 	//////////////////////////  Questions Related
 
 	/**
