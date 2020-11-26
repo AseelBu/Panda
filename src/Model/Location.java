@@ -161,7 +161,7 @@ public class Location {
 			throw new IllegalArgumentException("Unexpected value: " + dir);
 		}
 
-		if(updatedLocation == null) System.out.println("new location is out of board boundries");
+//		if(updatedLocation == null) System.out.println("new location is out of board boundries");
 		return updatedLocation;
 	}
 

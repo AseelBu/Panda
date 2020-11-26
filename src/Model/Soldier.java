@@ -138,43 +138,55 @@ public class Soldier extends Piece{
 		Location DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
 
 		try {
-			if(UL!=null) {
-				Piece p =board.getTileInLocation(UL).getPiece();
-				if(p!=null) {
-					Location jmpLoc = UL.addToLocationDiagonally(Directions.UP_LEFT, 1);
-					if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
-						ediblePieces.add(p);
+			if((getEatingCntr()>=1 && Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.BLACK))
+					|| Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) {
+				if(UL!=null) {
+					Piece p =board.getTileInLocation(UL).getPiece();
+					if(p!=null) {
+						if(!p.getColor().equals(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+							Location jmpLoc = UL.addToLocationDiagonally(Directions.UP_LEFT, 1);
+							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
+								ediblePieces.add(p);
+							}
+						}
+					}
+				}
+				if(UR!=null) {
+					Piece p =board.getTileInLocation(UR).getPiece();
+					if(p!=null) {
+						if(!p.getColor().equals(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+							Location jmpLoc = UR.addToLocationDiagonally(Directions.UP_RIGHT, 1);
+							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
+								ediblePieces.add(p);
+							}
+						}
 					}
 				}
 			}
-			if(UR!=null) {
-				Piece p =board.getTileInLocation(UR).getPiece();
-				if(p!=null) {
-					Location jmpLoc = UR.addToLocationDiagonally(Directions.UP_RIGHT, 1);
-					if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
-						ediblePieces.add(p);
+			if((getEatingCntr()>=1 && Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.WHITE))
+					|| Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.BLACK)) {
+				if(DL!=null) {
+					Piece p =board.getTileInLocation(DL).getPiece();
+					if(p!=null) {
+						if(!p.getColor().equals(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+							Location jmpLoc = DL.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
+							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
+								ediblePieces.add(p);
+							}
+						}
 					}
 				}
-			}
-			if(getEatingCntr()>=1) {
-			if(DL!=null) {
-				Piece p =board.getTileInLocation(DL).getPiece();
-				if(p!=null) {
-					Location jmpLoc = DL.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
-					if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
-						ediblePieces.add(p);
+				if(DR!=null) {
+					Piece p =board.getTileInLocation(DR).getPiece();
+					if(p!=null) {
+						if(!p.getColor().equals(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+							Location jmpLoc = DR.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
+							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
+								ediblePieces.add(p);
+							}
+						}
 					}
 				}
-			}
-			if(DR!=null) {
-				Piece p =board.getTileInLocation(DR).getPiece();
-				if(p!=null) {
-					Location jmpLoc = DR.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
-					if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
-						ediblePieces.add(p);
-					}
-				}
-			}
 			}
 		}
 		catch (Exception e) {
@@ -197,12 +209,10 @@ public class Soldier extends Piece{
 	public Piece getEdiblePieceByDirection( Directions direction) {
 		// TODO Auto-generated method stub
 		ArrayList<Piece> ediblePieces= getEdiblePieces();
-		
-
 		Location newLocal = this.getLocation().addToLocationDiagonally(direction, 1) ;
 		//if location not out of boundaries
 		if(newLocal!= null) {
-			for (Piece p :ediblePieces) {
+			for (Piece p : ediblePieces) {
 				if(p.getLocation().equals(newLocal)) {
 					return p;
 				}

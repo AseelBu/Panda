@@ -84,7 +84,6 @@ public class SysData {
 
 		if (this.getScoreboard().size() < 10) {
 			this.getScoreboard().add(hs);
-			this.getScoreboard().remove(0);
 			this.sortHighscores();
 			return;
 		}

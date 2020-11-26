@@ -44,7 +44,7 @@ public class QueenLegalMove {
 		pieces.add(soldier2);
 
 		try {
-			Game.getInstance().startGame(players, pieces);
+			Game.getInstance().startGame(players, pieces, 'W');
 			Game.getInstance().getBoard().printBoard();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

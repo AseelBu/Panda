@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import Model.*;
 import Utils.Directions;
+import Utils.PrimaryColor;
 
 
 public class Main {
@@ -31,57 +32,95 @@ public class Main {
 			System.out.println("Player 2 : " + players[1].getNickname());
 		}
 		game = Game.getInstance();
-		cases(2);
+		cases(1);
 	}
 	
 	static void cases(int index) {
 		switch(index){
 			case 1:
 			{
+				System.out.println("Running Case " + index + " !! : \r\n\r\n");
 				try {
 					game.startGame(players);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.err.println(e.getMessage());
 				}
 				game.getBoard().printBoard();
 				
-				System.out.println("\r\nPlayer 1 Move: 3E -> 4F\r\n");
 				game.getBoard().movePiece(new Location(3, 'E'), new Location(4, 'F'), Directions.UP_RIGHT);
 				
 				game.getBoard().printBoard();
 				game.switchTurn();
 				
-				System.out.println("\r\nPlayer 1 Move: 6D -> 5E\r\n");
 				game.getBoard().movePiece(new Location(6, 'D'), new Location(5, 'E'), Directions.DOWN_RIGHT);
 				game.getBoard().printBoard();
-				SysData.getInstance().saveGame();
+				game.switchTurn();
+
+				game.getBoard().movePiece(new Location(4, 'F'), new Location(6, 'D'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
+				game.switchTurn();
+				
+				game.getBoard().movePiece(new Location(7, 'E'), new Location(5, 'C'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.switchTurn();
 				break;
 			}
 			case 2:
 			{
+				System.out.println("Running Case " + index + " !! : \r\n\r\n");
 				HashMap<Character, ArrayList<Piece>> load = SysData.getInstance().loadGame("saved_games/game1.txt");
 				try {
 					if(load.containsKey('W')) {
 						game.startGame(players, load.get('W'), 'W');
 					}else {
-						game.startGame(players, load.get('B'),'B');
+						game.startGame(players, load.get('B'), 'B');
 					}
 				}catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.err.println(e.getMessage());
 				}
 				
 				game.getBoard().printBoard();
 				
-				System.out.println("\r\nPlayer " + game.getTurn().getCurrentPlayer().getNickname() + " Move: 4F -> A1\r\n");
 				game.getBoard().movePiece(new Location(4, 'F'), new Location(1, 'A'), Directions.DOWN_RIGHT);
 				game.getBoard().printBoard();
 				game.switchTurn();
-				System.out.println("\r\nPlayer " + game.getTurn().getCurrentPlayer().getNickname() + " Move: A5 -> F2\r\n");
 				game.getBoard().movePiece(new Location(5, 'A'), new Location(2, 'F'), Directions.UP_RIGHT);
 				game.getBoard().printBoard();
-				
+				game.switchTurn();
+
+				break;
+			}
+			case 3:{
+				System.out.println("Running Case " + index + " !! : \r\n\r\n");
+
+				Piece soldier = new Soldier(1, PrimaryColor.WHITE, new Location(1,'G'));
+				Piece soldier2 = new Soldier(2, PrimaryColor.WHITE, new Location(1,'E'));
+				Piece soldier3 = new Soldier(3, PrimaryColor.BLACK, new Location(2,'H'));
+				Piece soldier4 = new Soldier(4, PrimaryColor.BLACK, new Location(2,'F'));
+				Piece soldier5 = new Soldier(5, PrimaryColor.BLACK, new Location(2,'D'));
+				Piece soldier6 = new Soldier(6, PrimaryColor.BLACK, new Location(3,'C'));
+				Piece soldier7 = new Soldier(7, PrimaryColor.BLACK, new Location(3,'E'));
+				Piece soldier8 = new Soldier(8, PrimaryColor.BLACK, new Location(3,'G'));
+
+				ArrayList<Piece> pieces = new ArrayList<>();
+				pieces.add(soldier);
+				pieces.add(soldier2);
+				pieces.add(soldier3);
+				pieces.add(soldier4);
+				pieces.add(soldier5);
+				pieces.add(soldier6);
+				pieces.add(soldier7);
+				pieces.add(soldier8);
+
+				try {
+					game.startGame(players, pieces, 'W');
+				}catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.err.println(e.getMessage());
+				}
+
 				break;
 			}
 		}

@@ -325,7 +325,7 @@ public class Board {
 		if(piece instanceof Soldier) {
 
 			int steps = piece.getLocation().getRelativeNumberOfSteps(targetLocation);
-			Piece ediblePiece = piece.getEdiblePieceByDirection( direction);
+			Piece ediblePiece = ((Soldier) piece).getEdiblePieceByDirection( direction);
 			// if its moving in 2s make sure there is a piece we are eating by moving like that
 			if(((piece.getColor()==PrimaryColor.WHITE) && (direction == Directions.UP_LEFT || direction == Directions.UP_RIGHT)) 
 				|| ((piece.getColor()==PrimaryColor.BLACK) && (direction == Directions.DOWN_LEFT|| direction == Directions.DOWN_RIGHT))){
@@ -553,6 +553,7 @@ public class Board {
 			}
 			//TODO handle queen
 		}
+		
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>(possibleTileSet);
 		return possibleTiles;
 	}
@@ -667,7 +668,7 @@ public class Board {
 
 	
 	public boolean movePiece(Location from, Location to, Directions direction) {
-		System.out.println("Attempting to move piece from: " + from.getColumn() + "" + from.getRow() + "| to : " + to.getColumn() + "" + to.getRow());
+		System.out.println("Attempting to move piece from: " + from.getColumn() + "" + from.getRow() + " | to : " + to.getColumn() + "" + to.getRow());
 		Piece piece = null;
 		Tile fromTile = null, toTile = null;
 		try {
@@ -700,6 +701,7 @@ public class Board {
 	}
 	
 	public void printBoard() {
+		System.out.print("\r\n");
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles
 		ArrayList<Tile> boardTiles=getAllBoardTiles();
@@ -735,7 +737,7 @@ public class Board {
 		}
 
 		System.out.println("   ___ ___ ___ ___ ___ ___ ___ ___");
-		System.out.println("    A | B | C | D | E | F | G | H");
+		System.out.println("    A | B | C | D | E | F | G | H\r\n");
 
 	}
 

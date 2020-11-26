@@ -80,8 +80,17 @@ public class Game {
 		{
 			throw new Exception("Invalid Game Initiation");
 		}
-		else if (pieces.size() < 2) {
+		else if (pieces.size() < 2 || pieces.size() > 12) {
 			throw new Exception("Invalid Game Initiation");
+		}else if(pieces.size() >= 2) {
+			PrimaryColor temp = pieces.get(0).getColor();
+			boolean invalid = true;
+			for(Piece p : pieces) {
+				if(!p.getColor().equals(temp))
+					invalid = false;
+			}
+			if(invalid)
+				throw new Exception("Invalid Game Initiation");
 		}
 		setPlayers(players);
 
@@ -97,6 +106,14 @@ public class Game {
 		timer.startTimer();
 		turn.getTimer().startTimer();
 		System.out.println("Game has started");
+		System.out.println("\r\n********************************************\r\n");
+		System.out.println(turn.getCurrentPlayer().getNickname() + " Player to Move | Color: " + turn.getCurrentPlayer().getColor());
+		System.out.println("\r\n********************************************\r\n");
+		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
+			getBoard().printBoard();
+			finishGame();
+			return;
+		}
 	}
 
 	/**
@@ -139,6 +156,14 @@ public class Game {
 		timer.startTimer();
 		turn.getTimer().startTimer();
 		System.out.println("Game has started");
+		System.out.println("\r\n********************************************\r\n");
+		System.out.println(turn.getCurrentPlayer().getNickname() + " Player to Move | Color: " + turn.getCurrentPlayer().getColor());
+		System.out.println("\r\n********************************************\r\n");
+		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
+			getBoard().printBoard();
+			finishGame();
+			return;
+		}
 	}
 
 	/**
@@ -211,24 +236,23 @@ public class Game {
 			winner = 1;
 		else if (players[0].getCurrentScore() < players[1].getCurrentScore())
 			winner = 2;
-		else {
-			if(board.getColorPieces(PrimaryColor.BLACK).size() == 0) winner = 1;
-			else if(board.getColorPieces(PrimaryColor.WHITE).size() == 0) winner = 2;
-		}
 
 		switch(winner){
-		case 1: {
-			System.out.println(players[0].getNickname() + " Has Won, Congratulations!!!");
-			break;
+			case 1: {
+				System.out.println(players[0].getNickname() + " Has Won, Congratulations!!!");
+				break;
+			}
+			case 2 : {
+				System.out.println(players[1].getNickname() + " Has Won, Congratulations!!!");
+				break;
+			}
+			default:{
+				System.out.println("It's a tie (draw)..");
+			}
 		}
-		case 2 : {
-			System.out.println(players[1].getNickname() + " Has Won, Congratulations!!!");
-			break;
-		}
-		default:{
-			System.out.println("It's a tie (draw)..");
-		}	
-		}
+		SysData.getInstance().addScoreToHistory(players[0]);
+		SysData.getInstance().addScoreToHistory(players[1]);
+		
 		timer.stopTimer();
 	}
 
@@ -236,11 +260,20 @@ public class Game {
 	 * switching turns between players
 	 */
 	public void switchTurn(){
+		System.out.println("\r\n********************************************\r\n");
+		System.out.println(Player.getInstance(0).getNickname() + " Score: " + Player.getInstance(0).getCurrentScore());
+		System.out.println(Player.getInstance(1).getNickname() + " Score: " + Player.getInstance(1).getCurrentScore());
 		turn.finishTurn();
 		int index = (turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? 1 : 0;
-		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname());
+		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
+			finishGame();
+			return;
+		}
+		System.out.println("\r\n********************************************\r\n");
+		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname() + " | Color: " + Player.getInstance(index).getColor());
 		this.turn = new Turn(Player.getInstance(index));
 		turn.getTimer().startTimer();
+		System.out.println("\r\n********************************************\r\n");
 	}
 	
 	/**
