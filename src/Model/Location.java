@@ -99,10 +99,10 @@ public class Location {
 	 */
 	public void setColumn(char column) throws Exception {
 		Board board = Board.getInstance();
-		if (column>=board.getColumnLowerbond() && column<=board.getColumnUpperbond()) {
+		if (column>=board.getColumnLowerBound() && column<=board.getColumnUpperBound()) {
 			this.column = column;
 		}else {
-			throw new Exception("column value should be a capital letter between "+board.getColumnLowerbond()+" and "+board.getColumnUpperbond());
+			throw new Exception("column value should be a capital letter between "+board.getColumnLowerBound()+" and "+board.getColumnUpperBound());
 		}
 	}
 
@@ -121,7 +121,7 @@ public class Location {
 
 		switch (dir) {
 		case UP_LEFT: {
-			if(currRow+steps<=board.getBoardSize() && currCol-steps>=board.getColumnLowerbond()) {
+			if(currRow+steps<=board.getBoardSize() && currCol-steps>=board.getColumnLowerBound()) {
 				updatedLocation = new Location(currRow+steps, (char)(currCol-steps));
 			}
 			//			else {
@@ -131,7 +131,7 @@ public class Location {
 
 		}
 		case UP_RIGHT:{
-			if(currRow+steps<=board.getBoardSize() && currCol+steps<=board.getColumnUpperbond()) {
+			if(currRow+steps<=board.getBoardSize() && currCol+steps<=board.getColumnUpperBound()) {
 				updatedLocation = new Location(currRow+steps, (char)(currCol+steps));
 			}
 			//				else {
@@ -140,7 +140,7 @@ public class Location {
 			break;
 		}
 		case DOWN_LEFT:{
-			if(currRow-steps>=1 && currCol-steps>=board.getColumnLowerbond()) {
+			if(currRow-steps>=1 && currCol-steps>=board.getColumnLowerBound()) {
 				updatedLocation = new Location(currRow-steps, (char)(currCol-steps));
 			}
 			//				else {
@@ -149,7 +149,7 @@ public class Location {
 			break;
 		}
 		case DOWN_RIGHT:{
-			if(currRow-steps>=1 && currCol+steps<=board.getColumnUpperbond()) {
+			if(currRow-steps>=1 && currCol+steps<=board.getColumnUpperBound()) {
 				updatedLocation = new Location(currRow-steps, (char)(currCol+steps));
 			}
 			//				else {

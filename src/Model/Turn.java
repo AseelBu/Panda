@@ -31,6 +31,7 @@ public class Turn {
 	public void setLastPieceMoved(Piece lastPieceMoved) {
 		LastPieceMoved = lastPieceMoved;
 	}
+	
 	public Piece getLastPieceMoved() {
 		return LastPieceMoved;
 	}
@@ -40,9 +41,11 @@ public class Turn {
 	public GameTimer getTimer() {
 		return timer;
 	}
+	
 	public void setTimer(GameTimer timer) {
 		this.timer = timer;
 	}
+	
 	public int getMoveCounter() {
 		return MoveCounter;
 	}
