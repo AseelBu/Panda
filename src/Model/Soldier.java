@@ -22,10 +22,9 @@ public class Soldier extends Piece{
 
 
 	@Override
-	//update in Turn lastPieceMoved
-	//call for eating if eating is possible by this move
+	
 	// TODO NOT DONE
-	public void move(Tile targetTile) {
+	public boolean move(Tile targetTile,Directions direction) {
 		//PSEUDO CODE
 		//check if move is legal by piece
 		//	check if move is legal by board
@@ -33,16 +32,33 @@ public class Soldier extends Piece{
 		// 			if there is eating -then eat
 		//		update piece.location and piece location on board (piece on tile)
 		//		update in Turn lastPieceMoved field to this piece
+		//is there still available eats? 
 		
-		
+		Board board = Board.getInstance();
+		Turn turn = Game.getInstance().getTurn();
 		Location targetLocation = targetTile.getLocation();
 		if(this.isMoveLegal(targetLocation)) {
 			if(Board.getInstance().canPieceMove(this, targetLocation, null)) {
-				//			TODO does moving contains eating?
-				this.setLocation(targetLocation);
+				Piece toEat = getEdiblePieceByDirection(targetTile.getLocation(), direction);
+				if(toEat != null)
+				{
+					board.eat(this, toEat);
+				}
+				board.burn(this);
+				try {
+					this.setLocation(targetLocation);
+					board.addPiece(this);
+					turn.setLastPieceMoved(this);
+					return true;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return false;
+				}
+				
 			}
 		}
-
+		return false;
 	}
 
 
@@ -67,8 +83,8 @@ public class Soldier extends Piece{
 		int row2Down=curRow-2;
 
 		//column info
-		int colLowerBound= board.getColumnLowerbond();
-		int colUpperBound=board.getColumnUpperbond();
+		int colLowerBound= board.getColumnLowerBound();
+		int colUpperBound=board.getColumnUpperBound();
 
 		int col1Right= (char)curCol+1;
 		int col2Right=(char)curCol+2;
@@ -185,6 +201,17 @@ public class Soldier extends Piece{
 		return null;
 	}
 
+	@Override
+	/**
+	 * 
+	 * @param targetLocation
+	 * @param direction
+	 * @return Piece edible piece
+	 */
+	
+	public Piece getEdiblePieceByDirection(Location targetLocation, Directions direction) {
+		return getEdiblePieceByDirection(direction);
+	}
 
 	@Override
 	public boolean canEatPiece(Piece targetPiece) {
