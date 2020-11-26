@@ -55,7 +55,7 @@ public class Queen extends Piece{
 					board.getTilesMap().get(toEat.getLocation().getRow()).get(toEat.getLocation().getColumn() - board.getColumnLowerBound()).setPiece(null);
 					board.getPieces().remove(toEat);
 				}
-				//board.burn(this);
+				//board.removePiece(this);
 				board.getTilesMap().get(this.getLocation().getRow()).get(this.getLocation().getColumn() - board.getColumnLowerBound()).setPiece(null);
 				targetTile.setPiece(this);
 				try {
