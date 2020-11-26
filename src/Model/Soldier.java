@@ -51,15 +51,14 @@ public class Soldier extends Piece{
 						Queen newQueen= new Queen(getId(), getColor(), targetLocation);
 						board.addPiece(newQueen);
 						turn.setLastPieceMoved(newQueen);
+						System.out.println("Soldier upgraded to Queen !!");
 						return true;
 					}else {
-					this.setLocation(targetLocation);
-					board.addPiece(this);
-					turn.setLastPieceMoved(this);
-					return true;
+						this.setLocation(targetLocation);
+						board.addPiece(this);
+						turn.setLastPieceMoved(this);
+						return true;
 					}
-	
-					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -67,6 +66,8 @@ public class Soldier extends Piece{
 				}
 				
 			}
+		}else {
+			System.err.println("Illegal Move!");
 		}
 		return false;
 	}

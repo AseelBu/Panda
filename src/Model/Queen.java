@@ -52,6 +52,11 @@ public class Queen extends Piece{
 				if(toEat != null)
 				{
 //					board.eat(this, toEat);
+					if(toEat instanceof Queen) {
+						System.out.println("You ate a Queen, Good Job! +100 Points");						
+					}else {
+						System.out.println("You ate a Soldier, Good Job! +100 Points");						
+					}
 					board.getTilesMap().get(toEat.getLocation().getRow()).get(toEat.getLocation().getColumn() - board.getColumnLowerBound()).setPiece(null);
 					board.getPieces().remove(toEat);
 				}
@@ -70,6 +75,7 @@ public class Queen extends Piece{
 				
 			}
 		}
+		System.err.println("Illegal Move!");
 		return false;
 	}
 

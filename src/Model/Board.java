@@ -149,7 +149,7 @@ public class Board {
 		if(tilesInRow != null) {
 			return tilesInRow.get(location.getColumn() - 'A');
 		}else {
-			throw new Exception("Error: Row "+location.getRow()+" has no tiles");
+			throw new Exception("Error: Row " + location.getRow() + " has no tiles");
 		}
 
 	}
@@ -368,8 +368,14 @@ public class Board {
 		}
 		else if (piece instanceof Queen) {
 
-			if(!((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) return false;
-			if(((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) return false;
+			if(!((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) {
+				System.err.println("Illegal Move!");
+				return false;
+			}
+			if(((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) {
+				System.err.println("Queen is blocked!");
+				return false;
+			}
 
 		}
 
@@ -659,6 +665,7 @@ public class Board {
 
 	
 	public boolean movePiece(Location from, Location to, Directions direction) {
+		System.out.println("Attempting to move piece from: " + from.getColumn() + "" + from.getRow() + "| to : " + to.getColumn() + "" + to.getRow());
 		Piece piece = null;
 		Tile fromTile = null, toTile = null;
 		try {
@@ -666,12 +673,26 @@ public class Board {
 			toTile = getTileInLocation(to);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
+			return false;
+		}
+		if(fromTile == null || toTile == null) {
+			System.err.println("Invalid Locations..");
+			return false;
 		}
 		piece = fromTile.getPiece();
-		if(piece == null) return false;
-		if(Game.getInstance().getTurn().getCurrentPlayer().getColor() != piece.getColor()) return false;
+		if(piece == null) {
+			System.err.println("Tile has no piece!");
+			return false;
+		}
+		if(Game.getInstance().getTurn().getCurrentPlayer().getColor() != piece.getColor()) {
+			System.err.println("You cannot move your opponent's piece");
+			return false;
+		}
 		
-		piece.move(toTile, direction);
+		if(piece.move(toTile, direction)) {
+			if(piece instanceof Queen) System.out.println("Queen has been moved!");
+			else System.out.println("Soldier has been moved!");
+		}
 		
 		return true;
 	}
