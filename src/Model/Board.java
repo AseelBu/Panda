@@ -226,7 +226,23 @@ public class Board {
 		return false;
 	}
 
-	
+	/**
+	 * remove piece from board
+	 * 
+	 * @param piece
+	 * @return true if added successfully,otherwise false
+	 */
+	public boolean removePiece(Piece piece) {
+	boolean result =false;
+	//remove from list of pieces
+	result= this.pieces.remove(piece);
+
+	//remove from board tile
+
+	result=result && removePieceFromBoardTile(piece);
+
+	return result;
+	}
 	/**
 	 * adds piece to tile in board
 	 * NOTE - assumes tile already exist in board
@@ -584,13 +600,7 @@ public class Board {
 	public boolean burn(Piece piece) {
 		if(piece == null) return false;
 
-		boolean result =false;
-		//remove from list of pieces
-		result= this.pieces.remove(piece);
-
-		//remove from board tile
-
-		result=result && removePieceFromBoardTile(piece);
+		boolean result =removePiece(piece);
 
 		if (result) System.out.println(piece+" is burnt !!");
 		else System.out.println("Error: wasn't able to burn piece "+ piece);
