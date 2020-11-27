@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import Exceptions.OutOfBoardBoundariesException;
 import Utils.Directions;
+import Utils.PrimaryColor;
 
 /**
  * @author aseel
@@ -314,7 +315,8 @@ public class Location {
 
 	public boolean isEndOfBoard(){
 		Board board = Board.getInstance();
-		if(this.row == board.getBoardSize()) {
+		Player currPlayer = Game.getInstance().getTurn().getCurrentPlayer();
+		if((currPlayer.getColor()==PrimaryColor.WHITE && this.row == board.getBoardSize()) || (currPlayer.getColor()==PrimaryColor.BLACK && this.row == 1)) {
 			return true;
 		}
 		
