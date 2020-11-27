@@ -362,7 +362,7 @@ public class Board {
 				if(steps==2) {
 					//if no piece to eat
 					if(ediblePiece == null) {
-						System.out.println("soldier can't move 2 steps if you are not eating another piece");
+						System.out.println("soldier can't move 2 steps if you are not eating another piece fom rival player");
 						return false;
 					}
 				}
@@ -387,7 +387,7 @@ public class Board {
 					else {
 						//if there is nothing to eat while moving in 2
 						if(ediblePiece == null) {
-							System.out.println("soldier can't move 2 steps if you are not eating another piece");
+							System.out.println("soldier can't move 2 steps if you are not eating another piece from rival player");
 							return false;
 						}
 					}
