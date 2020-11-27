@@ -261,7 +261,8 @@ public class Game {
 	 */
 	public void switchTurn(){
 		System.out.println("\r\n********************************************");
-		turn.finishTurn();
+		
+		turn.finishTurn(this);
 		System.out.println(Player.getInstance(0).getNickname() + " Score: " + Player.getInstance(0).getCurrentScore());
 		System.out.println(Player.getInstance(1).getNickname() + " Score: " + Player.getInstance(1).getCurrentScore());
 		int index = (turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? 1 : 0;

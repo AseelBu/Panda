@@ -11,8 +11,8 @@ import Utils.PrimaryColor;
  */
 public class Player implements Serializable {
 	
-	private String Nickname;
-	private PrimaryColor Color;
+	private String nickname;
+	private PrimaryColor color;
 	private int currentScore;
 	private static Player instances[] = new Player[2];
     private static Boolean initiated = false;
@@ -23,16 +23,16 @@ public class Player implements Serializable {
     }
 	
 	public String getNickname() {
-		return Nickname;
+		return nickname;
 	}
 	public void setNickname(String nickname) {
-		Nickname = nickname;
+		this.nickname = nickname;
 	}
 	public PrimaryColor getColor() {
-		return Color;
+		return color;
 	}
 	public void setColor(PrimaryColor color) {
-		Color = color;
+		this.color = color;
 	}
 	public int getCurrentScore() {
 		return currentScore;
@@ -42,7 +42,7 @@ public class Player implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Player [Nickname=" + Nickname + ", Color=" + Color + ", currentScore=" + currentScore + "]";
+		return "Player [Nickname=" + nickname + ", Color=" + color + ", currentScore=" + currentScore + "]";
 	}
 	
 	/**

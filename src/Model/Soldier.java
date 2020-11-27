@@ -35,7 +35,7 @@ public class Soldier extends Piece{
 		//is there still available eats? 
 		
 		Board board = Board.getInstance();
-		Turn turn = Game.getInstance().getTurn();
+		
 		Location targetLocation = targetTile.getLocation();
 		
 		//check if direction matches target Tile
@@ -58,14 +58,15 @@ public class Soldier extends Piece{
 					if(targetLocation.isEndOfBoard()) {
 						Queen newQueen= new Queen(getId(), getColor(), targetLocation);
 						board.addPiece(newQueen);
-						turn.setLastPieceMoved(newQueen);
+						Game.getInstance().getTurn().setLastPieceMoved(newQueen);
 						System.out.println("Soldier upgraded to Queen !!");
 						return true;
 					}else {
 						this.setLocation(targetLocation);
 						board.addPiece(this);
 						
-						turn.setLastPieceMoved(this);
+						Game.getInstance().getTurn().setLastPieceMoved(this);
+						
 						return true;
 					}
 				} catch (Exception e) {

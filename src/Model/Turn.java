@@ -29,7 +29,7 @@ public class Turn {
 
 	//setter and getter
 	public void setLastPieceMoved(Piece lastPieceMoved) {
-		lastPieceMoved = lastPieceMoved;
+		this.lastPieceMoved = lastPieceMoved;
 	}
 
 	public Piece getLastPieceMoved() {
@@ -50,7 +50,7 @@ public class Turn {
 		return moveCounter;
 	}
 	public void setMoveCounter(int moveCounter) {
-		moveCounter = moveCounter;
+		this.moveCounter = moveCounter;
 	}
 
 	public Player getCurrentPlayer() {
@@ -213,9 +213,10 @@ public class Turn {
 		timer.unpauseTimer();
 	}
 
-	public void finishTurn()
+	public void finishTurn(Game game)
 	{
 		Board board = Board.getInstance();
+		lastPieceMoved=game.getTurn().getLastPieceMoved();
 		timer.stopTimer();
 		CalculateTimeScore();
 		lastPieceMoved.resetEatingCntr();
