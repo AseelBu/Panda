@@ -12,10 +12,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Calendar;
@@ -700,8 +702,8 @@ public class SysData {
 			data_line+="B";
 		}
 		
-		
-		String path = "saved_games/game_.txt";
+		String dateTime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+		String path = "saved_games/game_"+dateTime+".txt";
 		
 		
 		 try {
