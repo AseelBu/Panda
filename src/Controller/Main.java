@@ -94,12 +94,13 @@ public class Main {
 				game.getBoard().movePiece(new Location(4, 'D'), new Location(6, 'B'), Directions.UP_LEFT);
 				game.getBoard().printBoard();
 				
+				//soldier upgraded to queen
 				game.getBoard().movePiece(new Location(6, 'B'), new Location(8, 'D'), Directions.UP_RIGHT);
 				game.getBoard().printBoard();
 				
-				//end o eating sequence
+				//end of eating sequence
 				
-				game.getBoard().movePiece(new Location(6, 'D'), new Location(5, 'C'), Directions.DOWN_LEFT);
+				game.getBoard().movePiece(new Location(7, 'E'), new Location(5, 'G'), Directions.DOWN_RIGHT);
 				game.getBoard().printBoard();
 				game.getBoard().movePiece(new Location(6, 'B'), new Location(8, 'D'), Directions.UP_RIGHT);
 				game.getBoard().printBoard();
