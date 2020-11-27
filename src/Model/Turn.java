@@ -140,7 +140,7 @@ public class Turn {
 		}
 		else
 		{
-			System.out.println(timer.getSeconds());
+			System.out.println("Turn Time: " + timer.getSeconds());
 			return(currentPlayer.AddScore(60-timer.getSeconds()));
 		}
 	}
@@ -174,7 +174,7 @@ public class Turn {
 
 		if( currentPlayer.getColor().equals(PrimaryColor.BLACK))
 		{
-			ArrayList<Piece> piece1=Board.getInstance().getAllEdiblePiecesByColor(currentPlayer.getColor());
+			ArrayList<Piece> piece1 = Board.getInstance().getColorPieces(currentPlayer.getColor());
 			for(Piece p:piece1)
 			{
 				if(p instanceof Soldier)
@@ -189,7 +189,7 @@ public class Turn {
 		}
 		else
 		{
-			ArrayList<Piece> piece2=Board.getInstance().getAllEdiblePiecesByColor(currentPlayer.getColor());
+			ArrayList<Piece> piece2 = Board.getInstance().getColorPieces(currentPlayer.getColor());
 			for(Piece t:piece2)
 			{
 				if(t instanceof Soldier)
@@ -202,7 +202,7 @@ public class Turn {
 				}
 			}
 		}
-		return(soldierCount==2&& queenCount==1);
+		return (soldierCount == 2 && queenCount == 1);
 	}
 
 	public void pauseTurn(){

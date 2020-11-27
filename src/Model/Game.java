@@ -236,7 +236,13 @@ public class Game {
 			winner = 1;
 		else if (players[0].getCurrentScore() < players[1].getCurrentScore())
 			winner = 2;
-
+		if(winner == -1) {
+			if(getBoard().getColorPieces(PrimaryColor.WHITE).size() > getBoard().getColorPieces(PrimaryColor.BLACK).size()){
+				winner = 1;
+			}else if(getBoard().getColorPieces(PrimaryColor.WHITE).size() < getBoard().getColorPieces(PrimaryColor.BLACK).size()) {
+				winner = 2;
+			}
+		}
 		switch(winner){
 			case 1: {
 				System.out.println(players[0].getNickname() + " Has Won, Congratulations!!!");
@@ -266,7 +272,7 @@ public class Game {
 		System.out.println(Player.getInstance(0).getNickname() + " Score: " + Player.getInstance(0).getCurrentScore());
 		System.out.println(Player.getInstance(1).getNickname() + " Score: " + Player.getInstance(1).getCurrentScore());
 		int index = (turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? 1 : 0;
-		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
+		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.BLACK : PrimaryColor.WHITE)) {
 			finishGame();
 			return;
 		}

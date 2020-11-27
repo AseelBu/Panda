@@ -165,6 +165,76 @@ public class Location {
 //		if(updatedLocation == null) System.out.println("new location is out of board boundries");
 		return updatedLocation;
 	}
+	
+	public Location rotateLocation(Directions direction) {
+		Board board = Board.getInstance();
+		
+		if((this.getColumn() != board.getColumnLowerBound())
+				&&
+			(this.getColumn() != board.getColumnUpperBound())
+				&&
+			(this.getRow() != 1)
+				&&
+			(this.getRow() != board.getBoardSize())){
+			
+				return null;
+			}
+		
+		switch(direction) {
+			case UP_LEFT:{
+				int i = this.getRow();
+				int c = this.getColumn();
+	
+				i++;
+				c--;
+				if(i > board.getBoardSize()) i = 1;
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+	
+				return new Location(i,(char) c);
+			}
+			case UP_RIGHT:{
+				
+				int i = this.getRow();
+				int c = this.getColumn();
+					
+				i++;
+				c++;
+				if(i > board.getBoardSize()) i = 1;
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+
+				
+				return new Location(i,(char) c);
+			}
+			case DOWN_LEFT:{
+				
+				int i = this.getRow();
+				int c = this.getColumn();
+	
+				i--;
+				c--;
+				if(i < 1) i = board.getBoardSize();
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+
+				
+				return new Location(i,(char) c);
+			}
+			case DOWN_RIGHT:{//
+				
+				int i = this.getRow();
+				int c = this.getColumn();
+	
+				i--;
+				c++;
+				if(i < 1) i = board.getBoardSize();
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+
+				
+				return new Location(i,(char) c);
+			}
+			default: return null;
+		}
+		
+	}
 
 	//TODO
 	/**

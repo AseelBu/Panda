@@ -32,7 +32,7 @@ public class Main {
 			System.out.println("Player 2 : " + players[1].getNickname());
 		}
 		game = Game.getInstance();
-		cases(1);
+		cases(4);
 	}
 	
 	static void cases(int index) {
@@ -175,6 +175,32 @@ public class Main {
 
 				break;
 			}
+			case 4:{
+				Queen queen = new Queen(1, PrimaryColor.WHITE, new Location(2,'D'));
+				Piece soldier2 = new Soldier(2, PrimaryColor.BLACK, new Location(4,'F'));
+				Piece soldier3 = new Soldier(3, PrimaryColor.BLACK, new Location(6,'H'));
+				
+				ArrayList<Piece> pieces = new ArrayList<>();
+				pieces.add(queen);
+				pieces.add(soldier2);
+				pieces.add(soldier3);
+				
+				
+				try {
+					game.startGame(players, pieces, 'W');
+				}catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.err.println(e.getMessage());
+				}
+				game.getBoard().printBoard();
+
+				game.getBoard().movePiece(new Location(2, 'D'), new Location(5, 'G'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(5, 'G'), new Location(7, 'A'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+				break;
+			}
+			
 		}
 	}
 }

@@ -207,13 +207,17 @@ public class Queen extends Piece{
 	
 				do {
 					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(boardMap.get(i).get(c - 'A').getPiece() != null)
+							if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
 						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
 							if(suspectedToAdd != null) break;
 							else {
-								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+								if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
+									suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 							}
 						}else {
 							if(suspectedToAdd != null) {
+								System.out.println(suspectedToAdd.getLocation());
 								return suspectedToAdd;
 							}
 						}
@@ -234,10 +238,13 @@ public class Queen extends Piece{
 	
 				do {
 					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(boardMap.get(i).get(c - 'A').getPiece() != null)
+							if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
 						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
 							if(suspectedToAdd != null) break;
 							else {
-								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+								if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
+									suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 							}
 						}else {
 							if(suspectedToAdd != null) {
@@ -262,10 +269,13 @@ public class Queen extends Piece{
 	
 				do {
 					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(boardMap.get(i).get(c - 'A').getPiece() != null)
+							if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
 						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
 							if(suspectedToAdd != null) break;
 							else {
-								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+								if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
+									suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 							}
 						}else {
 							if(suspectedToAdd != null) {
@@ -289,10 +299,13 @@ public class Queen extends Piece{
 	
 				do {
 					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(boardMap.get(i).get(c - 'A').getPiece() != null)
+							if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
 						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
 							if(suspectedToAdd != null) break;
 							else {
-								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+								if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
+									suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
 							}
 						}else {
 							if(suspectedToAdd != null) {
@@ -538,8 +551,8 @@ public class Queen extends Piece{
 						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
 						if(suspectedToBlock != null) return true;
 						else {
-							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-
+							if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
 						}
 					}else {
 						if(suspectedToBlock != null) {
@@ -565,10 +578,12 @@ public class Queen extends Piece{
 				do {
 
 					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
+						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) 
+								&& !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
 						if(suspectedToBlock != null) return true;
 						else {
-							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
+							if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
 
 						}
 					}else {
@@ -576,10 +591,10 @@ public class Queen extends Piece{
 							suspectedToBlock = null;
 						}
 					}
+					
 					i++;
 					c++;
 					counter++;
-
 					if(i > board.getBoardSize()) i = 1;
 					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
 				}
@@ -599,12 +614,13 @@ public class Queen extends Piece{
 						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
 						if(suspectedToBlock != null) return true;
 						else {
-							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-
+							if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
 						}
 					}else {
 						if(suspectedToBlock != null) {
-							suspectedToBlock = null;						}
+							suspectedToBlock = null;
+						}
 					}
 					i--;
 					c--;
@@ -629,8 +645,8 @@ public class Queen extends Piece{
 						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
 						if(suspectedToBlock != null) return true;
 						else {
-							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-
+							if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
+								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
 						}
 					}else {
 						if(suspectedToBlock != null) {
@@ -931,6 +947,91 @@ public class Queen extends Piece{
 	public boolean canEatPiece(Piece targetPiece) {
 		ArrayList<Piece> pieces = getEdiblePieces();
 		return pieces.contains(targetPiece);
+	}
+
+
+	@Override
+	public ArrayList<Piece> getMustEdiblePieces() {
+		ArrayList<Piece> ediblePieces = new ArrayList<Piece>();
+		Board board = Board.getInstance();
+		Player currPlayer = Game.getInstance().getTurn().getCurrentPlayer();
+		Location pieceLoc = this.getLocation();
+		Location UL =pieceLoc.addToLocationDiagonally(Directions.UP_LEFT, 1);
+		Location UR =pieceLoc.addToLocationDiagonally(Directions.UP_RIGHT, 1);
+		Location DL =pieceLoc.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
+		Location DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
+
+		try {
+			if(UL!=null) {
+				Piece p =board.getTileInLocation(UL).getPiece();
+				if(p!=null) {
+					if(!p.getColor().equals(currPlayer.getColor())) {
+						Location jmpLoc = UL.addToLocationDiagonally(Directions.UP_LEFT, 1);
+						if(jmpLoc == null) {
+							jmpLoc = UL.rotateLocation(Directions.UP_LEFT);
+							if(jmpLoc == null) System.err.println("Failed to locate a specific location!");
+						}
+						if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
+							ediblePieces.add(p);
+						}
+					}
+				}
+			}
+			if(UR!=null) {
+				Piece p =board.getTileInLocation(UR).getPiece();
+				if(p!=null) {
+					if(!p.getColor().equals(currPlayer.getColor())) {
+						Location jmpLoc = UR.addToLocationDiagonally(Directions.UP_RIGHT, 1);
+						if(jmpLoc == null) {
+							jmpLoc = UR.rotateLocation(Directions.UP_RIGHT);
+							if(jmpLoc == null) System.err.println("Failed to locate a specific location!");
+						}
+						if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
+							ediblePieces.add(p);
+						}
+					}
+				}
+			}
+			
+
+			if(DL!=null) {
+				Piece p =board.getTileInLocation(DL).getPiece();
+				if(p!=null) {
+						if(!p.getColor().equals(currPlayer.getColor())) {
+						Location jmpLoc = DL.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
+						if(jmpLoc == null) {
+							jmpLoc = DL.rotateLocation(Directions.DOWN_LEFT);
+							if(jmpLoc == null) System.err.println("Failed to locate a specific location!");
+						}
+						if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
+							ediblePieces.add(p);
+						}
+					}
+				}
+			}
+			if(DR!=null) {
+				Piece p =board.getTileInLocation(DR).getPiece();
+				if(p!=null) {
+					if(!p.getColor().equals(currPlayer.getColor())) {
+						Location jmpLoc = DR.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
+						if(jmpLoc == null) {
+							jmpLoc = DR.rotateLocation(Directions.DOWN_RIGHT);
+							if(jmpLoc == null) System.err.println("Failed to locate a specific location!");
+						}
+						if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
+							ediblePieces.add(p);
+						}
+					}
+				}
+			}
+			
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return ediblePieces;
 	}
 
 }

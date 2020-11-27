@@ -626,7 +626,7 @@ public class Board {
 		ArrayList<Piece> colorPieces=getColorPieces(playerColor);
 
 		for (Piece p : colorPieces) {
-			ediblePieces.addAll(p.getEdiblePieces());
+			ediblePieces.addAll(p.getMustEdiblePieces());
 		}
 
 		return ediblePieces;
@@ -734,9 +734,7 @@ public class Board {
 	 * @return true if there is no more eating left for color player,otherwise false
 	 */
 	public boolean isAllPiecesEaten(Piece piece) {
-
-
-		ArrayList<Piece> ediblePieces= piece.getEdiblePieces();
+		ArrayList<Piece> ediblePieces= piece.getMustEdiblePieces();
 		if(ediblePieces.isEmpty()) {
 			return true;
 		}
