@@ -20,19 +20,14 @@ public class YellowTile extends Tile {
 	 */
 	public YellowTile(Location location,PrimaryColor color1,SeconderyTileColor color2,Piece piece) {
 		super(location, color1, color2, piece);
-
-		
-		//Game game= Game.getInstance();
-		//this.question = game.getAvailableRandomQuestion();
-
-
 	}
 
-	//getters & setters
+	/**
+	 * getters & setters
+	 */
 	public Question getQuestion() {
 		return question;
 	}
-
 	public void setQuestionId(Question question) {
 		this.question = question;
 	}
@@ -42,7 +37,6 @@ public class YellowTile extends Tile {
 	/**
 	 * Draws an available random question
 	 */
-
 	public void drawQuestion() {
 		
 		Question k = Game.getInstance().getAvailableRandomQuestion();
@@ -55,7 +49,6 @@ public class YellowTile extends Tile {
 	 * @param answer chosen answer
 	 * @return correct/not correct
 	 */
-
 	public boolean isAnswerCorrect(Answer answer) {
 		// TODO Auto-generated method stub
 		boolean result= false;

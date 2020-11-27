@@ -22,29 +22,14 @@ public class Soldier extends Piece{
 
 	@Override
 	
-	// TODO NOT DONE
 	public boolean move(Tile targetTile,Directions direction) {
-		//PSEUDO CODE
-		//check if move is legal by piece
-		//	check if move is legal by board
-		//		if legal- check if there is eating
-		// 			if there is eating -then eat
-		//		update piece.location and piece location on board (piece on tile)
-		//		update in Turn lastPieceMoved field to this piece
-		//is there still available eats? 
-		
 		Board board = Board.getInstance();
-		
 		Location targetLocation = targetTile.getLocation();
-		
-		//check if direction matches target Tile
 		Directions legalDirection =getLocation().getRelativeDirection(targetLocation);
 		if(legalDirection!=direction) {
-			
 			System.err.println("The move direction doesn't match the relative direction of target tile location which is "+ legalDirection);
 			return false;
 		}
-		
 		
 		if(this.isMoveLegal(targetLocation)) {
 			if(Board.getInstance().canPieceMove(this, targetLocation, direction)) {
@@ -55,7 +40,6 @@ public class Soldier extends Piece{
 				}
 				board.removePiece(this);
 				try {
-					//is location end of board? if yes turn to queen
 					if(targetLocation.isEndOfBoard()) {
 						Queen newQueen= new Queen(getId(), getColor(), targetLocation);
 						board.addPiece(newQueen);
@@ -71,7 +55,6 @@ public class Soldier extends Piece{
 						return true;
 					}
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				}
@@ -86,7 +69,6 @@ public class Soldier extends Piece{
 
 	@Override
 	public boolean isMoveLegal(Location targetLocation) {
-		// TODO Auto-generated method stub
 		Board board = Board.getInstance();
 		int targetRow = targetLocation.getRow();
 		char targetCol= targetLocation.getColumn();
@@ -115,13 +97,11 @@ public class Soldier extends Piece{
 
 
 
-		//		check if it's 1 diagonal move
 		if((targetRow==row1Up && row1Up<= rowUpperBound) || (targetRow==row1Down && row1Down>= rowLowerBound) ) {
 			if((targetCol == col1Right && col1Right<=colUpperBound)|| (targetCol == col1Left && col1Left>=colLowerBound)) {
 				return true;
 			}
 		}
-		//		check if it's 2 diagonal move
 		else if( (targetRow==row2Up &&  row2Up<= rowUpperBound) || (targetRow==row2Down && row2Down>= rowLowerBound) ) {
 			if((targetCol == col2Right && col2Right<=colUpperBound) || (targetCol == col2Left && col2Left>=colLowerBound)) {
 				return true;
@@ -140,7 +120,6 @@ public class Soldier extends Piece{
 	 */
 	@Override
 	public ArrayList<Piece> getMustEdiblePieces() {
-
 		ArrayList<Piece> ediblePieces = new ArrayList<Piece>();
 		Board board = Board.getInstance();
 		Player currPlayer = Game.getInstance().getTurn().getCurrentPlayer();
@@ -203,7 +182,6 @@ public class Soldier extends Piece{
 			}
 		}
 		catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 
@@ -242,7 +220,6 @@ public class Soldier extends Piece{
 	 * @param direction
 	 * @return Piece edible piece
 	 */
-	
 	public Piece getEdiblePieceByDirection(Location targetLocation, Directions direction) {
 		return getEdiblePieceByDirection(direction);
 	}

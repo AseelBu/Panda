@@ -20,14 +20,13 @@ public class Question {
 	private String team;
 	
 	/**
-	 * @param id
-	 * @param content
-	 * @param difficulty
-	 * @param answers
+	 * Question class constructor
+	 * @param id - question ID
+	 * @param content - question's content
+	 * @param difficulty - difficulty of the question
+	 * @param answers - collection of answers
 	 * @param team
 	 */
-	//Constructor
-
 	public Question(int id, String content, DifficultyLevel difficulty, ArrayList<Answer> answers, String team) {
 		super();
 		this.id = id;
@@ -128,7 +127,10 @@ public class Question {
 		
 	}
 	
-	
+	/**
+	 * Used to update answers
+	 * @param updatedAnswers
+	 */
 	public void updateAnswers(ArrayList<Answer> updatedAnswers) {
 		this.answers = new ArrayList<Answer>();
 		

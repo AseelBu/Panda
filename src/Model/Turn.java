@@ -1,7 +1,5 @@
 package Model;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
 import java.util.Random; 
@@ -19,7 +17,10 @@ public class Turn {
 	private Piece eaten;
 
 
-	//constructor
+	/**
+	 * Turn class constructor
+	 * @param currentPlayer
+	 */
 	public Turn(Player currentPlayer) {
 		super();
 		this.timer = new GameTimer();
@@ -29,7 +30,11 @@ public class Turn {
 		this.currentPlayer = currentPlayer;
 	}
 
-	//setter and getter
+	
+	/**
+	 * setter and getter
+	 * @param lastPieceMoved
+	 */
 	public void setLastPieceMoved(Piece lastPieceMoved) {
 		this.lastPieceMoved = lastPieceMoved;
 	}
@@ -37,9 +42,6 @@ public class Turn {
 	public Piece getLastPieceMoved() {
 		return lastPieceMoved;
 	}
-
-
-
 	public GameTimer getTimer() {
 		return timer;
 	}
@@ -75,7 +77,9 @@ public class Turn {
 				+ ", currentPlayer=" + currentPlayer + "]";
 	}
 
-	//An green tile will appear after 30 seconds
+	/**
+	 * A green tile will appear after 30 seconds
+	 */
 	public void ShowGreenAfter30()
 	{
 		Random rand = new Random(); 
@@ -84,7 +88,9 @@ public class Turn {
 		Board.getInstance().addColorToBoardTile(t.get(rand.nextInt(t.size())),SeconderyTileColor.GREEN);
 	}
 
-	//An orange tile will appear after 90 seconds
+	/**
+	 * An orange tile will appear after 90 seconds
+	 */
 	public void  ShowOrangeAfter90()
 	{
 
@@ -94,47 +100,6 @@ public class Turn {
 			Board.getInstance().addColorToBoardTile(e,SeconderyTileColor.ORANGE);
 		}
 	}
-
-	//	//Initializes the board tiles by player
-	//	public void  initiateBoardTiles()
-	//	{  
-	//		HashMap<Integer, ArrayList<Tile>> selects = new HashMap<Integer, ArrayList<Tile>>();
-	//		selects=Board.getInstance().getTilesMap();
-	//
-	//		for(Entry<Integer, ArrayList<Tile>> entry : selects.entrySet()) {
-	//		    int key = entry.getKey();
-	//		    if(key%2==0)
-	//		    {
-	//		    	int i=0;
-	//		    	for(Tile t:entry.getValue())
-	//		    	{
-	//		    		if(i%2==0)
-	//		    		t.setColor1(PrimaryColor.WHITE);
-	//		    		else
-	//		    		t.setColor1(PrimaryColor.BLACK);
-	//		    		i++;
-	//		    	}
-	//		    }
-	//		    else
-	//		    {
-	//		    	int j=0;
-	//		    	for(Tile s:entry.getValue())
-	//		    	{
-	//		    		if(j%2==0)
-	//			    		s.setColor1(PrimaryColor.BLACK);
-	//			    		else
-	//			    		s.setColor1(PrimaryColor.WHITE);
-	//			    		j++;
-	//		    	}
-	//		    }
-	//		  
-	//
-	//		    // do what you have to do here
-	//		    // In your case, another loop.
-	//		}
-	//		
-	//	}
-
 
 	/**
 	 *  Scoring calculation according to the time of the turn
@@ -158,7 +123,6 @@ public class Turn {
 	 */
 	public void IncrementMoveCounter()
 	{
-		//if(board.getInstance().canPieceEat(LastPieceMoved)!=null)
 		this.moveCounter++;
 		System.out.println("You just got another move !!");
 	}
@@ -168,7 +132,6 @@ public class Turn {
 	 */
 	public void decrementMoveCounter()
 	{
-		//if(board.getInstance().canPieceEat(LastPieceMoved)!=null)
 		this.moveCounter--;
 	}
 
@@ -213,14 +176,24 @@ public class Turn {
 		return (soldierCount == 2 && queenCount == 1);
 	}
 
+	/**
+	 * pauses the turn
+	 */
 	public void pauseTurn(){
 		timer.pauseTimer();
 	}
 
+	/**
+	 * unpauses the turn
+	 */
 	public void unpauseTurn(){
 		timer.unpauseTimer();
 	}
 
+	/**
+	 * finishes the turn
+	 * @param game - game instance
+	 */
 	public void finishTurn(Game game)
 	{
 		Board board = Board.getInstance();

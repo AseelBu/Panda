@@ -20,8 +20,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Calendar;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -40,7 +38,7 @@ public class SysData {
 	 * @author saleh
 	 */
 
-	private static final SysData instance = new SysData();
+	private static SysData instance = null;
 	private ArrayList<Question> questions = new ArrayList<Question>();
 	private ArrayList<Player> scoreboard = new ArrayList<>();
 
@@ -49,8 +47,11 @@ public class SysData {
 	 * 
 	 * @return - Sysdata Class Instance
 	 */
-
 	public static SysData getInstance() {
+		if (instance == null) 
+		{ 
+			instance = new SysData(); 
+		}
 		return instance;
 	}
 
@@ -69,7 +70,6 @@ public class SysData {
 	 * 
 	 * @return
 	 */
-
 	public ArrayList<Player> getScoreboard() {
 		return this.scoreboard;
 	}
@@ -79,7 +79,6 @@ public class SysData {
 	 * 
 	 * @param hs HighScore To Add
 	 */
-
 	public void addScoreToHistory(Player hs) {
 
 		this.sortHighscores();
@@ -106,7 +105,6 @@ public class SysData {
 	/**
 	 * Write Questions To File Including Updated Questions
 	 */
-
 	public void WriteQuestions() {
 
 		JsonArray questions = new JsonArray();
@@ -172,7 +170,6 @@ public class SysData {
 	/**
 	 * Load Trivia Questions From JSON File
 	 */
-
 	public void LoadQuestions() {
 
 		// empty data structure before loading
@@ -250,7 +247,6 @@ public class SysData {
 	 * 
 	 * @param question to add
 	 */
-
 	public void addQuestion(Question q) {
 
 		if (q != null) {
@@ -264,7 +260,6 @@ public class SysData {
 	 * 
 	 * @param id - id of question to be removed
 	 */
-
 	public void removeQuestion(int id) {
 
 		int i = -1;
@@ -294,7 +289,6 @@ public class SysData {
 	 * @param id               the id of the question to be updated
 	 * @param updated_question new question containing all updated details
 	 */
-
 	public void editQuestion(int id, Question updated_question) {
 
 		for (Question q : this.getQuestions()) {
@@ -314,7 +308,6 @@ public class SysData {
 	/**
 	 * this method sorts HighScores
 	 */
-
 	public void sortHighscores() {
 
 		Collections.sort(this.getScoreboard(), new Comparator<Player>() {
@@ -328,7 +321,6 @@ public class SysData {
 	/**
 	 * write HighScores to file
 	 */
-
 	public void writeHistory() {
 
 		try {
@@ -345,7 +337,7 @@ public class SysData {
 	/**
 	 * load HighScores from file
 	 */
-
+	@SuppressWarnings("unchecked")
 	public void loadHistory() {
 
 		try {
@@ -368,7 +360,6 @@ public class SysData {
 	/**
 	 * load game from text file
 	 */
-
 	public HashMap<Character, ArrayList<Piece>> loadGame(String path) {
 
 		Character turn;
@@ -656,7 +647,6 @@ public class SysData {
 	/**
 	 * saves current game to a text file
 	 */
-
 	public void saveGame() {
 		
 		ArrayList<Tile> tiles = Board.getInstance().getAllBoardTiles();
@@ -736,7 +726,6 @@ public class SysData {
 	 * @param p code to check (1,11,2,22)
 	 * @return if white/black and if soldier/queen
 	 */
-
 	public String returnColor(String p) {
 
 		if (p.equals("1")) {

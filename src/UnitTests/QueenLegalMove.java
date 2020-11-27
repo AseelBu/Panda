@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import Model.Board;
 import Model.Game;
 import Model.Location;
 import Model.Piece;

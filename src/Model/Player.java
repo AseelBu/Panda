@@ -1,7 +1,6 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 
 
@@ -14,17 +13,26 @@ import Utils.PrimaryColor;
  */
 public class Player implements Serializable {
 
+	/**
+	 * Class Serial
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nickname;
 	private PrimaryColor color;
 	private int currentScore;
 	private static Player instances[] = new Player[2];
 	private static Boolean initiated = false;
 
+	/**
+	 * Player class constructor
+	 * @param color
+	 */
 	private Player(PrimaryColor color) {
 		setColor(color);
 		currentScore = 0;
 	}
 
+	// Getters and Setters
 	public String getNickname() {
 		return nickname;
 	}
@@ -73,7 +81,12 @@ public class Player implements Serializable {
 		return getCurrentScore();
 
 	}
-
+	
+	/**
+	 * Class Instance
+	 * @param index 0 or 1 - 0 for white player, 1 for black
+	 * @return 
+	 */
 	public static Player getInstance(int index)
 	{
 		if(index > 1 ) return null;
@@ -90,6 +103,13 @@ public class Player implements Serializable {
 
 		return instances[index];
 	}
+	
+	/**
+	 * destructor for this class
+	 */
+	public static void destruct() {
+		instances = null;
+	}
 
 	private static Boolean tryInitiate()
 	{
@@ -104,31 +124,5 @@ public class Player implements Serializable {
 
 		return true;
 	}
-
-//	public int getDeadSoldierCount() {
-//		Board board = Board.getInstance();
-//		int aliveCntr =0;
-//		ArrayList<Piece> playerPieces =	board.getColorPieces(getColor());
-//		for(Piece p : playerPieces) {
-//			if(p instanceof Soldier) {
-//				aliveCntr++;
-//			}
-//		}
-//		return 12-aliveCntr;
-//
-//	}
-//
-//	public int getDeadQueenCount() {
-//		Board board = Board.getInstance();
-//		int aliveCntr =0;
-//		ArrayList<Piece> playerPieces =	board.getColorPieces(getColor());
-//		for(Piece p : playerPieces) {
-//			if(p instanceof Queen) {
-//				aliveCntr++;
-//			}
-//		}
-//		//can't know without knowing how many pieces converted
-//		return 12-aliveCntr;
-//	}
 
 }

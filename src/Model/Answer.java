@@ -10,8 +10,13 @@ public class Answer {
 	private String content;
 	private boolean isCorrect;
 	
-	//Constructor
-
+	
+	/**
+	 * class constructor
+	 * @param id - Answer ID
+	 * @param content - content of the answer
+	 * @param isCorrect - true if the answer is correct, false otherwise
+	 */
 	public Answer(int id, String content, boolean isCorrect) {
 		super();
 		this.id = id;

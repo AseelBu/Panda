@@ -44,7 +44,13 @@ public class Game {
 			instance = new Game(); 
 		} 
 		return instance; 
-	} 
+	}
+	/**
+	 * destructor for this class
+	 */
+	public static void destruct() {
+		instance = null;
+	}
 
 	/**
 	 * 
@@ -243,9 +249,8 @@ public class Game {
 				winner = 2;
 			}
 		}
-		switch(winner){
-			case 1: {
-				System.out.println("-------___-----___----------___-----------\r\n"
+		if(winner > 0) {
+			System.out.println("-------___-----___----------___-----------\r\n"
 						+ "------/  /-----\\  \\--------/  /-----------\r\n"
 						+ "-----/__/-------\\__\\------/__/------------\r\n"
 						+ "-----------___----------------------------\r\n"
@@ -262,39 +267,12 @@ public class Game {
 						+ "                  __/ |                  \r\n"
 						+ "                 |___/  \r\n"
 						+ "------------------------------------------\r\n"
-						+ players[0].getNickname() + " Has Won, Congratulations!!!\r\n"
-						+ "Score: " + players[0].getCurrentScore() + "\r\n"
-						+ "Color: " + players[0].getColor() + "\r\n"
+						+ players[winner - 1].getNickname() + " Has Won, Congratulations!!!\r\n"
+						+ "Score: " + players[winner - 1].getCurrentScore() + "\r\n"
+						+ "Color: " + players[winner - 1].getColor() + "\r\n"
 						+ "------------------------------------------");
-				break;
-			}
-			case 2 : {
-				System.out.println("-------___-----___----------___-----------\r\n"
-						+ "------/  /-----\\  \\--------/  /-----------\r\n"
-						+ "-----/__/-------\\__\\------/__/------------\r\n"
-						+ "-----------___----------------------------\r\n"
-						+ "-----------\\  \\-------___-----------------\r\n"
-						+ "------___---\\__\\-----/  /------___--------\r\n"
-						+ "-----/  /-----------/__/-------\\  \\-------\r\n"
-						+ "----/__/------------------------\\__\\------\r\n"
-						+ "---------------------------------_--------\r\n"
-						+ "                                | |      \r\n"
-						+ "  ___ ___  _ __   __ _ _ __ __ _| |_ ___ \r\n"
-						+ " / __/ _ \\| '_ \\ / _` | '__/ _` | __/ __|\r\n"
-						+ "| (_| (_) | | | | (_| | | | (_| | |_\\__ \\\r\n"
-						+ " \\___\\___/|_| |_|\\__, |_|  \\__,_|\\__|___/\r\n"
-						+ "                  __/ |                  \r\n"
-						+ "                 |___/  \r\n"
-						+ "------------------------------------------\r\n"
-						+ players[1].getNickname() + " Has Won, Congratulations!!!\r\n"
-						+ "Score: " + players[1].getCurrentScore() + "\r\n"
-						+ "Color: " + players[1].getColor() + "\r\n"
-						+ "------------------------------------------");
-				break;
-			}
-			default:{
-				System.out.println("It's a tie (draw)..");
-			}
+		}else {
+			System.out.println("It's a tie (draw)..");
 		}
 		SysData.getInstance().addScoreToHistory(players[0]);
 		SysData.getInstance().addScoreToHistory(players[1]);

@@ -27,9 +27,6 @@ public class Queen extends Piece{
 	 * @param direction
 	 * @return 
 	 */
-	
-	
-	//update in Turn lastPieceMoved
 	public boolean move(Tile targetTile, Directions direction) {
 		Board board = Board.getInstance();	
 		Location targetLocation = targetTile.getLocation();
@@ -39,29 +36,14 @@ public class Queen extends Piece{
 				if(toEat != null)
 				{
 					board.eat(this, toEat);
-//					if(toEat instanceof Queen) {
-//						System.out.println("You ate a Queen, Good Job! +100 Points");						
-//					}else {
-//						System.out.println("You ate a Soldier, Good Job! +100 Points");						
-//					}
-//					board.getTilesMap().get(toEat.getLocation().getRow()).get(toEat.getLocation().getColumn() - board.getColumnLowerBound()).setPiece(null);
-//					board.getPieces().remove(toEat);
 				}
-
-				
-				
 				board.removePiece(this);
-				
-//				board.getTilesMap().get(this.getLocation().getRow()).get(this.getLocation().getColumn() - board.getColumnLowerBound()).setPiece(null);
-//				targetTile.setPiece(this);
-
 				try {
 					this.setLocation(targetLocation);
 					board.addPiece(this);
 					Game.getInstance().getTurn().setLastPieceMoved(this);
 					return true;
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return false;
 				}
@@ -760,7 +742,7 @@ public class Queen extends Piece{
 				
 				break;
 			}
-			case DOWN_LEFT:{//
+			case DOWN_LEFT:{
 				
 				int i = getLocation().getRow();
 				int c = getLocation().getColumn();
@@ -797,7 +779,7 @@ public class Queen extends Piece{
 				
 				break;
 			}
-			case DOWN_RIGHT:{//
+			case DOWN_RIGHT:{
 				
 				int i = getLocation().getRow();
 				int c = getLocation().getColumn();
@@ -892,7 +874,7 @@ public class Queen extends Piece{
 						(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
 				break;
 			}
-			case DOWN_LEFT:{//
+			case DOWN_LEFT:{
 				
 				int i = getLocation().getRow();
 				int c = getLocation().getColumn();

@@ -26,7 +26,6 @@ public class BlueTile extends Tile {
 	 * @param K - proposed position
 	 * @param enemy - enemy's color to identify pieces
 	 */
-	
 	public void retrieveSoldier(Location K, PrimaryColor enemy) {
 		
 		PrimaryColor t;
@@ -71,7 +70,6 @@ public class BlueTile extends Tile {
 	 * @param enemy - the color of the enemy to identify pieces
 	 * @return can be placed or not
 	 */
-	
 	public boolean isReturnPosLegal(Location K , PrimaryColor enemy) {
 		
 		int row = K.getRow();

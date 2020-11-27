@@ -11,6 +11,12 @@ public class GameTimer {
 	private long startTime;
 	private long anonStartTime;
 
+	/**
+	 * GameTimer constructor
+	 * @param startTime - timer start time
+	 * @param anonStartTime - anonymous start time, changes privately after every pause
+	 * @param pauseTime - the last pause time
+	 */
 	public GameTimer(long startTime, long anonStartTime, long pauseTime) {
 		super();
 		this.startTime = startTime-1;

@@ -49,6 +49,10 @@ public abstract class  Piece {
 		return true;
 	}
 
+	/**
+	 * Getters and Setters
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
@@ -66,7 +70,6 @@ public abstract class  Piece {
 	public Location getLocation() {
 		return location;
 	}
-	
 	public void setLocation(Location location) throws Exception {
 		Board board=Board.getInstance();
 		Tile tile = board.getTileInLocation(location);
@@ -76,12 +79,9 @@ public abstract class  Piece {
 			throw new Exception("you can't locate piece on white tile ");
 		}
 	}
-
 	public int getEatingCntr() {
 		return eatingCntr;
 	}
-
-
 	public void setEatingCntr(int eatingCntr) {
 		this.eatingCntr = eatingCntr;
 	}

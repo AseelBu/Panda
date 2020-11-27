@@ -22,11 +22,9 @@ public class Tile implements Comparable<Tile>{
 	/**
 	 * Constructor for regular tile without piece
 	 * 
-	 * @param location
-	 * @param color1
+	 * @param location - Tile's location
+	 * @param color1 - Tile's primary color - white or black
 	 */
-	//
-
 	public Tile(Location location, PrimaryColor color1) {
 		super();
 		this.location = location;
@@ -36,9 +34,9 @@ public class Tile implements Comparable<Tile>{
 	/**
 	 * Constructor for Special tile without piece
 	 * 
-	 * @param location
-	 * @param color1
-	 * @param color2
+	 * @param location - Tile's location
+	 * @param color1 - Tile's primary color - white or black
+	 * @param color2 - Tile's secondary color
 	 */
 	public Tile(Location location, PrimaryColor color1, SeconderyTileColor color2) {
 		super();

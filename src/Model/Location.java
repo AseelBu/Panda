@@ -5,7 +5,6 @@ package Model;
 
 import java.util.HashMap;
 
-import Exceptions.OutOfBoardBoundariesException;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
@@ -112,7 +111,6 @@ public class Location {
 	 * @param direction UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT
 	 * @param steps- number of steps diagonally
 	 * @return new location if it's within board boundaries, else returns null
-
 	 */
 	public Location addToLocationDiagonally(Directions dir,int steps) {
 		Board board = Board.getInstance();
@@ -125,9 +123,6 @@ public class Location {
 			if(currRow+steps<=board.getBoardSize() && currCol-steps>=board.getColumnLowerBound()) {
 				updatedLocation = new Location(currRow+steps, (char)(currCol-steps));
 			}
-			//			else {
-			//				throw new OutOfBoardBoundariesException("your move is out of board boundries");
-			//			}
 			break;
 
 		}
@@ -135,34 +130,23 @@ public class Location {
 			if(currRow+steps<=board.getBoardSize() && currCol+steps<=board.getColumnUpperBound()) {
 				updatedLocation = new Location(currRow+steps, (char)(currCol+steps));
 			}
-			//				else {
-			//					throw new OutOfBoardBoundariesException("your move is out of board boundries");
-			//				}
 			break;
 		}
 		case DOWN_LEFT:{
 			if(currRow-steps>=1 && currCol-steps>=board.getColumnLowerBound()) {
 				updatedLocation = new Location(currRow-steps, (char)(currCol-steps));
 			}
-			//				else {
-			//					throw new OutOfBoardBoundariesException("your move is out of board boundries");
-			//				}
 			break;
 		}
 		case DOWN_RIGHT:{
 			if(currRow-steps>=1 && currCol+steps<=board.getColumnUpperBound()) {
 				updatedLocation = new Location(currRow-steps, (char)(currCol+steps));
 			}
-			//				else {
-			//					throw new OutOfBoardBoundariesException("your move is out of board boundries");
-			//				}
 			break;
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + dir);
 		}
-
-//		if(updatedLocation == null) System.out.println("new location is out of board boundries");
 		return updatedLocation;
 	}
 	
@@ -236,7 +220,6 @@ public class Location {
 		
 	}
 
-	//TODO
 	/**
 	 * works only on current black tiles
 	 * @param targetLocation
@@ -252,7 +235,6 @@ public class Location {
 		return result;
 	}
 
-	//TODO 
 	/**
 	 * without going through walls??
 	 * works for current black tiles only
@@ -358,31 +340,10 @@ public class Location {
 
 	};
 
-//	/**
-//	 * TODO
-//	 * @param loc
-//	 * @return
-//	 */
-//	public boolean isLocationInBoardBoundries(int row, char col) {
-//		Board board = Board.getInstance();
-//		boolean inBoundries =false;
-//		int row = loc.getRow();
-//		Character col =loc.getColumn();
-//
-//		if(row<1 || row>board.getBoardSize()) {
-//			System.out.println(in Loct);
-//		}
-//		else {
-//			inBoundries=true;
-//		}
-//		if (col.compareTo(board.getColumnLowerbond())<0 || col.compareTo(board.getColumnUpperbond())>0) {
-//			System.out.println();
-//		}else {
-//			inBoundries =true;
-//		}
-//		return inBoundries;
-//	}
-
+	/**
+	 * Checks if location is on end of board for each player to check for queen upgrade situation
+	 * @return
+	 */
 	public boolean isEndOfBoard(){
 		Board board = Board.getInstance();
 		Player currPlayer = Game.getInstance().getTurn().getCurrentPlayer();

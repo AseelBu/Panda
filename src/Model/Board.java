@@ -5,7 +5,6 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Random;
@@ -30,7 +29,9 @@ public class Board {
 
 	private static Board instance;
 
-
+	/**
+	 * Board class constructor
+	 */
 	private Board(){
 		pieces = new ArrayList<Piece>();
 		tiles = new HashMap<Integer, ArrayList<Tile>>(BOARD_SIZE);
@@ -45,7 +46,12 @@ public class Board {
 		} 
 		return instance; 
 	}
-
+	/**
+	 * destructor for this class
+	 */
+	public static void destruct() {
+		instance = null;
+	}
 
 	// getters &setters 
 
@@ -73,7 +79,6 @@ public class Board {
 	 * Add standard tiles to the game.
 	 */
 	public void initBoardTiles() {
-		int count = 0;
 		for(int i = 1 ; i <= BOARD_SIZE ; i+=2) {
 			for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
 				addTile(new Tile(new Location(i, c), PrimaryColor.BLACK));
@@ -93,7 +98,7 @@ public class Board {
 
 	/**
 	 * returns all tiles in the board
-	 * @return ArrayList<Tile> all tiles in board
+	 * @return ArrayList of Tile all tiles in board
 	 */
 	public ArrayList<Tile> getAllBoardTiles() {
 		// TODO Auto-generated method stub
@@ -112,7 +117,7 @@ public class Board {
 	 * Given row returns all the tiles in specified row
 	 * 
 	 * @param row -wanted tiles' row number
-	 * @return ArrayList<Tile> of tiles in given row
+	 * @return ArrayList of Tile of tiles in given row
 	 */
 	public ArrayList<Tile> getTilesinRow(int row) {
 
@@ -123,7 +128,7 @@ public class Board {
 	 * Given column returns all the tiles in specified column
 	 * 
 	 * @param Col -wanted tiles' column letter
-	 * @return ArrayList<Tile> of tiles in given column
+	 * @return ArrayList of Tile of tiles in given column
 	 */
 	public ArrayList<Tile> getTilesinCol(char Col) {
 
@@ -141,7 +146,7 @@ public class Board {
 	 * 
 	 * @param location object
 	 * @return Tile-tile in the requested location
-	 * @throws Exception-row [number] in board doesn't have tiles
+	 * @throws Exception - row number in board doesn't have tiles
 	 */
 	public Tile getTileInLocation(Location location) throws Exception {
 
@@ -260,7 +265,6 @@ public class Board {
 	 * @param piece
 	 * @return true if added successfully, false otherwise
 	 */
-
 	public boolean addPieceToBoardTile(Piece piece) {
 
 		if(piece == null) return false; 
@@ -419,15 +423,6 @@ public class Board {
 		return true;
 
 	}
-
-	//	
-	//	private void isEdiableBy(Piece currentPiece, Piece targetPiece) {
-	//		// TODO Auto-generated method stub
-	//		Location currLocation = currentPiece.getLocation();
-	//		Location targetLocation = targetPiece.getLocation();
-	//		if(currLocation.addToLocationDiagonally(Directions.UP_LEFT, 1))
-	//
-	//	}
 
 
 	/**
@@ -693,8 +688,6 @@ public class Board {
 	 * @param targetPiece
 	 * @return Piece eaten if eating was successful ,null otherwise
 	 */
-	//	IMPORTANT NOTE !! 
-	//	eating is going to be called by move in piece(soldier/queen) so don't change pieceEatig location after eating!!
 	public Piece eat(Piece pieceEatig, Piece targetPiece) {
 		if(pieceEatig == null || targetPiece == null) {
 			System.out.println("null arguments in Board.eat method call");
@@ -768,7 +761,13 @@ public class Board {
 
 	}
 
-
+	/**
+	 * Method to be called for moving a piece
+	 * @param from location of a piece to move
+	 * @param to location of a tile to move to
+	 * @param direction the direction to move the piece
+	 * @return true if the move has succeeded, otherwise false
+	 */
 	public boolean movePiece(Location from, Location to, Directions direction) {
 		System.out.println("Attempting to move piece from: " + from.getColumn() + "" + from.getRow() + " | to : " + to.getColumn() + "" + to.getRow());
 		HashMap<Piece, ArrayList<Piece>> toBurn = searchToBurn();
@@ -804,7 +803,7 @@ public class Board {
 				toBurn.remove(piece);
 				toBurn.put(turn.getLastPieceMoved(), temp);
 			}
-			burnAllPiecesMissedEating(toBurn, turn.getCurrentPlayer().getColor());
+			burnAllPiecesMissedEating(toBurn);
 			
 			if(turn.getMoveCounter()>0) {
 				Game.getInstance().getTurn().decrementMoveCounter();
@@ -827,11 +826,11 @@ public class Board {
 		return false;
 	}
 
+	/**
+	 * Used to print the board
+	 */
 	public void printBoard() {
 		System.out.print("\r\n");
-		ArrayList<String> board = new ArrayList<String>();
-		//TODO sort Tiles
-		ArrayList<Tile> boardTiles=getAllBoardTiles();
 		System.out.println("    A | B | C | D | E | F | G | H");
 		for(int i = BOARD_SIZE ; i > 0 ; i--) {
 			System.out.println("   ___ ___ ___ ___ ___ ___ ___ ___");
@@ -868,7 +867,11 @@ public class Board {
 
 	}
 
-	public void burnAllPiecesMissedEating(HashMap<Piece, ArrayList<Piece>> toBurn,PrimaryColor playerColor) {
+	/**
+	 * Burns specific pieces 
+	 * @param toBurn a HashMap that contains every piece with its must eat pieces of the opponent
+	 */
+	public void burnAllPiecesMissedEating(HashMap<Piece, ArrayList<Piece>> toBurn) {
 		Turn turn = Game.getInstance().getTurn();
 		
 		if(toBurn.containsKey(turn.getLastPieceMoved()))
