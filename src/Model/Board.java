@@ -240,7 +240,7 @@ public class Board {
 
 		//remove from board tile
 
-		result=result && removePieceFromBoardTile(piece);
+		result = result && removePieceFromBoardTile(piece);
 
 		return result;
 	}
@@ -544,14 +544,19 @@ public class Board {
 		LinkedHashSet<Tile> possibleTileSet = new LinkedHashSet<Tile>();
 
 		ArrayList<Piece> colorPieces = getColorPieces(playerColor);
-
 		for(Piece p : colorPieces) {
 			if(p instanceof Soldier) {
 				try {
 					//adding tiles without eating
 					Location pieceLocal = p.getLocation();
-					for (Directions dir :upDirections) {
+					Directions[] direc = null;
+					if(playerColor == PrimaryColor.WHITE)
+						direc = upDirections;
+					else 
+						direc = downDirections;
+					for (Directions dir : direc) {
 						Location tempLoc = pieceLocal.addToLocationDiagonally(dir, 1);
+						
 						if(tempLoc != null) {
 							Tile locTile = getTileInLocation(tempLoc);
 							if( locTile.isEmpty()) {
@@ -559,8 +564,14 @@ public class Board {
 							}
 						}
 					}
+					Directions[] eat = null;
+					if(playerColor == PrimaryColor.WHITE)
+						eat = downDirections;
+					else 
+						eat = upDirections;
+					
 					//adding tiles with eating
-					for (Directions dir :upDirections) {
+					for (Directions dir :direc) {
 						Piece ediblePiece=p.getEdiblePieceByDirection(dir);
 						if(ediblePiece != null) {
 							Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
@@ -570,7 +581,7 @@ public class Board {
 						}
 					}
 					if(p.getEatingCntr()>=1) {
-						for (Directions dir :downDirections) {
+						for (Directions dir :eat) {
 							Piece ediblePiece=p.getEdiblePieceByDirection(dir);
 							if(ediblePiece != null) {
 								Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
@@ -660,7 +671,7 @@ public class Board {
 	public boolean burn(Piece piece, boolean isEaten) {
 		if(piece == null) return false;
 
-		boolean result =removePiece(piece);
+		boolean result = removePiece(piece);
 
 		if (result) {
 			if(isEaten) {
@@ -700,7 +711,7 @@ public class Board {
 			if(burn(targetPiece, true)) {
 				pieceEatig.incEatingCntr(1);
 				currPlayer.AddScore(100);
-
+				Game.getInstance().getTurn().setEaten(targetPiece);
 			}else {
 				return null;
 			}
@@ -760,8 +771,7 @@ public class Board {
 
 	public boolean movePiece(Location from, Location to, Directions direction) {
 		System.out.println("Attempting to move piece from: " + from.getColumn() + "" + from.getRow() + " | to : " + to.getColumn() + "" + to.getRow());
-
-
+		HashMap<Piece, ArrayList<Piece>> toBurn = searchToBurn();
 		Player currPlayer =Game.getInstance().getTurn().getCurrentPlayer();
 		Piece piece = null;
 		Tile fromTile = null, toTile = null;
@@ -789,14 +799,22 @@ public class Board {
 
 		if(piece.move(toTile, direction)) {
 			Turn turn = Game.getInstance().getTurn();
+			if(toBurn.containsKey(piece)) {
+				ArrayList<Piece> temp = toBurn.get(piece);
+				toBurn.remove(piece);
+				toBurn.put(turn.getLastPieceMoved(), temp);
+			}
+			burnAllPiecesMissedEating(toBurn, turn.getCurrentPlayer().getColor());
+			
 			if(turn.getMoveCounter()>0) {
 				Game.getInstance().getTurn().decrementMoveCounter();
 			}
-			if(piece instanceof Queen) System.out.println("Queen has been moved!");
-			else System.out.println("Soldier has been moved!");
+			if(piece.getLocation() != null)
+				if(piece instanceof Queen) System.out.println("Queen has been moved!");
+				else System.out.println("Soldier has been moved!");
 			
 			// is there eating left for the piece
-			if(!isAllPiecesEaten(piece)) {
+			if(!isAllPiecesEaten(piece) && Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0) {
 				Game.getInstance().getTurn().IncrementMoveCounter();
 			}
 			if(turn.getMoveCounter()==0) {
@@ -850,18 +868,32 @@ public class Board {
 
 	}
 
-	public void burnAllPiecesMissedEating(PrimaryColor playerColor) {
-		// TODO Auto-generated method stub
-		ArrayList<Piece> needEatPieces = getAllNeedToEatPieces(playerColor);
-		for(Piece p : needEatPieces) {
+	public void burnAllPiecesMissedEating(HashMap<Piece, ArrayList<Piece>> toBurn,PrimaryColor playerColor) {
+		Turn turn = Game.getInstance().getTurn();
+		
+		if(toBurn.containsKey(turn.getLastPieceMoved()))
+			if(toBurn.get(turn.getLastPieceMoved()).contains(turn.getEaten())) return;
+		//TODO Red Tile to be a condition is this case
+		for(Piece p : toBurn.keySet()) {
 			burn(p, false);
 		}
-		
+
 	}
 
 
-
-
+	/**
+	 * Searches for every possible must eat situation
+	 * @return HashMap with key of pieces, ArrayList of possible edible pieces as value
+	 */
+	public HashMap<Piece, ArrayList<Piece>> searchToBurn(){
+		HashMap<Piece, ArrayList<Piece>> toBurn = new HashMap<>();
+		for(Piece p : getColorPieces(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+			ArrayList<Piece> temp = p.getMustEdiblePieces();
+			if(!temp.isEmpty())
+				toBurn.put(p, temp);
+		}
+		return toBurn;
+	}
 
 
 }

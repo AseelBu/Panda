@@ -16,6 +16,7 @@ public class Turn {
 	private int moveCounter;
 	private Piece lastPieceMoved;
 	private Player currentPlayer;
+	private Piece eaten;
 
 
 	//constructor
@@ -24,6 +25,7 @@ public class Turn {
 		this.timer = new GameTimer();
 		moveCounter = 0;
 		lastPieceMoved = null;
+		eaten = null;
 		this.currentPlayer = currentPlayer;
 	}
 
@@ -58,6 +60,12 @@ public class Turn {
 	}
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+	}
+	public Piece getEaten() {
+		return eaten;
+	}
+	public void setEaten(Piece eaten) {
+		this.eaten = eaten;
 	}
 
 	//tostring
@@ -221,10 +229,6 @@ public class Turn {
 		CalculateTimeScore();
 		lastPieceMoved.resetEatingCntr();
 		board.replacePiece(lastPieceMoved, lastPieceMoved);
-		//turn was finished but there are still pieces that need to be eaten
-		if(!board.isAllPiecesEaten(currentPlayer.getColor())) {
-			board.burnAllPiecesMissedEating(currentPlayer.getColor());
-		}
 
 	}
 }

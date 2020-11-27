@@ -16,7 +16,6 @@ public class Soldier extends Piece{
 	 */
 	public Soldier(int id,PrimaryColor color, Location location) {
 		super(id, color, location);
-		// TODO Auto-generated constructor stub
 	}
 
 

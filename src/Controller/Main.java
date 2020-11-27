@@ -32,7 +32,7 @@ public class Main {
 			System.out.println("Player 2 : " + players[1].getNickname());
 		}
 		game = Game.getInstance();
-		cases(4);
+		cases(2);
 	}
 	
 	static void cases(int index) {
@@ -111,9 +111,14 @@ public class Main {
 				game.getBoard().printBoard();
 				game.getBoard().movePiece(new Location(8, 'D'), new Location(2, 'F'), Directions.DOWN_LEFT);
 				game.getBoard().printBoard();
-//				game.getBoard().movePiece(new Location(6, 'B'), new Location(8, 'D'), Directions.UP_RIGHT);
-//				game.getBoard().printBoard();
-				
+				game.getBoard().movePiece(new Location(6, 'F'), new Location(5, 'E'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(2, 'D'), new Location(3, 'E'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(4, 'F'), new Location(3, 'G'), Directions.DOWN_RIGHT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(3, 'E'), new Location(4, 'D'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
 				//Last move has to be for white piece rather than black
 				//eat several pieces in a row
 				break;
@@ -121,7 +126,7 @@ public class Main {
 			case 2:
 			{
 				System.out.println("Running Case " + index + " !! : \r\n\r\n");
-				HashMap<Character, ArrayList<Piece>> load = SysData.getInstance().loadGame("saved_games/game1.txt");
+				HashMap<Character, ArrayList<Piece>> load = SysData.getInstance().loadGame("saved_games/game_.txt");
 				try {
 					if(load.containsKey('W')) {
 						game.startGame(players, load.get('W'), 'W');
@@ -132,16 +137,23 @@ public class Main {
 					// TODO Auto-generated catch block
 					System.err.println(e.getMessage());
 				}
-				
 				game.getBoard().printBoard();
-				
-				game.getBoard().movePiece(new Location(4, 'F'), new Location(1, 'A'), Directions.DOWN_RIGHT);
+				game.getBoard().movePiece(new Location(7, 'A'), new Location(5, 'C'), Directions.DOWN_RIGHT);
 				game.getBoard().printBoard();
-				game.switchTurn();
-				game.getBoard().movePiece(new Location(5, 'A'), new Location(2, 'F'), Directions.UP_RIGHT);
+				game.getBoard().movePiece(new Location(5, 'C'), new Location(7, 'E'), Directions.UP_RIGHT);
 				game.getBoard().printBoard();
-				game.switchTurn();
-
+				game.getBoard().movePiece(new Location(7, 'E'), new Location(5, 'G'), Directions.DOWN_RIGHT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(5, 'G'), new Location(3, 'E'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(3, 'E'), new Location(5, 'C'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(5, 'C'), new Location(3, 'A'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(7, 'C'), new Location(8, 'B'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(3, 'A'), new Location(4, 'B'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
 				break;
 			}
 			case 3:{
@@ -197,7 +209,7 @@ public class Main {
 				game.getBoard().movePiece(new Location(2, 'D'), new Location(5, 'G'), Directions.UP_RIGHT);
 				game.getBoard().printBoard();
 				game.getBoard().movePiece(new Location(5, 'G'), new Location(7, 'A'), Directions.UP_RIGHT);
-				game.getBoard().printBoard();
+				
 				break;
 			}
 			
