@@ -81,15 +81,15 @@ public class Board {
 		}
 		for(int i = 2 ; i <= BOARD_SIZE ; i+=2) {
 			for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
-		
+
 				addTile(new Tile(new Location(i, c), PrimaryColor.WHITE));
 				addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK));
 			}
 		}
 	}
 
-	
-	
+
+
 	/**
 	 * returns all tiles in the board
 	 * @return ArrayList<Tile> all tiles in board
@@ -233,16 +233,25 @@ public class Board {
 	 * @return true if added successfully,otherwise false
 	 */
 	public boolean removePiece(Piece piece) {
-	boolean result =false;
-	//remove from list of pieces
-	result= this.pieces.remove(piece);
+		boolean result =false;
+		//remove from list of pieces
+		result= this.pieces.remove(piece);
 
-	//remove from board tile
+		//remove from board tile
 
-	result=result && removePieceFromBoardTile(piece);
+		result=result && removePieceFromBoardTile(piece);
 
-	return result;
+		return result;
 	}
+
+	public boolean replacePiece(Piece pieceToReplace,Piece pieceToReplaceWith) {
+		if(removePiece(pieceToReplace)){
+			return addPiece(pieceToReplaceWith);
+		}
+		return false;
+	}
+
+
 	/**
 	 * adds piece to tile in board
 	 * NOTE - assumes tile already exist in board
@@ -251,7 +260,7 @@ public class Board {
 	 * @return true if added successfully, false otherwise
 	 */
 
-	private boolean addPieceToBoardTile(Piece piece) {
+	public boolean addPieceToBoardTile(Piece piece) {
 
 		if(piece == null) return false; 
 		Location pieceLoc = piece.getLocation();
@@ -290,8 +299,8 @@ public class Board {
 	}
 
 
-	
-	
+
+
 	//helping method that removes piece from tile in board
 	private boolean removePieceFromBoardTile(Piece piece) {
 
@@ -310,8 +319,8 @@ public class Board {
 			return false;
 		}
 	}
-	
-	
+
+
 	/**
 	 * checks if the piece can move to targetLocation depending on all pieces locations on board
 	 * @param piece
@@ -344,7 +353,7 @@ public class Board {
 			Piece ediblePiece = piece.getEdiblePieceByDirection( direction);
 			// if its moving in 2s make sure there is a piece we are eating by moving like that
 			if(((piece.getColor()==PrimaryColor.WHITE) && (direction == Directions.UP_LEFT || direction == Directions.UP_RIGHT)) 
-				|| ((piece.getColor()==PrimaryColor.BLACK) && (direction == Directions.DOWN_LEFT|| direction == Directions.DOWN_RIGHT))){
+					|| ((piece.getColor()==PrimaryColor.BLACK) && (direction == Directions.DOWN_LEFT|| direction == Directions.DOWN_RIGHT))){
 				if(steps==2) {
 					//if no piece to eat
 					if(ediblePiece == null) {
@@ -567,7 +576,7 @@ public class Board {
 		return possibleTiles;
 	}
 
-	
+
 	/**
 	 * gets all the pieces that can be eaten by specific player color
 	 * @param player color PrimaryColor BLACK,WHITE
@@ -602,7 +611,7 @@ public class Board {
 
 	}
 
-	
+
 	/**
 	 * 
 	 * @param pieceEatig
@@ -645,7 +654,7 @@ public class Board {
 	 * @return true if there is no more eating left for color player,otherwise false
 	 */
 	public boolean isAllPiecesEaten(PrimaryColor playerColor) {
-		
+
 		ArrayList<Piece> ediblePieces= getAllEdiblePiecesByColor(playerColor);
 		if(ediblePieces.isEmpty()) {
 			return true;
@@ -661,7 +670,7 @@ public class Board {
 	 * @return true if player is stuck, false otherwise
 	 */
 	public boolean isPlayerStuck(PrimaryColor playerColor) {
-	
+
 		if(getAllLegalMoves(playerColor).isEmpty()) {
 			return true;
 		}
@@ -669,7 +678,7 @@ public class Board {
 
 	}
 
-	
+
 	public boolean movePiece(Location from, Location to, Directions direction) {
 		Piece piece = null;
 		Tile fromTile = null, toTile = null;
@@ -682,12 +691,12 @@ public class Board {
 		piece = fromTile.getPiece();
 		if(piece == null) return false;
 		if(Game.getInstance().getTurn().getCurrentPlayer().getColor() != piece.getColor()) return false;
-		
+
 		piece.move(toTile, direction);
-		
+
 		return true;
 	}
-	
+
 	public void printBoard() {
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles
