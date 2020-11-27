@@ -4,6 +4,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -394,6 +395,15 @@ public class Board {
 				System.err.println("Queen is blocked!");
 				return false;
 			}
+			try {
+				if(((Queen) piece).getPiecesCountByDirection(targetLocation, direction) > 1) {
+					System.err.println("Failed to eat more than one piece in one move, try to split your move");
+					return false;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 
@@ -511,7 +521,6 @@ public class Board {
 
 	}
 
-	//TODO handle queen missing
 	/**
 	 * gets all possible moves (tiles to move to) for certain color (player)
 	 * 
@@ -564,6 +573,29 @@ public class Board {
 					}
 				}
 				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(p instanceof Queen){
+				try {
+					Collection<HashMap<Character, Tile>> temp = null;
+					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.UP_LEFT).values();
+					temp.iterator().next();
+					possibleTileSet.addAll(temp.iterator().next().values());
+
+					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.UP_RIGHT).values();
+					temp.iterator().next();
+					possibleTileSet.addAll(temp.iterator().next().values());
+					
+					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_LEFT).values();
+					temp.iterator().next();
+					possibleTileSet.addAll(temp.iterator().next().values());
+					
+					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT).values();
+					temp.iterator().next();
+					possibleTileSet.addAll(temp.iterator().next().values());
+					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
 					e.printStackTrace();
 				}
 			}

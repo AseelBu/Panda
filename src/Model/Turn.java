@@ -135,7 +135,6 @@ public class Turn {
 		 }
 		 else
 		 {
-			 System.out.println(timer.getSeconds());
 			 return(currentPlayer.AddScore(60-timer.getSeconds()));
 		 }
 	 }
