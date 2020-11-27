@@ -46,7 +46,7 @@ public class Soldier extends Piece{
 				}
 				board.removePiece(this);
 				try {
-					//islocation end of board? if yes turn to queen
+					//is location end of board? if yes turn to queen
 					if(targetLocation.isEndOfBoard()) {
 						Queen newQueen= new Queen(getId(), getColor(), targetLocation);
 						board.addPiece(newQueen);
@@ -241,7 +241,7 @@ public class Soldier extends Piece{
 
 	@Override
 	public String toString() {
-		return "S-"+this.getColor();
+		return "Soldier-"+this.getColor();
 	}
 
 
