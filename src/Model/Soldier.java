@@ -141,73 +141,9 @@ public class Soldier extends Piece{
 	 */
 	public ArrayList<Piece> getEdiblePieces() {
 
-		ArrayList<Piece> ediblePieces = new ArrayList<Piece>();
-		Board board = Board.getInstance();
-		Player currPlayer = Game.getInstance().getTurn().getCurrentPlayer();
-		Location pieceLoc = this.getLocation();
-		Location UL =pieceLoc.addToLocationDiagonally(Directions.UP_LEFT, 1);
-		Location UR =pieceLoc.addToLocationDiagonally(Directions.UP_RIGHT, 1);
-		Location DL =pieceLoc.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
-		Location DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
+	
 
-		try {
-			if((getEatingCntr()>=1 && currPlayer.getColor().equals(PrimaryColor.BLACK))
-					|| currPlayer.getColor().equals(PrimaryColor.WHITE)) {
-				if(UL!=null) {
-					Piece p =board.getTileInLocation(UL).getPiece();
-					if(p!=null) {
-						if(!p.getColor().equals(currPlayer.getColor())) {
-							Location jmpLoc = UL.addToLocationDiagonally(Directions.UP_LEFT, 1);
-							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
-								ediblePieces.add(p);
-							}
-						}
-					}
-				}
-				if(UR!=null) {
-					Piece p =board.getTileInLocation(UR).getPiece();
-					if(p!=null) {
-						if(!p.getColor().equals(currPlayer.getColor())) {
-							Location jmpLoc = UR.addToLocationDiagonally(Directions.UP_RIGHT, 1);
-							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
-								ediblePieces.add(p);
-							}
-						}
-					}
-				}
-			}
-			if((getEatingCntr()>=1 && currPlayer.getColor().equals(PrimaryColor.WHITE))
-					|| currPlayer.getColor().equals(PrimaryColor.BLACK)) {
-				if(DL!=null) {
-					Piece p =board.getTileInLocation(DL).getPiece();
-					if(p!=null) {
-						if(!p.getColor().equals(currPlayer.getColor())) {
-							Location jmpLoc = DL.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
-							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
-								ediblePieces.add(p);
-							}
-						}
-					}
-				}
-				if(DR!=null) {
-					Piece p =board.getTileInLocation(DR).getPiece();
-					if(p!=null) {
-						if(!p.getColor().equals(currPlayer.getColor())) {
-							Location jmpLoc = DR.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
-							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
-								ediblePieces.add(p);
-							}
-						}
-					}
-				}
-			}
-		}
-		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-
-		return ediblePieces;
+		return super.getMustEdiblePieces();
 
 	}
 

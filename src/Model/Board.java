@@ -643,7 +643,7 @@ public class Board {
 		ArrayList<Piece> colorPieces=getColorPieces(playerColor);
 
 		for (Piece p : colorPieces) {
-			if(!p.getEdiblePieces().isEmpty()) {
+			if(!p.getMustEdiblePieces().isEmpty()) {
 				needToEatPieces.add(p);
 			}
 			

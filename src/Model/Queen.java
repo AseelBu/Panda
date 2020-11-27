@@ -32,7 +32,6 @@ public class Queen extends Piece{
 	//update in Turn lastPieceMoved
 	public boolean move(Tile targetTile, Directions direction) {
 		Board board = Board.getInstance();	
-		Turn turn = Game.getInstance().getTurn();
 		Location targetLocation = targetTile.getLocation();
 		if(this.isMoveLegalByDirection(targetLocation, direction)) {
 			if(board.canPieceMove(this, targetLocation, direction)) {
@@ -59,7 +58,7 @@ public class Queen extends Piece{
 				try {
 					this.setLocation(targetLocation);
 					board.addPiece(this);
-					turn.setLastPieceMoved(this);
+					Game.getInstance().getTurn().setLastPieceMoved(this);
 					return true;
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
