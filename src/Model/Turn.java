@@ -79,6 +79,7 @@ public class Turn {
 	//An orange tile will appear after 90 seconds
 	public void  ShowOrangeAfter90()
 	{
+
 		ArrayList<Tile> t=Board.getInstance().getAllLegalMoves(currentPlayer.getColor());
 		for(Tile e:t)
 		{
@@ -170,6 +171,7 @@ public class Turn {
 	public boolean  isCandidateForBlueTile()
 	{
 		int soldierCount=0,queenCount=0;
+
 		if( currentPlayer.getColor().equals(PrimaryColor.BLACK))
 		{
 			ArrayList<Piece> piece1=Board.getInstance().getAllEdiblePiecesByColor(currentPlayer.getColor());

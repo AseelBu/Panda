@@ -20,18 +20,6 @@ public class Queen extends Piece{
 		// TODO Auto-generated constructor stub
 	}
 
-//	@Override
-//	//!! call for eating if eating is possible by this move !!
-//	//update in Turn lastPieceMoved
-//	public void move(Tile targetTile) {
-////		Location targetLocation = targetTile.getLocation();
-////		if(this.isMoveLegal(targetLocation)) {
-////			if(Board.getInstance().canPieceMove(this, targetLocation)) {
-////				//			TODO does moving contains eating?
-////				this.setLocation(targetLocation);
-////			}
-////		}
-//	}
 	
 	/**
 	 * Method used to move a piece by selected direction
@@ -219,14 +207,16 @@ public class Queen extends Piece{
 				int c = getLocation().getColumn();
 	
 				do {
-					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
-						if(suspectedToAdd != null) break;
-						else {
-							suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
-						}
-					}else {
-						if(suspectedToAdd != null) {
-							return suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
+							if(suspectedToAdd != null) break;
+							else {
+								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+							}
+						}else {
+							if(suspectedToAdd != null) {
+								return suspectedToAdd;
+							}
 						}
 					}
 					i++;
@@ -244,15 +234,17 @@ public class Queen extends Piece{
 				int c = getLocation().getColumn();
 	
 				do {
-					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
-						if(suspectedToAdd != null) break;
-						else {
-							suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
-						}
-					}else {
-						if(suspectedToAdd != null) {
-							return suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
-
+					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
+							if(suspectedToAdd != null) break;
+							else {
+								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+							}
+						}else {
+							if(suspectedToAdd != null) {
+								return suspectedToAdd;
+	
+							}
 						}
 					}
 					i++;
@@ -270,14 +262,16 @@ public class Queen extends Piece{
 				int c = getLocation().getColumn();
 	
 				do {
-					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
-						if(suspectedToAdd != null) break;
-						else {
-							suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
-						}
-					}else {
-						if(suspectedToAdd != null) {
-							return suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
+							if(suspectedToAdd != null) break;
+							else {
+								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+							}
+						}else {
+							if(suspectedToAdd != null) {
+								return suspectedToAdd;
+							}
 						}
 					}
 					i--;
@@ -286,23 +280,25 @@ public class Queen extends Piece{
 					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
 				}
 				while(i != getLocation().getRow() && c != getLocation().getColumn());
-
+				
 				break;
 			}
-			case DOWN_RIGHT:{//
+			case DOWN_RIGHT:{
 				
 				int i = getLocation().getRow();
 				int c = getLocation().getColumn();
 	
 				do {
-					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
-						if(suspectedToAdd != null) break;
-						else {
-							suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
-						}
-					}else {
-						if(suspectedToAdd != null) {
-							return suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
+							if(suspectedToAdd != null) break;
+							else {
+								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+							}
+						}else {
+							if(suspectedToAdd != null) {
+								return suspectedToAdd;
+							}
 						}
 					}
 					i--;
@@ -326,7 +322,6 @@ public class Queen extends Piece{
 	 * @param direction of eating/moving
 	 * @return Piece -edible piece
 	 */
-	
 	public Piece getEdiblePieceByDirection(Location targetLocation, Directions direction) {
 		Board board = Board.getInstance();
 		HashMap<Integer, ArrayList<Tile>> boardMap = board.getTilesMap();
@@ -521,6 +516,12 @@ public class Queen extends Piece{
 		return null;
 	}
 	
+	/**
+	 * Checks if piece is blocked in a specific direction
+	 * @param targetLocation
+	 * @param direction
+	 * @return true if piece blocked, otherwise false
+	 */
 	public boolean isPieceBlockedByDirection(Location targetLocation, Directions direction) {
 		Board board = Board.getInstance();
 		HashMap<Integer, ArrayList<Tile>> boardMap = board.getTilesMap();
@@ -654,6 +655,274 @@ public class Queen extends Piece{
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param direction
+	 * @return HashMap contains tiles, main key is the row (Integer), internal map key is column (Character)
+	 * @throws Exception if there is any missing tile in board
+	 */
+	public HashMap<Integer,HashMap<Character,Tile>> getAllAvailableMovesByDirection(Directions direction) throws Exception{
+		HashMap<Integer,HashMap<Character,Tile>> tiles = new HashMap<>();
+		for(int i = 1 ; i <= 8 ; i++) {
+			for(char c = 'A'; c <='H' ; c++) {
+				HashMap<Character,Tile> temp = new HashMap<>();
+				temp.put(c, null);
+				tiles.put(i, temp);
+			}
+		}
+		Board board =Board.getInstance();
+		Piece suspectedToBlock = null;
+		switch(direction) {
+			case UP_LEFT:{
+				int i = getLocation().getRow();
+				int c = getLocation().getColumn();
+
+				do {
+					Location location = new Location(i, (char)c);
+					if(!this.getLocation().equals(location)) {
+						if(board.getTileInLocation(location).getPiece() != null)
+							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return tiles;
+						if(board.getTileInLocation(location).getPiece() != null) {
+							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return tiles;
+							if(suspectedToBlock != null) return tiles;
+							else {
+								suspectedToBlock = board.getTileInLocation(location).getPiece();
+
+							}
+						}else {
+							if(suspectedToBlock != null) {
+								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								suspectedToBlock = null;
+							}else {
+								tiles.get(location.getRow()).put(location.getColumn(), board.getTileInLocation(getLocation()));
+
+							}
+						}
+					}
+					i++;
+					c--;
+					if(i > board.getBoardSize()) i = 1;
+					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+				}
+				while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+				break;
+			}
+			case UP_RIGHT:{
+				
+				int i = getLocation().getRow();
+				int c = getLocation().getColumn();
+				do {
+					Location location = new Location(i, (char)c);
+					if(!this.getLocation().equals(location)) {
+						if(board.getTileInLocation(location).getPiece() != null)
+							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return tiles;
+						if(board.getTileInLocation(location).getPiece() != null) {
+							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return tiles;
+							if(suspectedToBlock != null) return tiles;
+							else {
+								suspectedToBlock = board.getTileInLocation(location).getPiece();
+
+							}
+						}else {
+							if(suspectedToBlock != null) {
+								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								suspectedToBlock = null;
+							}else {
+								tiles.get(location.getRow()).put(location.getColumn(), board.getTileInLocation(getLocation()));
+
+							}
+						}
+					}
+					i++;
+					c++;
+					if(i > board.getBoardSize()) i = 1;
+					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+				}
+				while(i != getLocation().getRow() && c != getLocation().getColumn());
+				
+				break;
+			}
+			case DOWN_LEFT:{//
+				
+				int i = getLocation().getRow();
+				int c = getLocation().getColumn();
+
+				do {
+					Location location = new Location(i, (char)c);
+					if(!this.getLocation().equals(location)) {
+						if(board.getTileInLocation(location).getPiece() != null)
+							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return tiles;
+						if(board.getTileInLocation(location).getPiece() != null) {
+							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return tiles;
+							if(suspectedToBlock != null) return tiles;
+							else {
+								suspectedToBlock = board.getTileInLocation(location).getPiece();
+
+							}
+						}else {
+							if(suspectedToBlock != null) {
+								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								suspectedToBlock = null;
+							}else {
+								tiles.get(location.getRow()).put(location.getColumn(), board.getTileInLocation(getLocation()));
+
+							}
+						}
+					}
+					i--;
+					c--;
+					if(i < 1) i = board.getBoardSize();
+					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+				}
+				while(i != getLocation().getRow() && c != getLocation().getColumn());
+				
+				break;
+			}
+			case DOWN_RIGHT:{//
+				
+				int i = getLocation().getRow();
+				int c = getLocation().getColumn();
+
+				do {
+					Location location = new Location(i, (char)c);
+					if(!this.getLocation().equals(location)) {
+						if(board.getTileInLocation(location).getPiece() != null)
+							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return tiles;
+						if(board.getTileInLocation(location).getPiece() != null) {
+							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return tiles;
+							if(suspectedToBlock != null) return tiles;
+							else {
+								suspectedToBlock = board.getTileInLocation(location).getPiece();
+
+							}
+						}else {
+							if(suspectedToBlock != null) {
+								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								suspectedToBlock = null;
+							}else {
+								tiles.get(location.getRow()).put(location.getColumn(), board.getTileInLocation(getLocation()));
+
+							}
+						}
+					}
+					i--;
+					c++;
+					if(i < 1) i = board.getBoardSize();
+					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+				}
+				while(i != getLocation().getRow() && c != getLocation().getColumn());
+				
+				break;
+			}
+			default: return tiles;
+		}
+		
+		return tiles;
+	}
+	
+	/**
+	 *  
+	 * @param targetLocation 
+	 * @param direction
+	 * @return Pieces count in a specific direction (excluding this object)
+	 * @throws Exception 
+	 */
+	public Integer getPiecesCountByDirection(Location targetLocation, Directions direction) throws Exception {
+		Board board = Board.getInstance();
+		Integer count = 0;
+		switch(direction) {
+			case UP_LEFT:{
+				
+				int i = getLocation().getRow();
+				int c = getLocation().getColumn();
+	
+				do {
+					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
+							count++;
+						}
+					i++;
+					c--;
+					if(i > board.getBoardSize()) i = 1;
+					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+				}
+				while((i != getLocation().getRow() && c != getLocation().getColumn()) 
+						&&
+						(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
+	
+				break;
+			}
+			case UP_RIGHT:{
+				
+				int i = getLocation().getRow();
+				int c = getLocation().getColumn();
+	
+				do {
+					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
+							count++;
+					}
+					i++;
+					c++;
+					if(i > board.getBoardSize()) i = 1;
+					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+				}
+				while((i != getLocation().getRow() && c != getLocation().getColumn()) 
+						&&
+						(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
+				break;
+			}
+			case DOWN_LEFT:{//
+				
+				int i = getLocation().getRow();
+				int c = getLocation().getColumn();
+	
+				do {
+					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
+							count++;
+					}
+					i--;
+					c--;
+					if(i < 1) i = board.getBoardSize();
+					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+				}
+				while((i != getLocation().getRow() && c != getLocation().getColumn()) 
+						&&
+						(i != targetLocation.getRow() && c != targetLocation.getColumn()) );				
+				break;
+			}
+			case DOWN_RIGHT:{
+				
+				int i = getLocation().getRow();
+				int c = getLocation().getColumn();
+	
+				do {
+					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+						if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
+							count++;
+					}
+					i--;
+					c++;
+					if(i < 1) i = board.getBoardSize();
+					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+				}
+				while((i != getLocation().getRow() && c != getLocation().getColumn()) 
+						&&
+						(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
+				break;
+			}
+			default: return count;
+		}
+		
+		return count;
+	}
+	
 	@Override
 	public String toString() {
 		return "Queen-"+this.getColor();
@@ -661,8 +930,8 @@ public class Queen extends Piece{
 
 	@Override
 	public boolean canEatPiece(Piece targetPiece) {
-		// TODO Auto-generated method stub
-		return false;
+		ArrayList<Piece> pieces = getEdiblePieces();
+		return pieces.contains(targetPiece);
 	}
 
 }
