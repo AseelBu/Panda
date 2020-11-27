@@ -925,7 +925,7 @@ public class Queen extends Piece{
 	
 	@Override
 	public String toString() {
-		return "Queen-"+this.getColor();
+		return "Queen-"+this.getColor()+" in "+getLocation();
 	}
 
 	@Override

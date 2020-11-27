@@ -39,8 +39,10 @@ public class Soldier extends Piece{
 		Location targetLocation = targetTile.getLocation();
 		
 		//check if direction matches target Tile
-		if(getLocation().getRelativeDirection(targetLocation)!=direction) {
-			System.err.println("The move direction doesn't match the relative direction of target tile location");
+		Directions legalDirection =getLocation().getRelativeDirection(targetLocation);
+		if(legalDirection!=direction) {
+			
+			System.err.println("The move direction doesn't match the relative direction of target tile location which is "+ legalDirection);
 			return false;
 		}
 		
@@ -263,7 +265,7 @@ public class Soldier extends Piece{
 
 	@Override
 	public String toString() {
-		return "Soldier-"+this.getColor();
+		return "Soldier-"+this.getColor()+" in "+getLocation();
 	}
 
 

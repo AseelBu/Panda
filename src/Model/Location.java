@@ -325,7 +325,7 @@ public class Location {
 	
 	@Override
 	public String toString() {
-		return "Location :("+row+", "+column+")";
+		return "Location :("+column+", "+row+")";
 	}
 
 
