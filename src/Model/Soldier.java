@@ -37,6 +37,14 @@ public class Soldier extends Piece{
 		Board board = Board.getInstance();
 		Turn turn = Game.getInstance().getTurn();
 		Location targetLocation = targetTile.getLocation();
+		
+		//check if direction matches target Tile
+		if(getLocation().getRelativeDirection(targetLocation)!=direction) {
+			System.err.println("The move direction doesn't match the relative direction of target tile location");
+			return false;
+		}
+		
+		
 		if(this.isMoveLegal(targetLocation)) {
 			if(Board.getInstance().canPieceMove(this, targetLocation, direction)) {
 				Piece toEat = getEdiblePieceByDirection(targetTile.getLocation(), direction);
@@ -132,6 +140,7 @@ public class Soldier extends Piece{
 
 		ArrayList<Piece> ediblePieces = new ArrayList<Piece>();
 		Board board = Board.getInstance();
+		Player currPlayer = Game.getInstance().getTurn().getCurrentPlayer();
 		Location pieceLoc = this.getLocation();
 		Location UL =pieceLoc.addToLocationDiagonally(Directions.UP_LEFT, 1);
 		Location UR =pieceLoc.addToLocationDiagonally(Directions.UP_RIGHT, 1);
@@ -139,12 +148,12 @@ public class Soldier extends Piece{
 		Location DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
 
 		try {
-			if((getEatingCntr()>=1 && Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.BLACK))
-					|| Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) {
+			if((getEatingCntr()>=1 && currPlayer.getColor().equals(PrimaryColor.BLACK))
+					|| currPlayer.getColor().equals(PrimaryColor.WHITE)) {
 				if(UL!=null) {
 					Piece p =board.getTileInLocation(UL).getPiece();
 					if(p!=null) {
-						if(!p.getColor().equals(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+						if(!p.getColor().equals(currPlayer.getColor())) {
 							Location jmpLoc = UL.addToLocationDiagonally(Directions.UP_LEFT, 1);
 							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
 								ediblePieces.add(p);
@@ -155,7 +164,7 @@ public class Soldier extends Piece{
 				if(UR!=null) {
 					Piece p =board.getTileInLocation(UR).getPiece();
 					if(p!=null) {
-						if(!p.getColor().equals(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+						if(!p.getColor().equals(currPlayer.getColor())) {
 							Location jmpLoc = UR.addToLocationDiagonally(Directions.UP_RIGHT, 1);
 							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
 								ediblePieces.add(p);
@@ -164,12 +173,12 @@ public class Soldier extends Piece{
 					}
 				}
 			}
-			if((getEatingCntr()>=1 && Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.WHITE))
-					|| Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.BLACK)) {
+			if((getEatingCntr()>=1 && currPlayer.getColor().equals(PrimaryColor.WHITE))
+					|| currPlayer.getColor().equals(PrimaryColor.BLACK)) {
 				if(DL!=null) {
 					Piece p =board.getTileInLocation(DL).getPiece();
 					if(p!=null) {
-						if(!p.getColor().equals(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+						if(!p.getColor().equals(currPlayer.getColor())) {
 							Location jmpLoc = DL.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
 							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
 								ediblePieces.add(p);
@@ -180,7 +189,7 @@ public class Soldier extends Piece{
 				if(DR!=null) {
 					Piece p =board.getTileInLocation(DR).getPiece();
 					if(p!=null) {
-						if(!p.getColor().equals(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+						if(!p.getColor().equals(currPlayer.getColor())) {
 							Location jmpLoc = DR.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
 							if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
 								ediblePieces.add(p);
