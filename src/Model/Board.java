@@ -578,7 +578,7 @@ public class Board {
 			}
 			//TODO handle queen
 		}
-		
+
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>(possibleTileSet);
 		return possibleTiles;
 	}
@@ -601,6 +601,25 @@ public class Board {
 	}
 
 
+	/**
+	 * gets all the pieces that must eat, for specific player color
+	 * @param player color PrimaryColor BLACK,WHITE
+	 * @return ArrayList<Piece> that are must eat for color player
+	 */
+	public ArrayList<Piece> getAllNeedToEatPieces(PrimaryColor playerColor){
+		ArrayList<Piece> needToEatPieces= new ArrayList<Piece>();
+		ArrayList<Piece> colorPieces=getColorPieces(playerColor);
+
+		for (Piece p : colorPieces) {
+			if(!p.getEdiblePieces().isEmpty()) {
+				needToEatPieces.add(p);
+			}
+			
+		}
+
+		return needToEatPieces;
+	}
+	
 	/**
 	 * removes piece from board pieces and from board tiles
 	 * @param piece burning piece
@@ -662,7 +681,7 @@ public class Board {
 
 
 	/**
-	 *  checks if there is more eating left for color player
+	 *  checks if there is more eating left for color player to any of it's pieces on board
 	 *  
 	 * @param playerColor PrimaryColor BLACK,WHITE
 	 * @return true if there is no more eating left for color player,otherwise false
@@ -670,6 +689,22 @@ public class Board {
 	public boolean isAllPiecesEaten(PrimaryColor playerColor) {
 
 		ArrayList<Piece> ediblePieces= getAllEdiblePiecesByColor(playerColor);
+		if(ediblePieces.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 *  checks if there is more eating left for specific piece on board
+	 *  
+	 * @param playerColor PrimaryColor BLACK,WHITE
+	 * @return true if there is no more eating left for color player,otherwise false
+	 */
+	public boolean isAllPiecesEaten(Piece piece) {
+
+
+		ArrayList<Piece> ediblePieces= piece.getEdiblePieces();
 		if(ediblePieces.isEmpty()) {
 			return true;
 		}
@@ -695,8 +730,10 @@ public class Board {
 
 	public boolean movePiece(Location from, Location to, Directions direction) {
 		System.out.println("Attempting to move piece from: " + from.getColumn() + "" + from.getRow() + " | to : " + to.getColumn() + "" + to.getRow());
-		Piece piece = null;
+
+
 		Player currPlayer =Game.getInstance().getTurn().getCurrentPlayer();
+		Piece piece = null;
 		Tile fromTile = null, toTile = null;
 		try {
 			fromTile = getTileInLocation(from);
@@ -719,15 +756,27 @@ public class Board {
 			System.err.println("You cannot move your opponent's piece");
 			return false;
 		}
-		
+
 		if(piece.move(toTile, direction)) {
+			Turn turn = Game.getInstance().getTurn();
+			if(turn.getMoveCounter()>0) {
+				Game.getInstance().getTurn().decrementMoveCounter();
+			}
 			if(piece instanceof Queen) System.out.println("Queen has been moved!");
 			else System.out.println("Soldier has been moved!");
-			Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
+			
+			// is there eating left for the piece
+			if(!isAllPiecesEaten(piece)) {
+				Game.getInstance().getTurn().IncrementMoveCounter();
+			}
+			if(turn.getMoveCounter()==0) {
+				Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
+			}
+			return true;
 		}
-		
 
-		return true;
+
+		return false;
 	}
 
 	public void printBoard() {
@@ -769,6 +818,15 @@ public class Board {
 		System.out.println("   ___ ___ ___ ___ ___ ___ ___ ___");
 		System.out.println("    A | B | C | D | E | F | G | H\r\n");
 
+	}
+
+	public void burnAllPiecesMissedEating(PrimaryColor playerColor) {
+		// TODO Auto-generated method stub
+		ArrayList<Piece> needEatPieces = getAllNeedToEatPieces(playerColor);
+		for(Piece p : needEatPieces) {
+			burn(p, false);
+		}
+		
 	}
 
 
