@@ -149,7 +149,7 @@ public class Board {
 		if(tilesInRow != null) {
 			return tilesInRow.get(location.getColumn() - 'A');
 		}else {
-			throw new Exception("Error: Row "+location.getRow()+" has no tiles");
+			throw new Exception("Error: Row " + location.getRow() + " has no tiles");
 		}
 
 	}
@@ -350,7 +350,7 @@ public class Board {
 		if(piece instanceof Soldier) {
 
 			int steps = piece.getLocation().getRelativeNumberOfSteps(targetLocation);
-			Piece ediblePiece = piece.getEdiblePieceByDirection( direction);
+			Piece ediblePiece = ((Soldier) piece).getEdiblePieceByDirection( direction);
 			// if its moving in 2s make sure there is a piece we are eating by moving like that
 			if(((piece.getColor()==PrimaryColor.WHITE) && (direction == Directions.UP_LEFT || direction == Directions.UP_RIGHT)) 
 					|| ((piece.getColor()==PrimaryColor.BLACK) && (direction == Directions.DOWN_LEFT|| direction == Directions.DOWN_RIGHT))){
@@ -395,8 +395,14 @@ public class Board {
 		}
 		else if (piece instanceof Queen) {
 
-			if(!((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) return false;
-			if(((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) return false;
+			if(!((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) {
+				System.err.println("Illegal Move!");
+				return false;
+			}
+			if(((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) {
+				System.err.println("Queen is blocked!");
+				return false;
+			}
 
 		}
 
@@ -572,6 +578,7 @@ public class Board {
 			}
 			//TODO handle queen
 		}
+		
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>(possibleTileSet);
 		return possibleTiles;
 	}
@@ -599,12 +606,18 @@ public class Board {
 	 * @param piece burning piece
 	 * @return true if removed successfully from board, false otherwise
 	 */
-	public boolean burn(Piece piece) {
+	public boolean burn(Piece piece, boolean isEaten) {
 		if(piece == null) return false;
 
 		boolean result =removePiece(piece);
 
-		if (result) System.out.println(piece+" is burnt !!");
+		if (result) {
+			if(isEaten) {
+				System.out.println(piece+" has been eaten !!");
+			}else {
+				System.out.println(piece+" is burnt !!");
+			}
+		}
 		else System.out.println("Error: wasn't able to burn piece "+ piece);
 
 		return result;
@@ -633,7 +646,7 @@ public class Board {
 		}
 
 		if(pieceEatig.canEatPiece(targetPiece)) {
-			if(burn(targetPiece)) {
+			if(burn(targetPiece, true)) {
 				pieceEatig.incEatingCntr(1);
 				currPlayer.AddScore(100);
 
@@ -642,6 +655,7 @@ public class Board {
 			}
 
 		}
+		pieceEatig.incEatingCntr(1);
 
 		return null;
 	}
@@ -680,24 +694,44 @@ public class Board {
 
 
 	public boolean movePiece(Location from, Location to, Directions direction) {
+		System.out.println("Attempting to move piece from: " + from.getColumn() + "" + from.getRow() + " | to : " + to.getColumn() + "" + to.getRow());
 		Piece piece = null;
+		Player currPlayer =Game.getInstance().getTurn().getCurrentPlayer();
 		Tile fromTile = null, toTile = null;
 		try {
 			fromTile = getTileInLocation(from);
 			toTile = getTileInLocation(to);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
+			return false;
+		}
+		if(fromTile == null || toTile == null) {
+			System.err.println("Invalid Locations..");
+			return false;
 		}
 		piece = fromTile.getPiece();
-		if(piece == null) return false;
-		if(Game.getInstance().getTurn().getCurrentPlayer().getColor() != piece.getColor()) return false;
 
-		piece.move(toTile, direction);
+		if(piece == null) {
+			System.err.println("Tile has no piece!");
+			return false;
+		}
+		if(currPlayer.getColor() != piece.getColor()) {
+			System.err.println("You cannot move your opponent's piece");
+			return false;
+		}
+		
+		if(piece.move(toTile, direction)) {
+			if(piece instanceof Queen) System.out.println("Queen has been moved!");
+			else System.out.println("Soldier has been moved!");
+			Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
+		}
+		
 
 		return true;
 	}
 
 	public void printBoard() {
+		System.out.print("\r\n");
 		ArrayList<String> board = new ArrayList<String>();
 		//TODO sort Tiles
 		ArrayList<Tile> boardTiles=getAllBoardTiles();
@@ -733,7 +767,7 @@ public class Board {
 		}
 
 		System.out.println("   ___ ___ ___ ___ ___ ___ ___ ___");
-		System.out.println("    A | B | C | D | E | F | G | H");
+		System.out.println("    A | B | C | D | E | F | G | H\r\n");
 
 	}
 

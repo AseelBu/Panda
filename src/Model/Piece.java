@@ -101,7 +101,7 @@ public abstract class  Piece {
 	 * resets eatingCntr field for piece
 	 */
 	public void resetEatingCntr() {
-		
+		this.eatingCntr = 0;
 	}
 
 	/**
