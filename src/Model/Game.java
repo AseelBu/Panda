@@ -75,7 +75,7 @@ public class Game {
 	 */
 	public void startGame(Player[] players, ArrayList<Piece> pieces, char cturn) throws Exception {
 		if(isGameRunning()) {
-			System.err.println("A Game has already started");
+			System.out.println("A Game has already started");
 			return;
 		}
 		if(players != null) {
@@ -128,7 +128,7 @@ public class Game {
 	 */
 	public void startGame(Player[] players) throws Exception {
 		if(isGameRunning()) {
-			System.err.println("A Game has already started");
+			System.out.println("A Game has already started");
 			return;
 		}
 		if(players != null) {
@@ -177,11 +177,11 @@ public class Game {
 	 */
 	public void pauseGame() {
 		if(!isGameRunning()) {
-			System.err.println("No Game is currrently running..");
+			System.out.println("No Game is currrently running..");
 			return;
 		}
 		if(timer.getPauseTime() > 0) {
-			System.err.println("Game paused already..");
+			System.out.println("Game paused already..");
 			return;
 		}
 
@@ -194,11 +194,11 @@ public class Game {
 	 */
 	public void unpauseGame() {
 		if(!isGameRunning()) {
-			System.err.println("No Game is currrently running..");
+			System.out.println("No Game is currrently running..");
 			return;
 		}
 		if(timer.getPauseTime() < 0) {
-			System.err.println("Game is not paused..");
+			System.out.println("Game is not paused..");
 			return;
 		}
 		// turn.unpause()  to be added to turn class
@@ -228,7 +228,7 @@ public class Game {
 				hasWhite = true;
 		}
 		if(invalid || !hasWhite || !hasBlack) {
-			System.err.println("Load Game Failed..");
+			System.out.println("Load Game Failed..");
 		}
 		for(Piece p : pieces)
 			board.addPiece(p);
@@ -237,6 +237,7 @@ public class Game {
 	 * finish a game
 	 */
 	public void finishGame() {
+		getBoard().printBoard();
 		int winner = -1;
 		if(players[0].getCurrentScore() > players[1].getCurrentScore())
 			winner = 1;
@@ -292,12 +293,12 @@ public class Game {
 		System.out.println(Player.getInstance(0).getNickname() + " Score: " + Player.getInstance(0).getCurrentScore());
 		System.out.println(Player.getInstance(1).getNickname() + " Score: " + Player.getInstance(1).getCurrentScore());
 		int index = (turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? 1 : 0;
+		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname() + " | Color: " + Player.getInstance(index).getColor());
+		this.turn = new Turn(Player.getInstance(index));
 		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 			finishGame();
 			return;
 		}
-		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname() + " | Color: " + Player.getInstance(index).getColor());
-		this.turn = new Turn(Player.getInstance(index));
 		turn.getTimer().startTimer();
 		System.out.println("********************************************\r\n");
 

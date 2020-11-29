@@ -50,7 +50,7 @@ public class Queen extends Piece{
 				
 			}
 		}
-		System.err.println("Illegal Move!");
+		System.out.println("Illegal Move!");
 		return false;
 	}
 
@@ -951,7 +951,7 @@ public class Queen extends Piece{
 						Location jmpLoc = UL.addToLocationDiagonally(Directions.UP_LEFT, 1);
 						if(jmpLoc == null) {
 							jmpLoc = UL.rotateLocation(Directions.UP_LEFT);
-							if(jmpLoc == null) System.err.println("Failed to locate a specific location!");
+							if(jmpLoc == null) System.out.println("Failed to locate a specific location!");
 						}
 						if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
 							ediblePieces.add(p);
@@ -966,7 +966,7 @@ public class Queen extends Piece{
 						Location jmpLoc = UR.addToLocationDiagonally(Directions.UP_RIGHT, 1);
 						if(jmpLoc == null) {
 							jmpLoc = UR.rotateLocation(Directions.UP_RIGHT);
-							if(jmpLoc == null) System.err.println("Failed to locate a specific location!");
+							if(jmpLoc == null) System.out.println("Failed to locate a specific location!");
 						}
 						if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
 							ediblePieces.add(p);
@@ -983,7 +983,7 @@ public class Queen extends Piece{
 						Location jmpLoc = DL.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
 						if(jmpLoc == null) {
 							jmpLoc = DL.rotateLocation(Directions.DOWN_LEFT);
-							if(jmpLoc == null) System.err.println("Failed to locate a specific location!");
+							if(jmpLoc == null) System.out.println("Failed to locate a specific location!");
 						}
 						if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
 							ediblePieces.add(p);
@@ -998,7 +998,7 @@ public class Queen extends Piece{
 						Location jmpLoc = DR.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
 						if(jmpLoc == null) {
 							jmpLoc = DR.rotateLocation(Directions.DOWN_RIGHT);
-							if(jmpLoc == null) System.err.println("Failed to locate a specific location!");
+							if(jmpLoc == null) System.out.println("Failed to locate a specific location!");
 						}
 						if(jmpLoc!=null && board.getTileInLocation(jmpLoc).isEmpty()) {
 							ediblePieces.add(p);

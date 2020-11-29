@@ -246,7 +246,6 @@ public class Board {
 		//remove from board tile
 
 		result = result && removePieceFromBoardTile(piece);
-
 		return result;
 	}
 
@@ -308,7 +307,7 @@ public class Board {
 
 	//helping method that removes piece from tile in board
 	private boolean removePieceFromBoardTile(Piece piece) {
-
+		
 		if(piece == null) return false; 
 		Location pieceLoc = piece.getLocation();
 
@@ -401,16 +400,16 @@ public class Board {
 		else if (piece instanceof Queen) {
 
 			if(!((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) {
-				System.err.println("Illegal Move!");
+				System.out.println("Illegal Move!");
 				return false;
 			}
 			if(((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) {
-				System.err.println("Queen is blocked!");
+				System.out.println("Queen is blocked!");
 				return false;
 			}
 			try {
 				if(((Queen) piece).getPiecesCountByDirection(targetLocation, direction) > 1) {
-					System.err.println("Failed to eat more than one piece in one move, try to split your move");
+					System.out.println("Failed to eat more than one piece in one move, try to split your move");
 					return false;
 				}
 			} catch (Exception e) {
@@ -676,7 +675,7 @@ public class Board {
 			}
 		}
 		else System.out.println("Error: wasn't able to burn piece "+ piece);
-
+		
 		return result;
 
 	}
@@ -696,7 +695,7 @@ public class Board {
 		Turn turn =Game.getInstance().getTurn();
 		Player currPlayer=turn.getCurrentPlayer();
 		if(pieceEatig.getColor() != currPlayer.getColor()) {
-			System.err.println("eating piece must be the same color as current player playing");
+			System.out.println("eating piece must be the same color as current player playing");
 			return null;
 		}
 
@@ -753,12 +752,10 @@ public class Board {
 	 * @return true if player is stuck, false otherwise
 	 */
 	public boolean isPlayerStuck(PrimaryColor playerColor) {
-
 		if(getAllLegalMoves(playerColor).isEmpty()) {
 			return true;
 		}
 		return false;
-
 	}
 
 	/**
@@ -778,21 +775,21 @@ public class Board {
 			fromTile = getTileInLocation(from);
 			toTile = getTileInLocation(to);
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			System.out.println(e.getMessage());
 			return false;
 		}
 		if(fromTile == null || toTile == null) {
-			System.err.println("Invalid Locations..");
+			System.out.println("Invalid Locations..");
 			return false;
 		}
 		piece = fromTile.getPiece();
 
 		if(piece == null) {
-			System.err.println("Tile has no piece!");
+			System.out.println("Tile has no piece!");
 			return false;
 		}
 		if(currPlayer.getColor() != piece.getColor()) {
-			System.err.println("You cannot move your opponent's piece");
+			System.out.println("You cannot move your opponent's piece");
 			return false;
 		}
 
@@ -816,9 +813,12 @@ public class Board {
 			if(!isAllPiecesEaten(piece) && Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0) {
 				Game.getInstance().getTurn().IncrementMoveCounter();
 			}
-			if(turn.getMoveCounter()==0) {
+			if(turn.getMoveCounter() == 0) {
 				Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
 			}
+			
+			if(getColorPieces(PrimaryColor.WHITE).size() == 0 || getColorPieces(PrimaryColor.BLACK).size() == 0)
+				Game.getInstance().finishGame();
 			return true;
 		}
 
@@ -876,11 +876,15 @@ public class Board {
 		
 		if(toBurn.containsKey(turn.getLastPieceMoved()))
 			if(toBurn.get(turn.getLastPieceMoved()).contains(turn.getEaten())) return;
+		
 		//TODO Red Tile to be a condition is this case
-		for(Piece p : toBurn.keySet()) {
-			burn(p, false);
+		
+		if(toBurn.keySet().size() > 0) {
+			Random r = new Random();
+			ArrayList<Piece> temp = new ArrayList<>(toBurn.keySet());
+			int random = r.nextInt(temp.size());
+			burn(temp.get(random), false);
 		}
-
 	}
 
 

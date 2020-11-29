@@ -38,7 +38,7 @@ public class BlueTile extends Tile {
 		}
 		
 		if(!isReturnPosLegal(K,enemy)) {
-			System.err.println("Error retriving soldier : invalid position");
+			System.out.println("Error retriving soldier : invalid position");
 			return;
 		}
 		else {
@@ -51,7 +51,7 @@ public class BlueTile extends Tile {
 			}
 			
 			if(found == 0) {
-				System.err.println("Error retriving soldier : illegal tile");
+				System.out.println("Error retriving soldier : illegal tile");
 				return;
 			}
 			

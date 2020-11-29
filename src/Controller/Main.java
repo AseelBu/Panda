@@ -30,7 +30,7 @@ public class Main {
 			System.out.println("Player 2 : " + players[1].getNickname());
 		}
 		game = Game.getInstance();
-		cases(2);
+		cases(1);
 	}
 	
 	static void cases(int index) {
@@ -42,7 +42,7 @@ public class Main {
 					game.startGame(players);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.err.println(e.getMessage());
+					System.out.println(e.getMessage());
 				}
 				game.getBoard().printBoard();
 				
@@ -134,7 +134,7 @@ public class Main {
 					}
 				}catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.err.println(e.getMessage());
+					System.out.println(e.getMessage());
 				}
 				game.getBoard().printBoard();
 				game.getBoard().movePiece(new Location(7, 'A'), new Location(5, 'C'), Directions.DOWN_RIGHT);
@@ -152,6 +152,26 @@ public class Main {
 				game.getBoard().movePiece(new Location(7, 'C'), new Location(8, 'B'), Directions.UP_LEFT);
 				game.getBoard().printBoard();
 				game.getBoard().movePiece(new Location(3, 'A'), new Location(4, 'B'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(3, 'A'), new Location(2, 'B'), Directions.DOWN_RIGHT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(8, 'B'), new Location(1, 'C'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(2, 'B'), new Location(1, 'A'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(4, 'H'), new Location(5, 'G'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(4, 'H'), new Location(5, 'G'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(1, 'A'), new Location(8, 'H'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(5, 'G'), new Location(6, 'F'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(8, 'H'), new Location(2, 'B'), Directions.DOWN_LEFT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(2, 'B'), new Location(8, 'D'), Directions.DOWN_RIGHT);
+				game.getBoard().printBoard();
+				game.getBoard().movePiece(new Location(2, 'B'), new Location(1, 'A'), Directions.DOWN_LEFT);
 				game.getBoard().printBoard();
 				break;
 			}
@@ -181,7 +201,7 @@ public class Main {
 					game.startGame(players, pieces, 'W');
 				}catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.err.println(e.getMessage());
+					System.out.println(e.getMessage());
 				}
 
 				break;
@@ -201,17 +221,45 @@ public class Main {
 					game.startGame(players, pieces, 'W');
 				}catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.err.println(e.getMessage());
+					System.out.println(e.getMessage());
 				}
 				game.getBoard().printBoard();
 
 				game.getBoard().movePiece(new Location(2, 'D'), new Location(5, 'G'), Directions.UP_RIGHT);
 				game.getBoard().printBoard();
 				game.getBoard().movePiece(new Location(5, 'G'), new Location(7, 'A'), Directions.UP_RIGHT);
+				game.getBoard().printBoard();
+
+				break;
+			}
+			case 5:{
+				Soldier soldier = new Soldier(1, PrimaryColor.WHITE, new Location(4,'B'));
+				Piece soldier2 = new Soldier(2, PrimaryColor.BLACK, new Location(5,'C'));
+				Piece soldier3 = new Soldier(3, PrimaryColor.WHITE, new Location(2,'D'));
+				Piece soldier4 = new Soldier(4, PrimaryColor.BLACK, new Location(3,'E'));
+				Piece soldier5 = new Soldier(5, PrimaryColor.WHITE, new Location(5,'G'));
+
+				ArrayList<Piece> pieces = new ArrayList<>();
+				pieces.add(soldier);
+				pieces.add(soldier2);
+				pieces.add(soldier3);
+				pieces.add(soldier4);
+				pieces.add(soldier5);
+
+				
+				try {
+					game.startGame(players, pieces, 'W');
+				}catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println(e.getMessage());
+				}
+				game.getBoard().printBoard();
+
+				game.getBoard().movePiece(new Location(2, 'D'), new Location(3, 'C'), Directions.UP_LEFT);
+				game.getBoard().printBoard();
 				
 				break;
 			}
-			
 		}
 	}
 }

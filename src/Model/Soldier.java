@@ -27,7 +27,7 @@ public class Soldier extends Piece{
 		Location targetLocation = targetTile.getLocation();
 		Directions legalDirection =getLocation().getRelativeDirection(targetLocation);
 		if(legalDirection!=direction) {
-			System.err.println("The move direction doesn't match the relative direction of target tile location which is "+ legalDirection);
+			System.out.println("The move direction doesn't match the relative direction of target tile location which is "+ legalDirection);
 			return false;
 		}
 		
@@ -61,7 +61,7 @@ public class Soldier extends Piece{
 				
 			}
 		}else {
-			System.err.println("Illegal Move!");
+			System.out.println("Illegal Move!");
 		}
 		return false;
 	}

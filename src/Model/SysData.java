@@ -368,7 +368,7 @@ public class SysData {
 		try {
 			scanner = new Scanner(new File(path));
 		} catch (FileNotFoundException e) {
-			System.err.println("Load file was not found in  " + path);
+			System.out.println("Load file was not found in  " + path);
 			return null;
 		}
 		ArrayList<String> board_map = new ArrayList<String>();
@@ -380,7 +380,7 @@ public class SysData {
 		}
 
 		if (board_map.size() != 33) {
-			System.err.println("Invalid File : number of parameters supplied dosent match 33");
+			System.out.println("Invalid File : number of parameters supplied dosent match 33");
 			return null;
 		}
 
@@ -396,7 +396,7 @@ public class SysData {
 				countB++;
 			if (!s.equals("0") && !s.equals("1") && !s.equals("2") && !s.equals("11") && !s.equals("22")
 					&& !s.equals("B") && !s.equals("W")) {
-				System.err.println("Invalid File : unknown characters in the file");
+				System.out.println("Invalid File : unknown characters in the file");
 				return null;
 			}
 
@@ -404,7 +404,7 @@ public class SysData {
 
 		if (countW > 12 || countB > 12) {
 
-			System.err.println("Invalid File :  one of the players has more than 12 pieces");
+			System.out.println("Invalid File :  one of the players has more than 12 pieces");
 			return null;
 
 		}
@@ -414,8 +414,7 @@ public class SysData {
 		} else if (board_map.get(32).equals("W")) {
 			turn = 'W';
 		} else {
-			System.err
-					.println("Invalid File : last paramater must indicate the turn (should contain the letter B or W)");
+			System.out.println("Invalid File : last paramater must indicate the turn (should contain the letter B or W)");
 			return null;
 		}
 
