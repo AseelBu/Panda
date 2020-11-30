@@ -14,22 +14,22 @@
             <ColorAdjust brightness="-0.5" />
          </effect>
       </AnchorPane>
-      <Button layoutX="107.0" layoutY="316.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="270.0" text="Scoreboard">
+      <Button layoutX="107.0" layoutY="316.0" mnemonicParsing="false" onAction="#scoreboard" prefHeight="59.0" prefWidth="270.0" text="Scoreboard">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button layoutX="107.0" layoutY="181.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="270.0" text="Start Game">
+      <Button layoutX="107.0" layoutY="181.0" mnemonicParsing="false" onAction="#startGame" prefHeight="59.0" prefWidth="270.0" text="Start Game">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button layoutX="106.0" layoutY="382.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="270.0" text="Manage Questions">
+      <Button layoutX="106.0" layoutY="382.0" mnemonicParsing="false" onAction="#manageQuestions" prefHeight="59.0" prefWidth="270.0" text="Manage Questions">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button layoutX="107.0" layoutY="250.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="270.0" text="Load Game">
+      <Button layoutX="107.0" layoutY="250.0" mnemonicParsing="false" onAction="#loadGame" prefHeight="59.0" prefWidth="270.0" text="Load Game">
          <font>
             <Font size="26.0" />
          </font>
@@ -44,7 +44,7 @@
             <Image url="@pictures/Pieace_5.png" />
          </image>
       </ImageView>
-      <Button layoutX="20.0" layoutY="503.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="135.0" text="Exit" />
+      <Button layoutX="20.0" layoutY="503.0" mnemonicParsing="false" onAction="#exit" prefHeight="47.0" prefWidth="135.0" text="Exit" />
       <ImageView fitHeight="61.0" fitWidth="285.0" layoutX="160.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/Pieace_6.png" />
