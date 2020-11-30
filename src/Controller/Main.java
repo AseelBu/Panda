@@ -3,33 +3,41 @@ package Controller;
 
 import Model.*;
 import View.Mainscreen;
+import View.BoardGUI;
 import javafx.application.Application;
 
 
 public class Main {
 	
-	static Game game = null;
-	static Player[] players;
+	private static Game game = null;
+	private static Player[] players;
 	
+	public static DisplayController displayController;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
+		Player player1 = Player.getInstance(0);
+		Player player2 = Player.getInstance(1);
+		player1.setNickname("Jack");
+		player2.setNickname("Max");
+
+		players = new Player[] {
+								player1,
+								player2
+								};
+		if(players != null) {
+			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
+			System.out.println("Player 2 : " + players[1].getNickname());
+		}
+		game = Game.getInstance();
+		try {
+			game.startGame(players);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		displayController = DisplayController.getInstance();
+        Application.launch(Mainscreen.class, args);
 		
-        Application.launch(Mainscreen.class,args);
-		
-//		Player player1 = Player.getInstance(0);
-//		Player player2 = Player.getInstance(1);
-//		player1.setNickname("Jack");
-//		player2.setNickname("Max");
-//
-//		players = new Player[] {
-//								player1,
-//								player2
-//								};
-//		if(players != null) {
-//			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
-//			System.out.println("Player 2 : " + players[1].getNickname());
-//		}
-//		game = Game.getInstance();
 //		cases(1);
 	}
 	
