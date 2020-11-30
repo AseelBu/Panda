@@ -1,5 +1,6 @@
 package View;
 
+import Controller.DisplayController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ public class Mainscreen extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		DisplayController.mainscreen = this;
 		mainBorder = FXMLLoader.load(getClass().getResource("/View/mainscreen.fxml"));
 		Scene scene = new Scene(mainBorder);
 //		scene.getStylesheets().add(getClass().getResource("/View/mainscreen.css").toExternalForm());
@@ -24,6 +26,11 @@ public class Mainscreen extends Application {
 //		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
 //		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo1.png"))); add logo
 		primaryStage.show();
+		primary = primaryStage;
+		
+		DisplayController.getInstance().closeMainscreen();
+		DisplayController.getInstance().showBoard();
+
 	}
 
 	public Stage getPrimary() {
