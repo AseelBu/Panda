@@ -30,7 +30,8 @@ public class Game {
 	 */
 	private Game() {
 		super();
-
+		this.board = Board.getInstance();
+		board.initBoardTiles();
 		timer = new GameTimer();
 	}
 	/**
@@ -100,9 +101,6 @@ public class Game {
 		}
 		setPlayers(players);
 
-		this.board = Board.getInstance();
-		board.initBoardTiles();
-
 		for(Piece piece : pieces)
 			board.addPiece(piece);
 		if(cturn == 'W')
@@ -137,8 +135,6 @@ public class Game {
 		else throw new Exception("Invalid Game Initiation");	
 
 		setPlayers(players);
-		board = Board.getInstance();
-		board.initBoardTiles();
 
 		ArrayList<Piece> pieces = new ArrayList<>();
 
