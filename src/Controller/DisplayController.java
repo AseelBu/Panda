@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Player;
 import View.BoardGUI;
 import View.Mainscreen;
 
@@ -28,6 +29,7 @@ public class DisplayController {
 	public void showBoard() {
 		boardGUI = new BoardGUI();
 		boardGUI.start(boardGUI.getPrimary());
+		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
 	}
 	
 	public void closeMainscreen() {

@@ -3,8 +3,10 @@ package Controller;
 import java.util.ArrayList;
 
 import Model.Board;
+import Model.Location;
 import Model.Piece;
 import Model.Tile;
+import Utils.Directions;
 import View.BoardGUI;
 
 public class BoardController {
@@ -40,5 +42,11 @@ public class BoardController {
 		for(Piece p : Board.getInstance().getPieces())
 			DisplayController.boardGUI.addPieceToBoard(p);
 	}
+	
+//	public boolean movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
+//		Location fromLocation = new Location(fromRow, fromCol);
+//		Location toLocation = new Location(toRow, toCol);
+//		return Board.getInstance().movePiece(fromLocation, toLocation, direction);
+//	}
 	
 }
