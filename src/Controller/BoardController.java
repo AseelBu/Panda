@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Model.Board;
 import Model.Location;
 import Model.Piece;
+import Model.Soldier;
 import Model.Tile;
 import Utils.Directions;
 import View.BoardGUI;
@@ -43,10 +44,22 @@ public class BoardController {
 			DisplayController.boardGUI.addPieceToBoard(p);
 	}
 	
-//	public boolean movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
-//		Location fromLocation = new Location(fromRow, fromCol);
-//		Location toLocation = new Location(toRow, toCol);
-//		return Board.getInstance().movePiece(fromLocation, toLocation, direction);
-//	}
+	public boolean movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
+		Location fromLocation = new Location(fromRow, fromCol);
+		Location toLocation = new Location(toRow, toCol);
+		return Board.getInstance().movePiece(fromLocation, toLocation, direction);
+	}
 	
+	public void removePiece(Location location, boolean isBurnt) {
+		board.removePiece(location.getRow(), location.getColumn(), isBurnt);
+	}
+	
+	public void upgradeSoldier(Soldier soldier) {
+		board.upgradeToQueen(soldier.getLocation().getRow(), soldier.getLocation().getColumn());
+	}
+	
+	public boolean checkBurnCurrent(int row, char col) {
+		if(Board.getInstance().getTilesMap().get(row).get(col - 'A').getPiece() == null) return true;
+		return false;
+	}
 }

@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Random;
 
+import Controller.BoardController;
+import Controller.DisplayController;
 import Utils.Directions;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
@@ -673,6 +675,7 @@ public class Board {
 			}else {
 				System.out.println(piece+" is burnt !!");
 			}
+			BoardController.getInstance().removePiece(piece.getLocation(), !isEaten);
 		}
 		else System.out.println("Error: wasn't able to burn piece "+ piece);
 		
@@ -785,6 +788,7 @@ public class Board {
 		piece = fromTile.getPiece();
 
 		if(piece == null) {
+			this.printBoard();
 			System.out.println("Tile has no piece!");
 			return false;
 		}

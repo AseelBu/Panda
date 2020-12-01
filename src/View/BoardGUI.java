@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -23,6 +24,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -32,11 +34,15 @@ import javafx.stage.Stage;
 
 public class BoardGUI extends Application {
 	
-    private AnchorPane mainAnchor;
+    private static AnchorPane mainAnchor;
 	private Stage primary;
 	private BoardController boardController;
 	private char selectedCol = '_';
 	private int selectedRow = -1;
+	private char selectedCol2 = '_';
+	private int selectedRow2 = -1;
+	private char dragCol = '_';
+	private int dragRow = -1;
 	private PrimaryColor turnColor;
 	
 	@Override
@@ -235,7 +241,6 @@ public class BoardGUI extends Application {
 		pieceImage.setPickOnBounds(true);
 		pieceImage.setPreserveRatio(true);
 		pieceImage.setCursor(Cursor.HAND);
-
 		pieceImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -267,9 +272,107 @@ public class BoardGUI extends Application {
 				}
 			}
 		});
+//		pieceImage.setOnMousePressed(value);
 		
+		pieceImage.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (primary != null) {
+					ImageView image = (ImageView) event.getSource();
+					ImageView tempImage = new ImageView(image.getImage());
+					tempImage.setId("drag");
+					tempImage.setFitHeight(99.0);
+					tempImage.setFitWidth(100.0);
+					tempImage.setPickOnBounds(true);
+					tempImage.setPreserveRatio(true);
+					
+					tempImage.setCursor(Cursor.HAND);	
+					tempImage.setVisible(false);
+					
+					mainAnchor.getChildren().add(2, tempImage);
+
+					int col = (int) ((int) event.getSceneX() - board.getLayoutX());
+					int row = 8 - (((int) ( event.getSceneY() - board.getLayoutY() )) / 100);
+					selectedCol2 = (char)((char)(col / 100) + 'A');
+					selectedRow2 = row;
+					
+
+					
+		            event.consume();
+		        }
+			}
+			});
+		
+		pieceImage.setOnMouseDragged(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (primary != null) {
+					ImageView tempImage = (ImageView) mainAnchor.lookup("#drag");
+					if(tempImage != null) {
+						if(!tempImage.isVisible())
+							tempImage.setVisible(true);
+						tempImage.setLayoutX(event.getSceneX());
+						tempImage.setLayoutY(event.getSceneY());
+						
+						int col = (int) ((int) tempImage.getLayoutX() - board.getLayoutX());
+						int row = 8 - (((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 100);
+						
+						if(((char)((char)(col / 100) + 'A') != piece.getLocation().getColumn() && row != piece.getLocation().getRow()) 
+								&& dragCol == '_' && dragRow == -1) {
+							dragCol = (char)((char)(col / 100) + 'A');
+							dragRow = row;
+						}
+							
+					}
+					
+		            event.consume();
+		        }
+			}
+			});
+		pieceImage.setOnMouseReleased(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (primary != null) {
+					ImageView tempImage = (ImageView) mainAnchor.lookup("#drag");
+					mainAnchor.getChildren().remove(tempImage);
+					
+					int relativeX = ((int) ( tempImage.getLayoutX() - board.getLayoutX() )) / 100;
+					int relativeY = ((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 100;
+					
+					movePiece(selectedRow2, selectedCol2
+							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2));
+					mainAnchor.getChildren().remove(tempImage);
+					dragCol = '_';
+					dragRow = -1;
+
+		            event.consume();
+		        }
+			}
+			});
+//		pieceImage.setOnDragDropped(drag);
+//		pieceImage.setOnDragExited(drag);
+
 		tile.getChildren().add(pieceImage);
 		return true;
+	}
+	
+	/**
+	 * 
+	 * @return direction by drag
+	 */
+	public Directions getDirectionByDrag(int currentRow, char currentCol){
+		int diffCol = dragCol - currentCol;
+		int diffRow = dragRow - currentRow;
+				
+		if(diffCol > 0 && diffRow > 0) return Directions.UP_RIGHT;
+		if(diffCol > 0 && diffRow < 0) return Directions.DOWN_RIGHT;
+		if(diffCol < 0 && diffRow > 0) return Directions.UP_LEFT;
+		if(diffCol < 0 && diffRow < 0) return Directions.DOWN_LEFT;
+
+		return null;
 	}
 	
 	/**
@@ -280,7 +383,7 @@ public class BoardGUI extends Application {
 	public boolean validateSelection(ImageView piece) {
 		String[] id = piece.getId().split("_");
 		if(id.length != 2) return false;
-		return String.valueOf(PrimaryColor.BLACK).equals(id[1]);
+		return String.valueOf(turnColor).equals(id[1]);
 	}
 	
 	/**
@@ -387,18 +490,44 @@ public class BoardGUI extends Application {
 		turnColor = color;
 	}
 	
-//	public void movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
-//		if(boardController.movePiece(fromRow, fromCol, toRow, toCol, direction)) {
-//			FlowPane board = (FlowPane) mainAnchor.lookup("#board");
-//			String temp = String.valueOf("#" + fromRow + "_" + fromCol);
-//			FlowPane fromTile = (FlowPane) board.lookup(temp);
-//			temp = String.valueOf("#" + toRow + "_" + toCol);
-//			FlowPane toTile = (FlowPane) board.lookup(temp);
-//
-//			toTile.getChildren().add(fromTile.getChildren().get(0));
-//			fromTile.getChildren().clear();	
-//		}
-//	}
+	public void movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
+		if(boardController.movePiece(fromRow, fromCol, toRow, toCol, direction)) {
+			FlowPane board = (FlowPane) mainAnchor.lookup("#board");
+			String temp = String.valueOf("#" + fromRow + "_" + fromCol);
+			FlowPane fromTile = (FlowPane) board.lookup(temp);
+			temp = String.valueOf("#" + toRow + "_" + toCol);
+			FlowPane toTile = (FlowPane) board.lookup(temp);
+			
+			if(!boardController.checkBurnCurrent(toRow, toCol)) {
+				toTile.getChildren().add(fromTile.getChildren().get(0));
+			}
+			fromTile.getChildren().clear();
+		}
+	}
+	
+	public void removePiece(int row, char col, boolean isBurnt) {
+		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
+		String temp = String.valueOf("#" + row + "_" + col);
+		FlowPane fromTile = (FlowPane) board.lookup(temp);
+		if(fromTile.getChildren().size() > 0) {
+			if(fromTile.getChildren().get(0).getId().split("_").length == 2) {
+				if(fromTile.getChildren().get(0).getId().split("_")[0].matches("PieceImage")) {
+					fromTile.getChildren().clear();
+				}
+			}
+		}
+	}
+	
+	public void upgradeToQueen(int row, char col) {
+		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
+		String temp = String.valueOf("#" + row + "_" + col);
+		FlowPane tile = (FlowPane) board.lookup(temp);
+		String[] id = tile.getChildren().get(0).getId().split("_");
+		
+		if(id.length == 2 && id[0].matches("PieceImage")) {
+			((ImageView) tile.getChildren().get(0)).setImage(new Image(getClass().getResource("pictures/Queen_" + id[1] + ".png").toString()));
+		}
+	}
 	
 	public Stage getPrimary() {
 		if(primary == null) {
@@ -406,5 +535,5 @@ public class BoardGUI extends Application {
 		}
 		return primary;
 	}
-
+	
 }

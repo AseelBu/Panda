@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
+import Controller.BoardController;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
@@ -44,6 +45,7 @@ public class Soldier extends Piece{
 						Queen newQueen= new Queen(getId(), getColor(), targetLocation);
 						board.addPiece(newQueen);
 						Game.getInstance().getTurn().setLastPieceMoved(newQueen);
+						BoardController.getInstance().upgradeSoldier(this);
 						System.out.println("Soldier upgraded to Queen !!");
 						return true;
 					}else {

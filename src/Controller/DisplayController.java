@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Board;
+import Model.Game;
 import Model.Player;
 import View.BoardGUI;
 import View.Mainscreen;
@@ -30,6 +32,7 @@ public class DisplayController {
 		boardGUI = new BoardGUI();
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
+		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
 	}
 	
 	public void closeMainscreen() {
