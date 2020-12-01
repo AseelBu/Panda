@@ -112,7 +112,7 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@pictures/Pieace_4.png" />
+                        <Image url="@pictures/Queen_WHITE.png" />
                      </image>
                      <effect>
                         <DropShadow color="WHITE" height="53.25" radius="26.2175" spread="0.69" width="53.62" />
