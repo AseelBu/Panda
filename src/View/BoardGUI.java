@@ -319,7 +319,7 @@ public class BoardGUI extends Application {
 						int col = (int) ((int) tempImage.getLayoutX() - board.getLayoutX());
 						int row = 8 - (((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 100);
 						
-						if(((char)((char)(col / 100) + 'A') != piece.getLocation().getColumn() && row != piece.getLocation().getRow()) 
+						if(((char)((char)(col / 100) + 'A') != selectedCol2 && row != selectedRow2) 
 								&& dragCol == '_' && dragRow == -1) {
 							dragCol = (char)((char)(col / 100) + 'A');
 							dragRow = row;
@@ -341,6 +341,8 @@ public class BoardGUI extends Application {
 					
 					int relativeX = ((int) ( tempImage.getLayoutX() - board.getLayoutX() )) / 100;
 					int relativeY = ((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 100;
+					
+					System.out.println(selectedRow2 + " " + selectedCol2);
 					
 					movePiece(selectedRow2, selectedCol2
 							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2));

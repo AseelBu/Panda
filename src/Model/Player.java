@@ -2,8 +2,7 @@ package Model;
 
 import java.io.Serializable;
 
-
-
+import Controller.BoardController;
 import Utils.PrimaryColor;
 
 /**
@@ -63,10 +62,10 @@ public class Player implements Serializable {
 	 */
 	public long AddScore(float scoreToAdd) 
 	{
-
 		int newScore;
 		newScore=(int) (getCurrentScore()+scoreToAdd);
 		setCurrentScore(newScore);
+		BoardController.getInstance().updateScoreInDisplay(this.getColor(), getCurrentScore());
 		return getCurrentScore();
 	}
 	/**
@@ -78,8 +77,8 @@ public class Player implements Serializable {
 		int newScore;
 		newScore=(int) (getCurrentScore()-score);
 		setCurrentScore(newScore);
+		BoardController.getInstance().updateScoreInDisplay(this.getColor(), getCurrentScore());
 		return getCurrentScore();
-
 	}
 	
 	/**
