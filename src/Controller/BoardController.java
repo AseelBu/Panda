@@ -17,7 +17,7 @@ public class BoardController {
 	private BoardGUI board;
 	
 	private BoardController() {
-		board = new BoardGUI();
+		board = DisplayController.boardGUI;
 	}
 	
 	public static BoardController getInstance() 
@@ -48,7 +48,7 @@ public class BoardController {
 	 * @return true if added, otherwise false
 	 */
 	public boolean addPieceToBoard(Piece piece) {
-		return board.addPieceToBoard(piece);
+		return board.addPieceToBoard(piece.getLocation().getRow(), piece.getLocation().getColumn(), piece.getColor(), (piece instanceof Soldier));
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class BoardController {
 	 */
 	public void loadPiecesToBoard() {
 		for(Piece p : Board.getInstance().getPieces())
-			DisplayController.boardGUI.addPieceToBoard(p);
+			board.addPieceToBoard(p.getLocation().getRow(), p.getLocation().getColumn(), p.getColor(), (p instanceof Soldier));
 	}
 	
 	/**
@@ -117,5 +117,47 @@ public class BoardController {
 	public void switchTurn(PrimaryColor color) {
 		board.setNewTurn(color);
 		//TODO more to be added, such as turn time
+	}
+	
+	/**
+	 * returns direction by specified move locations
+	 * @param fromRow
+	 * @param fromCol
+	 * @param toRow
+	 * @param toCol
+	 * @return
+	 */
+	public Directions getDirection(int fromRow, char fromCol, int toRow, char toCol, boolean isSoldier) {
+		System.out.println(fromCol + " " + toCol + ":::" + fromRow + " " + toRow);
+		int diffCol = toCol - fromCol;
+		int diffRow = toRow - fromRow;
+		
+		if(isSoldier) {
+			if(diffCol > 0 && diffRow > 0) return Directions.UP_RIGHT;
+			if(diffCol > 0 && diffRow < 0) return Directions.DOWN_RIGHT;
+			if(diffCol < 0 && diffRow > 0) return Directions.UP_LEFT;
+			if(diffCol < 0 && diffRow < 0) return Directions.DOWN_LEFT;
+		}else {
+			if(fromCol == 'H' && toCol == 'A') {
+				if(fromRow == 8 && toRow == 1) return Directions.UP_RIGHT;
+				if(diffRow > 0) return Directions.UP_RIGHT;
+				else if(diffRow < 0) return Directions.DOWN_RIGHT;
+			}else if(fromCol == 'A' && toCol == 'H') {
+				if(fromRow == 1 && toRow == 8) return Directions.DOWN_LEFT; 
+				if(diffRow > 0) return Directions.UP_LEFT;
+				else if(diffRow < 0) return Directions.DOWN_LEFT;
+			}else if(fromRow == 1 && toRow == 8) {
+				if(fromCol == 'H' && toCol == 'A') return Directions.DOWN_RIGHT;
+				if(diffCol > 0) return Directions.DOWN_RIGHT;
+				else if(diffCol < 0) return Directions.DOWN_LEFT;
+			}else if(fromRow == 8 && toRow == 1) {
+				if(fromCol == 'A' && toCol == 'H') return Directions.UP_LEFT;
+				if(diffCol > 0) return Directions.UP_RIGHT;
+				else if(diffCol < 0) return Directions.DOWN_RIGHT;
+			}else {
+				return getDirection(fromRow, fromCol, toRow, toCol, !isSoldier);
+			}
+		}
+		return null;
 	}
 }

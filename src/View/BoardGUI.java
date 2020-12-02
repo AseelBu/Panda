@@ -3,20 +3,14 @@ package View;
 import java.io.IOException;
 
 import Controller.BoardController;
-import Model.Location;
-import Model.Piece;
-import Model.Soldier;
 import Model.Tile;
 import Utils.Directions;
 import Utils.PrimaryColor;
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -24,7 +18,6 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
@@ -43,7 +36,7 @@ public class BoardGUI extends Application {
 	private int selectedRow2 = -1;
 	private char dragCol = '_';
 	private int dragRow = -1;
-	private static PrimaryColor turnColor;
+	private PrimaryColor turnColor;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -217,25 +210,25 @@ public class BoardGUI extends Application {
 	 * @param piece
 	 * @return
 	 */
-	public boolean addPieceToBoard(Piece piece) {
+	public boolean addPieceToBoard(int row, char col, PrimaryColor pieceColor, boolean isSoldier) {
 		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
-		String temp = String.valueOf("#" + piece.getLocation().getRow() + "_" + piece.getLocation().getColumn());
+		String temp = String.valueOf("#" + row + "_" + col);
 		FlowPane tile = (FlowPane) board.lookup(temp);
 		if(tile == null) {
-			System.out.println(piece.getLocation());
+			System.out.println("(" + row + "," + col + ")");
 			System.out.println("Board has no tile in piece's location");
 			return false;
 		}
 		//TODO check piece existence in tile
 		ImageView pieceImage;
-		if(piece instanceof Soldier) {
-			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Soldier_" + piece.getColor() + ".png").toString()));
-			pieceImage.setId("PieceImage");
+		if(isSoldier) {
+			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Soldier_" + pieceColor + ".png").toString()));
+			pieceImage.setId("Soldier_" + pieceColor);
 		}
 		else {
-			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Queen_" + piece.getColor() + ".png").toString()));
+			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Queen_" + pieceColor + ".png").toString()));
+			pieceImage.setId("Queen_" + pieceColor);
 		}
-		pieceImage.setId("PieceImage_" + piece.getColor());
 		pieceImage.setFitHeight(99.0);
 		pieceImage.setFitWidth(100.0);
 		pieceImage.setPickOnBounds(true);
@@ -323,6 +316,11 @@ public class BoardGUI extends Application {
 								&& dragCol == '_' && dragRow == -1) {
 							dragCol = (char)((char)(col / 100) + 'A');
 							dragRow = row;
+							if(dragCol < 'A' || dragCol > 'H' || dragRow < 1 || dragRow > 8) {
+								dragCol = '_';
+								dragRow = -1;
+							}
+							
 						}
 							
 					}
@@ -342,10 +340,21 @@ public class BoardGUI extends Application {
 					int relativeX = ((int) ( tempImage.getLayoutX() - board.getLayoutX() )) / 100;
 					int relativeY = ((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 100;
 					
-					System.out.println(selectedRow2 + " " + selectedCol2);
+					boolean tempType;
 					
+					FlowPane tempboard = (FlowPane) mainAnchor.lookup("#board");
+					String ttemp = String.valueOf("#" + selectedRow2 + "_" + selectedCol2);
+					FlowPane temptile = (FlowPane) tempboard.lookup(ttemp);
+					
+					System.out.println(temptile.getChildren().get(0).getId().split("_")[0].matches("Soldier"));
+					if(temptile.getChildren().get(0).getId().split("_")[0].matches("Soldier")) {
+						tempType = true;
+					}else {
+						tempType = false;
+					}
+					System.out.println(tempType + " " + getDirectionByDrag(selectedRow2, selectedCol2, tempType));
 					movePiece(selectedRow2, selectedCol2
-							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2));
+							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2, tempType));
 					mainAnchor.getChildren().remove(tempImage);
 					dragCol = '_';
 					dragRow = -1;
@@ -365,16 +374,8 @@ public class BoardGUI extends Application {
 	 * 
 	 * @return direction by drag
 	 */
-	public Directions getDirectionByDrag(int currentRow, char currentCol){
-		int diffCol = dragCol - currentCol;
-		int diffRow = dragRow - currentRow;
-				
-		if(diffCol > 0 && diffRow > 0) return Directions.UP_RIGHT;
-		if(diffCol > 0 && diffRow < 0) return Directions.DOWN_RIGHT;
-		if(diffCol < 0 && diffRow > 0) return Directions.UP_LEFT;
-		if(diffCol < 0 && diffRow < 0) return Directions.DOWN_LEFT;
-
-		return null;
+	public Directions getDirectionByDrag(int currentRow, char currentCol, boolean isSoldier){
+		return boardController.getDirection(currentRow, currentCol, dragRow, dragCol, isSoldier);
 	}
 	
 	/**
@@ -519,7 +520,8 @@ public class BoardGUI extends Application {
 		FlowPane fromTile = (FlowPane) board.lookup(temp);
 		if(fromTile.getChildren().size() > 0) {
 			if(fromTile.getChildren().get(0).getId().split("_").length == 2) {
-				if(fromTile.getChildren().get(0).getId().split("_")[0].matches("PieceImage")) {
+				if(fromTile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
+						|| fromTile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
 					fromTile.getChildren().clear();
 				}
 			}
@@ -532,8 +534,9 @@ public class BoardGUI extends Application {
 		FlowPane tile = (FlowPane) board.lookup(temp);
 		String[] id = tile.getChildren().get(0).getId().split("_");
 		
-		if(id.length == 2 && id[0].matches("PieceImage")) {
+		if(id.length == 2 && (id[0].matches("Soldier") || id[0].matches("Queen"))) {
 			((ImageView) tile.getChildren().get(0)).setImage(new Image(getClass().getResource("pictures/Queen_" + id[1] + ".png").toString()));
+			((ImageView) tile.getChildren().get(0)).setId("Queen_" + id[1]);
 		}
 	}
 	

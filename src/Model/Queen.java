@@ -77,6 +77,7 @@ public class Queen extends Piece{
 	 * @return true if it is legal, otherwise false
 	 */
 	public boolean isMoveLegalByDirection(Location targetLocation, Directions direction) {
+		if(direction == null) return false;
 		Board board =Board.getInstance();
 		if(getLocation().getRow() == targetLocation.getRow() || getLocation().getColumn() == targetLocation.getColumn()) return false;
 		switch(direction) {
