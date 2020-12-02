@@ -109,4 +109,13 @@ public class BoardController {
 	public void updateScoreInDisplay(PrimaryColor color, int newScore) {
 		board.setPlayerScore(color, newScore);
 	}
+	
+	/**
+	 * Method to switch turn in GUI
+	 * @param color
+	 */
+	public void switchTurn(PrimaryColor color) {
+		board.setNewTurn(color);
+		//TODO more to be added, such as turn time
+	}
 }

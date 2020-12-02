@@ -43,7 +43,7 @@ public class BoardGUI extends Application {
 	private int selectedRow2 = -1;
 	private char dragCol = '_';
 	private int dragRow = -1;
-	private PrimaryColor turnColor;
+	private static PrimaryColor turnColor;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -385,6 +385,7 @@ public class BoardGUI extends Application {
 	public boolean validateSelection(ImageView piece) {
 		String[] id = piece.getId().split("_");
 		if(id.length != 2) return false;
+		System.out.println(turnColor + " " + id[1]);
 		return String.valueOf(turnColor).equals(id[1]);
 	}
 	
@@ -489,7 +490,8 @@ public class BoardGUI extends Application {
 	 * @param color
 	 */
 	public void setNewTurn(PrimaryColor color) {
-		turnColor = color;
+		System.out.println(color);
+		this.turnColor = color;
 	}
 	
 	public void movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
@@ -499,6 +501,10 @@ public class BoardGUI extends Application {
 			FlowPane fromTile = (FlowPane) board.lookup(temp);
 			temp = String.valueOf("#" + toRow + "_" + toCol);
 			FlowPane toTile = (FlowPane) board.lookup(temp);
+			
+			removeSelectionFromPiece((ImageView) fromTile.getChildren().get(0));
+			selectedRow = -1;
+			selectedCol = '_';
 			
 			if(!boardController.checkBurnCurrent(toRow, toCol)) {
 				toTile.getChildren().add(fromTile.getChildren().get(0));

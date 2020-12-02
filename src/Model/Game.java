@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Controller.BoardController;
 import Utils.PrimaryColor;
 
 /**
@@ -291,6 +292,7 @@ public class Game {
 		int index = (turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? 1 : 0;
 		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname() + " | Color: " + Player.getInstance(index).getColor());
 		this.turn = new Turn(Player.getInstance(index));
+		BoardController.getInstance().switchTurn(turn.getCurrentPlayer().getColor());
 		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 			finishGame();
 			return;
