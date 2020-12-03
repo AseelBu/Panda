@@ -160,4 +160,18 @@ public class BoardController {
 		}
 		return null;
 	}
+	
+	/**
+	 * Method to validate location is within the board bounds
+	 * @param row
+	 * @param col
+	 * @return true if the location is valid, otherwise false;
+	 */
+	public boolean validateLocation(int row, char col) {
+		if ((row>=1 && row <= Board.getInstance().getBoardSize()) && 
+				(col >= Board.getInstance().getColumnLowerBound() && col <= Board.getInstance().getColumnUpperBound())) {
+			return true;
+		}
+		return false;
+	}
 }

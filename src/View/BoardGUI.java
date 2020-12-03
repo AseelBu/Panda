@@ -7,11 +7,13 @@ import Model.Tile;
 import Utils.Directions;
 import Utils.PrimaryColor;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
@@ -336,7 +338,6 @@ public class BoardGUI extends Application {
 				if (primary != null) {
 					ImageView tempImage = (ImageView) mainAnchor.lookup("#drag");
 					mainAnchor.getChildren().remove(tempImage);
-					
 					int relativeX = ((int) ( tempImage.getLayoutX() - board.getLayoutX() )) / 100;
 					int relativeY = ((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 100;
 					
@@ -346,15 +347,33 @@ public class BoardGUI extends Application {
 					String ttemp = String.valueOf("#" + selectedRow2 + "_" + selectedCol2);
 					FlowPane temptile = (FlowPane) tempboard.lookup(ttemp);
 					
-					System.out.println(temptile.getChildren().get(0).getId().split("_")[0].matches("Soldier"));
 					if(temptile.getChildren().get(0).getId().split("_")[0].matches("Soldier")) {
 						tempType = true;
 					}else {
 						tempType = false;
 					}
-					System.out.println(tempType + " " + getDirectionByDrag(selectedRow2, selectedCol2, tempType));
+
+					if((char) ((char) relativeX + 'A') == selectedCol2 || 8 - relativeY == selectedRow2) return ;
+					if(!BoardController.getInstance().validateLocation(8 - relativeY, (char) ((char) relativeX + 'A'))) return;
+					
+					if(!tempType) {
+						AnchorPane tempDirections = new AnchorPane();
+						tempDirections.setId("tempDirections");
+						AnchorPane.setBottomAnchor(tempDirections, 0.0);
+						AnchorPane.setLeftAnchor(tempDirections, 0.0);
+						AnchorPane.setRightAnchor(tempDirections, 0.0);
+						AnchorPane.setTopAnchor(tempDirections, 0.0);
+						tempDirections.setStyle("-fx-background-color: #dbdbdb66;");
+						mainAnchor.getChildren().add(tempDirections);
+						openDirectionsWind(tempDirections, 8-relativeY ,(char) ((char) relativeX + 'A'));
+
+						mainAnchor.getChildren().remove(tempImage);
+						
+						return;
+					}
 					movePiece(selectedRow2, selectedCol2
 							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2, tempType));
+					
 					mainAnchor.getChildren().remove(tempImage);
 					dragCol = '_';
 					dragRow = -1;
@@ -538,6 +557,58 @@ public class BoardGUI extends Application {
 			((ImageView) tile.getChildren().get(0)).setImage(new Image(getClass().getResource("pictures/Queen_" + id[1] + ".png").toString()));
 			((ImageView) tile.getChildren().get(0)).setId("Queen_" + id[1]);
 		}
+	}
+	
+	/**
+	 * Receives an anchor pane as parameter, then complete adding its functionality
+	 * @param anchor
+	 * @param toCol 
+	 * @param toRow 
+	 */
+	private void openDirectionsWind(AnchorPane anchor, int toRow, char toCol) {
+		ImageView upLeft = new ImageView(new Image(getClass().getResource("pictures/up_left.png").toString()));
+		ImageView upRight = new ImageView(new Image(getClass().getResource("pictures/up_right.png").toString()));
+		ImageView downLeft = new ImageView(new Image(getClass().getResource("pictures/down_left.png").toString()));
+		ImageView downRight = new ImageView(new Image(getClass().getResource("pictures/down_right.png").toString()));
+		addArrowImgToAnchor(anchor, upLeft, Directions.UP_LEFT, 88, 551, toRow, toCol);
+		addArrowImgToAnchor(anchor, upRight, Directions.UP_RIGHT, 188,551, toRow, toCol);
+		addArrowImgToAnchor(anchor, downLeft, Directions.DOWN_LEFT, 88,650, toRow, toCol);
+		addArrowImgToAnchor(anchor, downRight, Directions.DOWN_RIGHT, 188,650, toRow, toCol);
+		Button dirCancel = new Button("Cancel Move");
+		dirCancel.setLayoutX(130);
+		dirCancel.setLayoutY(766);
+		dirCancel.setMnemonicParsing(false);
+		dirCancel.setFont(new Font(17.0));
+		dirCancel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				mainAnchor.getChildren().remove(anchor);
+			}
+		});
+		anchor.getChildren().add(dirCancel);
+
+	}
+	
+	/**
+	 * adds arrow image to anchor
+	 */
+	private void addArrowImgToAnchor(AnchorPane anchor, ImageView image, Directions direction,
+			double layoutX, double layoutY, int toRow, char toCol) {
+		image.setFitHeight(100);
+		image.setFitWidth(100);
+		image.setLayoutX(layoutX);
+		image.setLayoutY(layoutY);
+		image.setPickOnBounds(true);
+		image.setPreserveRatio(true);
+		image.setCursor(Cursor.HAND);
+		image.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mainAnchor.getChildren().remove(anchor);
+				movePiece(selectedRow2, selectedCol2, toRow, toCol, direction);
+			}
+		});
+		anchor.getChildren().add(image);
 	}
 	
 	public Stage getPrimary() {

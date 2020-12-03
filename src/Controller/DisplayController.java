@@ -67,7 +67,7 @@ public class DisplayController {
 	
 	public void showBoard(File file) {
 		HashMap<Character, ArrayList<Piece>> load = null;
-		load = SysData.getInstance().loadGame(file); // path to be changed according to file
+		load = SysData.getInstance().loadGame(file);
 		
 		Player player1 = Player.getInstance(0);
 		Player player2 = Player.getInstance(1);
