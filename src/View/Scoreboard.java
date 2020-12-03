@@ -1,5 +1,7 @@
 package View;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,8 +14,13 @@ public class Scoreboard extends Application {
 	private static Stage primary;	
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		mainBorder = FXMLLoader.load(getClass().getResource("/View/scoreboard.fxml"));
+	public void start(Stage primaryStage) {
+		try {
+			mainBorder = FXMLLoader.load(getClass().getResource("/View/scoreboard.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Scene scene = new Scene(mainBorder);
 //		scene.getStylesheets().add(getClass().getResource("/View/scoreboard.css").toExternalForm());
 		primaryStage.setScene(scene);
