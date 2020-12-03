@@ -1,15 +1,12 @@
 package Controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Model.Board;
 import Model.Game;
 import Model.Piece;
 import Model.Player;
-import Model.SysData;
 import View.BoardGUI;
 import View.Mainscreen;
 import View.ManageQuestions;
@@ -67,7 +64,7 @@ public class DisplayController {
 	
 	public void showBoard(File file) {
 		HashMap<Character, ArrayList<Piece>> load = null;
-		load = SysData.getInstance().loadGame(file);
+		load = MiscController.getInstance().loadGame(file); 
 		
 		Player player1 = Player.getInstance(0);
 		Player player2 = Player.getInstance(1);
@@ -106,7 +103,7 @@ public class DisplayController {
 
 	}
 	
-	public void showManageQuestions() {
+	public void showManageQuestions() throws Exception {
 		manageQuestions = new ManageQuestions();
 		manageQuestions.start(manageQuestions.getPrimary());
 	}
