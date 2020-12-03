@@ -360,15 +360,15 @@ public class SysData {
 	/**
 	 * load game from text file
 	 */
-	public HashMap<Character, ArrayList<Piece>> loadGame(String path) {
+	public HashMap<Character, ArrayList<Piece>> loadGame(File file) {
 
 		Character turn;
 		Scanner scanner = null;
 
 		try {
-			scanner = new Scanner(new File(path));
+			scanner = new Scanner(file);
 		} catch (FileNotFoundException e) {
-			System.out.println("Load file was not found in  " + path);
+			System.out.println("Load file was not found in  " + file.getAbsolutePath());
 			return null;
 		}
 		ArrayList<String> board_map = new ArrayList<String>();

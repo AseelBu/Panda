@@ -1,5 +1,6 @@
 package View;
 
+import java.io.File;
 import java.io.IOException;
 
 import Controller.DisplayController;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Mainscreen extends Application {
@@ -51,7 +53,18 @@ public class Mainscreen extends Application {
 
     @FXML
     void loadGame(ActionEvent event) {
-
+    	File file = null;
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text", "*.txt");
+	    FileChooser fileChooser = new FileChooser();
+    	fileChooser.getExtensionFilters().clear();
+    	fileChooser.getExtensionFilters().add(extFilter);
+    	
+    	file = fileChooser.showOpenDialog(primary);
+    	
+    	if (file != null) {        	
+        	DisplayController.getInstance().closeMainscreen();
+        	DisplayController.getInstance().showBoard(file);
+        }
     }
 
     @FXML
