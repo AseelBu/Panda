@@ -44,6 +44,7 @@ public class Soldier extends Piece{
 					if(targetLocation.isEndOfBoard()) {
 						Queen newQueen= new Queen(getId(), getColor(), targetLocation);
 						board.addPiece(newQueen);
+						newQueen.setEatingCntr(this.getEatingCntr());
 						Game.getInstance().getTurn().setLastPieceMoved(newQueen);
 						BoardController.getInstance().upgradeSoldier(this);
 						System.out.println("Soldier upgraded to Queen !!");
