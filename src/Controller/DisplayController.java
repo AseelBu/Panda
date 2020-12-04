@@ -60,6 +60,8 @@ public class DisplayController {
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
 		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
+		TimerController object = new TimerController(); 
+        object.start(); 
 	}
 	
 	public void showBoard(File file) {
@@ -95,6 +97,8 @@ public class DisplayController {
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
 		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
+		TimerController object = new TimerController(); 
+        object.start();
 	}
 	
 	public void showMainScreen() {

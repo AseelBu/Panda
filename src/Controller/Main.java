@@ -35,6 +35,7 @@ public class Main {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		
 		displayController = DisplayController.getInstance();
         Application.launch(Mainscreen.class, args);
 		

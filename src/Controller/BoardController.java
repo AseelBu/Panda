@@ -3,6 +3,7 @@ package Controller;
 import java.util.ArrayList;
 
 import Model.Board;
+import Model.Game;
 import Model.Location;
 import Model.Piece;
 import Model.Soldier;
@@ -173,5 +174,9 @@ public class BoardController {
 			return true;
 		}
 		return false;
+	}
+	
+	public void forceFinishGame() {
+		Game.getInstance().finishGame();
 	}
 }

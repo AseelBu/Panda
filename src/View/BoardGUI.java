@@ -26,6 +26,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class BoardGUI extends Application {
 	
@@ -45,7 +46,6 @@ public class BoardGUI extends Application {
 		try {
 			mainAnchor = FXMLLoader.load(getClass().getResource("/View/Board.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(mainAnchor);
@@ -56,6 +56,14 @@ public class BoardGUI extends Application {
 //		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
 //		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo1.png"))); add logo
 		primaryStage.show();
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				BoardController.getInstance().forceFinishGame();
+				
+			}
+		});
+		
 		primary = primaryStage;
 		boardController = BoardController.getInstance();
 		
@@ -151,6 +159,27 @@ public class BoardGUI extends Application {
 		
 		mainAnchor.getChildren().add(whiteImg);
 		mainAnchor.getChildren().add(blackImg);
+		
+		Label vsLbl = new Label("VS");
+		vsLbl.setLayoutX(183.0);
+		vsLbl.setLayoutY(280.0);
+		vsLbl.setFont(new Font(28));
+		
+		TextField timeField = new TextField("00:00");
+		timeField.setId("Turn_Timer");
+		timeField.setLayoutX(266.0);
+		timeField.setLayoutY(270.0);	
+		timeField.setPrefHeight(60.0);
+		timeField.setPrefWidth(108.0);
+		timeField.setEditable(false);
+		timeField.setDisable(true);
+		timeField.setStyle("-fx-opacity: 1;");
+		timeField.setAlignment(Pos.CENTER);
+		timeField.setFont(new Font(28));
+		
+		
+		mainAnchor.getChildren().add(vsLbl);
+		mainAnchor.getChildren().add(timeField);
 		
 		setupStandardColsRows();
 
@@ -355,6 +384,8 @@ public class BoardGUI extends Application {
 
 					if((char) ((char) relativeX + 'A') == selectedCol2 || 8 - relativeY == selectedRow2) return ;
 					if(!BoardController.getInstance().validateLocation(8 - relativeY, (char) ((char) relativeX + 'A'))) return;
+					
+					if(!pieceColor.equals(turnColor)) return;
 					
 					if(!tempType) {
 						AnchorPane tempDirections = new AnchorPane();
@@ -609,6 +640,32 @@ public class BoardGUI extends Application {
 			}
 		});
 		anchor.getChildren().add(image);
+	}
+	
+	public void updateFullTimer(int seconds) {
+		int hour = 0;
+		int minute = 0;
+		int second = 0;
+		
+		if(seconds > 3600) {
+			hour = seconds / 3600;
+			if(seconds - (hour * 3600 ) < 60)
+				minute = seconds - (hour * 3600 );
+			else
+				minute = (seconds - (hour * 3600 ))/60;
+			second = seconds - (minute * 60 + hour * 3600);
+		}else if(seconds > 60) {
+			minute = seconds / 60;
+			second = seconds - minute * 60;
+		}else {
+			second = seconds;
+		}
+		
+		String str = String.valueOf((hour > 9 ? hour : ("0" + hour)) + ":" + (minute > 9 ? minute : ("0" + minute)) +
+				":" + (second > 9 ? second : ("0" + second)));
+		
+		((TextField) mainAnchor.lookup("#TotalTime")).setText(str);;
+		System.out.println(str);
 	}
 	
 	public Stage getPrimary() {
