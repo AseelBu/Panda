@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import Exceptions.IllegalMoveException;
 import Model.Game;
 import Model.Location;
 import Model.Piece;
@@ -53,7 +54,12 @@ public class QueenLegalMove {
 //		queen2.move(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A'),DIR);
 //		Game.getInstance().getBoard().printBoard();
 
-		assertTrue("Can Move", queen2.isMoveLegalByDirection(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A').getLocation(),DIR));
+		try {
+			assertTrue("Can Move", queen2.isMoveLegalByDirection(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A').getLocation(),DIR));
+		} catch (IllegalMoveException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

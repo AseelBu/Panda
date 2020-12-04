@@ -2,6 +2,8 @@ package Controller;
 
 import java.util.ArrayList;
 
+import Exceptions.IllegalMoveException;
+import Exceptions.LocationException;
 import Model.Board;
 import Model.Game;
 import Model.Location;
@@ -68,8 +70,10 @@ public class BoardController {
 	 * @param toCol
 	 * @param direction
 	 * @return true if moved, otherwise false
+	 * @throws LocationException 
+	 * @throws IllegalMoveException 
 	 */
-	public boolean movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
+	public boolean movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) throws IllegalMoveException, LocationException {
 		Location fromLocation = new Location(fromRow, fromCol);
 		Location toLocation = new Location(toRow, toCol);
 		return Board.getInstance().movePiece(fromLocation, toLocation, direction);

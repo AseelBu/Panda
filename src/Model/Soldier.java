@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 
 import Controller.BoardController;
+import Exceptions.IllegalMoveException;
+import Exceptions.LocationException;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
@@ -23,13 +25,12 @@ public class Soldier extends Piece{
 
 	@Override
 	
-	public boolean move(Tile targetTile,Directions direction) {
+	public boolean move(Tile targetTile,Directions direction) throws LocationException, IllegalMoveException {
 		Board board = Board.getInstance();
 		Location targetLocation = targetTile.getLocation();
 		Directions legalDirection =getLocation().getRelativeDirection(targetLocation);
 		if(legalDirection!=direction) {
-			System.out.println("The move direction doesn't match the relative direction of target tile location which is "+ legalDirection);
-			return false;
+			throw new IllegalMoveException("The move direction doesn't match the relative direction of target tile location which is "+ legalDirection);
 		}
 		
 		if(this.isMoveLegal(targetLocation)) {
@@ -40,31 +41,26 @@ public class Soldier extends Piece{
 					board.eat(this, toEat);
 				}
 				board.removePiece(this);
-				try {
-					if(targetLocation.isEndOfBoard()) {
-						Queen newQueen= new Queen(getId(), getColor(), targetLocation);
-						board.addPiece(newQueen);
-						newQueen.setEatingCntr(this.getEatingCntr());
-						Game.getInstance().getTurn().setLastPieceMoved(newQueen);
-						BoardController.getInstance().upgradeSoldier(this);
-						System.out.println("Soldier upgraded to Queen !!");
-						return true;
-					}else {
-						this.setLocation(targetLocation);
-						board.addPiece(this);
+				if(targetLocation.isEndOfBoard()) {
+					Queen newQueen= new Queen(getId(), getColor(), targetLocation);
+					newQueen.setEatingCntr(this.getEatingCntr());
+					board.addPiece(newQueen);
+					Game.getInstance().getTurn().setLastPieceMoved(newQueen);
+					BoardController.getInstance().upgradeSoldier(this);
+					System.out.println("Soldier upgraded to Queen !!");
+					return true;
+				}else {
+					this.setLocation(targetLocation);
+					board.addPiece(this);
+					
+					Game.getInstance().getTurn().setLastPieceMoved(this);
 						
-						Game.getInstance().getTurn().setLastPieceMoved(this);
-						
-						return true;
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					return false;
+					return true;
 				}
 				
 			}
 		}else {
-			System.out.println("Illegal Move!");
+			throw new IllegalMoveException("Illegal Move!");
 		}
 		return false;
 	}

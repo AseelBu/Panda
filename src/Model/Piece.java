@@ -3,6 +3,8 @@ package Model;
 
 import java.util.ArrayList;
 
+import Exceptions.IllegalMoveException;
+import Exceptions.LocationException;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
@@ -70,13 +72,13 @@ public abstract class  Piece {
 	public Location getLocation() {
 		return location;
 	}
-	public void setLocation(Location location) throws Exception {
+	public void setLocation(Location location) throws LocationException {
 		Board board=Board.getInstance();
 		Tile tile = board.getTileInLocation(location);
 		if(tile.getColor1()==PrimaryColor.BLACK) {
 		this.location = location;
 		}else {
-			throw new Exception("you can't locate piece on white tile ");
+			throw new LocationException("you can't locate piece on white tile ");
 		}
 	}
 	public int getEatingCntr() {
@@ -117,16 +119,19 @@ public abstract class  Piece {
 	 * @param targetTile to move to
 	 * @param direction of movement
 	 * @return true if move was done,false if something prevented the move to finish
+	 * @throws IllegalMoveException 
+	 * @throws LocationException 
 	 */
-	public abstract boolean move(Tile targetTile,Directions direction);
+	public abstract boolean move(Tile targetTile,Directions direction) throws IllegalMoveException, LocationException;
 	
 	/**
 	 * checks if moving to target location is legal by specific piece moving rules (without taking into consideration board status)
 	 * 
 	 * @param targetLocation
 	 * @return boolean- true if move legal by piece moving rules,false otherwise
+	 * @throws IllegalMoveException 
 	 */
-	public abstract boolean isMoveLegal(Location targetLocation);
+	public abstract boolean isMoveLegal(Location targetLocation) throws IllegalMoveException;
 	
 	/**
 	 * gets all edible pieces around this piece

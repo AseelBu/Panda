@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Exceptions.IllegalMoveException;
+import Exceptions.LocationException;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
@@ -26,8 +28,10 @@ public class Queen extends Piece{
 	 * @param targetTile
 	 * @param direction
 	 * @return 
+	 * @throws IllegalMoveException 
+	 * @throws LocationException 
 	 */
-	public boolean move(Tile targetTile, Directions direction) {
+	public boolean move(Tile targetTile, Directions direction) throws IllegalMoveException, LocationException {
 		Board board = Board.getInstance();	
 		Location targetLocation = targetTile.getLocation();
 		if(this.isMoveLegalByDirection(targetLocation, direction)) {
@@ -38,24 +42,18 @@ public class Queen extends Piece{
 					board.eat(this, toEat);
 				}
 				board.removePiece(this);
-				try {
-					this.setLocation(targetLocation);
-					board.addPiece(this);
-					Game.getInstance().getTurn().setLastPieceMoved(this);
-					return true;
-				} catch (Exception e) {
-					e.printStackTrace();
-					return false;
-				}
-				
+				this.setLocation(targetLocation);
+				board.addPiece(this);
+				Game.getInstance().getTurn().setLastPieceMoved(this);
+				return true;
 			}
 		}
-		System.out.println("Illegal Move!");
-		return false;
+		throw new IllegalMoveException("Illegal Move!");
+
 	}
 
 	@Override
-	public boolean isMoveLegal(Location targetLocation) { 
+	public boolean isMoveLegal(Location targetLocation) throws IllegalMoveException { 
 		Location currentLocation = getLocation();
 		if(currentLocation.getRow() == targetLocation.getRow() ||
 				currentLocation.getColumn() == targetLocation.getColumn())
@@ -75,9 +73,10 @@ public class Queen extends Piece{
 	 * @param targetLocation
 	 * @param direction
 	 * @return true if it is legal, otherwise false
+	 * @throws IllegalMoveException 
 	 */
-	public boolean isMoveLegalByDirection(Location targetLocation, Directions direction) {
-		if(direction == null) return false;
+	public boolean isMoveLegalByDirection(Location targetLocation, Directions direction) throws IllegalMoveException {
+		if(direction == null) throw new IllegalMoveException("Illegal Direction");
 		Board board =Board.getInstance();
 		if(getLocation().getRow() == targetLocation.getRow() || getLocation().getColumn() == targetLocation.getColumn()) return false;
 		switch(direction) {
@@ -828,9 +827,9 @@ public class Queen extends Piece{
 	 * @param targetLocation 
 	 * @param direction
 	 * @return Pieces count in a specific direction (excluding this object)
-	 * @throws Exception 
+	 * @throws LocationException 
 	 */
-	public Integer getPiecesCountByDirection(Location targetLocation, Directions direction) throws Exception {
+	public Integer getPiecesCountByDirection(Location targetLocation, Directions direction) throws LocationException {
 		Board board = Board.getInstance();
 		Integer count = 0;
 		switch(direction) {

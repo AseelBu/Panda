@@ -2,7 +2,11 @@ package View;
 
 import java.io.IOException;
 
+import javax.management.Notification;
+
 import Controller.BoardController;
+import Exceptions.IllegalMoveException;
+import Exceptions.LocationException;
 import Model.Tile;
 import Utils.Directions;
 import Utils.PrimaryColor;
@@ -13,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -543,24 +549,29 @@ public class BoardGUI extends Application {
 	public void setNewTurn(PrimaryColor color) {
 		System.out.println(color);
 		this.turnColor = color;
+		//TODO Put shadow on player on his turn
 	}
 	
 	public void movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
-		if(boardController.movePiece(fromRow, fromCol, toRow, toCol, direction)) {
-			FlowPane board = (FlowPane) mainAnchor.lookup("#board");
-			String temp = String.valueOf("#" + fromRow + "_" + fromCol);
-			FlowPane fromTile = (FlowPane) board.lookup(temp);
-			temp = String.valueOf("#" + toRow + "_" + toCol);
-			FlowPane toTile = (FlowPane) board.lookup(temp);
-			
-			removeSelectionFromPiece((ImageView) fromTile.getChildren().get(0));
-			selectedRow = -1;
-			selectedCol = '_';
-			
-			if(!boardController.checkBurnCurrent(toRow, toCol)) {
-				toTile.getChildren().add(fromTile.getChildren().get(0));
+		try {
+			if(boardController.movePiece(fromRow, fromCol, toRow, toCol, direction)) {
+				FlowPane board = (FlowPane) mainAnchor.lookup("#board");
+				String temp = String.valueOf("#" + fromRow + "_" + fromCol);
+				FlowPane fromTile = (FlowPane) board.lookup(temp);
+				temp = String.valueOf("#" + toRow + "_" + toCol);
+				FlowPane toTile = (FlowPane) board.lookup(temp);
+				
+				removeSelectionFromPiece((ImageView) fromTile.getChildren().get(0));
+				selectedRow = -1;
+				selectedCol = '_';
+				
+				if(!boardController.checkBurnCurrent(toRow, toCol)) {
+					toTile.getChildren().add(fromTile.getChildren().get(0));
+				}
+				fromTile.getChildren().clear();
 			}
-			fromTile.getChildren().clear();
+		} catch (IllegalMoveException | LocationException e) {
+			notifyByError(e.getMessage());
 		}
 	}
 	
@@ -642,19 +653,23 @@ public class BoardGUI extends Application {
 		anchor.getChildren().add(image);
 	}
 	
+	/**
+	 * Method to update full timer visualization
+	 * @param seconds
+	 */
 	public void updateFullTimer(int seconds) {
 		int hour = 0;
 		int minute = 0;
 		int second = 0;
 		
-		if(seconds > 3600) {
+		if(seconds >= 3600) {
 			hour = seconds / 3600;
 			if(seconds - (hour * 3600 ) < 60)
 				minute = seconds - (hour * 3600 );
 			else
 				minute = (seconds - (hour * 3600 ))/60;
 			second = seconds - (minute * 60 + hour * 3600);
-		}else if(seconds > 60) {
+		}else if(seconds >= 60) {
 			minute = seconds / 60;
 			second = seconds - minute * 60;
 		}else {
@@ -665,7 +680,14 @@ public class BoardGUI extends Application {
 				":" + (second > 9 ? second : ("0" + second)));
 		
 		((TextField) mainAnchor.lookup("#TotalTime")).setText(str);;
-		System.out.println(str);
+	}
+	
+	public void notifyByError(String err) {
+		//TODO use this method to show exception message
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText(err);
+		alert.showAndWait();
 	}
 	
 	public Stage getPrimary() {

@@ -11,6 +11,8 @@ import java.util.Random;
 
 import Controller.BoardController;
 import Controller.DisplayController;
+import Exceptions.IllegalMoveException;
+import Exceptions.LocationException;
 import Utils.Directions;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
@@ -150,14 +152,14 @@ public class Board {
 	 * @return Tile-tile in the requested location
 	 * @throws Exception - row number in board doesn't have tiles
 	 */
-	public Tile getTileInLocation(Location location) throws Exception {
+	public Tile getTileInLocation(Location location) throws LocationException {
 
 		if (location == null) return null;
 		ArrayList<Tile> tilesInRow = getTilesinRow(location.getRow());
 		if(tilesInRow != null) {
 			return tilesInRow.get(location.getColumn() - 'A');
 		}else {
-			throw new Exception("Error: Row " + location.getRow() + " has no tiles");
+			throw new LocationException("Error: Row " + location.getRow() + " has no tiles");
 		}
 
 	}
@@ -332,29 +334,23 @@ public class Board {
 	 * @param piece
 	 * @param targetLocation
 	 * @return true if it's legal to move the piece ,otherwise false
+	 * @throws LocationException 
+	 * @throws IllegalMoveException 
 	 */
-	public boolean canPieceMove(Piece piece, Location targetLocation, Directions direction) {
+	public boolean canPieceMove(Piece piece, Location targetLocation, Directions direction) throws LocationException, IllegalMoveException {
 		// is tile black location
 		Tile targetTile=null;
-		try {
-			targetTile = getTileInLocation(targetLocation);
-			if (targetTile.getColor1()!=PrimaryColor.BLACK) {
-				System.out.println("piece can't move to this "+targetLocation+", you can move only on black tiles! ");
-				return false;
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
+		
+		targetTile = getTileInLocation(targetLocation);
+		if (targetTile.getColor1()!=PrimaryColor.BLACK) {
+			throw new IllegalMoveException("piece can't move to this " + targetLocation + ", you can move only on black tiles! ");
 		}
 
 		// does tile contain another piece
 		if(targetTile.getPiece() != null) {
-			System.out.println("piece can't move to this "+targetLocation+", it contains another Piece!");
-			return false;
+			throw new IllegalMoveException("piece can't move to this " + targetLocation + ", it contains another Piece!");
 		}
 		if(piece instanceof Soldier) {
-
 			int steps = piece.getLocation().getRelativeNumberOfSteps(targetLocation);
 			Piece ediblePiece = ((Soldier) piece).getEdiblePieceByDirection( direction);
 			// if its moving in 2s make sure there is a piece we are eating by moving like that
@@ -363,33 +359,28 @@ public class Board {
 				if(steps==2) {
 					//if no piece to eat
 					if(ediblePiece == null) {
-						System.out.println("soldier can't move 2 steps if you are not eating another piece fom rival player");
-						return false;
+						throw new IllegalMoveException("soldier can't move 2 steps if you are not eating another piece fom rival player");
 					}
 				}
 				else if (steps!=1) {
-					System.out.println("soldier can only move 2 steps if you are eating ,and 1 step if you are not");
-					return false;
+					throw new IllegalMoveException("soldier can only move 2 steps if you are eating ,and 1 step if you are not");
 				}
 
 			}// if it's moving backwards it's because it's eating for second time
 			else if(((piece.getColor()==PrimaryColor.BLACK) && (direction == Directions.UP_LEFT || direction == Directions.UP_RIGHT)) 
 					|| ((piece.getColor()==PrimaryColor.WHITE) && (direction == Directions.DOWN_LEFT|| direction == Directions.DOWN_RIGHT))  ) {
 				if(steps !=2) {
-					System.out.println("soldier can't move backwards unless you are moving 2 steps while eating in sequence");
-					return false;
+					throw new IllegalMoveException("soldier can't move backwards unless you are moving 2 steps while eating in sequence");
 				}//if 2 steps
 				else {
 					int eatingCntr =piece.getEatingCntr();
 					if (eatingCntr<1) {
-						System.out.println("soldier can't move backwards unless you are eating for the second time");
-						return false;
+						throw new IllegalMoveException("soldier can't move backwards unless you are eating for the second time");
 					}//if in  eating sequence
 					else {
 						//if there is nothing to eat while moving in 2
 						if(ediblePiece == null) {
-							System.out.println("soldier can't move 2 steps if you are not eating another piece from rival player");
-							return false;
+							throw new IllegalMoveException("soldier can't move 2 steps if you are not eating another piece from rival player");
 						}
 					}
 				}
@@ -402,21 +393,13 @@ public class Board {
 		else if (piece instanceof Queen) {
 
 			if(!((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) {
-				System.out.println("Illegal Move!");
-				return false;
+				throw new IllegalMoveException("Illegal Move!");
 			}
 			if(((Queen) piece).isPieceBlockedByDirection(targetLocation, direction)) {
-				System.out.println("Queen is blocked!");
-				return false;
+				throw new IllegalMoveException("Queen is blocked!");
 			}
-			try {
-				if(((Queen) piece).getPiecesCountByDirection(targetLocation, direction) > 1) {
-					System.out.println("Failed to eat more than one piece in one move, try to split your move");
-					return false;
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(((Queen) piece).getPiecesCountByDirection(targetLocation, direction) > 1) {
+				throw new IllegalMoveException("Failed to eat more than one piece in one move, try to split your move");
 			}
 
 		}
@@ -689,8 +672,9 @@ public class Board {
 	 * @param pieceEatig
 	 * @param targetPiece
 	 * @return Piece eaten if eating was successful ,null otherwise
+	 * @throws IllegalMoveException 
 	 */
-	public Piece eat(Piece pieceEatig, Piece targetPiece) {
+	public Piece eat(Piece pieceEatig, Piece targetPiece) throws IllegalMoveException {
 		if(pieceEatig == null || targetPiece == null) {
 			System.out.println("null arguments in Board.eat method call");
 			return null;
@@ -698,8 +682,7 @@ public class Board {
 		Turn turn =Game.getInstance().getTurn();
 		Player currPlayer=turn.getCurrentPlayer();
 		if(pieceEatig.getColor() != currPlayer.getColor()) {
-			System.out.println("eating piece must be the same color as current player playing");
-			return null;
+			throw new IllegalMoveException("eating piece must be the same color as current player playing");
 		}
 
 		if(pieceEatig.canEatPiece(targetPiece)) {
@@ -767,8 +750,10 @@ public class Board {
 	 * @param to location of a tile to move to
 	 * @param direction the direction to move the piece
 	 * @return true if the move has succeeded, otherwise false
+	 * @throws IllegalMoveException 
+	 * @throws LocationException 
 	 */
-	public boolean movePiece(Location from, Location to, Directions direction) {
+	public boolean movePiece(Location from, Location to, Directions direction) throws IllegalMoveException, LocationException {
 		System.out.println("Attempting to move piece from: " + from.getColumn() + "" + from.getRow() + " | to : " + to.getColumn() + "" + to.getRow());
 		HashMap<Piece, ArrayList<Piece>> toBurn = searchToBurn();
 		Player currPlayer =Game.getInstance().getTurn().getCurrentPlayer();
@@ -793,8 +778,7 @@ public class Board {
 			return false;
 		}
 		if(currPlayer.getColor() != piece.getColor()) {
-			System.out.println("You cannot move your opponent's piece");
-			return false;
+			throw new IllegalMoveException("You cannot move your opponent's piece");
 		}
 
 		if(piece.move(toTile, direction)) {
@@ -814,7 +798,8 @@ public class Board {
 				else System.out.println("Soldier has been moved!");
 			
 			// is there eating left for the piece
-			if(!isAllPiecesEaten(piece) && Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0) {
+			if(!isAllPiecesEaten(Game.getInstance().getTurn().getLastPieceMoved()) && 
+					Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0) {
 				Game.getInstance().getTurn().IncrementMoveCounter();
 			}
 			if(turn.getMoveCounter() == 0) {
