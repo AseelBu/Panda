@@ -180,6 +180,10 @@ public class BoardController {
 		return false;
 	}
 	
+	public void finishGame(String Winname, int score, PrimaryColor color) {
+		board.notifyWinner(Winname, score, color);
+	}
+	
 	public void forceFinishGame() {
 		Game.getInstance().finishGame();
 	}

@@ -234,6 +234,7 @@ public class Game {
 	 * finish a game
 	 */
 	public void finishGame() {
+		if(!isGameRunning()) return;
 		getBoard().printBoard();
 		int winner = -1;
 		if(players[0].getCurrentScore() > players[1].getCurrentScore())
@@ -272,12 +273,18 @@ public class Game {
 		}else {
 			System.out.println("It's a tie (draw)..");
 		}
+		System.out.println("LOL");
+		timer.stopTimer();
+
+		if(winner > -1)
+			BoardController.getInstance().finishGame(players[winner - 1].getNickname(),
+					players[winner - 1].getCurrentScore(), players[winner - 1].getColor());
+			
 		SysData.getInstance().addScoreToHistory(players[0]);
 		SysData.getInstance().addScoreToHistory(players[1]);
 		
-		timer.stopTimer();
 		
-		System.exit(1); //TODO On Implementing GUI, to replace this
+//		System.exit(1); //TODO On Implementing GUI, to replace this
 	}
 
 	/**

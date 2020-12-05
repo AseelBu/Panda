@@ -1,10 +1,12 @@
 package View;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.management.Notification;
 
 import Controller.BoardController;
+import Controller.DisplayController;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
 import Model.Tile;
@@ -20,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
@@ -688,6 +691,22 @@ public class BoardGUI extends Application {
 		alert.setTitle("Warning");
 		alert.setHeaderText(err);
 		alert.showAndWait();
+	}
+	
+	public void notifyWinner(String name, int score, PrimaryColor color) {
+		Alert alert = new Alert(AlertType.NONE);
+		alert.setTitle("Game Finished");
+		alert.setHeaderText(name);
+		ButtonType button = new ButtonType("Close");
+		alert.getButtonTypes().clear();
+		alert.getButtonTypes().setAll(button);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == button){
+			alert.close();
+		    DisplayController.getInstance().closeBoard();
+		    DisplayController.getInstance().showMainScreen();
+		}
 	}
 	
 	public Stage getPrimary() {

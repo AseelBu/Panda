@@ -74,6 +74,7 @@ public class GameTimer {
 	 * resets the timer and stops it
 	 */
 	public void stopTimer() {
+		setStartTime(-1);
 		setPauseTime(-1);
 	}
 	/**
