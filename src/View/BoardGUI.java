@@ -57,13 +57,13 @@ public class BoardGUI extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Scene scene = new Scene(mainAnchor,1258.0, 858.0);
+		Scene scene = new Scene(mainAnchor,1168.0, 768.0);
 		scene.getStylesheets().add(getClass().getResource("/View/board.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
 //		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
-//		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo1.png"))); add logo
+		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -97,21 +97,21 @@ public class BoardGUI extends Application {
 		FlowPane flow = new FlowPane();
 		flow.setLayoutX(477.0);
 		flow.setLayoutY(80.0);
-		flow.setPrefHeight(720.0);
-		flow.setPrefWidth(720.0);
+		flow.setPrefHeight(640.0);
+		flow.setPrefWidth(640.0);
 		flow.setId("board");
 
 		FlowPane nums = new FlowPane();
 		nums.setLayoutX(427.0);
 		nums.setLayoutY(80.0);
-		nums.setPrefHeight(72.0);
+		nums.setPrefHeight(640.0);
 		nums.setPrefWidth(50.0);
 		nums.setId("nums_1");
 		
 		FlowPane nums2 = new FlowPane();
-		nums2.setLayoutX(1197.0);
+		nums2.setLayoutX(1117.0);
 		nums2.setLayoutY(80.0);
-		nums2.setPrefHeight(720.0);
+		nums2.setPrefHeight(640.0);
 		nums2.setPrefWidth(50.0);
 		nums2.setId("nums_2");
 		
@@ -119,14 +119,14 @@ public class BoardGUI extends Application {
 		cols.setLayoutX(477.0);
 		cols.setLayoutY(30.0);
 		cols.setPrefHeight(50.0);
-		cols.setPrefWidth(720.0);
+		cols.setPrefWidth(640.0);
 		cols.setId("col_1");
 		
 		FlowPane cols_2 = new FlowPane();
 		cols_2.setLayoutX(477.0);
-		cols_2.setLayoutY(800.0);
+		cols_2.setLayoutY(720.0);
 		cols_2.setPrefHeight(50.0);
-		cols_2.setPrefWidth(720.0);
+		cols_2.setPrefWidth(640.0);
 		cols_2.setId("col_2");
 		
 		mainAnchor.getChildren().add(flow);
@@ -204,7 +204,7 @@ public class BoardGUI extends Application {
 			for(int j = 8; j > 0 ; j--) {
 				Label label = new Label(String.valueOf(j));
 				label.setAlignment(Pos.CENTER);
-				label.setPrefHeight(90.0);
+				label.setPrefHeight(80.0);
 				label.setPrefWidth(50.0);
 				label.setFont(new Font("System Bold",28.0));
 				nums.getChildren().add(label);
@@ -218,7 +218,7 @@ public class BoardGUI extends Application {
 				Label label = new Label(String.valueOf(j));
 				label.setAlignment(Pos.CENTER);
 				label.setPrefHeight(50.0);
-				label.setPrefWidth(90.0);
+				label.setPrefWidth(80.0);
 				label.setFont(new Font("System Bold",28.0));
 				cols.getChildren().add(label);
 			}
@@ -236,8 +236,8 @@ public class BoardGUI extends Application {
 			for(char j = 'A' ; j <= 'H' ; j++) {
 				Tile tile = boardController.getTile(i, j);
 				FlowPane tilePane = new FlowPane(); 
-				tilePane.setPrefHeight(90.0);
-				tilePane.setPrefWidth(90.0);
+				tilePane.setPrefHeight(80.0);
+				tilePane.setPrefWidth(80.0);
 				tilePane.setId(String.valueOf(i+"_"+j));
 				tilePane.setStyle("-fx-background-color: " + tile.getColorName() + ";");
 				board.getChildren().add(tilePane);
@@ -269,8 +269,8 @@ public class BoardGUI extends Application {
 			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Queen_" + pieceColor + ".png").toString()));
 			pieceImage.setId("Queen_" + pieceColor);
 		}
-		pieceImage.setFitHeight(90.0);
-		pieceImage.setFitWidth(90.0);
+		pieceImage.setFitHeight(80.0);
+		pieceImage.setFitWidth(80.0);
 		pieceImage.setPickOnBounds(true);
 		pieceImage.setPreserveRatio(true);
 		pieceImage.setCursor(Cursor.HAND);
@@ -315,8 +315,8 @@ public class BoardGUI extends Application {
 					ImageView image = (ImageView) event.getSource();
 					ImageView tempImage = new ImageView(image.getImage());
 					tempImage.setId("drag");
-					tempImage.setFitHeight(90.0);
-					tempImage.setFitWidth(90.0);
+					tempImage.setFitHeight(80.0);
+					tempImage.setFitWidth(80.0);
 					tempImage.setPickOnBounds(true);
 					tempImage.setPreserveRatio(true);
 					
@@ -326,8 +326,8 @@ public class BoardGUI extends Application {
 					mainAnchor.getChildren().add(2, tempImage);
 
 					int col = (int) ((int) event.getSceneX() - board.getLayoutX());
-					int row = 8 - (((int) ( event.getSceneY() - board.getLayoutY() )) / 90);
-					selectedCol2 = (char)((char)(col / 90) + 'A');
+					int row = 8 - (((int) ( event.getSceneY() - board.getLayoutY() )) / 80);
+					selectedCol2 = (char)((char)(col / 80) + 'A');
 					selectedRow2 = row;
 					
 
@@ -350,11 +350,11 @@ public class BoardGUI extends Application {
 						tempImage.setLayoutY(event.getSceneY());
 						
 						int col = (int) ((int) tempImage.getLayoutX() - board.getLayoutX());
-						int row = 8 - (((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 90);
+						int row = 8 - (((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 80);
 						
-						if(((char)((char)(col / 90) + 'A') != selectedCol2 && row != selectedRow2) 
+						if(((char)((char)(col / 80) + 'A') != selectedCol2 && row != selectedRow2) 
 								&& dragCol == '_' && dragRow == -1) {
-							dragCol = (char)((char)(col / 90) + 'A');
+							dragCol = (char)((char)(col / 80) + 'A');
 							dragRow = row;
 							if(dragCol < 'A' || dragCol > 'H' || dragRow < 1 || dragRow > 8) {
 								dragCol = '_';
@@ -376,8 +376,8 @@ public class BoardGUI extends Application {
 				if (primary != null) {
 					ImageView tempImage = (ImageView) mainAnchor.lookup("#drag");
 					mainAnchor.getChildren().remove(tempImage);
-					int relativeX = ((int) ( tempImage.getLayoutX() - board.getLayoutX() )) / 90;
-					int relativeY = ((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 90;
+					int relativeX = ((int) ( tempImage.getLayoutX() - board.getLayoutX() )) / 80;
+					int relativeY = ((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 80;
 					
 					boolean tempType;
 					
@@ -615,13 +615,13 @@ public class BoardGUI extends Application {
 		ImageView upRight = new ImageView(new Image(getClass().getResource("pictures/up_right.png").toString()));
 		ImageView downLeft = new ImageView(new Image(getClass().getResource("pictures/down_left.png").toString()));
 		ImageView downRight = new ImageView(new Image(getClass().getResource("pictures/down_right.png").toString()));
-		addArrowImgToAnchor(anchor, upLeft, Directions.UP_LEFT, 88, 551, toRow, toCol);
-		addArrowImgToAnchor(anchor, upRight, Directions.UP_RIGHT, 188,551, toRow, toCol);
-		addArrowImgToAnchor(anchor, downLeft, Directions.DOWN_LEFT, 88,650, toRow, toCol);
-		addArrowImgToAnchor(anchor, downRight, Directions.DOWN_RIGHT, 188,650, toRow, toCol);
+		addArrowImgToAnchor(anchor, upLeft, Directions.UP_LEFT, 88, 451, toRow, toCol);
+		addArrowImgToAnchor(anchor, upRight, Directions.UP_RIGHT, 188,451, toRow, toCol);
+		addArrowImgToAnchor(anchor, downLeft, Directions.DOWN_LEFT, 88,550, toRow, toCol);
+		addArrowImgToAnchor(anchor, downRight, Directions.DOWN_RIGHT, 188,550, toRow, toCol);
 		Button dirCancel = new Button("Cancel Move");
 		dirCancel.setLayoutX(130);
-		dirCancel.setLayoutY(766);
+		dirCancel.setLayoutY(666);
 		dirCancel.setMnemonicParsing(false);
 		dirCancel.setFont(new Font(17.0));
 		dirCancel.setOnAction(new EventHandler<ActionEvent>() {
