@@ -198,7 +198,7 @@ public class Turn {
 	{
 		Board board = Board.getInstance();
 		lastPieceMoved=game.getTurn().getLastPieceMoved();
-		timer.stopTimer();
+		timer.pauseTimer();
 		CalculateTimeScore();
 		lastPieceMoved.resetEatingCntr();
 		board.replacePiece(lastPieceMoved, lastPieceMoved);

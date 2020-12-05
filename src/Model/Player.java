@@ -108,11 +108,14 @@ public class Player implements Serializable {
 	 */
 	public static void destruct() {
 		instances = null;
+		initiated = false;
 	}
 
 	private static Boolean tryInitiate()
 	{
 		if(initiated) return false;
+		
+		instances = new Player[2];
 
 		for (int i = 0; i < instances.length; i++)
 		{

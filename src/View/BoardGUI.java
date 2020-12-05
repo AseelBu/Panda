@@ -55,6 +55,7 @@ public class BoardGUI extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			mainAnchor = FXMLLoader.load(getClass().getResource("/View/Board.fxml"));
+			mainAnchor = new AnchorPane();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -284,7 +285,6 @@ public class BoardGUI extends Application {
 				
 				if(id.length != 2) return;
 				if(!validateSelection(image)) return;
-				
 				if(selectedRow == -1) {
 					selectedRow = Integer.valueOf(id[0]);
 					selectedCol = id[1].toCharArray()[0];
@@ -446,7 +446,6 @@ public class BoardGUI extends Application {
 	public boolean validateSelection(ImageView piece) {
 		String[] id = piece.getId().split("_");
 		if(id.length != 2) return false;
-		System.out.println(turnColor + " " + id[1]);
 		return String.valueOf(turnColor).equals(id[1]);
 	}
 	
@@ -558,7 +557,6 @@ public class BoardGUI extends Application {
 	public void setNewTurn(PrimaryColor color) {
 		String id = "#Name_" + color;
 		Label name = (Label) mainAnchor.lookup(id);
-		System.out.println(name);
 		if(color.equals(PrimaryColor.WHITE))
 		{
 			String id2 = "#Name_BLACK"; 
@@ -582,6 +580,7 @@ public class BoardGUI extends Application {
 	public void movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
 		try {
 			if(boardController.movePiece(fromRow, fromCol, toRow, toCol, direction)) {
+				if(mainAnchor == null) return;
 				FlowPane board = (FlowPane) mainAnchor.lookup("#board");
 				String temp = String.valueOf("#" + fromRow + "_" + fromCol);
 				FlowPane fromTile = (FlowPane) board.lookup(temp);
@@ -738,6 +737,11 @@ public class BoardGUI extends Application {
 			primary = new Stage();
 		}
 		return primary;
+	}
+	
+	public void destruct() {
+		mainAnchor = null;
+		primary = null;
 	}
 	
 }
