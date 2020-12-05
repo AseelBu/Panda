@@ -57,7 +57,7 @@ public class BoardGUI extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Scene scene = new Scene(mainAnchor);
+		Scene scene = new Scene(mainAnchor,1258.0, 858.0);
 		scene.getStylesheets().add(getClass().getResource("/View/board.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
@@ -97,21 +97,21 @@ public class BoardGUI extends Application {
 		FlowPane flow = new FlowPane();
 		flow.setLayoutX(477.0);
 		flow.setLayoutY(80.0);
-		flow.setPrefHeight(800.0);
-		flow.setPrefWidth(800.0);
+		flow.setPrefHeight(720.0);
+		flow.setPrefWidth(720.0);
 		flow.setId("board");
 
 		FlowPane nums = new FlowPane();
 		nums.setLayoutX(427.0);
 		nums.setLayoutY(80.0);
-		nums.setPrefHeight(800.0);
+		nums.setPrefHeight(72.0);
 		nums.setPrefWidth(50.0);
 		nums.setId("nums_1");
 		
 		FlowPane nums2 = new FlowPane();
-		nums2.setLayoutX(1277.0);
+		nums2.setLayoutX(1197.0);
 		nums2.setLayoutY(80.0);
-		nums2.setPrefHeight(800.0);
+		nums2.setPrefHeight(720.0);
 		nums2.setPrefWidth(50.0);
 		nums2.setId("nums_2");
 		
@@ -119,14 +119,14 @@ public class BoardGUI extends Application {
 		cols.setLayoutX(477.0);
 		cols.setLayoutY(30.0);
 		cols.setPrefHeight(50.0);
-		cols.setPrefWidth(800.0);
+		cols.setPrefWidth(720.0);
 		cols.setId("col_1");
 		
 		FlowPane cols_2 = new FlowPane();
 		cols_2.setLayoutX(477.0);
-		cols_2.setLayoutY(880.0);
+		cols_2.setLayoutY(800.0);
 		cols_2.setPrefHeight(50.0);
-		cols_2.setPrefWidth(800.0);
+		cols_2.setPrefWidth(720.0);
 		cols_2.setId("col_2");
 		
 		mainAnchor.getChildren().add(flow);
@@ -204,7 +204,7 @@ public class BoardGUI extends Application {
 			for(int j = 8; j > 0 ; j--) {
 				Label label = new Label(String.valueOf(j));
 				label.setAlignment(Pos.CENTER);
-				label.setPrefHeight(100.0);
+				label.setPrefHeight(90.0);
 				label.setPrefWidth(50.0);
 				label.setFont(new Font("System Bold",28.0));
 				nums.getChildren().add(label);
@@ -218,7 +218,7 @@ public class BoardGUI extends Application {
 				Label label = new Label(String.valueOf(j));
 				label.setAlignment(Pos.CENTER);
 				label.setPrefHeight(50.0);
-				label.setPrefWidth(100.0);
+				label.setPrefWidth(90.0);
 				label.setFont(new Font("System Bold",28.0));
 				cols.getChildren().add(label);
 			}
@@ -236,8 +236,8 @@ public class BoardGUI extends Application {
 			for(char j = 'A' ; j <= 'H' ; j++) {
 				Tile tile = boardController.getTile(i, j);
 				FlowPane tilePane = new FlowPane(); 
-				tilePane.setPrefHeight(100.0);
-				tilePane.setPrefWidth(100.0);
+				tilePane.setPrefHeight(90.0);
+				tilePane.setPrefWidth(90.0);
 				tilePane.setId(String.valueOf(i+"_"+j));
 				tilePane.setStyle("-fx-background-color: " + tile.getColorName() + ";");
 				board.getChildren().add(tilePane);
@@ -269,8 +269,8 @@ public class BoardGUI extends Application {
 			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Queen_" + pieceColor + ".png").toString()));
 			pieceImage.setId("Queen_" + pieceColor);
 		}
-		pieceImage.setFitHeight(99.0);
-		pieceImage.setFitWidth(100.0);
+		pieceImage.setFitHeight(90.0);
+		pieceImage.setFitWidth(90.0);
 		pieceImage.setPickOnBounds(true);
 		pieceImage.setPreserveRatio(true);
 		pieceImage.setCursor(Cursor.HAND);
@@ -315,8 +315,8 @@ public class BoardGUI extends Application {
 					ImageView image = (ImageView) event.getSource();
 					ImageView tempImage = new ImageView(image.getImage());
 					tempImage.setId("drag");
-					tempImage.setFitHeight(99.0);
-					tempImage.setFitWidth(100.0);
+					tempImage.setFitHeight(90.0);
+					tempImage.setFitWidth(90.0);
 					tempImage.setPickOnBounds(true);
 					tempImage.setPreserveRatio(true);
 					
@@ -326,8 +326,8 @@ public class BoardGUI extends Application {
 					mainAnchor.getChildren().add(2, tempImage);
 
 					int col = (int) ((int) event.getSceneX() - board.getLayoutX());
-					int row = 8 - (((int) ( event.getSceneY() - board.getLayoutY() )) / 100);
-					selectedCol2 = (char)((char)(col / 100) + 'A');
+					int row = 8 - (((int) ( event.getSceneY() - board.getLayoutY() )) / 90);
+					selectedCol2 = (char)((char)(col / 90) + 'A');
 					selectedRow2 = row;
 					
 
@@ -350,11 +350,11 @@ public class BoardGUI extends Application {
 						tempImage.setLayoutY(event.getSceneY());
 						
 						int col = (int) ((int) tempImage.getLayoutX() - board.getLayoutX());
-						int row = 8 - (((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 100);
+						int row = 8 - (((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 90);
 						
-						if(((char)((char)(col / 100) + 'A') != selectedCol2 && row != selectedRow2) 
+						if(((char)((char)(col / 90) + 'A') != selectedCol2 && row != selectedRow2) 
 								&& dragCol == '_' && dragRow == -1) {
-							dragCol = (char)((char)(col / 100) + 'A');
+							dragCol = (char)((char)(col / 90) + 'A');
 							dragRow = row;
 							if(dragCol < 'A' || dragCol > 'H' || dragRow < 1 || dragRow > 8) {
 								dragCol = '_';
@@ -376,8 +376,8 @@ public class BoardGUI extends Application {
 				if (primary != null) {
 					ImageView tempImage = (ImageView) mainAnchor.lookup("#drag");
 					mainAnchor.getChildren().remove(tempImage);
-					int relativeX = ((int) ( tempImage.getLayoutX() - board.getLayoutX() )) / 100;
-					int relativeY = ((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 100;
+					int relativeX = ((int) ( tempImage.getLayoutX() - board.getLayoutX() )) / 90;
+					int relativeY = ((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 90;
 					
 					boolean tempType;
 					
