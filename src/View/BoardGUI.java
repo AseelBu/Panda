@@ -25,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BlurType;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -478,6 +479,7 @@ public class BoardGUI extends Application {
 	 */
 	public void initiateGamePlayers(String whiteName, String blackName) {
 		Label lp1 = new Label(whiteName);
+		lp1.setId("Name_WHITE");
 		lp1.setLayoutX(105.0);
 		lp1.setLayoutY(151.0);
 		lp1.setFont(new Font(28.0));
@@ -503,6 +505,7 @@ public class BoardGUI extends Application {
 		pointsWhite.setFont(new Font(17.0));
 		
 		Label lp2 = new Label(blackName);
+		lp2.setId("Name_BLACK");
 		lp2.setLayoutX(105.0);
 		lp2.setLayoutY(349.0);
 		lp2.setFont(new Font(28.0));
@@ -549,8 +552,29 @@ public class BoardGUI extends Application {
 	 * set new turn
 	 * @param color
 	 */
+	
+	
+   //implement Turn Changing
 	public void setNewTurn(PrimaryColor color) {
-		System.out.println(color);
+		String id = "#Name_" + color;
+		Label name = (Label) mainAnchor.lookup(id);
+		System.out.println(name);
+		if(color.equals(PrimaryColor.WHITE))
+		{
+			String id2 = "#Name_BLACK"; 
+			Label name2 = (Label) mainAnchor.lookup(id2);
+			name2.setEffect(null);
+			name.setEffect(new DropShadow(2.0, Color.RED));
+
+		}
+		else
+		{
+			String id2 = "#Name_WHITE"; 
+			Label name2 = (Label) mainAnchor.lookup(id2);
+			name2.setEffect(null);
+			name.setEffect(new DropShadow(2.0, Color.RED));
+		}
+		//System.out.println(color);
 		this.turnColor = color;
 		//TODO Put shadow on player on his turn
 	}
