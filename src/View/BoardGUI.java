@@ -188,10 +188,15 @@ public class BoardGUI extends Application {
 		timeField.setFont(new Font(28));
 		
 		
+
+		
 		mainAnchor.getChildren().add(vsLbl);
 		mainAnchor.getChildren().add(timeField);
 		
 		setupStandardColsRows();
+		
+
+//		mainAnchor.getChildren().add(totalTimeF);
 
 	}	
 	
@@ -721,6 +726,7 @@ public class BoardGUI extends Application {
 		Alert alert = new Alert(AlertType.NONE);
 		alert.setTitle("Game Finished");
 		alert.setHeaderText(name);
+		 alert.setContentText("Congratulations,you are the winner!");
 		ButtonType button = new ButtonType("Close");
 		alert.getButtonTypes().clear();
 		alert.getButtonTypes().setAll(button);

@@ -1,28 +1,22 @@
 package UnitTests;
-
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
 import org.junit.Test;
-
-import Exceptions.IllegalMoveException;
 import Model.Game;
 import Model.Location;
 import Model.Piece;
 import Model.Player;
-import Model.Queen;
+
 import Model.Soldier;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
-public class QueenLegalMove {
+public class SoldierLegalMove {
 
 	static final int ROW_LOCATION = 8;
-	static final char COLUMN_LOCATION = 'D';
-	static final Directions DIR = Directions.UP_LEFT;
+	static final char COLUMN_LOCATION = 'H';
+	static final Directions DIR = Directions.UP_RIGHT;
 
-	
 	@Test
 	public void test() {
 		Player player1 = Player.getInstance(0);
@@ -34,11 +28,11 @@ public class QueenLegalMove {
 								player2
 								};
 		ArrayList<Piece> pieces = new ArrayList<>();
-		Piece queen = new Queen(1, PrimaryColor.WHITE, new Location(2,'B'));
-		Piece soldier = new Soldier(2, PrimaryColor.BLACK, new Location(5,'G'));
+		Piece mainSoldier= new Soldier(1, PrimaryColor.WHITE, new Location(6,'F'));
+		Piece soldier = new Soldier(2, PrimaryColor.BLACK, new Location(4,'H'));
 		Piece soldier2 = new Soldier(3, PrimaryColor.BLACK, new Location(7,'G'));
 		
-		pieces.add(queen);
+		pieces.add(mainSoldier);
 		pieces.add(soldier);
 		pieces.add(soldier2);
 
@@ -49,17 +43,15 @@ public class QueenLegalMove {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Queen queen2 = (Queen) Game.getInstance().getBoard().getTilesMap().get(queen.getLocation().getRow()).get(queen.getLocation().getColumn() - 'A').getPiece();
+		//Soldier soldierr = (Soldier) Game.getInstance().getBoard().getTilesMap().get(mainSoldier.getLocation().getRow()).get(mainSoldier.getLocation().getColumn() - 'A').getPiece();
 //		queen2.move(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A'),DIR);
 //		Game.getInstance().getBoard().printBoard();
-
-		try {
-			assertTrue("Can Move", queen2.isMoveLegalByDirection(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A').getLocation(),DIR));
-		} catch (IllegalMoveException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Soldier soldierr = (Soldier) Game.getInstance().getBoard().getTilesMap().get(mainSoldier.getLocation().getRow()).get(mainSoldier.getLocation().getColumn() - 'A').getPiece();
+		//System.out.println("ssssssssssssss  dddd"+soldierr);
+			assertTrue("Yeah You Can Move :) ", soldierr.isMoveLegal(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A').getLocation()));
+	
 
 	}
 
 }
+
