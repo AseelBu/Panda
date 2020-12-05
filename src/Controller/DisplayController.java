@@ -52,15 +52,24 @@ public class DisplayController {
 		try {
 			game.startGame(players);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(game.getGameTime());
+			System.out.println("Invalid Game Initiation");
+			if(boardGUI != null)
+				if(boardGUI.getPrimary() != null)
+					if(boardGUI.getPrimary().isShowing())
+						closeBoard();
+			if(!mainscreen.getPrimary().isShowing())
+				showMainScreen();
+			return;
 		}
 		
 		boardGUI = new BoardGUI();
+		BoardController.getInstance().setBoard(boardGUI);
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
 		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
-		TimerController fullTimer = new TimerController(); 
+		TimerController fullTimer = new TimerController();
+		game.getTimer().startTimer();
 		fullTimer.start();
 	}
 	
@@ -89,15 +98,24 @@ public class DisplayController {
 				Game.getInstance().startGame(players, load.get('B'), 'B');
 			}
 		}catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			System.out.println(Game.getInstance().getGameTime());
+			System.out.println("Invalid Game Initiation");
+			if(boardGUI != null)
+				if(boardGUI.getPrimary() != null)
+					if(boardGUI.getPrimary().isShowing())
+						closeBoard();
+			if(!mainscreen.getPrimary().isShowing())
+				showMainScreen();
+			return;
 		}
 		
 		boardGUI = new BoardGUI();
+		BoardController.getInstance().setBoard(boardGUI);
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
 		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
 		TimerController fullTimer = new TimerController(); 
+		Game.getInstance().getTimer().startTimer();
 		fullTimer.start();
 	}
 	

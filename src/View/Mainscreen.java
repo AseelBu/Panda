@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -33,7 +34,7 @@ public class Mainscreen extends Application {
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
 //		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
-//		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo1.png"))); add logo
+		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primary = primaryStage;
 

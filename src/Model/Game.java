@@ -283,7 +283,9 @@ public class Game {
 		SysData.getInstance().addScoreToHistory(players[0]);
 		SysData.getInstance().addScoreToHistory(players[1]);
 		
-		
+		destruct();
+		getBoard().destruct();
+		getPlayers()[0].destruct();
 //		System.exit(1); //TODO On Implementing GUI, to replace this
 	}
 
@@ -402,6 +404,14 @@ public class Game {
 		this.turn = turn;
 	}
 
+	public GameTimer getTimer() {
+		return timer;
+	}
+	
+	public void setTimer(GameTimer timer) {
+		this.timer = timer;
+	}
+	
 	public ArrayList<Question> getAvailableQuestions() {
 		return availableQuestions;
 	}

@@ -133,7 +133,6 @@ public class BoardController {
 	 * @return
 	 */
 	public Directions getDirection(int fromRow, char fromCol, int toRow, char toCol, boolean isSoldier) {
-		System.out.println(fromCol + " " + toCol + ":::" + fromRow + " " + toRow);
 		int diffCol = toCol - fromCol;
 		int diffRow = toRow - fromRow;
 		
@@ -182,9 +181,21 @@ public class BoardController {
 	
 	public void finishGame(String Winname, int score, PrimaryColor color) {
 		board.notifyWinner(Winname, score, color);
+		board.destruct();
 	}
 	
 	public void forceFinishGame() {
 		Game.getInstance().finishGame();
+		board.destruct();
 	}
+
+	public BoardGUI getBoard() {
+		return board;
+	}
+
+	public void setBoard(BoardGUI board) {
+		this.board = board;
+	}
+	
+	
 }

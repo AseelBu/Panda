@@ -10,20 +10,6 @@ public class GameTimer {
 
 	private long startTime;
 	private long anonStartTime;
-
-	/**
-	 * GameTimer constructor
-	 * @param startTime - timer start time
-	 * @param anonStartTime - anonymous start time, changes privately after every pause
-	 * @param pauseTime - the last pause time
-	 */
-	public GameTimer(long startTime, long anonStartTime, long pauseTime) {
-		super();
-		this.startTime = startTime-1;
-		this.anonStartTime = anonStartTime-1;
-		this.pauseTime = pauseTime-1;
-	}
-
 	private long pauseTime;
 	
 	/**
@@ -97,6 +83,7 @@ public class GameTimer {
 	 * @return seconds count
 	 */
 	public float getSeconds() {
+		if(startTime == -1) return -1;
 		if(pauseTime > -1) {
 			long temp = anonStartTime + (System.currentTimeMillis() - getPauseTime());
 			return ( System.currentTimeMillis() -  temp) / 1000F;
