@@ -17,6 +17,7 @@ public class ScoreBoardController {
 	
 	private SysData sysData;
 	private Scoreboard highscores_screen;
+	private static ScoreBoardController instance;
 	
 	public ScoreBoardController() {
 		
@@ -25,6 +26,20 @@ public class ScoreBoardController {
 		this.highscores_screen = new Scoreboard();
 		
 			
+	}
+	
+	/**
+	 * Get Instance
+	 * @return - Controller's instance
+	 */
+	
+	public static ScoreBoardController getInstance() 
+	{ 
+		if (instance == null) 
+		{ 
+			instance = new ScoreBoardController(); 
+		} 
+		return instance; 
 	}
 	
 	
@@ -77,7 +92,8 @@ public class ScoreBoardController {
 			InputStream inputStream = new FileInputStream("highscores.ser");
 			ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 			try {
-				this.getSysData().setScoreboard((ArrayList<Player>) objectInputStream.readObject());
+				ArrayList<Player> scores = (ArrayList<Player>) objectInputStream.readObject();
+				this.getSysData().setScoreboard(scores);
 			} catch (ClassNotFoundException e) {
 				System.out.println("");
 				e.printStackTrace();

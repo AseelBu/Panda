@@ -125,10 +125,17 @@ public class DisplayController {
 
 	}
 	
-	public void showManageQuestions() throws Exception {
-		manageQuestions = new ManageQuestions();
-		manageQuestions.start(manageQuestions.getPrimary());
+	
+	public void showManageQuestions(){
+		
+		ManageQuestions mg = QuestionMgmtController.getInstance().getQuestionScreen();
+		try {
+			mg.start(mg.getPrimary());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+	
 	
 	public void showScoreboard() {
 		scoreboard = new Scoreboard();

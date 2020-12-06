@@ -1,5 +1,7 @@
 package Controller;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -163,6 +165,7 @@ public class QuestionMgmtController {
 
 		JsonObject jsonObject = new JsonParser().parse(reader).getAsJsonObject();
 		final JsonArray data = jsonObject.getAsJsonArray("questions");
+		
 
 		for (JsonElement element : data) {
 
@@ -182,11 +185,13 @@ public class QuestionMgmtController {
 
 			String team = ((JsonObject) element).get("team").getAsString();
 			
-			if (this.sysData.getQuestions().size() > 0) {
-				q = new Question(this.sysData.getQuestions().get(this.sysData.getQuestions().size() - 1).getId() + 1, content, null,
+			if (!this.sysData.getQuestions().isEmpty()) {
+				q = new Question(this.sysData.getQuestions().size(), content, null,
 						new ArrayList<Answer>(), team);
+				this.sysData.getQuestions().add(q);
 			} else {
 				q = new Question(0, content, null, new ArrayList<Answer>(), team);
+				this.sysData.getQuestions().add(q);
 			}
 			DifficultyLevel diff_level;
 			if (difficulty == 1) {
@@ -200,10 +205,12 @@ public class QuestionMgmtController {
 			q.setDifficulty(diff_level);
 
 			int correctAnswer_Checker = 0;
+			
 
 			for (String s : answers) {
 				correctAnswer_Checker++;
 				Answer a = null;
+				
 
 				if (correctAnswer_Checker == correct) {
 					a = new Answer(correctAnswer_Checker, s, true);
@@ -218,13 +225,22 @@ public class QuestionMgmtController {
 
 		}
 		
-		this.sysData.setQuestions(questions);
+		this.getSysData().setQuestions(questions);
+		
+		
 
 	}
 	
 	public ArrayList<Question> getQuestions(){
 		return this.sysData.getQuestions();
 	}
+	
+	public void removeQuestions(int id){
+		 this.sysData.removeQuestion(id);
+	}
+	
+	
+	
 	
 	
 	

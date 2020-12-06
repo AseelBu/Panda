@@ -179,6 +179,19 @@ public class SysData {
 		});
 
 	}
+	
+	public Question getQuesById(int id) {
+		
+		
+		for(Question q : this.getQuestions()) {
+			
+			if(q.getId() == id){
+				return q;
+			}
+			
+		}
+		return null;
+	}
 
 
 }

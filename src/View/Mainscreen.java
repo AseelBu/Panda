@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import Controller.DisplayController;
+import Controller.QuestionMgmtController;
+import Controller.ScoreBoardController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +39,9 @@ public class Mainscreen extends Application {
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primary = primaryStage;
+		
+		QuestionMgmtController.getInstance().LoadQuestions();
+		ScoreBoardController.getInstance().loadHistory();
 
 	}
 
@@ -70,7 +75,9 @@ public class Mainscreen extends Application {
 
     @FXML
     void manageQuestions(ActionEvent event) {
-
+    	
+    	DisplayController.getInstance().closeMainscreen();
+    	DisplayController.getInstance().showManageQuestions();
     }
 
     @FXML
