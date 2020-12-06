@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import Model.Game;
 import javafx.application.Platform;
 
-public class TimerController extends Thread{
+public class GameTimerController extends Thread{
 	
 	public void run() 
     { 

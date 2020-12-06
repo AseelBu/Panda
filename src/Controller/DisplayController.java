@@ -68,9 +68,9 @@ public class DisplayController {
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
 		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
-		TimerController fullTimer = new TimerController();
+		GameTimerController fullTimer = new GameTimerController();
 		game.getTimer().startTimer();
-		fullTimer.start();
+		fullTimer.start(); //TODO thread should be killed
 	}
 	
 	public void showBoard(File file) {
@@ -114,7 +114,7 @@ public class DisplayController {
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
 		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
-		TimerController fullTimer = new TimerController(); 
+		GameTimerController fullTimer = new GameTimerController(); 
 		Game.getInstance().getTimer().startTimer();
 		fullTimer.start();
 	}
