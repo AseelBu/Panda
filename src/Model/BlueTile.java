@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
 
-public class BlueTile extends Tile {
+public class BlueTile extends Tile implements ColoredTileUpdate {
 
 	/**
 	 * Constructor
@@ -104,6 +104,17 @@ public class BlueTile extends Tile {
 		
 		return true;
 		
+	}
+	
+	@Override
+	//TODO stepOnTile
+	public void stepOnBy(Piece piece) {
+		
+	}
+	
+	@Override
+	public String toString() {
+		return "BlueTile: "+ super.toString();
 	}
 	
 

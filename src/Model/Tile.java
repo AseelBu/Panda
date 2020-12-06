@@ -10,15 +10,15 @@ import Utils.SeconderyTileColor;
  * @author aseel
  *
  */
-public class Tile implements Comparable<Tile>{
-	
+public class Tile implements Comparable<Tile>,ColoredTileUpdate{
+
 	private Location location;
-	public PrimaryColor color1;
+	private PrimaryColor color1;
 	private SeconderyTileColor color2=null;
 	private Piece piece = null;
-	
-	
-	
+
+
+
 	/**
 	 * Constructor for regular tile without piece
 	 * 
@@ -30,7 +30,7 @@ public class Tile implements Comparable<Tile>{
 		this.location = location;
 		this.color1 = color1;		
 	}
-	
+
 	/**
 	 * Constructor for Special tile without piece
 	 * 
@@ -43,9 +43,9 @@ public class Tile implements Comparable<Tile>{
 		this.location = location;
 		this.color1 = color1;
 		this.color2 = color2;
-		
+
 	}
-	
+
 	/**
 	 * Constructor for regular tile with piece
 	 * 
@@ -60,7 +60,7 @@ public class Tile implements Comparable<Tile>{
 		this.color1 = color1;		
 		this.piece = piece;
 	}
-	
+
 	/**
 	 * Constructor for Special tile with piece
 	 * 
@@ -76,9 +76,9 @@ public class Tile implements Comparable<Tile>{
 		this.color2 = color2;
 		this.piece = piece;
 	}
-	
-	
-	
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -113,71 +113,71 @@ public class Tile implements Comparable<Tile>{
 		}else {
 			result = this.location.getRow()-t.location.getRow();
 		}
-			
+
 		return result;
 	}
-	
+
 	//setters & getters
-	
+
 	/**
 	 * @return the location
 	 */
 	public Location getLocation() {
 		return location;
 	}
-	
+
 	/**
 	 * @param location the location to set
 	 */
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
+
 	/**
 	 * @return the color1
 	 */
 	public PrimaryColor getColor1() {
 		return color1;
 	}
-	
+
 	/**
 	 * @param color1 the color1 to set
 	 */
 	public void setColor1(PrimaryColor color1) {
 		this.color1 = color1;
 	}
-	
+
 	/**
 	 * @return the color2
 	 */
 	public SeconderyTileColor getColor2() {
 		return color2;
 	}
-	
+
 	/**
 	 * @param color2 the color2 to set
 	 */
 	public void setColor2(SeconderyTileColor color2) {
 		this.color2 = color2;
 	}
-	
+
 	/**
 	 * @return the piece
 	 */
 	public Piece getPiece() {
 		return piece;
 	}
-	
+
 	/**
 	 * @param piece the piece to set
 	 */
 	public void setPiece(Piece piece) {
 		this.piece = piece;
 	}
-	
-	
+
+
 	//methods
-	
+
 	/**
 	 * 
 	 * @return dominant tile color- secondary color if exists else the primary color of the tile
@@ -187,7 +187,7 @@ public class Tile implements Comparable<Tile>{
 			return  this.color2.name();
 		}
 		return this.color1.name();
-		
+
 	}
 
 	/**
@@ -195,18 +195,38 @@ public class Tile implements Comparable<Tile>{
 	 * @return true if tile has no piece , false otherwise
 	 */
 	public boolean  isEmpty() {
-	
+
 		if(this.piece==null) {
 			return true;
 		}
 		return false;
 	}
-	
+
+	@Override
+	//TODO stepOnTile
+	public void stepOnBy(Piece piece) {
+		// TODO Auto-generated method stub
+		switch (this.color2) {
+		case RED: {
+
+			Game.getInstance().getTurn().IncrementMoveCounter();
+		}
+		case GREEN: {
+
+			Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
+		}
+
+
+		}
+		return;
+
+	}
+
 	@Override
 	public String toString() {
 		return "Tile [location=" + location + ", color1=" + color1 + ", color2=" + color2 + ", piece=" + piece + "]";
 	}
 
-	
+
 
 }

@@ -32,7 +32,8 @@ public class Game {
 	private Game() {
 		super();
 		this.board = Board.getInstance();
-		board.initBoardTiles();
+		board.initBasicBoardTiles();
+		availableQuestions=SysData.getInstance().getQuestions();
 		timer = new GameTimer();
 	}
 	/**
@@ -72,7 +73,7 @@ public class Game {
 
 
 	/**
-	 * Start a game
+	 * Start a game from file
 	 * @throws Exception 
 	 */
 	public void startGame(Player[] players, ArrayList<Piece> pieces, char cturn) throws Exception {
@@ -101,13 +102,17 @@ public class Game {
 				throw new Exception("Invalid Game Initiation");
 		}
 		setPlayers(players);
-
+		
+		
 		for(Piece piece : pieces)
 			board.addPiece(piece);
 		if(cturn == 'W')
 			turn = new Turn(Player.getInstance(0));
 		else
 			turn = new Turn(Player.getInstance(1));
+		
+		//TODO add colored tiles
+		
 		timer.startTimer();
 		turn.getTimer().startTimer();
 		System.out.println("Game has started");
@@ -126,6 +131,7 @@ public class Game {
 	 * @throws Exception 
 	 */
 	public void startGame(Player[] players) throws Exception {
+		Board board = Board.getInstance();
 		if(isGameRunning()) {
 			System.out.println("A Game has already started");
 			return;
@@ -139,23 +145,28 @@ public class Game {
 
 		ArrayList<Piece> pieces = new ArrayList<>();
 
+		//adding black soldiers to board
 		for(int i = 1 ; i <= 3 ; i++)
-			for(char c = 'A' ; c <= 'H' ; c+=2) {
-				if(i == 2 && c == 'A') c = 'B';
+			for(char c = board.getColumnLowerBound() ; c <= board.getColumnUpperBound() ; c+=2) {
+				if(i == 2 && c == board.getColumnLowerBound()) c = (char)(board.getColumnLowerBound()+1);
 				Piece soldier = new Soldier(pieces.size(), PrimaryColor.WHITE, new Location(i,c));
 				pieces.add(soldier);
 			}
-
-		for(int i = 6 ; i <= 8 ; i++)
-			for(char c = 'B' ; c <= 'H' ; c+=2) {
-				if(i == 7 && c == 'B') c = 'A';
+		//adding white soldiers to board
+		for(int i = board.getBoardSize()-2 ; i <= board.getBoardSize() ; i++)
+			for(char c = (char) (board.getColumnLowerBound()+1) ; c <= board.getColumnUpperBound() ; c+=2) {
+				if(i == board.getBoardSize()-1 && c == (char)(board.getColumnLowerBound()+1)) c = board.getColumnLowerBound();
 				Piece soldier = new Soldier(pieces.size(), PrimaryColor.BLACK, new Location(i,c));
 				pieces.add(soldier);
 			}
+		
+		
+		
 		for(Piece piece : pieces)
 			board.addPiece(piece);
 
 		turn = new Turn(Player.getInstance(0));
+		board.initiateBoardSecondaryColors();
 		timer.startTimer();
 		turn.getTimer().startTimer();
 		System.out.println("Game has started");
@@ -299,14 +310,20 @@ public class Game {
 		System.out.println(Player.getInstance(0).getNickname() + " Score: " + Player.getInstance(0).getCurrentScore());
 		System.out.println(Player.getInstance(1).getNickname() + " Score: " + Player.getInstance(1).getCurrentScore());
 		int index = (turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? 1 : 0;
+		
 		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname() + " | Color: " + Player.getInstance(index).getColor());
 		this.turn = new Turn(Player.getInstance(index));
+		
+		//TODO move to controller 
 		BoardController.getInstance().switchTurn(turn.getCurrentPlayer().getColor());
 		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 			finishGame();
 			return;
 		}
+		board.removeAllSeconderyColorsFromBoard();
+		board.initiateBoardSecondaryColors();
 		turn.getTimer().startTimer();
+		
 		System.out.println("********************************************\r\n");
 
 	}
@@ -421,5 +438,9 @@ public class Game {
 			this.availableQuestions = new ArrayList<Question>();
 		else
 			this.availableQuestions = availableQuestions;
+	}
+	
+	public PrimaryColor getCurrentPlayerColor() {
+		return this.turn.getCurrentPlayer().getColor();
 	}
 }

@@ -83,9 +83,9 @@ public class Turn {
 	public void ShowGreenAfter30()
 	{
 		Random rand = new Random(); 
-		ArrayList<Tile> t=Board.getInstance().getAllLegalMoves(currentPlayer.getColor());
+		ArrayList<Tile> tiles=Board.getInstance().getAllLegalMoves(currentPlayer.getColor());
 		//	t.get(rand.nextInt(t.size())).setColor2(SeconderyTileColor.GREEN);
-		Board.getInstance().addColorToBoardTile(t.get(rand.nextInt(t.size())),SeconderyTileColor.GREEN);
+		Board.getInstance().addSeconderyColorToBoardTile(tiles.get(rand.nextInt(tiles.size())),SeconderyTileColor.GREEN);
 	}
 
 	/**
@@ -94,10 +94,10 @@ public class Turn {
 	public void  ShowOrangeAfter90()
 	{
 
-		ArrayList<Tile> t=Board.getInstance().getAllLegalMoves(currentPlayer.getColor());
-		for(Tile e:t)
+		ArrayList<Tile> tiles=Board.getInstance().getAllLegalMoves(currentPlayer.getColor());
+		for(Tile tile:tiles)
 		{
-			Board.getInstance().addColorToBoardTile(e,SeconderyTileColor.ORANGE);
+			Board.getInstance().addSeconderyColorToBoardTile(tile,SeconderyTileColor.ORANGE);
 		}
 	}
 
@@ -139,42 +139,42 @@ public class Turn {
 	 * Check if currentPlayer can have Blue tile on the board
 	 * @return true if tile can be blue tile,false otherwise
 	 */
-	public boolean  isCandidateForBlueTile()
-	{
-		int soldierCount=0,queenCount=0;
-
-		if( currentPlayer.getColor().equals(PrimaryColor.BLACK))
-		{
-			ArrayList<Piece> piece1 = Board.getInstance().getColorPieces(currentPlayer.getColor());
-			for(Piece p:piece1)
-			{
-				if(p instanceof Soldier)
-				{
-					soldierCount++;
-				}
-				if(p instanceof Queen)
-				{
-					queenCount++;
-				}
-			}
-		}
-		else
-		{
-			ArrayList<Piece> piece2 = Board.getInstance().getColorPieces(currentPlayer.getColor());
-			for(Piece t:piece2)
-			{
-				if(t instanceof Soldier)
-				{
-					soldierCount++;
-				}
-				if(t instanceof Queen)
-				{
-					queenCount++;
-				}
-			}
-		}
-		return (soldierCount == 2 && queenCount == 1);
-	}
+//	public boolean  isCandidateForBlueTile()
+//	{
+//		int soldierCount=0,queenCount=0;
+//
+//		if( currentPlayer.getColor().equals(PrimaryColor.BLACK))
+//		{
+//			ArrayList<Piece> piece1 = Board.getInstance().getColorPieces(currentPlayer.getColor());
+//			for(Piece p:piece1)
+//			{
+//				if(p instanceof Soldier)
+//				{
+//					soldierCount++;
+//				}
+//				if(p instanceof Queen)
+//				{
+//					queenCount++;
+//				}
+//			}
+//		}
+//		else
+//		{
+//			ArrayList<Piece> piece2 = Board.getInstance().getColorPieces(currentPlayer.getColor());
+//			for(Piece t:piece2)
+//			{
+//				if(t instanceof Soldier)
+//				{
+//					soldierCount++;
+//				}
+//				if(t instanceof Queen)
+//				{
+//					queenCount++;
+//				}
+//			}
+//		}
+//		return (soldierCount == 2 && queenCount == 1);
+//	}
 
 	/**
 	 * pauses the turn
@@ -202,6 +202,7 @@ public class Turn {
 		CalculateTimeScore();
 		lastPieceMoved.resetEatingCntr();
 		board.replacePiece(lastPieceMoved, lastPieceMoved);
+		
 
 	}
 }

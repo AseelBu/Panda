@@ -3,7 +3,7 @@ package Model;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
 
-public class YellowTile extends Tile {
+public class YellowTile extends Tile implements ColoredTileUpdate {
 
 
 	private Question question;
@@ -28,6 +28,7 @@ public class YellowTile extends Tile {
 	public Question getQuestion() {
 		return question;
 	}
+	
 	public void setQuestionId(Question question) {
 		this.question = question;
 	}
@@ -39,8 +40,10 @@ public class YellowTile extends Tile {
 	 */
 	public void drawQuestion() {
 		
-		Question k = Game.getInstance().getAvailableRandomQuestion();
-		this.setQuestionId(k);
+		Question q = Game.getInstance().getAvailableRandomQuestion();
+		System.out.println("drawn question is "+q);
+		this.setQuestionId(q);
+		
 		
 	}
 	
@@ -62,9 +65,15 @@ public class YellowTile extends Tile {
 		}
 		return result;
 	}
+	
+	@Override
+	//TODO stepOnTile
+	public void stepOnBy(Piece piece) {
+		
+	}
 
 	@Override
 	public String toString() {
-		return "YellowTile: [question=" + question + "]\n";
+		return "YellowTile: [question=" + question + "]";
 	}
 }
