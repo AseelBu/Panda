@@ -39,9 +39,6 @@ public class Mainscreen extends Application {
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primary = primaryStage;
-		
-		QuestionMgmtController.getInstance().LoadQuestions();
-		ScoreBoardController.getInstance().loadHistory();
 
 	}
 

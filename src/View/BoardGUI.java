@@ -24,6 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.ColorAdjust;
@@ -35,6 +36,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -99,8 +101,8 @@ public class BoardGUI extends Application {
 		FlowPane flow = new FlowPane();
 		flow.setLayoutX(477.0);
 		flow.setLayoutY(80.0);
-		flow.setPrefHeight(520.0);
-		flow.setPrefWidth(520.0);
+		flow.setPrefHeight(525.0);
+		flow.setPrefWidth(525.0);
 		flow.setId("board");
 
 		FlowPane nums = new FlowPane();
@@ -111,7 +113,7 @@ public class BoardGUI extends Application {
 		nums.setId("nums_1");
 		
 		FlowPane nums2 = new FlowPane();
-		nums2.setLayoutX(997.0);
+		nums2.setLayoutX(1000.0);
 		nums2.setLayoutY(80.0);
 		nums2.setPrefHeight(520.0);
 		nums2.setPrefWidth(50.0);
@@ -121,14 +123,14 @@ public class BoardGUI extends Application {
 		cols.setLayoutX(477.0);
 		cols.setLayoutY(30.0);
 		cols.setPrefHeight(50.0);
-		cols.setPrefWidth(520.0);
+		cols.setPrefWidth(525.0);
 		cols.setId("col_1");
 		
 		FlowPane cols_2 = new FlowPane();
 		cols_2.setLayoutX(477.0);
 		cols_2.setLayoutY(600.0);
 		cols_2.setPrefHeight(50.0);
-		cols_2.setPrefWidth(520.0);
+		cols_2.setPrefWidth(525.0);
 		cols_2.setId("col_2");
 		
 		mainAnchor.getChildren().add(flow);
@@ -562,12 +564,19 @@ public class BoardGUI extends Application {
 	public void setNewTurn(PrimaryColor color) {
 		String id = "#Name_" + color;
 		Label name = (Label) mainAnchor.lookup(id);
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.RED);
+		ds.setHeight(134.41);
+		ds.setRadius(66.52);
+		ds.setWidth(133.67);
+		ds.setSpread(0.85);
 		if(color.equals(PrimaryColor.WHITE))
 		{
 			String id2 = "#Name_BLACK"; 
 			Label name2 = (Label) mainAnchor.lookup(id2);
 			name2.setEffect(null);
-			name.setEffect(new DropShadow(2.0, Color.RED));
+			name2.setFont(new Font(28));
+			name.setEffect(ds);
 
 		}
 		else
@@ -575,7 +584,8 @@ public class BoardGUI extends Application {
 			String id2 = "#Name_WHITE"; 
 			Label name2 = (Label) mainAnchor.lookup(id2);
 			name2.setEffect(null);
-			name.setEffect(new DropShadow(2.0, Color.RED));
+			name2.setFont(new Font(28));
+			name.setEffect(ds);
 		}
 		//System.out.println(color);
 		this.turnColor = color;
