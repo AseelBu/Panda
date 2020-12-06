@@ -122,7 +122,7 @@ public class BoardController {
 			}
 			
 			// TODO step on handling not finished
-			toTile.stepOnBy(piece);
+			//toTile.stepOnBy(piece);
 			
 			if(piece.getLocation() != null)
 				if(piece instanceof Queen) System.out.println("Queen has been moved!");
