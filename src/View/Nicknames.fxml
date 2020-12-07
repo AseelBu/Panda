@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<fx:root prefHeight="312.0" prefWidth="578.0" type="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+   <children>
+      <AnchorPane prefHeight="312.0" prefWidth="578.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button layoutX="257.0" layoutY="256.0" mnemonicParsing="false" text="Start Game" />
+            <Label layoutX="31.0" layoutY="102.0" text="White Player Nickname:">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="413.0" layoutY="102.0" text="Black Player Nickname:">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField layoutX="33.0" layoutY="125.0" />
+            <TextField layoutX="409.0" layoutY="125.0" />
+            <ImageView fitHeight="158.0" fitWidth="162.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../OneDrive/Desktop/516-5167512_kung-fu-panda-pose-hd-png-download.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="67.0" fitWidth="76.0" layoutX="74.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/Soldier_WHITE.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="67.0" fitWidth="76.0" layoutX="450.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/Soldier_BLACK.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</fx:root>

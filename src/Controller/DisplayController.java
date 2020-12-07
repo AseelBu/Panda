@@ -34,6 +34,7 @@ public class DisplayController {
 	}
 	
 	public void showBoard() {
+		//TODO move to nicknames screen
 		Player player1 = Player.getInstance(0);
 		Player player2 = Player.getInstance(1);
 		player1.setNickname("Jack");
@@ -53,7 +54,7 @@ public class DisplayController {
 			game.startGame(players);
 		} catch (Exception e) {
 			System.out.println(game.getGameTime());
-			System.out.println("Invalid Game Initiation");
+			System.out.println(e.getMessage());
 			if(boardGUI != null)
 				if(boardGUI.getPrimary() != null)
 					if(boardGUI.getPrimary().isShowing())
