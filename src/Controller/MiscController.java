@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import Exceptions.LocationException;
 import Model.Board;
 import Model.Game;
 import Model.Location;
@@ -162,27 +163,30 @@ public class MiscController {
 					indicator = 'G';
 				}
 			}
-					
-			if (returnColor(s).equals("WS")) {
-						loaded.add(new Soldier(cnt, PrimaryColor.WHITE, new Location(helper, indicator)));
-						row++;
-						cnt++;
-						continue;
-			} else if (returnColor(s).equals("WQ")) {
-						loaded.add(new Queen(cnt, PrimaryColor.WHITE, new Location(helper, indicator)));
-						row++;
-						cnt++;
-						continue;
-			} else if (returnColor(s).equals("BS")) {
-						loaded.add(new Soldier(cnt, PrimaryColor.BLACK, new Location(helper, indicator)));
-						row++;
-						cnt++;
-						continue;
-			} else if (returnColor(s).equals("BQ")) {
-						loaded.add(new Queen(cnt, PrimaryColor.BLACK, new Location(helper, indicator)));
-						row++;
-						cnt++;
-						continue;
+			try {
+				if (returnColor(s).equals("WS")) {
+							loaded.add(new Soldier(cnt, PrimaryColor.WHITE, new Location(helper, indicator)));
+							row++;
+							cnt++;
+							continue;
+				} else if (returnColor(s).equals("WQ")) {
+							loaded.add(new Queen(cnt, PrimaryColor.WHITE, new Location(helper, indicator)));
+							row++;
+							cnt++;
+							continue;
+				} else if (returnColor(s).equals("BS")) {
+							loaded.add(new Soldier(cnt, PrimaryColor.BLACK, new Location(helper, indicator)));
+							row++;
+							cnt++;
+							continue;
+				} else if (returnColor(s).equals("BQ")) {
+							loaded.add(new Queen(cnt, PrimaryColor.BLACK, new Location(helper, indicator)));
+							row++;
+							cnt++;
+							continue;
+				}
+			}catch(LocationException e) {
+				e.printStackTrace();
 			}
 
 				

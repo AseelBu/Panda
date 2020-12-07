@@ -5,6 +5,7 @@ package Model;
 
 import java.util.HashMap;
 
+import Exceptions.LocationException;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
@@ -22,17 +23,12 @@ public class Location {
 	 * location Constructor
 	 * @param row
 	 * @param column
+	 * @throws Exception 
 	 */
-	public Location(int row, char column) {
+	public Location(int row, char column) throws LocationException {
 		super();
-		try {
-			this.setRow(row);
-			this.setColumn(column);
-		}
-		catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
+		this.setRow(row);
+		this.setColumn(column);
 
 	}
 
@@ -77,12 +73,12 @@ public class Location {
 	 * @param row the row to set
 	 * @throws Exception - row out of board boundaries
 	 */
-	public void setRow(int row) throws Exception {
+	public void setRow(int row) throws LocationException {
 		Board board = Board.getInstance();
 		if (row>=1 && row<=board.getBoardSize()) {
 			this.row = row;
 		}else {
-			throw new Exception("row value should be between 1 and "+board.getBoardSize());
+			throw new LocationException("row value should be between 1 and "+board.getBoardSize());
 		}
 	}
 
@@ -97,12 +93,12 @@ public class Location {
 	 * @param column the column to set
 	 * @throws Exception- column out of board boundaries
 	 */
-	public void setColumn(char column) throws Exception {
+	public void setColumn(char column) throws LocationException {
 		Board board = Board.getInstance();
 		if (column>=board.getColumnLowerBound() && column<=board.getColumnUpperBound()) {
 			this.column = column;
 		}else {
-			throw new Exception("column value should be a capital letter between "+board.getColumnLowerBound()+" and "+board.getColumnUpperBound());
+			throw new LocationException("column value should be a capital letter between "+board.getColumnLowerBound()+" and "+board.getColumnUpperBound());
 		}
 	}
 
@@ -111,8 +107,9 @@ public class Location {
 	 * @param direction UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT
 	 * @param steps- number of steps diagonally
 	 * @return new location if it's within board boundaries, else returns null
+	 * @throws Exception 
 	 */
-	public Location addToLocationDiagonally(Directions dir,int steps) {
+	public Location addToLocationDiagonally(Directions dir,int steps) throws LocationException {
 		Board board = Board.getInstance();
 		int currRow= this.getRow();
 		char currCol = this.getColumn();
@@ -150,7 +147,7 @@ public class Location {
 		return updatedLocation;
 	}
 	
-	public Location rotateLocation(Directions direction) {
+	public Location rotateLocation(Directions direction) throws Exception {
 		Board board = Board.getInstance();
 		
 		if((this.getColumn() != board.getColumnLowerBound())

@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Random;
 
-import Controller.BoardController;
-import Controller.DisplayController;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
 import Utils.Directions;
@@ -85,18 +83,22 @@ public class Board {
 	 * Add standard tiles to the game.
 	 */
 	public void initBasicBoardTiles() {
-		for(int i = 1 ; i <= BOARD_SIZE ; i+=2) {
-			for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
-				addTile(new Tile(new Location(i, c), PrimaryColor.BLACK));
-				addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE));
+		try {
+			for(int i = 1 ; i <= BOARD_SIZE ; i+=2) {
+				for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
+					addTile(new Tile(new Location(i, c), PrimaryColor.BLACK));
+					addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE));
+				}
 			}
-		}
-		for(int i = 2 ; i <= BOARD_SIZE ; i+=2) {
-			for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
-
-				addTile(new Tile(new Location(i, c), PrimaryColor.WHITE));
-				addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK));
+			for(int i = 2 ; i <= BOARD_SIZE ; i+=2) {
+				for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
+	
+					addTile(new Tile(new Location(i, c), PrimaryColor.WHITE));
+					addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK));
+				}
 			}
+		}catch(LocationException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -699,7 +701,6 @@ public class Board {
 			}else {
 				System.out.println(piece+" is burnt !!");
 			}
-			BoardController.getInstance().removePiece(piece.getLocation(), !isEaten);
 		}
 		else System.out.println("Error: wasn't able to burn piece "+ piece);
 

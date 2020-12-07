@@ -49,6 +49,12 @@ public class BoardController {
 		return tilesInRow.get(col - 'A');
 	}
 	
+	public PrimaryColor getTileColor(int row, char col) {
+		Tile tile = getTile(row,col);
+		if(tile == null) return null;
+		return tile.getColor1();
+	}
+	
 	/**
 	 * method to add piece to board's display
 	 * @param piece
@@ -158,14 +164,6 @@ public class BoardController {
 	}
 	
 	/**
-	 * upgrades soldier to queen
-	 * @param soldier
-	 */
-	public void upgradeSoldier(Soldier soldier) {
-		board.upgradeToQueen(soldier.getLocation().getRow(), soldier.getLocation().getColumn());
-	}
-	
-	/**
 	 * checks if the current piece should be burnt after moving it
 	 * @param row
 	 * @param col
@@ -179,18 +177,19 @@ public class BoardController {
 	/**
 	 * Updates score in display
 	 * @param score
+	 * @return 
 	 */
-	public void updateScoreInDisplay(PrimaryColor color, int newScore) {
-		board.setPlayerScore(color, newScore);
+	public int getPlayerScore(PrimaryColor color) {
+		int index = (color == PrimaryColor.WHITE ? 0 : 1);
+		return Player.getInstance(index).getCurrentScore();
 	}
 	
 	/**
 	 * Method to switch turn in GUI
 	 * @param color
 	 */
-	public void switchTurn(PrimaryColor color) {
-		board.setNewTurn(color);
-		//TODO more to be added, such as turn time
+	public PrimaryColor getPlayerTurn() {
+		return Game.getInstance().getTurn().getCurrentPlayer().getColor();
 	}
 	
 	/**
@@ -246,6 +245,19 @@ public class BoardController {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean pieceExists(int row, char col, PrimaryColor color) {
+		try {
+			Location location = new Location(row, col);
+		} catch (Exception e) {
+			return false;
+		}
+		Piece piece = ((Tile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getPiece();
+		System.out.println(piece + " ::: " + color);
+		if(piece == null) return false;
+		if(piece.getColor() != color) return false;
+		return true;
 	}
 	
 	public void finishGame(String Winname, int score, PrimaryColor color) {

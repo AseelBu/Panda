@@ -3,13 +3,12 @@ package View;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.management.Notification;
-
 import Controller.BoardController;
 import Controller.DisplayController;
 import Controller.TurnTimerController;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
+import Model.Location;
 import Model.Tile;
 import Utils.Directions;
 import Utils.PrimaryColor;
@@ -25,9 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BlurType;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -245,12 +242,12 @@ public class BoardGUI extends Application {
 		if(board.getChildren().size() > 0) return;
 		for(int i = 8 ; i >= 1 ; i--) {
 			for(char j = 'A' ; j <= 'H' ; j++) {
-				Tile tile = boardController.getTile(i, j);
+				PrimaryColor color = boardController.getTileColor(i, j);
 				FlowPane tilePane = new FlowPane(); 
 				tilePane.setPrefHeight(65.0);
 				tilePane.setPrefWidth(65.0);
 				tilePane.setId(String.valueOf(i+"_"+j));
-				tilePane.setStyle("-fx-background-color: " + tile.getColorName() + ";");
+				tilePane.setStyle("-fx-background-color: " + color + ";");
 				board.getChildren().add(tilePane);
 			}
 		}
@@ -613,10 +610,25 @@ public class BoardGUI extends Application {
 				selectedRow = -1;
 				selectedCol = '_';
 				
+				boolean burnt = true;
 				if(!boardController.checkBurnCurrent(toRow, toCol)) {
 					toTile.getChildren().add(fromTile.getChildren().get(0));
+					burnt = false;
 				}
 				fromTile.getChildren().clear();
+				
+				if(!burnt) {
+					if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
+						this.upgradeToQueen(toTile);
+					}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
+						this.upgradeToQueen(toTile);
+					}
+				}
+				checkToBurnPiece();
+				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
+				PrimaryColor newColor = boardController.getPlayerTurn();
+				if(newColor != turnColor)
+					setNewTurn(boardController.getPlayerTurn());
 			}
 		} catch (IllegalMoveException | LocationException e) {
 			notifyByError(e.getMessage());
@@ -637,15 +649,12 @@ public class BoardGUI extends Application {
 		}
 	}
 	
-	public void upgradeToQueen(int row, char col) {
-		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
-		String temp = String.valueOf("#" + row + "_" + col);
-		FlowPane tile = (FlowPane) board.lookup(temp);
-		String[] id = tile.getChildren().get(0).getId().split("_");
+	public void upgradeToQueen(FlowPane checkTile) {
+		String[] id = checkTile.getChildren().get(0).getId().split("_");
 		
 		if(id.length == 2 && (id[0].matches("Soldier") || id[0].matches("Queen"))) {
-			((ImageView) tile.getChildren().get(0)).setImage(new Image(getClass().getResource("pictures/Queen_" + id[1] + ".png").toString()));
-			((ImageView) tile.getChildren().get(0)).setId("Queen_" + id[1]);
+			((ImageView) checkTile.getChildren().get(0)).setImage(new Image(getClass().getResource("pictures/Queen_" + id[1] + ".png").toString()));
+			((ImageView) checkTile.getChildren().get(0)).setId("Queen_" + id[1]);
 		}
 	}
 	
@@ -768,6 +777,45 @@ public class BoardGUI extends Application {
 			alert.close();
 		    DisplayController.getInstance().closeBoard();
 		    DisplayController.getInstance().showMainScreen();
+		}
+	}
+	
+	public void checkToBurnPiece() {
+		for(int i = 1 ; i <= 8 ; i+=2) {
+			for(char c = 'A' ; c <= 'H' ; c+=2) {
+				FlowPane board = (FlowPane) mainAnchor.lookup("#board");
+				String temp = String.valueOf("#" + i + "_" + c);
+				FlowPane tile = (FlowPane) board.lookup(temp);
+				if(tile.getChildren().size() > 0) {
+					if(tile.getChildren().get(0).getId().split("_").length == 2) {
+						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
+								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
+							System.out.println(tile.getChildren().get(0).getId().split("_")[1]);
+							if(!boardController.pieceExists(i, c, 
+									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
+								this.removePiece(i, c, true);
+						}
+					}
+				}
+			}
+		}
+		for(int i = 2 ; i <= 8 ; i+=2) {
+			for(char c = 'B' ; c <= 'H' ; c+=2) {
+				FlowPane board = (FlowPane) mainAnchor.lookup("#board");
+				String temp = String.valueOf("#" + i + "_" + c);
+				FlowPane tile = (FlowPane) board.lookup(temp);
+				if(tile.getChildren().size() > 0) {
+					if(tile.getChildren().get(0).getId().split("_").length == 2) {
+						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
+								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
+	
+							if(!boardController.pieceExists(i, c, 
+									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
+								this.removePiece(i, c, true);
+						}
+					}
+				}
+			}
 		}
 	}
 	
