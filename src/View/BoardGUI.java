@@ -7,6 +7,7 @@ import javax.management.Notification;
 
 import Controller.BoardController;
 import Controller.DisplayController;
+import Controller.TurnTimerController;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
 import Model.Tile;
@@ -43,6 +44,7 @@ import javafx.stage.WindowEvent;
 public class BoardGUI extends Application {
 	
     private static AnchorPane mainAnchor;
+    private TurnTimerController turnTimer;
 	private Stage primary;
 	private BoardController boardController;
 	private char selectedCol = '_';
@@ -562,6 +564,11 @@ public class BoardGUI extends Application {
 	
    //implement Turn Changing
 	public void setNewTurn(PrimaryColor color) {
+		boolean running = (turnTimer == null ? false : true);
+		if(!running) {
+			turnTimer = new TurnTimerController();
+			turnTimer.start();
+		}
 		String id = "#Name_" + color;
 		Label name = (Label) mainAnchor.lookup(id);
 		DropShadow ds = new DropShadow();
@@ -721,6 +728,22 @@ public class BoardGUI extends Application {
 				":" + (second > 9 ? second : ("0" + second)));
 		
 		((TextField) mainAnchor.lookup("#TotalTime")).setText(str);;
+	}
+	
+	public void updateTurnTimer(int seconds) {
+		int minute = 0;
+		int second = 0;
+		
+		if(seconds >= 60) {
+			minute = seconds / 60;
+			second = seconds - minute * 60;
+		}else {
+			second = seconds;
+		}
+		
+		String str = String.valueOf((minute > 9 ? minute : ("0" + minute)) + ":" + (second > 9 ? second : ("0" + second)));
+		
+		((TextField) mainAnchor.lookup("#Turn_Timer")).setText(str);;
 	}
 	
 	public void notifyByError(String err) {

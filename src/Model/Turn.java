@@ -109,12 +109,12 @@ public class Turn {
 	{
 		if(timer.getSeconds()>60)
 		{
-			return(currentPlayer.DeductScore(timer.getSeconds()-60));
+			return(currentPlayer.DeductScore((float) (Math.floor(timer.getSeconds())-60)));
 		}
 		else
 		{
-			System.out.println("Turn Time: " + timer.getSeconds());
-			return(currentPlayer.AddScore(60-timer.getSeconds()));
+			System.out.println("Turn Time: " + Math.floor(timer.getSeconds()));
+			return(currentPlayer.AddScore((float) (60-Math.floor(timer.getSeconds()))));
 		}
 	}
 
