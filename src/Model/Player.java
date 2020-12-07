@@ -66,7 +66,6 @@ public class Player implements Serializable {
 		newScore=(int) (getCurrentScore()+scoreToAdd);
 		setCurrentScore(newScore);
 //	TODO move to controller
-		BoardController.getInstance().updateScoreInDisplay(this.getColor(), getCurrentScore());
 		return getCurrentScore();
 	}
 	/**
@@ -78,7 +77,6 @@ public class Player implements Serializable {
 		int newScore;
 		newScore=(int) (getCurrentScore()-score);
 		setCurrentScore(newScore);
-		BoardController.getInstance().updateScoreInDisplay(this.getColor(), getCurrentScore());
 		return getCurrentScore();
 	}
 	

@@ -938,10 +938,20 @@ public class Queen extends Piece{
 		Board board = Board.getInstance();
 		Player currPlayer = Game.getInstance().getTurn().getCurrentPlayer();
 		Location pieceLoc = this.getLocation();
-		Location UL =pieceLoc.addToLocationDiagonally(Directions.UP_LEFT, 1);
-		Location UR =pieceLoc.addToLocationDiagonally(Directions.UP_RIGHT, 1);
-		Location DL =pieceLoc.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
-		Location DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
+		Location UL = null;
+		Location UR = null;
+		Location DL = null;
+		Location DR = null;
+		
+		try {
+			UL = pieceLoc.addToLocationDiagonally(Directions.UP_LEFT, 1);
+			UR =pieceLoc.addToLocationDiagonally(Directions.UP_RIGHT, 1);
+			DL =pieceLoc.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
+			DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
+		} catch (LocationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		try {
 			if(UL!=null) {

@@ -315,7 +315,6 @@ public class Game {
 		this.turn = new Turn(Player.getInstance(index));
 		
 		//TODO move to controller 
-		BoardController.getInstance().switchTurn(turn.getCurrentPlayer().getColor());
 		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 			finishGame();
 			return;

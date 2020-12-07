@@ -35,6 +35,8 @@ public class Main {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		QuestionMgmtController.getInstance().LoadQuestions();
+		ScoreBoardController.getInstance().loadHistory();
 		
 		displayController = DisplayController.getInstance();
         Application.launch(Mainscreen.class, args);

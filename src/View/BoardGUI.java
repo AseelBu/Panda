@@ -3,12 +3,12 @@ package View;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.management.Notification;
-
 import Controller.BoardController;
 import Controller.DisplayController;
+import Controller.TurnTimerController;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
+import Model.Location;
 import Model.Tile;
 import Utils.Directions;
 import Utils.PrimaryColor;
@@ -25,7 +25,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BlurType;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -35,12 +34,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class BoardGUI extends Application {
 	
     private static AnchorPane mainAnchor;
+    private TurnTimerController turnTimer;
 	private Stage primary;
 	private BoardController boardController;
 	private char selectedCol = '_';
@@ -99,8 +100,8 @@ public class BoardGUI extends Application {
 		FlowPane flow = new FlowPane();
 		flow.setLayoutX(477.0);
 		flow.setLayoutY(80.0);
-		flow.setPrefHeight(520.0);
-		flow.setPrefWidth(520.0);
+		flow.setPrefHeight(525.0);
+		flow.setPrefWidth(525.0);
 		flow.setId("board");
 
 		FlowPane nums = new FlowPane();
@@ -111,7 +112,7 @@ public class BoardGUI extends Application {
 		nums.setId("nums_1");
 		
 		FlowPane nums2 = new FlowPane();
-		nums2.setLayoutX(997.0);
+		nums2.setLayoutX(1000.0);
 		nums2.setLayoutY(80.0);
 		nums2.setPrefHeight(520.0);
 		nums2.setPrefWidth(50.0);
@@ -121,14 +122,14 @@ public class BoardGUI extends Application {
 		cols.setLayoutX(477.0);
 		cols.setLayoutY(30.0);
 		cols.setPrefHeight(50.0);
-		cols.setPrefWidth(520.0);
+		cols.setPrefWidth(525.0);
 		cols.setId("col_1");
 		
 		FlowPane cols_2 = new FlowPane();
 		cols_2.setLayoutX(477.0);
 		cols_2.setLayoutY(600.0);
 		cols_2.setPrefHeight(50.0);
-		cols_2.setPrefWidth(520.0);
+		cols_2.setPrefWidth(525.0);
 		cols_2.setId("col_2");
 		
 		mainAnchor.getChildren().add(flow);
@@ -241,12 +242,12 @@ public class BoardGUI extends Application {
 		if(board.getChildren().size() > 0) return;
 		for(int i = 8 ; i >= 1 ; i--) {
 			for(char j = 'A' ; j <= 'H' ; j++) {
-				Tile tile = boardController.getTile(i, j);
+				PrimaryColor color = boardController.getTileColor(i, j);
 				FlowPane tilePane = new FlowPane(); 
 				tilePane.setPrefHeight(65.0);
 				tilePane.setPrefWidth(65.0);
 				tilePane.setId(String.valueOf(i+"_"+j));
-				tilePane.setStyle("-fx-background-color: " + tile.getColorName() + ";");
+				tilePane.setStyle("-fx-background-color: " + color + ";");
 				board.getChildren().add(tilePane);
 			}
 		}
@@ -560,14 +561,26 @@ public class BoardGUI extends Application {
 	
    //implement Turn Changing
 	public void setNewTurn(PrimaryColor color) {
+		boolean running = (turnTimer == null ? false : true);
+		if(!running) {
+			turnTimer = new TurnTimerController();
+			turnTimer.start();
+		}
 		String id = "#Name_" + color;
 		Label name = (Label) mainAnchor.lookup(id);
+		DropShadow ds = new DropShadow();
+		ds.setColor(Color.RED);
+		ds.setHeight(134.41);
+		ds.setRadius(66.52);
+		ds.setWidth(133.67);
+		ds.setSpread(0.85);
 		if(color.equals(PrimaryColor.WHITE))
 		{
 			String id2 = "#Name_BLACK"; 
 			Label name2 = (Label) mainAnchor.lookup(id2);
 			name2.setEffect(null);
-			name.setEffect(new DropShadow(2.0, Color.RED));
+			name2.setFont(new Font(28));
+			name.setEffect(ds);
 
 		}
 		else
@@ -575,7 +588,8 @@ public class BoardGUI extends Application {
 			String id2 = "#Name_WHITE"; 
 			Label name2 = (Label) mainAnchor.lookup(id2);
 			name2.setEffect(null);
-			name.setEffect(new DropShadow(2.0, Color.RED));
+			name2.setFont(new Font(28));
+			name.setEffect(ds);
 		}
 		//System.out.println(color);
 		this.turnColor = color;
@@ -596,10 +610,25 @@ public class BoardGUI extends Application {
 				selectedRow = -1;
 				selectedCol = '_';
 				
+				boolean burnt = true;
 				if(!boardController.checkBurnCurrent(toRow, toCol)) {
 					toTile.getChildren().add(fromTile.getChildren().get(0));
+					burnt = false;
 				}
 				fromTile.getChildren().clear();
+				
+				if(!burnt) {
+					if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
+						this.upgradeToQueen(toTile);
+					}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
+						this.upgradeToQueen(toTile);
+					}
+				}
+				checkToBurnPiece();
+				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
+				PrimaryColor newColor = boardController.getPlayerTurn();
+				if(newColor != turnColor)
+					setNewTurn(boardController.getPlayerTurn());
 			}
 		} catch (IllegalMoveException | LocationException e) {
 			notifyByError(e.getMessage());
@@ -620,15 +649,12 @@ public class BoardGUI extends Application {
 		}
 	}
 	
-	public void upgradeToQueen(int row, char col) {
-		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
-		String temp = String.valueOf("#" + row + "_" + col);
-		FlowPane tile = (FlowPane) board.lookup(temp);
-		String[] id = tile.getChildren().get(0).getId().split("_");
+	public void upgradeToQueen(FlowPane checkTile) {
+		String[] id = checkTile.getChildren().get(0).getId().split("_");
 		
 		if(id.length == 2 && (id[0].matches("Soldier") || id[0].matches("Queen"))) {
-			((ImageView) tile.getChildren().get(0)).setImage(new Image(getClass().getResource("pictures/Queen_" + id[1] + ".png").toString()));
-			((ImageView) tile.getChildren().get(0)).setId("Queen_" + id[1]);
+			((ImageView) checkTile.getChildren().get(0)).setImage(new Image(getClass().getResource("pictures/Queen_" + id[1] + ".png").toString()));
+			((ImageView) checkTile.getChildren().get(0)).setId("Queen_" + id[1]);
 		}
 	}
 	
@@ -713,6 +739,22 @@ public class BoardGUI extends Application {
 		((TextField) mainAnchor.lookup("#TotalTime")).setText(str);;
 	}
 	
+	public void updateTurnTimer(int seconds) {
+		int minute = 0;
+		int second = 0;
+		
+		if(seconds >= 60) {
+			minute = seconds / 60;
+			second = seconds - minute * 60;
+		}else {
+			second = seconds;
+		}
+		
+		String str = String.valueOf((minute > 9 ? minute : ("0" + minute)) + ":" + (second > 9 ? second : ("0" + second)));
+		
+		((TextField) mainAnchor.lookup("#Turn_Timer")).setText(str);;
+	}
+	
 	public void notifyByError(String err) {
 		//TODO use this method to show exception message
 		Alert alert = new Alert(AlertType.WARNING);
@@ -735,6 +777,45 @@ public class BoardGUI extends Application {
 			alert.close();
 		    DisplayController.getInstance().closeBoard();
 		    DisplayController.getInstance().showMainScreen();
+		}
+	}
+	
+	public void checkToBurnPiece() {
+		for(int i = 1 ; i <= 8 ; i+=2) {
+			for(char c = 'A' ; c <= 'H' ; c+=2) {
+				FlowPane board = (FlowPane) mainAnchor.lookup("#board");
+				String temp = String.valueOf("#" + i + "_" + c);
+				FlowPane tile = (FlowPane) board.lookup(temp);
+				if(tile.getChildren().size() > 0) {
+					if(tile.getChildren().get(0).getId().split("_").length == 2) {
+						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
+								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
+							System.out.println(tile.getChildren().get(0).getId().split("_")[1]);
+							if(!boardController.pieceExists(i, c, 
+									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
+								this.removePiece(i, c, true);
+						}
+					}
+				}
+			}
+		}
+		for(int i = 2 ; i <= 8 ; i+=2) {
+			for(char c = 'B' ; c <= 'H' ; c+=2) {
+				FlowPane board = (FlowPane) mainAnchor.lookup("#board");
+				String temp = String.valueOf("#" + i + "_" + c);
+				FlowPane tile = (FlowPane) board.lookup(temp);
+				if(tile.getChildren().size() > 0) {
+					if(tile.getChildren().get(0).getId().split("_").length == 2) {
+						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
+								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
+	
+							if(!boardController.pieceExists(i, c, 
+									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
+								this.removePiece(i, c, true);
+						}
+					}
+				}
+			}
 		}
 	}
 	

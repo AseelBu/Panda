@@ -46,7 +46,6 @@ public class Soldier extends Piece{
 					newQueen.setEatingCntr(this.getEatingCntr());
 					board.addPiece(newQueen);
 					Game.getInstance().getTurn().setLastPieceMoved(newQueen);
-					BoardController.getInstance().upgradeSoldier(this);
 					System.out.println("Soldier upgraded to Queen !!");
 					return true;
 				}else {
@@ -123,11 +122,19 @@ public class Soldier extends Piece{
 		Board board = Board.getInstance();
 		Player currPlayer = Game.getInstance().getTurn().getCurrentPlayer();
 		Location pieceLoc = this.getLocation();
-		Location UL =pieceLoc.addToLocationDiagonally(Directions.UP_LEFT, 1);
-		Location UR =pieceLoc.addToLocationDiagonally(Directions.UP_RIGHT, 1);
-		Location DL =pieceLoc.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
-		Location DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
-
+		Location UL = null;
+		Location UR = null;
+		Location DL = null;
+		Location DR = null;
+		try {
+			UL = pieceLoc.addToLocationDiagonally(Directions.UP_LEFT, 1);
+			UR =pieceLoc.addToLocationDiagonally(Directions.UP_RIGHT, 1);
+			DL =pieceLoc.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
+			DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			if((getEatingCntr()>=1 && currPlayer.getColor().equals(PrimaryColor.BLACK))
 					|| currPlayer.getColor().equals(PrimaryColor.WHITE)) {
@@ -199,7 +206,13 @@ public class Soldier extends Piece{
 	public Piece getEdiblePieceByDirection( Directions direction) {
 		// TODO Auto-generated method stub
 		ArrayList<Piece> ediblePieces= getEdiblePieces();
-		Location newLocal = this.getLocation().addToLocationDiagonally(direction, 1) ;
+		Location newLocal = null;
+		try {
+			newLocal = this.getLocation().addToLocationDiagonally(direction, 1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//if location not out of boundaries
 		if(newLocal!= null) {
 			for (Piece p : ediblePieces) {
