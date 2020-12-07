@@ -951,12 +951,12 @@ public class Board {
 	public void initiateBoardSecondaryColors(){
 		ColoredTilesFactory coloredTilesFactory =  new ColoredTilesFactory();
 		//		//TODO add yellow tiles
-		//		for(int i=0 ; i<YELLOW_TILES_AMOUNT;i++) {
-		//			Tile randTile = getRandomFreeTile();
-		//			YellowTile yTile= coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.YELLOW)
-		//			replaceTileInSameTileLocation(yTile);
-		//					coloredTilesList.add(yTile);
-		//		}
+//		for(int i=0 ; i<YELLOW_TILES_AMOUNT;i++) {
+//			Tile randTile = getRandomFreeTile();
+//			YellowTile yTile= (YellowTile) coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.YELLOW);
+//			replaceTileInSameTileLocation(yTile);
+//			coloredTilesList.add(yTile);
+//		}
 
 
 		//TODO add red tiles

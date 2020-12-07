@@ -33,7 +33,7 @@ public class Game {
 		super();
 		this.board = Board.getInstance();
 		board.initBasicBoardTiles();
-		availableQuestions=SysData.getInstance().getQuestions();
+//		availableQuestions=SysData.getInstance().getQuestions();
 		timer = new GameTimer();
 	}
 	/**
@@ -82,7 +82,7 @@ public class Game {
 			return;
 		}
 		if(players != null) {
-			if(players.length != 2) throw new Exception("Invalid Game Initiation");
+			if(players.length != 2) throw new Exception("Invalid Game Initiation- game should contain exactly 2 players");
 		}
 		else throw new Exception("Invalid Game Initiation");	
 		if(pieces == null)
@@ -137,9 +137,9 @@ public class Game {
 			return;
 		}
 		if(players != null) {
-			if(players.length != 2) throw new Exception("Invalid Game Initiation");
+			if(players.length != 2) throw new Exception("Invalid Game Initiation- game have to start with exactly 2 players");
 		}
-		else throw new Exception("Invalid Game Initiation");	
+		else throw new Exception("Invalid Game Initiation- game started without players");	
 
 		setPlayers(players);
 
