@@ -11,6 +11,7 @@ import Controller.TurnTimerController;
 import Exceptions.GameUpgradeException;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
+import Model.Game;
 import Model.Tile;
 import Utils.Directions;
 import Utils.PrimaryColor;
@@ -735,11 +736,13 @@ public class BoardGUI extends Application {
 					removeAllColoredTiles();
 				}
 				checkToBurnPiece();
-				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
 				GameController.getInstance().switchTurn();
-				PrimaryColor newColor = boardController.getPlayerTurn();
-				if(newColor != turnColor)
-					setNewTurn(boardController.getPlayerTurn());
+				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
+				if(GameController.getInstance().isGameRunning()) {
+					PrimaryColor newColor = boardController.getPlayerTurn();
+					if(newColor != turnColor)
+						setNewTurn(boardController.getPlayerTurn());
+				}
 			}else {
 				notifyByError("Please try moving the piece again!\nSomething went wrong while trying to move the piece!");
 			}
@@ -885,20 +888,21 @@ public class BoardGUI extends Application {
 	}
 
 	public void notifyWinner(String name, int score, PrimaryColor color) {
-		Alert alert = new Alert(AlertType.NONE);
-		alert.setTitle("Game Finished");
-		alert.setHeaderText(name);
-		alert.setContentText("Congratulations,you are the winner!");
-		ButtonType button = new ButtonType("Close");
-		alert.getButtonTypes().clear();
-		alert.getButtonTypes().setAll(button);
-
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == button){
-			alert.close();
-			DisplayController.getInstance().closeBoard();
-			DisplayController.getInstance().showMainScreen();
-		}
+//		Alert alert = new Alert(AlertType.NONE);
+//		alert.setTitle("Game Finished");
+//		alert.setHeaderText(name);
+//		alert.setContentText("Congratulations,you are the winner!");
+//		ButtonType button = new ButtonType("Close");
+//		alert.getButtonTypes().clear();
+//		alert.getButtonTypes().setAll(button);
+//
+//		Optional<ButtonType> result = alert.showAndWait();
+//		if (result.get() == button){
+//			alert.close();
+//			DisplayController.getInstance().closeBoard();
+//			DisplayController.getInstance().showMainScreen();
+//		}
+		DisplayController.getInstance().showWinner(name, score);
 	}
 
 	/**
@@ -942,7 +946,7 @@ public class BoardGUI extends Application {
 			}
 		}
 	}
-
+	
 	public Stage getPrimary() {
 		if(primary == null) {
 			primary = new Stage();

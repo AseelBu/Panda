@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Model.Game;
+import Model.Player;
 import javafx.application.Platform;
 
 public class GameTimerController extends Thread{
@@ -26,7 +27,7 @@ public class GameTimerController extends Thread{
         catch (Exception e) 
         { 
             // Throwing an exception 
-            System.out.println ("Exception is caught"); 
+            System.out.println ("Exception is caught");
         } 
     }
 }

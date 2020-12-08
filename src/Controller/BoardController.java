@@ -282,11 +282,41 @@ public class BoardController {
 	//TODO finish game without winner always
 	public void finishGame(String Winname, int score, PrimaryColor color) {
 		boardGUI.notifyWinner(Winname, score, color);
-		boardGUI.destruct();
+//		boardGUI.destruct();
+	}
+	
+	/**
+	 * This method is only called on initial open of winner display 
+	 * @return winner score
+	 */
+	public Player getWinner() {
+		if(Game.getInstance().isGameRunning()) return null;
+		int winner = -1;
+		if(Player.getInstance(0).getCurrentScore() > Player.getInstance(1).getCurrentScore())
+			winner = 1;
+		else if (Player.getInstance(0).getCurrentScore() < Player.getInstance(1).getCurrentScore())
+			winner = 2;
+		if(winner == -1) {
+			if(Game.getInstance().getBoard().getColorPieces(PrimaryColor.WHITE).size() > 
+					Game.getInstance().getBoard().getColorPieces(PrimaryColor.BLACK).size()){
+				winner = 1;
+			}else if(Game.getInstance().getBoard().getColorPieces(PrimaryColor.WHITE).size() < 
+						Game.getInstance().getBoard().getColorPieces(PrimaryColor.BLACK).size()) {
+				winner = 2;
+			}
+		}
+		if(winner > -1) {
+			return Player.getInstance(winner-1);
+		}
+		System.out.println(winner);
+		return null;
 	}
 
 	public void forceFinishGame() {
 		Game.getInstance().finishGame();
+		Player player = BoardController.getInstance().getWinner();
+      	System.out.println(player);
+      	DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
 		boardGUI.destruct();
 	}
 
