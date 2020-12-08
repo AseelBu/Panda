@@ -694,6 +694,9 @@ public class BoardGUI extends Application {
 						//remove all tiles color
 						removeAllColoredTiles();
 					}
+					else if(toTileColor== null) {
+						removeAllColoredTiles();
+					}
 					//add piece back to board in new location
 					toTile.getChildren().add(fromTile.getChildren().get(0));
 
@@ -717,6 +720,9 @@ public class BoardGUI extends Application {
 						}
 
 						//TODO remove yellow and return piece to index 0 
+						//remove all tiles color
+						removeAllColoredTiles();
+					
 						//remove all tiles color
 						removeAllColoredTiles();
 					}
