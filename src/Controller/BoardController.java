@@ -318,7 +318,8 @@ public class BoardController {
 				return null;
 			}
 
-			case YELLOW:
+		case YELLOW:{ System.out.println("dddd");DisplayController.getInstance().showQuestion(Game.getInstance().getAvailableRandomQuestion()); return null;}
+		
 			case YELLOW_ORANGE:{
 				//TODO QuestionPOPUP
 				//call boardGUI to open pop up question with blur on screen
@@ -340,6 +341,9 @@ public class BoardController {
 			}
 		} catch (GameUpgradeException e) {
 			return e.getMessage();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}	
 		return null;
 	}

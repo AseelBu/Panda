@@ -6,6 +6,8 @@ package Controller;
 import java.util.ArrayList;
 
 import Model.Answer;
+import Model.Board;
+import Model.Game;
 import Model.Question;
 import Model.SysData;
 import Utils.DifficultyLevel;
@@ -87,11 +89,11 @@ public class BoardQuestionsController {
 	 */
 	public void addPointsForCorrectAnswer(DifficultyLevel quDifficulty){
 		switch(quDifficulty){
-		case EASY:
+		case EASY:Game.getInstance().getPlayerr().setCurrentScore(Game.getInstance().getPlayerr().getCurrentScore()+100);
 			break;
-		case MEDIOCRE:
+		case MEDIOCRE:Game.getInstance().getPlayerr().setCurrentScore(Game.getInstance().getPlayerr().getCurrentScore()+200);
 			break;
-		case HARD:
+		case HARD:Game.getInstance().getPlayerr().setCurrentScore(Game.getInstance().getPlayerr().getCurrentScore()+500);
 			break;
 		}
 	}
@@ -110,11 +112,11 @@ public class BoardQuestionsController {
 	 */
 	public void removePointsForWrongAnswer(DifficultyLevel quDifficulty){
 		switch(quDifficulty){
-		case EASY:
+		case EASY:Game.getInstance().getPlayerr().setCurrentScore(Game.getInstance().getPlayerr().getCurrentScore()-250);
 			break;
-		case MEDIOCRE:
+		case MEDIOCRE:Game.getInstance().getPlayerr().setCurrentScore(Game.getInstance().getPlayerr().getCurrentScore()-100);
 			break;
-		case HARD:
+		case HARD:Game.getInstance().getPlayerr().setCurrentScore(Game.getInstance().getPlayerr().getCurrentScore()-50);
 			break;
 		}
 	}

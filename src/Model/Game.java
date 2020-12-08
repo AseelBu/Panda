@@ -446,4 +446,9 @@ public class Game {
 	public PrimaryColor getCurrentPlayerColor() {
 		return this.turn.getCurrentPlayer().getColor();
 	}
+	
+	public Player getPlayerr()
+	{
+		return this.turn.getCurrentPlayer();
+	}
 }
