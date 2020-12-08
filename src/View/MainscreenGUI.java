@@ -16,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class Mainscreen extends Application {
+public class MainscreenGUI extends Application {
 
     private AnchorPane mainBorder;
 	private static Stage primary;	

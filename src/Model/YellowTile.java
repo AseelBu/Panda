@@ -66,14 +66,10 @@ public class YellowTile extends Tile implements ColoredTileUpdate {
 		return result;
 	}
 	
-	@Override
-	//TODO stepOnTile
-	public void stepOnBy(Piece piece) {
-		
-	}
+	
 
 	@Override
 	public String toString() {
-		return "YellowTile: [question=" + question + "]";
+		return "YellowTile: "+super.getLocation()+"question=" + question ;
 	}
 }

@@ -33,7 +33,8 @@ public class Game {
 		super();
 		this.board = Board.getInstance();
 		board.initBasicBoardTiles();
-//		availableQuestions=SysData.getInstance().getQuestions();
+		availableQuestions=SysData.getInstance().getQuestions();
+		unavailableQuestions=new ArrayList<Question>();
 		timer = new GameTimer();
 	}
 	/**
@@ -84,17 +85,20 @@ public class Game {
 		if(players != null) {
 			if(players.length != 2) throw new Exception("Invalid Game Initiation- game should contain exactly 2 players");
 		}
-		else throw new Exception("Invalid Game Initiation");	
+		else throw new Exception("Invalid Game Initiation- no players provided");	
 		if(pieces == null)
 		{
-			throw new Exception("Invalid Game Initiation");
+			throw new Exception("Invalid Game Initiation- no provided pieces");
 		}
-		else if (pieces.size() < 2 || pieces.size() > 12) {
-			throw new Exception("Invalid Game Initiation");
+		//TODO check if each player has maximum of 12 pieces
+		else if (pieces.size() < 2 || pieces.size() > 24) {
+		
+			throw new Exception("Invalid Game Initiation-number of provided pieces can't be "+pieces.size()+". should be between (2,12)");
 		}else if(pieces.size() >= 2) {
 			PrimaryColor temp = pieces.get(0).getColor();
 			boolean invalid = true;
 			for(Piece p : pieces) {
+				//TODO what does this check??
 				if(!p.getColor().equals(temp))
 					invalid = false;
 			}
@@ -111,7 +115,7 @@ public class Game {
 		else
 			turn = new Turn(Player.getInstance(1));
 		
-		//TODO add colored tiles
+		board.initiateBoardSecondaryColors();
 		
 		timer.startTimer();
 		turn.getTimer().startTimer();
@@ -317,10 +321,10 @@ public class Game {
 		//TODO move to controller 
 		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 			finishGame();
-			return;
+			return; 
 		}
 		board.removeAllSeconderyColorsFromBoard();
-		board.initiateBoardSecondaryColors();
+//		board.initiateBoardSecondaryColors();
 		turn.getTimer().startTimer();
 		
 		System.out.println("********************************************\r\n");

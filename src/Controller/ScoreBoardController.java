@@ -19,7 +19,7 @@ public class ScoreBoardController {
 	private Scoreboard highscores_screen;
 	private static ScoreBoardController instance;
 	
-	public ScoreBoardController() {
+	private ScoreBoardController() {
 		
 		
 		this.sysData = SysData.getInstance();

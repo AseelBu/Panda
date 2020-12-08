@@ -3,8 +3,10 @@ package Controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Exceptions.GameUpgradeException;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
+import Model.Answer;
 import Model.Board;
 import Model.Game;
 import Model.Location;
@@ -16,15 +18,16 @@ import Model.Tile;
 import Model.Turn;
 import Utils.Directions;
 import Utils.PrimaryColor;
+import Utils.SeconderyTileColor;
 import View.BoardGUI;
 
 public class BoardController {
 
 	private static BoardController instance;
-	private BoardGUI board;
+	private BoardGUI boardGUI;
 	
 	private BoardController() {
-		board = DisplayController.boardGUI;
+		boardGUI = DisplayController.boardGUI;
 	}
 	
 	public static BoardController getInstance() 
@@ -61,7 +64,7 @@ public class BoardController {
 	 * @return true if added, otherwise false
 	 */
 	public boolean addPieceToBoard(Piece piece) {
-		return board.addPieceToBoard(piece.getLocation().getRow(), piece.getLocation().getColumn(), piece.getColor(), (piece instanceof Soldier));
+		return boardGUI.addPieceToBoard(piece.getLocation().getRow(), piece.getLocation().getColumn(), piece.getColor(), (piece instanceof Soldier));
 	}
 	
 	/**
@@ -69,8 +72,15 @@ public class BoardController {
 	 */
 	public void loadPiecesToBoard() {
 		for(Piece p : Board.getInstance().getPieces())
-			board.addPieceToBoard(p.getLocation().getRow(), p.getLocation().getColumn(), p.getColor(), (p instanceof Soldier));
+			boardGUI.addPieceToBoard(p.getLocation().getRow(), p.getLocation().getColumn(), p.getColor(), (p instanceof Soldier));
 	}
+	
+	public void loadTilesColors(){
+		for(Tile t: Board.getInstance().getColoredTilesList()) {
+		boardGUI.addColoredTileToBoard(t.getLocation().getRow(), t.getLocation().getColumn(), t.getColor2());
+		}
+	}
+	
 	
 	/**
 	 * move piece, made to be controlled by GUI
@@ -80,10 +90,10 @@ public class BoardController {
 	 * @param toCol
 	 * @param direction
 	 * @return true if moved, otherwise false
-	 * @throws LocationException 
+	 * @throws LocationException-location is out game bord bounds
 	 * @throws IllegalMoveException 
 	 */
-	public boolean movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) throws IllegalMoveException, LocationException {
+	public boolean movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction)throws LocationException, IllegalMoveException {
 		Board board =Board.getInstance();
 		Location fromLocation = new Location(fromRow, fromCol);
 		Location toLocation = new Location(toRow, toCol);
@@ -137,15 +147,22 @@ public class BoardController {
 			// is there eating left for the piece
 			if(!board.isAllPiecesEaten(Game.getInstance().getTurn().getLastPieceMoved()) && 
 					Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0) {
-				Game.getInstance().getTurn().IncrementMoveCounter();
+				
+					try {
+						Game.getInstance().getTurn().IncrementMoveCounter();
+					} catch (GameUpgradeException e) {
+						boardGUI.notifyUpgradeInGame(e.getMessage());
+					}
+					
+				
 			}
-			
-			if(turn.getMoveCounter() == 0) {
-				Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
-			}
-
-			if(board.getColorPieces(PrimaryColor.WHITE).size() == 0 || board.getColorPieces(PrimaryColor.BLACK).size() == 0)
-				Game.getInstance().finishGame();
+			//TODO check removing this doesn't affect any thing
+//			if(turn.getMoveCounter() == 0) {
+//				Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
+//			}
+//
+//			if(board.getColorPieces(PrimaryColor.WHITE).size() == 0 || board.getColorPieces(PrimaryColor.BLACK).size() == 0)
+//				Game.getInstance().finishGame();
 			return true;
 		}
 
@@ -160,7 +177,7 @@ public class BoardController {
 	 * @param isBurnt
 	 */
 	public void removePiece(Location location, boolean isBurnt) {
-		board.removePiece(location.getRow(), location.getColumn(), isBurnt);
+		boardGUI.removePiece(location.getRow(), location.getColumn(), isBurnt);
 	}
 	
 	/**
@@ -260,22 +277,87 @@ public class BoardController {
 		return true;
 	}
 	
+	//TODO finish game without winner always
 	public void finishGame(String Winname, int score, PrimaryColor color) {
-		board.notifyWinner(Winname, score, color);
-		board.destruct();
+		boardGUI.notifyWinner(Winname, score, color);
+		boardGUI.destruct();
 	}
 	
 	public void forceFinishGame() {
 		Game.getInstance().finishGame();
-		board.destruct();
+		boardGUI.destruct();
 	}
 
 	public BoardGUI getBoard() {
-		return board;
+		return boardGUI;
 	}
 
 	public void setBoard(BoardGUI board) {
-		this.board = board;
+		this.boardGUI = board;
+	}
+	
+	
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 * @param tileColor
+
+	 */
+	public String stepOnColorTile(int row,char col,SeconderyTileColor tileColor) {
+		try {
+		System.out.println("stepping on "+tileColor+" tile");
+		
+		switch(tileColor) {
+		case RED: {		
+		
+				
+					Game.getInstance().getTurn().IncrementMoveCounter();
+				
+				
+			return null;
+		}
+		case GREEN: {
+			Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
+			return null;
+		}
+		
+		case YELLOW:
+		case YELLOW_ORANGE:{
+			//TODO QuestionPOPUP
+			//call boardGUI to open pop up question with blur on screen
+			//continue in checkQuestionAnswer
+			return null;
+			
+		}
+		case BLUE:{
+			//TODO step on color
+			//to gui:get from user where he wants to locate
+			//from gui: location -> is it legal? check with model
+			//if legal allow location and call in model for retrieve soldier->add piece to gui with message
+			//else show message to user and have him pick again new location 
+			//loop all over blue again
+			return null;
+		}
+			
+			
+		}
+		} catch (GameUpgradeException e) {
+			return e.getMessage();
+		}	
+		return null;
+	}
+	
+	public ArrayList<Tile> getAllColoredTiles(){
+		return Board.getInstance().getColoredTilesList();
+	}
+	
+	public boolean checkQuestionAnswer(int questionId,Answer chosenAnswer) {
+		//on close the question pop up ->get from boardGUI the chosen answer 
+		
+		//check answer with model if it's true or not and the model should add points directly
+		// if it's correct answer return true,otherwise return false
+		return false;
 	}
 	
 	

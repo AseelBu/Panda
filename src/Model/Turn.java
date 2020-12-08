@@ -2,7 +2,9 @@ package Model;
 import java.util.ArrayList;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
-import java.util.Random; 
+import java.util.Random;
+
+import Exceptions.GameUpgradeException; 
 
 /**
  * 
@@ -120,11 +122,13 @@ public class Turn {
 
 	/**
 	 * Add another step to the move counter
+	 * @throws GameUpgradeException - message for adding move
 	 */
-	public void IncrementMoveCounter()
+	public void IncrementMoveCounter() throws GameUpgradeException
 	{
 		this.moveCounter++;
-		System.out.println("You just got another move !!");
+		
+		throw new GameUpgradeException("You just got another move !!");
 	}
 
 	/**

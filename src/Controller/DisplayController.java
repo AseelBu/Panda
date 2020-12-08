@@ -8,14 +8,14 @@ import Model.Game;
 import Model.Piece;
 import Model.Player;
 import View.BoardGUI;
-import View.Mainscreen;
+import View.MainscreenGUI;
 import View.ManageQuestions;
 import View.Scoreboard;
 
 public class DisplayController {
 
 	private static DisplayController instance;
-	public static Mainscreen mainscreen;
+	public static MainscreenGUI mainscreen;
 	public static BoardGUI boardGUI;
 	public static ManageQuestions manageQuestions;
 	public static Scoreboard scoreboard;
@@ -77,7 +77,7 @@ public class DisplayController {
 	public void showBoard(File file) {
 		HashMap<Character, ArrayList<Piece>> load = null;
 		load = MiscController.getInstance().loadGame(file); 
-		
+		//TODO GET PLAYERS NICKNAME from GUI
 		Player player1 = Player.getInstance(0);
 		Player player2 = Player.getInstance(1);
 		player1.setNickname("Jack");
@@ -100,7 +100,8 @@ public class DisplayController {
 			}
 		}catch (Exception e) {
 			System.out.println(Game.getInstance().getGameTime());
-			System.out.println("Invalid Game Initiation");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 			if(boardGUI != null)
 				if(boardGUI.getPrimary() != null)
 					if(boardGUI.getPrimary().isShowing())
@@ -121,7 +122,7 @@ public class DisplayController {
 	}
 	
 	public void showMainScreen() {
-		mainscreen = new Mainscreen();
+		mainscreen = new MainscreenGUI();
 		mainscreen.start(mainscreen.getPrimary());
 
 	}

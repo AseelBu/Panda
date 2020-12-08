@@ -20,10 +20,14 @@ public class ColoredTilesFactory {
 	}
 
 	//TODO
-	public Tile createColoredTile(Tile tileToCopy, SeconderyTileColor color2) {
-		Location location = tileToCopy.getLocation();
-		PrimaryColor color1 = tileToCopy.getColor1();
-		Piece pieceOnTile = tileToCopy.getPiece();
+	public Tile createColoredTile(Tile tileToColor, SeconderyTileColor color2) {
+		if (tileToColor==null) {
+			System.out.println("didn't get the tile to add color to- tileToColor==null");
+			return null;
+		}
+		Location location = tileToColor.getLocation();
+		PrimaryColor color1 = tileToColor.getColor1();
+		Piece pieceOnTile = tileToColor.getPiece();
 		
 
 		if (SeconderyTileColor.YELLOW.equals(color2)) {

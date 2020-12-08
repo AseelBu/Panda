@@ -2,7 +2,7 @@ package Controller;
 
 
 import Model.*;
-import View.Mainscreen;
+import View.MainscreenGUI;
 import View.BoardGUI;
 import javafx.application.Application;
 
@@ -39,7 +39,7 @@ public class Main {
 		ScoreBoardController.getInstance().loadHistory();
 		
 		displayController = DisplayController.getInstance();
-        Application.launch(Mainscreen.class, args);
+        Application.launch(MainscreenGUI.class, args);
 		
 //		cases(1);
 	}

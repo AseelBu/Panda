@@ -199,7 +199,7 @@ public class MiscController {
 		} else {
 			map.put('B', loaded);
 		}
-
+		
 		return map;
 	}
 	

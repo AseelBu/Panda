@@ -203,23 +203,23 @@ public class Tile implements Comparable<Tile>,ColoredTileUpdate{
 	}
 
 	@Override
-	//TODO stepOnTile
+	//TODO REMOVE METHOD
 	public void stepOnBy(Piece piece) {
-		// TODO Auto-generated method stub
-		switch (this.color2) {
-		case RED: {
-
-			Game.getInstance().getTurn().IncrementMoveCounter();
-		}
-		case GREEN: {
-
-			Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
-		}
-
-
-		}
-		return;
-
+//		// TODO Auto-generated method stub
+//		switch (this.color2) {
+//		case RED: {
+//
+//			Game.getInstance().getTurn().IncrementMoveCounter();
+//		}
+//		case GREEN: {
+//
+//			Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
+//		}
+//
+//
+//		}
+//		return;
+//
 	}
 
 	@Override
