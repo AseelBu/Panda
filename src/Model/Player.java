@@ -57,7 +57,7 @@ public class Player implements Serializable {
 
 	/**
 	 * 
-	 * @param f
+	 * @param scoreToAdd
 	 * @add score to CurrentScore
 	 */
 	public long AddScore(float scoreToAdd) 
@@ -70,7 +70,7 @@ public class Player implements Serializable {
 	}
 	/**
 	 * 
-	 * @param f
+	 * @param score to deduce
 	 * @deduct score from CurrentScore
 	 */
 	public long DeductScore(float score) {
