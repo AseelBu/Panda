@@ -239,6 +239,16 @@ public class QuestionMgmtController {
 		 this.sysData.removeQuestion(id);
 	}
 	
+	public boolean quesAlreadyExists(String content) {
+		
+		for(Question q : this.getSysData().getQuestions()) {
+			if(q.getContent().equals(content)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	
 	

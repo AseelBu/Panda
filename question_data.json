@@ -13,13 +13,34 @@
       "team": "animal"
     },
     {
-      "question": "q2",
+      "question": "who killed voldemort ?",
       "answers": [
-        "answer1",
-        "answer2",
-        "answer3"
+        "harry",
+        "batman",
+        "tom from tom and jerry"
       ],
       "correct_ans": "1",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "what year is it ?",
+      "answers": [
+        "2020",
+        "2019",
+        "2018"
+      ],
+      "correct_ans": "1",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "what is the capital of poland",
+      "answers": [
+        "Katwice",
+        "Warsaw"
+      ],
+      "correct_ans": "2",
       "level": "1",
       "team": "animal"
     }

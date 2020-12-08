@@ -26,13 +26,17 @@ public class Answer {
 	
 	
 	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
+		result = prime * result + (isCorrect ? 1231 : 1237);
 		return result;
 	}
+
 
 
 
@@ -45,10 +49,19 @@ public class Answer {
 		if (getClass() != obj.getClass())
 			return false;
 		Answer other = (Answer) obj;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
 		if (id != other.id)
+			return false;
+		if (isCorrect != other.isCorrect)
 			return false;
 		return true;
 	}
+
+
 
 
 	// getters & setters
@@ -70,6 +83,8 @@ public class Answer {
 	public void setCorrect(boolean isCorrect) {
 		this.isCorrect = isCorrect;
 	}
+	
+	
 	
 	@Override
 	public String toString() {
