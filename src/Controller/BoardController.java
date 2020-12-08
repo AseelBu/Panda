@@ -352,19 +352,6 @@ public class BoardController {
 		return Board.getInstance().getColoredTilesList();
 	}
 	
-	/**
-	 * checks with model if answer is correct or not based on chosen answer
-	 * @param questionId
-	 * @param chosenAnswer
-	 * @return true if the answer is correct, false otherwise
-	 */
-	public boolean checkQuestionAnswer(int questionId,Answer chosenAnswer) {
-		//on close the question pop up ->get from boardGUI the chosen answer 
-		
-		//check answer with model if it's true or not and the model should add points directly
-		// !! if it's correct answer return true,otherwise return false!!
-		return false;
-	}
 	
 	
 }

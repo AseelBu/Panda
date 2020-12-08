@@ -142,19 +142,21 @@ public class Question {
 	/**
 	 * returns the correct answer
 	 * @return answer-the correct answer of the question
-	 * @throws Exception 
 	 */
-	public Answer getCorrectAnswer() throws Exception {
+	public Answer getCorrectAnswer() {
 		for(Answer a : this.answers) {
 			if (a.isCorrect()==true) {
 				return a;
 			}
 		}
-		throw new Exception("The question doesn't have correct answer");
+		return null;
 		
 	}
 
 
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Question: id=" + id + ", content=" + content + ", difficulty=" + difficulty + ", answers=" + answers
