@@ -7,9 +7,12 @@ import java.util.HashMap;
 import Model.Game;
 import Model.Piece;
 import Model.Player;
+import Model.Question;
 import View.BoardGUI;
 import View.MainscreenGUI;
 import View.ManageQuestions;
+import View.Nicknames;
+import View.Questions;
 import View.Scoreboard;
 
 public class DisplayController {
@@ -19,7 +22,9 @@ public class DisplayController {
 	public static BoardGUI boardGUI;
 	public static ManageQuestions manageQuestions;
 	public static Scoreboard scoreboard;
-	
+	public static Nicknames nicknames;
+	public static Questions questions;
+
 	private DisplayController() {
 		
 	}
@@ -142,6 +147,24 @@ public class DisplayController {
 	public void showScoreboard() {
 		scoreboard = new Scoreboard();
 		scoreboard.start(scoreboard.getPrimary());
+	}
+	
+	public void showNicknames() {
+		nicknames = new Nicknames();
+		nicknames.start(nicknames.getPrimary());
+	}
+	
+	public void showQuestion(Question question) throws Exception {
+		questions = new Questions();
+		questions.start(questions.getPrimary());
+		ArrayList<String> answers = new ArrayList<>();
+		
+		for(int i = 0 ; i < question.getAnswers().size() ; i++) {
+			answers.add("");
+			answers.set(i, question.getAnswers().get(i).getContent());
+		}
+		
+		questions.loadDesign(question.getContent(), answers, question.getDifficulty());
 	}
 	
 	public void closeMainscreen() {
