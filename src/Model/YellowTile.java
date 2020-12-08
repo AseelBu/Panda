@@ -56,7 +56,7 @@ public class YellowTile extends Tile implements ColoredTileUpdate {
 		// TODO Auto-generated method stub
 		boolean result= false;
 		try {
-			if(this.question.getCorrectAnswer().equals(answer)) {
+			if(this.question.getCorrectAnswer()==answer.getId()) {
 				result = true;
 			}
 		} catch (Exception e) {

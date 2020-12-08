@@ -13,9 +13,11 @@ import Model.Location;
 import Model.Piece;
 import Model.Player;
 import Model.Queen;
+import Model.Question;
 import Model.Soldier;
 import Model.Tile;
 import Model.Turn;
+import Model.YellowTile;
 import Utils.Directions;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
@@ -310,6 +312,7 @@ public class BoardController {
 
 			switch(tileColor) {
 			case RED: {		
+				
 				Game.getInstance().getTurn().IncrementMoveCounter();
 				return null;
 			}
@@ -318,15 +321,15 @@ public class BoardController {
 				return null;
 			}
 
-		case YELLOW:{ System.out.println("dddd");DisplayController.getInstance().showQuestion(Game.getInstance().getAvailableRandomQuestion()); return null;}
-		
-			case YELLOW_ORANGE:{
+		case YELLOW:{ //getIdQuestion(row,col);
+			DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion()); return null;}
+		//
+			case YELLOW_ORANGE:{//getIdQuestion(row,col);
+				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion()); return null;}
 				//TODO QuestionPOPUP
 				//call boardGUI to open pop up question with blur on screen
 				//continue in checkQuestionAnswer
-				return null;
-
-			}
+		
 			case BLUE:{
 				//TODO step on color
 				//to gui:get from user where he wants to locate
@@ -347,6 +350,13 @@ public class BoardController {
 		}	
 		return null;
 	}
+	
+//	public Question getIdQuestion(int row,char col)
+//	{
+//		Question q = ((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion();
+//		
+//		return q;
+//	}
 
 	public ArrayList<Tile> getAllColoredTiles(){
 		return Board.getInstance().getColoredTilesList();

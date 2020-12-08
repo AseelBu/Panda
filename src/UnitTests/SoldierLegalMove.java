@@ -2,6 +2,8 @@ package UnitTests;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Test;
+
+import Exceptions.LocationException;
 import Model.Game;
 import Model.Location;
 import Model.Piece;
@@ -18,7 +20,7 @@ public class SoldierLegalMove {
 	static final Directions DIR = Directions.UP_RIGHT;
 
 	@Test
-	public void test() {
+	public void test() throws LocationException {
 		Player player1 = Player.getInstance(0);
 		Player player2 = Player.getInstance(1);
 		player1.setNickname("Jack");

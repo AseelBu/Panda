@@ -3,16 +3,20 @@ package View;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Controller.BoardQuestionsController;
 import Utils.DifficultyLevel;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -40,7 +44,7 @@ public class Questions extends Application{
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(mainAnchor, 681.0, 465.0);
-		scene.getStylesheets().add(getClass().getResource("/View/questions.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/View/question.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
@@ -94,6 +98,32 @@ public class Questions extends Application{
 		mainAnchor.getChildren().add(btn);
 
 		loadDifficultyLabel(diff);
+		
+		btn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			
+			@Override
+			public void handle(ActionEvent event) {
+				
+			if(((Button) event.getSource()).getText().equals("Submit")) {
+							
+				String s=questions;
+			   if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
+			   {
+				   notifyTrueAnswer("You earn extra points :)\nWell done!");
+				   primary.close();
+			   }
+			   else {
+				   notifyFalseAnswer("You lost points :(\nGood luck next time");
+
+			   primary.close();
+			   }
+
+				
+			}
+			
+			}
+		});
 		
 		GridPane grid = new GridPane();
 		grid.setId("Answers");
@@ -154,7 +184,18 @@ public class Questions extends Application{
 
 	}
 	
-	
+	public void notifyTrueAnswer(String info) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Correct Answer");
+		alert.setHeaderText(info);
+		alert.showAndWait();
+	}
+	public void notifyFalseAnswer(String info) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Wrong Answer");
+		alert.setHeaderText(info);
+		alert.showAndWait();
+	}
 	/**
 	 * load answers
 	 * @param answers
@@ -218,5 +259,8 @@ public class Questions extends Application{
 		mainAnchor = null;
 		primary = null;
 	}
+	
+	
+
 	
 }
