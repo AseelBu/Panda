@@ -688,10 +688,16 @@ public class BoardGUI extends Application {
 					//TODO should burning piece have the powers of colored tile???
 					if(toTileColor!= null && !isToTileYellow) {						
 						//step on color
-						boardController.stepOnColorTile(toRow, toCol, toTileColor);	
+						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);	
+						if(msg != null) {
+							notifyUpgradeInGame(msg);
+						}
 					
 						System.out.println("removing "+toTileColor+" "+toRow+","+toCol);
 						//remove all tiles color
+						removeAllColoredTiles();
+					}
+					else if(toTileColor== null) {
 						removeAllColoredTiles();
 					}
 					//add piece back to board in new location
@@ -719,6 +725,8 @@ public class BoardGUI extends Application {
 						//TODO remove yellow and return piece to index 0 
 						//remove all tiles color
 						removeAllColoredTiles();
+					
+						
 					}
 				}
 				else {
@@ -738,7 +746,6 @@ public class BoardGUI extends Application {
 		} catch (IllegalMoveException | LocationException e) {
 			notifyByError(e.getMessage());
 		
-			
 		}
 	}
 
