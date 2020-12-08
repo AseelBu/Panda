@@ -723,8 +723,7 @@ public class BoardGUI extends Application {
 						//remove all tiles color
 						removeAllColoredTiles();
 					
-						//remove all tiles color
-						removeAllColoredTiles();
+						
 					}
 				}
 				else {
