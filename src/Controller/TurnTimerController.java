@@ -5,8 +5,13 @@ import javafx.application.Platform;
 
 public class TurnTimerController extends Thread{
 
+	boolean addGreen;
+	boolean addOrange;
+	
 	public void run() 
     { 
+		addGreen = false;
+		addOrange = false;
         try
         {
         	while(Game.getInstance().isGameRunning()) {
@@ -18,9 +23,15 @@ public class TurnTimerController extends Thread{
                     	
                     	//TODO add boolean variable to declare if the special tiles already added
                     	if(seconds >= 90) {
-                    		//TODO Orange Tile's feature to be added 
+                    		if(!addOrange) {
+                    			addOrange = true;
+                        		//TODO Orange Tile's feature to be added 
+                    		}
                     	}else if(seconds >= 30) {
-                    		//TODO Green Tile's feature to be added
+                    		if(!addGreen) {
+                    			addGreen = true;
+                        		//TODO Green Tile's feature to be added
+                    		}
                     	}
                     	
                     }
@@ -33,4 +44,9 @@ public class TurnTimerController extends Thread{
             System.out.println ("Exception is caught"); 
         } 
     }
+	
+	public void resetColors() {
+		addOrange = false;
+		addGreen = false;
+	}
 }

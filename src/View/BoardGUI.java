@@ -739,8 +739,10 @@ public class BoardGUI extends Application {
 				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
 				if(GameController.getInstance().isGameRunning()) {
 					PrimaryColor newColor = boardController.getPlayerTurn();
-					if(newColor != turnColor)
+					if(newColor != turnColor) {
 						setNewTurn(boardController.getPlayerTurn());
+						turnTimer.resetColors();
+					}
 				}
 			}else {
 				notifyByError("Please try moving the piece again!\nSomething went wrong while trying to move the piece!");
