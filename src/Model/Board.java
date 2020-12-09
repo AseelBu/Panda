@@ -1003,13 +1003,13 @@ public class Board {
 			System.out.println("not adding blue");
 		}
 
-		System.out.println("board  tiles in init secondary:\n");
-		for(Tile t :Game.getInstance().getBoard().getAllBoardTiles()) {
-			System.out.println(t);
-
-		}
-		
-		System.out.println("colored list after init: "+this.coloredTilesList);
+//		System.out.println("board  tiles in init secondary:\n");
+//		for(Tile t :Game.getInstance().getBoard().getAllBoardTiles()) {
+//			System.out.println(t);
+//
+//		}
+//		
+//		System.out.println("colored list after init: "+this.coloredTilesList);
 	}
 
 	//helping method for checking if red tile can be added to board or not

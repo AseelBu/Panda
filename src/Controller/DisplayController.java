@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Model.Answer;
 import Model.Board;
 import Model.Game;
 import Model.Piece;
@@ -160,14 +161,13 @@ public class DisplayController {
 	public void showQuestion(Question question) throws Exception {
 		questions = new Questions();
 		questions.start(questions.getPrimary());
-		ArrayList<String> answers = new ArrayList<>();
+		HashMap<Integer, String> answers = new HashMap<>();
 		
-		for(int i = 0 ; i < question.getAnswers().size() ; i++) {
-			answers.add("");
-			answers.set(i, question.getAnswers().get(i).getContent());
+		for(Answer a : question.getAnswers()) {
+			answers.put(a.getId(), a.getContent());
 		}
 		
-		questions.loadDesign(question.getContent(), answers, question.getDifficulty());
+		questions.loadDesign(question.getId(), question.getContent(), answers, question.getDifficulty());
 	}
 	
 	public void showWinner(String name, int score) {

@@ -61,24 +61,18 @@ public class BoardQuestionsController {
 	 * @param chosenAnswer
 	 * @return true if the answer is correct, false otherwise
 	 */
-	public static boolean checkQuestionAnswer(String q,int chosenAnswer) {
+	public static boolean checkQuestionAnswer(int q,int chosenAnswer) {
 		
 		//System.out.println("*********************************************885555558  "+ q);
 		//System.out.println("*********************************************885555558  "+ chosenAnswer);
 
 		
-		int questionId;
-		try {
-
-			questionId = Integer.parseInt(q);
-		}
-		catch (NumberFormatException e)
-		{
-			questionId= 0;
-		}
+		int questionId = q;
 		
 		//**on close the question pop up ->get from boardGUI the chosen answer**
 		Question currentQuestion=SysData.getInstance().getQuesById(questionId);
+		
+		
 		//TODO something went wrong add exception
 		if(currentQuestion==null) return false;
 		

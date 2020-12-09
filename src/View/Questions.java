@@ -2,6 +2,7 @@ package View;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Controller.BoardQuestionsController;
 import Utils.DifficultyLevel;
@@ -64,10 +65,10 @@ public class Questions extends Application{
 	/**
 	 * Loads Screen Design
 	 */
-	public void loadDesign(String questions, ArrayList<String> answers, DifficultyLevel diff) throws Exception{
-		if(questions.matches("")) throw new Exception("Invalid Question");
+	public void loadDesign(int questionId, String question, HashMap<Integer, String> answers, DifficultyLevel diff) throws Exception{
+		if(question.matches("")) throw new Exception("Invalid Question");
 		if(answers.isEmpty()) throw new Exception("Question has no Answers");
-		for(String s : answers)
+		for(String s : answers.values())
 			if(s.matches("")) throw new Exception("Invalid Answer");
 		
 		// loads background
@@ -83,7 +84,7 @@ public class Questions extends Application{
 		ImageView img = new ImageView(new Image(getClass().getResource("pictures/3333.png").toString()));
 		img.setFitHeight(65.0);
 		img.setFitWidth(64.0);
-		img.setLayoutX(4.0);
+		img.setLayoutX(28.0);
 		img.setPickOnBounds(true);
 		img.setPreserveRatio(true);
 		mainAnchor.getChildren().add(img);
@@ -99,6 +100,14 @@ public class Questions extends Application{
 
 		loadDifficultyLabel(diff);
 		
+		Label ques = new Label(question);
+		ques.setLayoutX(29);
+		ques.setLayoutY(64);
+		ques.setPrefHeight(77);
+		ques.setPrefWidth(674);
+		ques.setFont(new Font(18));
+		mainAnchor.getChildren().add(ques);
+
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			
@@ -107,7 +116,7 @@ public class Questions extends Application{
 				
 			if(((Button) event.getSource()).getText().equals("Submit")) {
 							
-				String s=questions;
+				int s = questionId;
 			   if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
 			   {
 				   notifyTrueAnswer("You earn extra points :)\nWell done!");
@@ -127,7 +136,7 @@ public class Questions extends Application{
 		
 		GridPane grid = new GridPane();
 		grid.setId("Answers");
-		grid.setLayoutX(260.0);
+		grid.setLayoutX(28.0);
 		grid.setLayoutY(141.0);
 		grid.setPrefWidth(681.0);
 		mainAnchor.getChildren().add(grid);
@@ -143,7 +152,7 @@ public class Questions extends Application{
 	 */
 	public void loadDifficultyLabel(DifficultyLevel diff) {
 		Label lbl = new Label();
-		lbl.setLayoutX(83.0);
+		lbl.setLayoutX(107.0);
 		lbl.setLayoutY(26.0);
 		lbl.setPrefHeight(25.0);
 		lbl.setPrefWidth(131.0);
@@ -152,7 +161,7 @@ public class Questions extends Application{
 		ImageView img = new ImageView();
 		img.setFitHeight(39.0);
 		img.setFitWidth(36.0);
-		img.setLayoutX(214.0);
+		img.setLayoutX(238.0);
 		img.setLayoutY(21.0);
 		img.setPickOnBounds(true);
 		img.setPreserveRatio(true);
@@ -200,16 +209,16 @@ public class Questions extends Application{
 	 * load answers
 	 * @param answers
 	 */
-	public void loadAnswers(ArrayList<String> answers) {
+	public void loadAnswers(HashMap<Integer, String> answers) {
 		GridPane grid = (GridPane) mainAnchor.lookup("#Answers");
 		group = new ToggleGroup();
 
-		for(int i = 0 ; i < answers.size() ; i++) {
+		for(int i = 1 ; i <= answers.keySet().size() ; i++) {
 			grid.getRowConstraints().add(new RowConstraints(65.0));
 			Pane pane = new Pane();
 			pane.setPrefHeight(200.0);
 			pane.setPrefWidth(200.0);
-			grid.add(pane, 0, i);
+			grid.add(pane, 0, i - 1);
 			
 			RadioButton rb = new RadioButton();
 			rb.setId(String.valueOf(i));

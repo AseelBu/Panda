@@ -33,7 +33,8 @@ public class Game {
 		super();
 		this.board = Board.getInstance();
 		board.initBasicBoardTiles();
-		availableQuestions=SysData.getInstance().getQuestions();
+		availableQuestions = new ArrayList<>();
+		availableQuestions.addAll(SysData.getInstance().getQuestions());
 		unavailableQuestions=new ArrayList<Question>();
 		timer = new GameTimer();
 	}
@@ -288,7 +289,6 @@ public class Game {
 		}else {
 			System.out.println("It's a tie (draw)..");
 		}
-		System.out.println("LOL");
 		timer.stopTimer();
 
 //		if(winner > -1)

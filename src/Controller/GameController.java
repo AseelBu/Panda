@@ -54,12 +54,11 @@ public class GameController {
 			didSwitch=true;
 		}
 
-		if(board.getColorPieces(PrimaryColor.WHITE).size() == 0 
-				|| board.getColorPieces(PrimaryColor.BLACK).size() == 0) {
+		if((board.getColorPieces(PrimaryColor.WHITE).size() == 0 
+				|| board.getColorPieces(PrimaryColor.BLACK).size() == 0) || !Game.getInstance().isGameRunning()) {
 			Game.getInstance().finishGame();
 			didSwitch=true;
 			Player player = BoardController.getInstance().getWinner();
-			System.out.println(player);
 			DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
 			return false;
 		}

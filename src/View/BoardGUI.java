@@ -274,7 +274,6 @@ public class BoardGUI extends Application {
 			return false;
 		}
 		ImageView tileImage;
-		System.out.println("pictures/"+tileColor+"Tile.png");
 		tileImage = new ImageView(new Image(getClass().getResource("pictures/"+tileColor+"Tile.png").toString()));
 		tileImage.setId("Tile_" + tileColor);
 		tileImage.setFitHeight(65.0);
@@ -918,7 +917,6 @@ public class BoardGUI extends Application {
 					if(tile.getChildren().get(0).getId().split("_").length == 2) {
 						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
 								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
-							System.out.println(tile.getChildren().get(0).getId().split("_")[1]);
 							if(!boardController.pieceExists(i, c, 
 									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
 								this.removePiece(i, c, true);
@@ -936,7 +934,6 @@ public class BoardGUI extends Application {
 					if(tile.getChildren().get(0).getId().split("_").length == 2) {
 						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
 								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
-
 							if(!boardController.pieceExists(i, c, 
 									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
 								this.removePiece(i, c, true);

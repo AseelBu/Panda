@@ -99,7 +99,6 @@ public class BoardController {
 		Board board =Board.getInstance();
 		Location fromLocation = new Location(fromRow, fromCol);
 		Location toLocation = new Location(toRow, toCol);
-		System.out.println("Attempting to move piece from: " + fromCol + "" + fromRow + " | to : " + toCol + "" + toRow);
 		HashMap<Piece, ArrayList<Piece>> toBurn = board.searchToBurn();
 		Player currPlayer =Game.getInstance().getTurn().getCurrentPlayer();
 		Piece piece = null;
@@ -273,7 +272,6 @@ public class BoardController {
 			return false;
 		}
 		Piece piece = ((Tile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getPiece();
-		System.out.println(piece + " ::: " + color);
 		if(piece == null) return false;
 		if(piece.getColor() != color) return false;
 		return true;
@@ -315,7 +313,6 @@ public class BoardController {
 	public void forceFinishGame() {
 		Game.getInstance().finishGame();
 		Player player = BoardController.getInstance().getWinner();
-      	System.out.println(player);
       	DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
 		boardGUI.destruct();
 	}
