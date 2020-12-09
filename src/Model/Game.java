@@ -291,16 +291,16 @@ public class Game {
 		System.out.println("LOL");
 		timer.stopTimer();
 
-		if(winner > -1)
-			BoardController.getInstance().finishGame(players[winner - 1].getNickname(),
-					players[winner - 1].getCurrentScore(), players[winner - 1].getColor());
-			
+//		if(winner > -1)
+//			BoardController.getInstance().finishGame(players[winner - 1].getNickname(),
+//					players[winner - 1].getCurrentScore(), players[winner - 1].getColor());
+//			
 		SysData.getInstance().addScoreToHistory(players[0]);
 		SysData.getInstance().addScoreToHistory(players[1]);
 		
-		destruct();
-		getBoard().destruct();
-		getPlayers()[0].destruct();
+//		destruct();
+//		Board.destruct();
+//		Player.destruct();
 //		System.exit(1); //TODO On Implementing GUI, to replace this
 	}
 
@@ -445,5 +445,10 @@ public class Game {
 	
 	public PrimaryColor getCurrentPlayerColor() {
 		return this.turn.getCurrentPlayer().getColor();
+	}
+	
+	public Player getPlayerr()
+	{
+		return this.turn.getCurrentPlayer();
 	}
 }

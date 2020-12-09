@@ -5,6 +5,7 @@ package Controller;
 
 import Model.Board;
 import Model.Game;
+import Model.Player;
 import Model.SysData;
 import Utils.PrimaryColor;
 import View.BoardGUI;
@@ -57,10 +58,18 @@ public class GameController {
 				|| board.getColorPieces(PrimaryColor.BLACK).size() == 0) {
 			Game.getInstance().finishGame();
 			didSwitch=true;
+			Player player = BoardController.getInstance().getWinner();
+			System.out.println(player);
+			DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
+			return false;
 		}
 		board.initiateBoardSecondaryColors();
 		BoardController.getInstance().loadTilesColors();
 		return didSwitch;
+	}
+	
+	public boolean isGameRunning() {
+		return Game.getInstance().isGameRunning();
 	}
 
 

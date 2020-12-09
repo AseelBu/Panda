@@ -4,13 +4,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Model.Board;
 import Model.Game;
 import Model.Piece;
 import Model.Player;
+import Model.Question;
 import View.BoardGUI;
 import View.MainscreenGUI;
 import View.ManageQuestions;
+import View.Nicknames;
+import View.Questions;
 import View.Scoreboard;
+import View.Winner;
 
 public class DisplayController {
 
@@ -19,7 +24,10 @@ public class DisplayController {
 	public static BoardGUI boardGUI;
 	public static ManageQuestions manageQuestions;
 	public static Scoreboard scoreboard;
-	
+	public static Nicknames nicknames;
+	public static Questions questions;
+	public static Winner winner;
+
 	private DisplayController() {
 		
 	}
@@ -144,12 +152,40 @@ public class DisplayController {
 		scoreboard.start(scoreboard.getPrimary());
 	}
 	
+	public void showNicknames() {
+		nicknames = new Nicknames();
+		nicknames.start(nicknames.getPrimary());
+	}
+	
+	public void showQuestion(Question question) throws Exception {
+		questions = new Questions();
+		questions.start(questions.getPrimary());
+		ArrayList<String> answers = new ArrayList<>();
+		
+		for(int i = 0 ; i < question.getAnswers().size() ; i++) {
+			answers.add("");
+			answers.set(i, question.getAnswers().get(i).getContent());
+		}
+		
+		questions.loadDesign(question.getContent(), answers, question.getDifficulty());
+	}
+	
+	public void showWinner(String name, int score) {
+		winner = new Winner();
+		winner.start(winner.getPrimary());
+		winner.loadDisplay(name, score);
+	}
+	
 	public void closeMainscreen() {
 		mainscreen.getPrimary().hide();
 	}
 	
 	public void closeBoard() {
 		boardGUI.getPrimary().hide();
+		boardGUI.destruct();
+		Game.destruct();
+		Board.destruct();
+		Player.destruct();
 	}
 	
 	public void closeScoreboard() {
@@ -160,4 +196,7 @@ public class DisplayController {
 		manageQuestions.getPrimary().hide();
 	}
 	
+	public void closeWinner() {
+		winner.getPrimary().hide();
+	}
 }

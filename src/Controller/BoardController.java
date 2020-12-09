@@ -13,9 +13,11 @@ import Model.Location;
 import Model.Piece;
 import Model.Player;
 import Model.Queen;
+import Model.Question;
 import Model.Soldier;
 import Model.Tile;
 import Model.Turn;
+import Model.YellowTile;
 import Utils.Directions;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
@@ -280,11 +282,41 @@ public class BoardController {
 	//TODO finish game without winner always
 	public void finishGame(String Winname, int score, PrimaryColor color) {
 		boardGUI.notifyWinner(Winname, score, color);
-		boardGUI.destruct();
+//		boardGUI.destruct();
+	}
+	
+	/**
+	 * This method is only called on initial open of winner display 
+	 * @return winner score
+	 */
+	public Player getWinner() {
+		if(Game.getInstance().isGameRunning()) return null;
+		int winner = -1;
+		if(Player.getInstance(0).getCurrentScore() > Player.getInstance(1).getCurrentScore())
+			winner = 1;
+		else if (Player.getInstance(0).getCurrentScore() < Player.getInstance(1).getCurrentScore())
+			winner = 2;
+		if(winner == -1) {
+			if(Game.getInstance().getBoard().getColorPieces(PrimaryColor.WHITE).size() > 
+					Game.getInstance().getBoard().getColorPieces(PrimaryColor.BLACK).size()){
+				winner = 1;
+			}else if(Game.getInstance().getBoard().getColorPieces(PrimaryColor.WHITE).size() < 
+						Game.getInstance().getBoard().getColorPieces(PrimaryColor.BLACK).size()) {
+				winner = 2;
+			}
+		}
+		if(winner > -1) {
+			return Player.getInstance(winner-1);
+		}
+		System.out.println(winner);
+		return null;
 	}
 
 	public void forceFinishGame() {
 		Game.getInstance().finishGame();
+		Player player = BoardController.getInstance().getWinner();
+      	System.out.println(player);
+      	DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
 		boardGUI.destruct();
 	}
 
@@ -310,6 +342,7 @@ public class BoardController {
 
 			switch(tileColor) {
 			case RED: {		
+				
 				Game.getInstance().getTurn().IncrementMoveCounter();
 				return null;
 			}
@@ -318,14 +351,15 @@ public class BoardController {
 				return null;
 			}
 
-			case YELLOW:
-			case YELLOW_ORANGE:{
+		case YELLOW:{ //getIdQuestion(row,col);
+			DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion()); return null;}
+		//
+			case YELLOW_ORANGE:{//getIdQuestion(row,col);
+				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion()); return null;}
 				//TODO QuestionPOPUP
 				//call boardGUI to open pop up question with blur on screen
 				//continue in checkQuestionAnswer
-				return null;
-
-			}
+		
 			case BLUE:{
 				//TODO step on color
 				//to gui:get from user where he wants to locate
@@ -340,9 +374,19 @@ public class BoardController {
 			}
 		} catch (GameUpgradeException e) {
 			return e.getMessage();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}	
 		return null;
 	}
+	
+//	public Question getIdQuestion(int row,char col)
+//	{
+//		Question q = ((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion();
+//		
+//		return q;
+//	}
 
 	public ArrayList<Tile> getAllColoredTiles(){
 		return Board.getInstance().getColoredTilesList();

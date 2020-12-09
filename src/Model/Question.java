@@ -143,13 +143,13 @@ public class Question {
 	 * returns the correct answer
 	 * @return answer-the correct answer of the question
 	 */
-	public Answer getCorrectAnswer() {
+	public int getCorrectAnswer() {
 		for(Answer a : this.answers) {
 			if (a.isCorrect()==true) {
-				return a;
+				return a.getId();
 			}
 		}
-		return null;
+		return -1;
 		
 	}
 
