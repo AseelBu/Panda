@@ -19,11 +19,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Scoreboard extends Application {
 	
@@ -45,6 +48,23 @@ public class Scoreboard extends Application {
 		primaryStage.setResizable(false);
 //		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
 //		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo1.png"))); add logo
+		
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+			@Override
+			public void handle(WindowEvent event) {
+				
+				DisplayController.getInstance().closeScoreboard();
+				DisplayController.getInstance().showMainScreen();
+				
+			}
+			
+			
+			
+			
+			
+			
+		});
 		primaryStage.show();
 		
 		loadDesign();
@@ -68,6 +88,7 @@ public class Scoreboard extends Application {
 		
 		
 		
+		
 		AnchorPane background = new AnchorPane();
 		background.setId("background");
 		AnchorPane.setBottomAnchor(background, 0.0);
@@ -78,13 +99,15 @@ public class Scoreboard extends Application {
 		mainAnchor.getChildren().add(background);
 		mainAnchor.getChildren().add(mainsc);
 		
-		File f = new File("D:\\Projects\\Panda\\src\\View\\pictures\\icons8-back-arrow-64.png");
+		ColorAdjust colorAdjust = new ColorAdjust(); 
+		colorAdjust.setBrightness(-0.5);
+		background.setEffect(colorAdjust);
+		mainsc.setEffect(colorAdjust);
 		
-		Image im1 = new Image(f.toURI().toString());
-		ImageView back = new ImageView();
-		back.setFitWidth(70);
-		back.setFitHeight(70);
-		back.setImage(im1);
+	
+		ImageView back = new ImageView(new Image(getClass().getResource("pictures/icons8-back-arrow-64.png").toString()));
+		back.setFitWidth(45);
+		back.setFitHeight(45);
 		Hyperlink hl = new Hyperlink();
 		hl.setGraphic(back);
 		hl.setLayoutX(2);
@@ -94,25 +117,14 @@ public class Scoreboard extends Application {
 		
 		mainAnchor.getChildren().add(hl);
 		
-		f = new File("D:\\Projects\\Panda\\src\\View\\pictures\\stage.png");
 		
-		if(f.exists())
-	    {
-	        System.out.println("file exist!");//I would print file path here.
-	    }
-	    else
-	    {
-	        System.out.println("file does not exist!");
-	    }
-		 
-		Image image = new Image(f.toURI().toString());
-		ImageView iv = new ImageView();
-		iv.setImage(image);
 		
-		iv.setX(10);
-		iv.setLayoutY(75);
-		iv.setFitWidth(450);
-		iv.setFitHeight(200);
+		ImageView iv = new ImageView(new Image(getClass().getResource("pictures/stage1.png").toString()));
+		
+		iv.setLayoutX(20);
+		iv.setLayoutY(105);
+		iv.setFitWidth(420);
+		iv.setFitHeight(160);
 		
 		mainAnchor.getChildren().add(iv);
 		
@@ -163,17 +175,9 @@ public class Scoreboard extends Application {
 		
 		
 		
-		hl.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				ScoreBoardController.getInstance().getScoreBoardScreen().getPrimary().close();
-				DisplayController.getInstance().showMainScreen();
-			}
-			
-			
-			
-		});
+		
+		
+		
 		
 		
 		

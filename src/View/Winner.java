@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import Controller.BoardController;
 import Controller.DisplayController;
+import Controller.ScoreBoardController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -78,6 +79,7 @@ public class Winner extends Application{
 	
     @FXML
     void finish(ActionEvent event) {
+    	ScoreBoardController.getInstance().writeHistory();
     	DisplayController.getInstance().closeWinner();
     	DisplayController.getInstance().showMainScreen();
     	DisplayController.getInstance().closeBoard();
