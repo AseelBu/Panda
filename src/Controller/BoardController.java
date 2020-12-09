@@ -2,6 +2,7 @@ package Controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 import Exceptions.GameUpgradeException;
 import Exceptions.IllegalMoveException;
@@ -27,9 +28,11 @@ public class BoardController {
 
 	private static BoardController instance;
 	private BoardGUI boardGUI;
-
+	private int retrievals;
+	
 	private BoardController() {
 		boardGUI = DisplayController.boardGUI;
+		retrievals = 0;
 	}
 
 	public static BoardController getInstance() 
@@ -358,12 +361,7 @@ public class BoardController {
 				//continue in checkQuestionAnswer
 		
 			case BLUE:{
-				//TODO step on color
-				//to gui:get from user where he wants to locate
-				//from gui: location -> is it legal? check with model
-				//if legal allow location and call in model for retrieve soldier->add piece to gui with message
-				//else show message to user and have him pick again new location 
-				//loop all over blue again
+				DisplayController.boardGUI.showRetrievalSelection(getAllAvailableRetrievals());
 				return null;
 			}
 
@@ -389,6 +387,75 @@ public class BoardController {
 		return Board.getInstance().getColoredTilesList();
 	}
 
-
+	public HashMap<Integer,ArrayList<Character>> getAllAvailableRetrievals() {
+		HashMap<Integer,ArrayList<Character>> tiles = new HashMap<>();
+		TreeSet<Tile> unavailable = new TreeSet<>();
+		PrimaryColor turn = Game.getInstance().getTurn().getCurrentPlayer().getColor();
+		for(Piece piece : Board.getInstance().getPieces()) {
+			try {
+				unavailable.add(Board.getInstance().getTileInLocation(piece.getLocation()));
+			} catch (LocationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			int row = piece.getLocation().getRow();
+			char col = piece.getLocation().getColumn();
+			if(piece.getColor() != turn) {
+				for(int i = -2 ; i <= 2 ; i++) {
+					if(i == 0) continue;
+					for(int j = -2 ; j <= 2 ; j++) {
+						if(j == 0) continue;
+						try {
+							Location tempLocation = new Location(row + i, (char) ((char) col + j));
+							unavailable.add(Board.getInstance().getTileInLocation(tempLocation));
+						} catch (LocationException e) {
+							continue;
+						}
+					}
+				}
+			}
+		}
+		
+		for(int i = 1 ; i <= Board.getInstance().getBoardSize() ; i++) {
+			for(char c = Board.getInstance().getColumnLowerBound() ; c <= Board.getInstance().getColumnUpperBound() ; c++) {
+				Tile tile = null;
+				try {
+					tile = Board.getInstance().getTileInLocation(new Location(i,c));
+				} catch (LocationException e) {
+					e.printStackTrace();
+				}
+				if(tile == null) continue;
+				if(tile.getColor1() == PrimaryColor.WHITE) continue;
+				if(i == 1 && (turn.equals(PrimaryColor.BLACK))) continue; // check if retrieving soldier & instant upgrade available
+				if(i == Board.getInstance().getBoardSize() && (turn.equals(PrimaryColor.WHITE))) continue; 
+				if(unavailable.contains(tile)) {
+					unavailable.remove(tile);
+					continue;
+				}
+				if(tiles.containsKey(i)) {
+					tiles.get(i).add(c);
+				}else {
+					tiles.put(i, new ArrayList<Character>());
+					tiles.get(i).add(c);
+				}
+			}
+		}
+		return tiles;
+	}
+	
+	/**
+	 * Provide location by row & column as parameters to add them to the boardGUI and actual board
+	 * @param row
+	 * @param col
+	 * @param pieceColor
+	 */
+	public void retrieveSoldier(int row, char col, PrimaryColor pieceColor) {
+		try {
+			Board.getInstance().addPiece(new Soldier((22 + retrievals),pieceColor, new Location(row, col)));
+		} catch (LocationException e) {
+			e.printStackTrace();
+		}
+		DisplayController.boardGUI.addPieceToBoard(row, col, pieceColor, true);
+	}
 
 }

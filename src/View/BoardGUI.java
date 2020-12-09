@@ -2,6 +2,7 @@ package View;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 import Controller.BoardController;
@@ -686,7 +687,7 @@ public class BoardGUI extends Application {
 				if(!burnt) {
 //					int pieceIndexInToTile = isToTileYellow? 1:0;
 					//TODO should burning piece have the powers of colored tile???
-					if(toTileColor!= null && !isToTileYellow) {						
+					if(toTileColor!= null && !isToTileYellow) {
 						//step on color
 						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);	
 						if(msg != null) {
@@ -730,7 +731,6 @@ public class BoardGUI extends Application {
 					}
 				}
 				else {
-
 					//remove all tiles color
 					removeAllColoredTiles();
 				}
@@ -954,6 +954,58 @@ public class BoardGUI extends Application {
 	public void destruct() {
 		mainAnchor = null;
 		primary = null;
+	}
+	
+	public void showRetrievalSelection(HashMap<Integer, ArrayList<Character>> tiles) {
+		for(Integer i : tiles.keySet()) {
+			for(Character c : tiles.get(i)) {
+				System.out.println("Available Location : (" + i + "," + c + ")");
+			}
+		}
+		
+		AnchorPane tempBoard = new AnchorPane();
+		tempBoard.setId("tempBoard");
+		AnchorPane.setBottomAnchor(tempBoard, 0.0);
+		AnchorPane.setLeftAnchor(tempBoard, 0.0);
+		AnchorPane.setRightAnchor(tempBoard, 0.0);
+		AnchorPane.setTopAnchor(tempBoard, 0.0);
+		tempBoard.setStyle("-fx-background-color: #dbdbdb66;");
+		mainAnchor.getChildren().add(tempBoard);
+		
+		FlowPane flow = new FlowPane();
+		flow.setLayoutX(477.0);
+		flow.setLayoutY(80.0);
+		flow.setPrefHeight(525.0);
+		flow.setPrefWidth(525.0);
+		flow.setId("tempBoardFlow");
+		tempBoard.getChildren().add(flow);
+		for(int i = 8 ; i >= 1 ; i--) {
+			for(char j = 'A' ; j <= 'H' ; j++) {
+				PrimaryColor color = boardController.getTileColor(i, j);
+				FlowPane tilePane = new FlowPane(); 
+				tilePane.setPrefHeight(65.0);
+				tilePane.setPrefWidth(65.0);
+				tilePane.setStyle("-fx-background-color: " + color + "; -fx-opacity: 0.3;");
+				tilePane.setId(String.valueOf("TEMP_"+i+"_"+j));
+				flow.getChildren().add(tilePane);
+				
+				if(tiles.containsKey(i)) {
+					if(tiles.get(i).contains(j)) {
+						tilePane.setStyle("-fx-background-color: " + color + "; -fx-opacity: 1;");
+						tilePane.setCursor(Cursor.HAND);
+						tilePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+							@Override
+							public void handle(MouseEvent event) {
+								String[] tileId = tilePane.getId().split("_");
+								System.out.println("Trying to Retrieve Soldier to Tile (" + tileId[1] + "," + tileId[2] + ")");
+								mainAnchor.getChildren().remove(tempBoard);
+								BoardController.getInstance().retrieveSoldier(Integer.parseInt(tileId[1]), tileId[2].toCharArray()[0], color);
+							}
+						});
+					}
+				}
+			}
+		}
 	}
 
 	//	public void removeTileColor(int row, char col, SeconderyTileColor tileColor){
