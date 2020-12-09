@@ -4,5 +4,8 @@
 	-fx-background-size: cover;
 }
 .scroll-pane .viewport {
-    -fx-background-image: url('pictures/background.png');
+   -fx-background-color: transparent;
+}
+.scroll-pane {
+   -fx-background-color: "#AFC898";
 }

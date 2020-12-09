@@ -24,6 +24,7 @@ import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -77,6 +78,10 @@ public class Scoreboard extends Application {
 		return primary;
 	}
 	
+	/**
+	 * Loads GUI of Scoreboard
+	 */
+	
 	public void loadDesign() {
 		
 		mainAnchor.getChildren().clear();
@@ -86,8 +91,8 @@ public class Scoreboard extends Application {
 		mainsc.setPrefWidth(458);
 		mainsc.setLayoutY(260);
 		
-		
-		
+		AnchorPane scroll_content = new AnchorPane();
+		mainsc.setContent(scroll_content);
 		
 		AnchorPane background = new AnchorPane();
 		background.setId("background");
@@ -102,20 +107,13 @@ public class Scoreboard extends Application {
 		ColorAdjust colorAdjust = new ColorAdjust(); 
 		colorAdjust.setBrightness(-0.5);
 		background.setEffect(colorAdjust);
-		mainsc.setEffect(colorAdjust);
+		
 		
 	
 		ImageView back = new ImageView(new Image(getClass().getResource("pictures/icons8-back-arrow-64.png").toString()));
 		back.setFitWidth(45);
 		back.setFitHeight(45);
-		Hyperlink hl = new Hyperlink();
-		hl.setGraphic(back);
-		hl.setLayoutX(2);
-		hl.setLayoutY(2);
-		hl.setPrefHeight(10);
-		hl.setPrefWidth(10);
-		
-		mainAnchor.getChildren().add(hl);
+	
 		
 		
 		
@@ -129,7 +127,6 @@ public class Scoreboard extends Application {
 		mainAnchor.getChildren().add(iv);
 		
 		
-		mainsc.setStyle("-fx-background-image: url(\"pictures/background.png\");");
 		
 		ArrayList<Player> players = ScoreBoardController.getInstance().getSysData().getScoreboard();
 
@@ -144,18 +141,57 @@ public class Scoreboard extends Application {
 				break;
 			}
 			else if(counter == 0) {
-				Label first_name = new Label("Harry"); 
-				first_name.setFont(new Font("verdana",16.0));
+				Label first_name = new Label(p.getNickname()); 
+				first_name.setFont(new Font("verdana",20));
+				first_name.setTextFill(Color.web("#ffffff"));
+				mainAnchor.getChildren().add(first_name);
+				first_name.setLayoutX(217);
+				first_name.setLayoutY(80);
+				
 				
 				Label first_score = new Label("" + p.getCurrentScore());
 				first_score.setFont(new Font("verdana",16.0));
+				mainAnchor.getChildren().add(first_score);
+				first_score.setTextFill(Color.web("#ffffff"));
+				first_score.setLayoutX(223);
+				first_score.setLayoutY(105);
 				
 				
 			}
 			else if(counter == 1) {
 				
+				Label first_name = new Label(p.getNickname()); 
+				first_name.setFont(new Font("verdana",20));
+				first_name.setTextFill(Color.web("#ffffff"));
+				mainAnchor.getChildren().add(first_name);
+				first_name.setLayoutX(120);
+				first_name.setLayoutY(115);
+				
+				
+				Label first_score = new Label("" + p.getCurrentScore());
+				first_score.setFont(new Font("verdana",16.0));
+				mainAnchor.getChildren().add(first_score);
+				first_score.setTextFill(Color.web("#ffffff"));
+				first_score.setLayoutX(126);
+				first_score.setLayoutY(140);
+				
 			}
 			else if(counter == 2) {
+				
+				Label first_name = new Label(p.getNickname()); 
+				first_name.setFont(new Font("verdana",20));
+				first_name.setTextFill(Color.web("#ffffff"));
+				mainAnchor.getChildren().add(first_name);
+				first_name.setLayoutX(320);
+				first_name.setLayoutY(135);
+				
+				
+				Label first_score = new Label("" + p.getCurrentScore());
+				first_score.setFont(new Font("verdana",16.0));
+				mainAnchor.getChildren().add(first_score);
+				first_score.setTextFill(Color.web("#ffffff"));
+				first_score.setLayoutX(326);
+				first_score.setLayoutY(160);
 				
 			}
 			counter ++;
@@ -164,9 +200,34 @@ public class Scoreboard extends Application {
 		
 		if(counter == 3) {
 			
+			int layoutx = 20,layouty = 10;
+			
 			for(int i = 3 ; i < players.size(); i++) {
 				
+				Label id = new Label("" + (i+1) + "."); 
+				id.setFont(new Font("verdana",25));
+				id.setTextFill(Color.web("#ffffff"));
+				scroll_content.getChildren().add(id);
+				id.setLayoutX(layoutx);
+				id.setLayoutY(layouty);
 				
+				
+				Label name = new Label(players.get(i).getNickname() + " - "); 
+				name.setFont(new Font("verdana",25));
+				name.setTextFill(Color.web("#ffffff"));
+				scroll_content.getChildren().add(name);
+				name.setLayoutX(layoutx+50);
+				name.setLayoutY(layouty);
+				
+				
+				Label score = new Label("" + players.get(i).getCurrentScore());
+				score.setFont(new Font("verdana",25));
+				scroll_content.getChildren().add(score);
+				score.setTextFill(Color.web("#ffffff"));
+				score.setLayoutX(layoutx+180);
+				score.setLayoutY(layouty);
+				
+				layouty=layouty+40;
 				
 			}
 			
