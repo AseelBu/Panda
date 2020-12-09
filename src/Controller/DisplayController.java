@@ -148,6 +148,7 @@ public class DisplayController {
 	
 	
 	public void showScoreboard() {
+		ScoreBoardController.getInstance().loadHistory();
 		scoreboard = new Scoreboard();
 		scoreboard.start(scoreboard.getPrimary());
 	}
