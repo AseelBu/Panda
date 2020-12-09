@@ -153,6 +153,7 @@ public class QuestionMgmtController {
 	public void LoadQuestions() {
 
 		ArrayList<Question> questions = new ArrayList<Question>();
+		this.getSysData().getQuestions().clear();
 		
 		Gson gson = new Gson();
 		JsonReader reader = null;

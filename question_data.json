@@ -40,8 +40,43 @@
         "Katwice",
         "Warsaw"
       ],
+      "correct_ans": "1",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "who is igor",
+      "answers": [
+        "ok",
+        "ok",
+        "ok"
+      ],
       "correct_ans": "2",
       "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "what is vegan people",
+      "answers": [
+        "eat carrot",
+        "eat steak",
+        "eat yogourt",
+        "drink milk"
+      ],
+      "correct_ans": "1",
+      "level": "3",
+      "team": "animal"
+    },
+    {
+      "question": "what is 9 + 10",
+      "answers": [
+        "19",
+        "21",
+        "20",
+        "18"
+      ],
+      "correct_ans": "2",
+      "level": "2",
       "team": "animal"
     }
   ]

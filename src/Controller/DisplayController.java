@@ -139,10 +139,11 @@ public class DisplayController {
 	
 	public void showManageQuestions(){
 		
-		ManageQuestions mg = QuestionMgmtController.getInstance().getQuestionScreen();
+		manageQuestions = QuestionMgmtController.getInstance().getQuestionScreen();
 		try {
-			mg.start(mg.getPrimary());
+			manageQuestions.start(manageQuestions.getPrimary());
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -194,7 +195,7 @@ public class DisplayController {
 	}
 	
 	public void closeManageQuestions() {
-		manageQuestions.getPrimary().hide();
+		QuestionMgmtController.getInstance().getQuestionScreen().getPrimary().hide();
 	}
 	
 	public void closeWinner() {

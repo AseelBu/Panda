@@ -4,7 +4,7 @@ package View;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+import Controller.DisplayController;
 import Controller.QuestionMgmtController;
 import Model.Answer;
 import Model.Question;
@@ -36,6 +36,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 public class ManageQuestions extends Application {
@@ -55,7 +56,26 @@ public class ManageQuestions extends Application {
 		primaryStage.setResizable(false);
 //		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
 //		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo1.png"))); add logo
-		primaryStage.show();
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+			@Override
+			public void handle(WindowEvent event) {
+				
+				DisplayController.getInstance().closeManageQuestions();
+				QuestionMgmtController.getInstance().WriteQuestions();
+				QuestionMgmtController.getInstance().LoadQuestions();
+				DisplayController.getInstance().showMainScreen();
+				
+			}
+			
+			
+			
+			
+			
+			
+		});
+		primary = primaryStage;
+		primary.show();
 		
 		
 		loadDesign();
@@ -437,7 +457,7 @@ public class ManageQuestions extends Application {
 					counter++;
 				}
 				
-				Question newQues = new Question(QuestionMgmtController.getInstance().getQuestions().size()+1,questionContent.getText(),dl,new_Answers,"panda");
+				Question newQues = new Question(QuestionMgmtController.getInstance().getQuestions().size(),questionContent.getText(),dl,new_Answers,"panda");
 				
 				boolean foundCorrect = false;
 				
@@ -970,7 +990,7 @@ public class ManageQuestions extends Application {
 		    					counter++;
 		    				}
 		    				
-		    				Question newQues = new Question(QuestionMgmtController.getInstance().getQuestions().size()+1,questionContent.getText(),dl,new_Answers,"panda");
+		    				Question newQues = new Question(QuestionMgmtController.getInstance().getQuestions().size(),questionContent.getText(),dl,new_Answers,"panda");
 		    				
 		    				boolean foundCorrect = false;
 		    				
