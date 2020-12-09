@@ -79,7 +79,10 @@ public class MainscreenGUI extends Application {
 
     @FXML
     void scoreboard(ActionEvent event) {
-
+    	
+    	DisplayController.getInstance().closeMainscreen();
+    	DisplayController.getInstance().showScoreboard();;
+    	
     }
 
     @FXML

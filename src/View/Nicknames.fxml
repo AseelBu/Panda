@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<fx:root prefHeight="312.0" prefWidth="578.0" type="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<AnchorPane prefHeight="312.0" prefWidth="578.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
    <children>
       <AnchorPane prefHeight="312.0" prefWidth="578.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -44,4 +44,4 @@
          </children>
       </AnchorPane>
    </children>
-</fx:root>
+</AnchorPane>

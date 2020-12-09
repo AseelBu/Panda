@@ -153,6 +153,7 @@ public class QuestionMgmtController {
 	public void LoadQuestions() {
 
 		ArrayList<Question> questions = new ArrayList<Question>();
+		this.getSysData().getQuestions().clear();
 		
 		Gson gson = new Gson();
 		JsonReader reader = null;
@@ -237,6 +238,16 @@ public class QuestionMgmtController {
 	
 	public void removeQuestions(int id){
 		 this.sysData.removeQuestion(id);
+	}
+	
+	public boolean quesAlreadyExists(String content) {
+		
+		for(Question q : this.getSysData().getQuestions()) {
+			if(q.getContent().equals(content)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	

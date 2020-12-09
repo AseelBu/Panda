@@ -143,13 +143,13 @@ public class Question {
 	 * returns the correct answer
 	 * @return answer-the correct answer of the question
 	 */
-	public Answer getCorrectAnswer() {
+	public int getCorrectAnswer() {
 		for(Answer a : this.answers) {
 			if (a.isCorrect()==true) {
-				return a;
+				return a.getId();
 			}
 		}
-		return null;
+		return -1;
 		
 	}
 
@@ -157,6 +157,42 @@ public class Question {
 	
 	
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + ((difficulty == null) ? 0 : difficulty.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Question other = (Question) obj;
+		if (answers == null) {
+			if (other.answers != null)
+				return false;
+		} else if (!answers.equals(other.answers))
+			return false;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
+		if (difficulty != other.difficulty)
+			return false;
+		return true;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Question: id=" + id + ", content=" + content + ", difficulty=" + difficulty + ", answers=" + answers

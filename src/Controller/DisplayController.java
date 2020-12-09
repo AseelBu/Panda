@@ -4,13 +4,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Model.Answer;
+import Model.Board;
 import Model.Game;
 import Model.Piece;
 import Model.Player;
+import Model.Question;
 import View.BoardGUI;
 import View.MainscreenGUI;
 import View.ManageQuestions;
+import View.Nicknames;
+import View.Questions;
 import View.Scoreboard;
+import View.Winner;
 
 public class DisplayController {
 
@@ -19,7 +25,10 @@ public class DisplayController {
 	public static BoardGUI boardGUI;
 	public static ManageQuestions manageQuestions;
 	public static Scoreboard scoreboard;
-	
+	public static Nicknames nicknames;
+	public static Questions questions;
+	public static Winner winner;
+
 	private DisplayController() {
 		
 	}
@@ -130,18 +139,43 @@ public class DisplayController {
 	
 	public void showManageQuestions(){
 		
-		ManageQuestions mg = QuestionMgmtController.getInstance().getQuestionScreen();
+		manageQuestions = QuestionMgmtController.getInstance().getQuestionScreen();
 		try {
-			mg.start(mg.getPrimary());
+			manageQuestions.start(manageQuestions.getPrimary());
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	
 	public void showScoreboard() {
+		ScoreBoardController.getInstance().loadHistory();
 		scoreboard = new Scoreboard();
 		scoreboard.start(scoreboard.getPrimary());
+	}
+	
+	public void showNicknames() {
+		nicknames = new Nicknames();
+		nicknames.start(nicknames.getPrimary());
+	}
+	
+	public void showQuestion(Question question) throws Exception {
+		questions = new Questions();
+		questions.start(questions.getPrimary());
+		HashMap<Integer, String> answers = new HashMap<>();
+		
+		for(Answer a : question.getAnswers()) {
+			answers.put(a.getId(), a.getContent());
+		}
+		
+		questions.loadDesign(question.getId(), question.getContent(), answers, question.getDifficulty());
+	}
+	
+	public void showWinner(String name, int score) {
+		winner = new Winner();
+		winner.start(winner.getPrimary());
+		winner.loadDisplay(name, score);
 	}
 	
 	public void closeMainscreen() {
@@ -150,6 +184,10 @@ public class DisplayController {
 	
 	public void closeBoard() {
 		boardGUI.getPrimary().hide();
+		boardGUI.destruct();
+		Game.destruct();
+		Board.destruct();
+		Player.destruct();
 	}
 	
 	public void closeScoreboard() {
@@ -157,7 +195,10 @@ public class DisplayController {
 	}
 	
 	public void closeManageQuestions() {
-		manageQuestions.getPrimary().hide();
+		QuestionMgmtController.getInstance().getQuestionScreen().getPrimary().hide();
 	}
 	
+	public void closeWinner() {
+		winner.getPrimary().hide();
+	}
 }
