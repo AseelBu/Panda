@@ -619,12 +619,10 @@ public class BoardGUI extends Application {
 	}
 
 	/**
+	 * implement Turn Changing
 	 * set new turn
 	 * @param color
 	 */
-
-
-	//implement Turn Changing
 	public void setNewTurn(PrimaryColor color) {
 		boolean running = (turnTimer == null ? false : true);
 		if(!running) {

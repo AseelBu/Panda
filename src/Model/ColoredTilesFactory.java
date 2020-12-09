@@ -42,9 +42,16 @@ public class ColoredTilesFactory {
 		}
 		else if (SeconderyTileColor.RED.equals(color2)) {
 			return new Tile(location, color1, color2, pieceOnTile);
+		}else if (SeconderyTileColor.GREEN.equals(color2)) {
+			return new Tile(location, color1, color2, pieceOnTile);
+		}else if (SeconderyTileColor.ORANGE.equals(color2)) {
+			return new Tile(location, color1, color2, pieceOnTile);
+		}else if (SeconderyTileColor.YELLOW_ORANGE.equals(color2)) {
+			//TODO yellow_orange tile factory
+			return new Tile(location, color1, color2, pieceOnTile);
 		}
 		else if (color2==null) {
-
+			//TODO ---
 		}
 		return null;
 

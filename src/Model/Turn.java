@@ -79,29 +79,7 @@ public class Turn {
 				+ ", currentPlayer=" + currentPlayer + "]";
 	}
 
-	/**
-	 * A green tile will appear after 30 seconds
-	 */
-	public void ShowGreenAfter30()
-	{
-		Random rand = new Random(); 
-		ArrayList<Tile> tiles=Board.getInstance().getAllLegalMoves(currentPlayer.getColor());
-		//	t.get(rand.nextInt(t.size())).setColor2(SeconderyTileColor.GREEN);
-		Board.getInstance().addSeconderyColorToBoardTile(tiles.get(rand.nextInt(tiles.size())),SeconderyTileColor.GREEN);
-	}
-
-	/**
-	 * An orange tile will appear after 90 seconds
-	 */
-	public void  ShowOrangeAfter90()
-	{
-
-		ArrayList<Tile> tiles=Board.getInstance().getAllLegalMoves(currentPlayer.getColor());
-		for(Tile tile:tiles)
-		{
-			Board.getInstance().addSeconderyColorToBoardTile(tile,SeconderyTileColor.ORANGE);
-		}
-	}
+	
 
 	/**
 	 *  Scoring calculation according to the time of the turn

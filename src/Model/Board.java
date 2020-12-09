@@ -239,7 +239,7 @@ public class Board {
 	 * @return true if replaced successfully,otherwise false
 	 */
 	public boolean replaceTileInSameTileLocation(Tile newTileInstance) {
-
+		if(newTileInstance== null) return false;
 		boolean isSuccess = false;
 		int tileRow = newTileInstance.getLocation().getRow();
 		int tileCol = newTileInstance.getLocation().getColumn();
@@ -577,6 +577,7 @@ public class Board {
 						direc = upDirections;
 					else 
 						direc = downDirections;
+
 					for (Directions dir : direc) {
 						Location tempLoc = pieceLocal.addToLocationDiagonally(dir, 1);
 
@@ -584,7 +585,7 @@ public class Board {
 							Tile locTile = getTileInLocation(tempLoc);
 							if( locTile.isEmpty()) {
 								possibleTileSet.add(locTile);
-							}
+							} 
 						}
 					}
 					Directions[] eat = null;
@@ -598,7 +599,7 @@ public class Board {
 						Piece ediblePiece=p.getEdiblePieceByDirection(dir);
 						if(ediblePiece != null) {
 							Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
-							if(afterEatLoc != null) {
+							if(afterEatLoc != null && getTileInLocation(afterEatLoc).isEmpty()) {
 								possibleTileSet.add(getTileInLocation(afterEatLoc));
 							}
 						}
@@ -608,7 +609,7 @@ public class Board {
 							Piece ediblePiece=p.getEdiblePieceByDirection(dir);
 							if(ediblePiece != null) {
 								Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
-								if(afterEatLoc != null) {
+								if(afterEatLoc != null && getTileInLocation(afterEatLoc).isEmpty()) {
 									possibleTileSet.add(getTileInLocation(afterEatLoc));
 								}
 							}
@@ -971,10 +972,9 @@ public class Board {
 		}
 
 
-		//TODO add red tiles
+		//add red tiles
 
 		if(canAddRedTile()){
-			//		if(isAllPiecesEaten(Game.getInstance().getCurrentPlayerColor())) {
 
 			System.out.println("adding red");
 			Tile randTile=null;
@@ -1008,7 +1008,7 @@ public class Board {
 			System.out.println(t);
 
 		}
-		
+
 		System.out.println("colored list after init: "+this.coloredTilesList);
 	}
 
@@ -1020,6 +1020,7 @@ public class Board {
 		}
 		return false;
 	}
+
 	//helping method for checking if red tile can be added to board or not
 	private boolean canAddBlueTile() {
 		int soldierCount=0,queenCount=0;
@@ -1037,10 +1038,48 @@ public class Board {
 				queenCount++;
 			}
 		}
-
-
 		return (soldierCount == 2 && queenCount == 1);
 	}
 
+	/**
+	 * A green tile to Board
+	 */
+	public Tile AddGreenTile(){
+		ColoredTilesFactory coloredTilesFactory =  new ColoredTilesFactory();
+		
+		//check if legal tiles are all colored
+		ArrayList<Tile> legalTiles=getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+		legalTiles.removeAll(coloredTilesList);
+		if(legalTiles.isEmpty()) return null;
+		
+		Tile randTile=null;
+		do {
+			randTile= getRandomLegalTile();
+			System.out.println("doing do while");
+			System.out.println("randTile= "+randTile);
+			System.out.println("coloredTiles List \n"+coloredTilesList.size());
+			//TODO ask what to do when all possible tiles are taken by other colors
+		}while(coloredTilesList.contains(randTile) );
+		Tile gTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.GREEN);
+		if(replaceTileInSameTileLocation(gTile)) {
+			coloredTilesList.add(gTile);
+		}else {
+			System.out.println("Error: couldn't replace tile when adding green");
+		}
+		return gTile;
+	}
 
+	/**
+	 * TODO
+	 * An orange tile toBoard
+	 */
+	public void  addOrangeTiles()
+	{
+
+		ArrayList<Tile> tiles=Board.getInstance().getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+		for(Tile tile:tiles)
+		{
+			Board.getInstance().addSeconderyColorToBoardTile(tile,SeconderyTileColor.ORANGE);
+		}
+	}
 }
