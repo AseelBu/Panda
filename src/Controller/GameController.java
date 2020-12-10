@@ -7,6 +7,7 @@ import Model.Board;
 import Model.Game;
 import Model.Player;
 import Model.SysData;
+import Model.Turn;
 import Utils.PrimaryColor;
 import View.BoardGUI;
 import View.Scoreboard;
@@ -46,9 +47,13 @@ public class GameController {
 	//switches current turn or finishes game if needed
 	public boolean switchTurn() {
 		Board board= Board.getInstance();
+		Game game= Game.getInstance();
 		boolean didSwitch=false;
 		
-		if(Game.getInstance().getTurn().getMoveCounter() == 0) {
+		//DisplayController.boardGUI.setPlayerScore(game.getCurrentPlayerColor(),BoardController.getInstance().getPlayerScore(game.getCurrentPlayerColor()));
+		
+		
+		if(game.getTurn().getMoveCounter() == 0) {
 			Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
 			
 			didSwitch=true;
@@ -62,8 +67,10 @@ public class GameController {
 			DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
 			return false;
 		}
+		
 		board.initiateBoardSecondaryColors();
 		BoardController.getInstance().loadTilesColors();
+		
 		return didSwitch;
 	}
 	

@@ -679,8 +679,6 @@ public class BoardGUI extends Application {
 				selectedCol = '_';
 
 
-
-
 				boolean burnt = boardController.checkBurnCurrent(toRow, toCol);
 				if(!burnt) {
 //					int pieceIndexInToTile = isToTileYellow? 1:0;
@@ -720,8 +718,8 @@ public class BoardGUI extends Application {
 						if(msg != null) {
 							notifyUpgradeInGame(msg);
 						}
-
-						//TODO remove yellow and return piece to index 0 
+						
+						
 						//remove all tiles color
 						removeAllColoredTiles();
 					
@@ -732,9 +730,10 @@ public class BoardGUI extends Application {
 					//remove all tiles color
 					removeAllColoredTiles();
 				}
+				
 				checkToBurnPiece();
 				GameController.getInstance().switchTurn();
-				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
+//				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
 				if(GameController.getInstance().isGameRunning()) {
 					PrimaryColor newColor = boardController.getPlayerTurn();
 					if(newColor != turnColor) {

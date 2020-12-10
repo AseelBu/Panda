@@ -127,6 +127,11 @@ public class BoardController {
 		if(currPlayer.getColor() != piece.getColor()) {
 			throw new IllegalMoveException("You cannot move your opponent's piece");
 		}
+		System.out.println("is tile red  "+Game.getInstance().getTurn().isLastTileRed());
+		System.out.println("lastpieceSame"+Game.getInstance().getTurn().getLastPieceMoved());
+		if(Game.getInstance().getTurn().isLastTileRed() && !Game.getInstance().getTurn().getLastPieceMoved().equals(piece)) {
+			throw new IllegalMoveException("You can only move the piece in tile "+Game.getInstance().getTurn().getLastPieceMoved().getLocation());
+		}
 
 		if(piece.move(toTile, direction)) {
 			Turn turn = Game.getInstance().getTurn();
@@ -347,6 +352,9 @@ public class BoardController {
 			case RED: {		
 				
 				Game.getInstance().getTurn().IncrementMoveCounter();
+				Game.getInstance().getTurn().setLastTileRed(true);
+				System.out.println("board control set red= "+Game.getInstance().getTurn().isLastTileRed());
+				
 				return null;
 			}
 			case GREEN: {
@@ -354,14 +362,18 @@ public class BoardController {
 				return null;
 			}
 
-		case YELLOW:{ //getIdQuestion(row,col);
-			DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion()); return null;}
-		//
-			case YELLOW_ORANGE:{//getIdQuestion(row,col);
-				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion()); return null;}
-				//TODO QuestionPOPUP
-				//call boardGUI to open pop up question with blur on screen
-				//continue in checkQuestionAnswer
+		case YELLOW:
+		case YELLOW_ORANGE:{
+			// QuestionPOPUP
+			//call boardGUI to open pop up question with blur on screen
+			//continue in checkQuestionAnswer
+				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col))).getQuestion());
+				
+				return null;
+				}
+				
+				
+				
 		
 			case BLUE:{
 				DisplayController.boardGUI.showRetrievalSelection(getAllAvailableRetrievals());
