@@ -367,7 +367,7 @@ public class BoardController {
 		
 			case BLUE:{
 				DisplayController.boardGUI.showRetrievalSelection(getAllAvailableRetrievals());
-				return null;
+				return "BLUE";
 			}
 
 
@@ -456,7 +456,7 @@ public class BoardController {
 	 */
 	public void retrieveSoldier(int row, char col, PrimaryColor pieceColor) {
 		try {
-			Board.getInstance().addPiece(new Soldier((22 + retrievals),pieceColor, new Location(row, col)));
+			Board.getInstance().addPiece(new Soldier((25 + retrievals),pieceColor, new Location(row, col)));
 		} catch (LocationException e) {
 			e.printStackTrace();
 		}
