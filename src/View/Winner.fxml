@@ -20,7 +20,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="105.0" layoutY="78.0" prefHeight="30.0" prefWidth="69.0" text="Score:">
+      <Label fx:id="scorelbl" alignment="CENTER" layoutX="105.0" layoutY="78.0" prefHeight="30.0" prefWidth="69.0" text="Score:">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -30,7 +30,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <ImageView fitHeight="83.0" fitWidth="98.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="img" fitHeight="83.0" fitWidth="98.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/Queen_BLACK.png" />
          </image>

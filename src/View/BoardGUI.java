@@ -851,7 +851,7 @@ public class BoardGUI extends Application {
 
 		String str = String.valueOf((hour > 9 ? hour : ("0" + hour)) + ":" + (minute > 9 ? minute : ("0" + minute)) +
 				":" + (second > 9 ? second : ("0" + second)));
-
+		if(mainAnchor == null) return;
 		((TextField) mainAnchor.lookup("#TotalTime")).setText(str);;
 	}
 
@@ -867,7 +867,7 @@ public class BoardGUI extends Application {
 		}
 
 		String str = String.valueOf((minute > 9 ? minute : ("0" + minute)) + ":" + (second > 9 ? second : ("0" + second)));
-
+		if(mainAnchor == null) return;
 		((TextField) mainAnchor.lookup("#Turn_Timer")).setText(str);;
 	}
 
@@ -901,7 +901,7 @@ public class BoardGUI extends Application {
 //			DisplayController.getInstance().closeBoard();
 //			DisplayController.getInstance().showMainScreen();
 //		}
-		DisplayController.getInstance().showWinner(name, score);
+		DisplayController.getInstance().showWinner(name, score, color);
 	}
 
 	/**

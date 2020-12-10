@@ -316,7 +316,10 @@ public class BoardController {
 	public void forceFinishGame() {
 		Game.getInstance().finishGame();
 		Player player = BoardController.getInstance().getWinner();
-      	DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
+		if(player != null)
+			DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
+		else
+			DisplayController.boardGUI.notifyWinner(null, Integer.MIN_VALUE, PrimaryColor.WHITE);
 		boardGUI.destruct();
 	}
 
