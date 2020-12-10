@@ -10,6 +10,7 @@ import Model.Game;
 import Model.Piece;
 import Model.Player;
 import Model.Question;
+import Utils.PrimaryColor;
 import View.BoardGUI;
 import View.MainscreenGUI;
 import View.ManageQuestions;
@@ -172,10 +173,10 @@ public class DisplayController {
 		questions.loadDesign(question.getId(), question.getContent(), answers, question.getDifficulty());
 	}
 	
-	public void showWinner(String name, int score) {
+	public void showWinner(String name, int score,PrimaryColor color) {
 		winner = new Winner();
 		winner.start(winner.getPrimary());
-		winner.loadDisplay(name, score);
+		winner.loadDisplay(name, score, color);
 	}
 	
 	public void closeMainscreen() {
