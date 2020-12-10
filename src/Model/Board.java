@@ -958,7 +958,7 @@ public class Board {
 			Tile randTile=null;
 			do {
 				randTile= getRandomFreeTile();
-			}while(randTile==null || coloredTilesList.contains(randTile));
+			}while(coloredTilesList.contains(randTile));
 			YellowTile yTile= (YellowTile) coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.YELLOW);
 			replaceTileInSameTileLocation(yTile);
 			coloredTilesList.add(yTile);
@@ -972,7 +972,7 @@ public class Board {
 			Tile randTile=null;
 			do {
 				randTile= getRandomLegalTile();
-			}while(randTile==null || coloredTilesList.contains(randTile));
+			}while(coloredTilesList.contains(randTile));
 			Tile rTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.RED);
 			replaceTileInSameTileLocation(rTile);
 			coloredTilesList.add(rTile);
@@ -987,7 +987,7 @@ public class Board {
 			Tile randTile=null;
 			do {
 				randTile = getRandomFreeTile();
-			}while(randTile==null || coloredTilesList.contains(randTile));
+			}while(coloredTilesList.contains(randTile));
 			BlueTile bTile =(BlueTile)coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.BLUE);
 			replaceTileInSameTileLocation(bTile);
 			coloredTilesList.add(bTile);
