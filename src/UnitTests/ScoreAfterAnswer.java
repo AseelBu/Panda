@@ -87,17 +87,17 @@ public class ScoreAfterAnswer {
 		
 		Game.getInstance().getPlayerr().setCurrentScore(0);
 		
-		ArrayList<Question> intermediateQuestions = new ArrayList<Question>();
+		ArrayList<Question> easyQuestions = new ArrayList<Question>();
 		
 		// add all intermediate questions
 		
 		for(Question q : SysData.getInstance().getQuestions()) {
 			if(q.getDifficulty().equals(DifficultyLevel.EASY)) {
-				intermediateQuestions.add(q);
+				easyQuestions.add(q);
 			}
 		}
 		
-		for(Question q : intermediateQuestions) {
+		for(Question q : easyQuestions) {
 			
 			// answer correctly
 			int oldscore = Game.getInstance().getPlayerr().getCurrentScore();
@@ -127,17 +127,17 @@ public class ScoreAfterAnswer {
 		
 		Game.getInstance().getPlayerr().setCurrentScore(0);
 		
-		ArrayList<Question> intermediateQuestions = new ArrayList<Question>();
+		ArrayList<Question> hardQuestions = new ArrayList<Question>();
 		
 		// add all intermediate questions
 		
 		for(Question q : SysData.getInstance().getQuestions()) {
 			if(q.getDifficulty().equals(DifficultyLevel.HARD)) {
-				intermediateQuestions.add(q);
+				hardQuestions.add(q);
 			}
 		}
 		
-		for(Question q : intermediateQuestions) {
+		for(Question q : hardQuestions) {
 			
 			// answer correctly
 			int oldscore = Game.getInstance().getPlayerr().getCurrentScore();
