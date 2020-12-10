@@ -677,31 +677,39 @@ public class BoardGUI extends Application {
 				removeSelectionFromPiece((ImageView) fromTile.getChildren().get(0));
 				selectedRow = -1;
 				selectedCol = '_';
-				
+
 				boolean burnt = boardController.checkBurnCurrent(toRow, toCol);
+				System.out.println("BURNTTTTTTTTTTTT" + burnt);
 				if(!burnt) {
 //					int pieceIndexInToTile = isToTileYellow? 1:0;
 					//TODO should burning piece have the powers of colored tile???
 					if(toTileColor!= null && !isToTileYellow) {
 						//step on color
-						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);	
-						if(msg != null) {
+						removeAllColoredTiles();
+						toTile.getChildren().add(fromTile.getChildren().get(0));
+						fromTile.getChildren().clear();
+						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);
+						if (msg != null) {
+							if(msg.matches("BLUE")) {
+								return;
+							}
 							notifyUpgradeInGame(msg);
 						}
 					
 						System.out.println("removing "+toTileColor+" "+toRow+","+toCol);
 						//remove all tiles color
-						removeAllColoredTiles();
 					}
 					else if(toTileColor== null) {
 						removeAllColoredTiles();
+						toTile.getChildren().add(fromTile.getChildren().get(0));
+						fromTile.getChildren().clear();
 					}
 					//add piece back to board in new location
-					toTile.getChildren().add(fromTile.getChildren().get(0));
 
+				}else {
+					fromTile.getChildren().clear();
 				}
 				//remove piece from source tile
-				fromTile.getChildren().clear();
 
 				//if piece still on board,check if it needs to become  queen
 				if(!burnt) {
@@ -717,9 +725,12 @@ public class BoardGUI extends Application {
 						if(msg != null) {
 							notifyUpgradeInGame(msg);
 						}
-						//TODO remove yellow and return piece to index 0 
+
 						//remove all tiles color
 						removeAllColoredTiles();
+						toTile.getChildren().add(fromTile.getChildren().get(0));
+						fromTile.getChildren().clear();
+						
 						checkToBurnPiece();
 						return;
 					}
@@ -728,9 +739,10 @@ public class BoardGUI extends Application {
 					//remove all tiles color
 					removeAllColoredTiles();
 				}
+				
 				checkToBurnPiece();
 				GameController.getInstance().switchTurn();
-				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
+//				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
 				if(GameController.getInstance().isGameRunning()) {
 					PrimaryColor newColor = boardController.getPlayerTurn();
 					if(newColor != turnColor) {
@@ -996,6 +1008,17 @@ public class BoardGUI extends Application {
 								System.out.println("Trying to Retrieve Soldier to Tile (" + tileId[1] + "," + tileId[2] + ")");
 								mainAnchor.getChildren().remove(tempBoard);
 								BoardController.getInstance().retrieveSoldier(Integer.parseInt(tileId[1]), tileId[2].toCharArray()[0], color);
+								BoardController.getInstance().refreshScoreInBoardGUI();
+								   
+								GameController.getInstance().switchTurn();
+								DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
+								if(GameController.getInstance().isGameRunning()) {
+									PrimaryColor newColor = BoardController.getInstance().getPlayerTurn();
+									if(newColor != turnColor) {
+										DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getPlayerTurn());
+										DisplayController.boardGUI.getTurnTimer().resetColors();
+									}
+								}
 							}
 						});
 					}

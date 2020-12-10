@@ -78,7 +78,7 @@ public class Nicknames extends Application {
 			}
 		});
 		
-		ImageView pic = new ImageView(new Image(getClass().getResource("pictures/logo.png").toString()));
+		ImageView pic = new ImageView(new Image(getClass().getResource("pictures/logo.gif").toString()));
 		pic.setFitHeight(158.0);
 		pic.setFitWidth(162.0);
 		pic.setLayoutX(215.0);

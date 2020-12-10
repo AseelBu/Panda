@@ -962,16 +962,19 @@ public class Board {
 			YellowTile yTile= (YellowTile) coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.YELLOW);
 			replaceTileInSameTileLocation(yTile);
 			coloredTilesList.add(yTile);
+			System.out.println("adding yellow in "+randTile);
 		}
 
 
 		//add red tiles
 
 		if(canAddRedTile()){
+
 			ArrayList<Tile> legalTiles=getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
 			legalTiles.removeAll(coloredTilesList);
 			if(legalTiles.isEmpty()) return;
 			System.out.println("adding red");
+
 			Tile randTile=null;
 			do {
 				randTile= getRandomLegalTile();
@@ -979,6 +982,7 @@ public class Board {
 			Tile rTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.RED);
 			replaceTileInSameTileLocation(rTile);
 			coloredTilesList.add(rTile);
+			System.out.println("adding red in "+randTile);
 		}else {
 			System.out.println("not adding red");
 		}
@@ -1005,8 +1009,11 @@ public class Board {
 //
 //		}
 //		
-//		System.out.println("colored list after init: "+this.coloredTilesList);
-
+//		
+//		System.out.println("colored list after init: ");
+//		for(Tile t:this.coloredTilesList) {
+//			System.out.println(t);
+//		}
 	}
 
 	//helping method for checking if red tile can be added to board or not

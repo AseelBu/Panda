@@ -127,6 +127,11 @@ public class BoardController {
 		if(currPlayer.getColor() != piece.getColor()) {
 			throw new IllegalMoveException("You cannot move your opponent's piece");
 		}
+		System.out.println("is tile red  "+Game.getInstance().getTurn().isLastTileRed());
+		System.out.println("lastpieceSame"+Game.getInstance().getTurn().getLastPieceMoved());
+		if(Game.getInstance().getTurn().isLastTileRed() && !Game.getInstance().getTurn().getLastPieceMoved().equals(piece)) {
+			throw new IllegalMoveException("You can only move the piece in tile "+Game.getInstance().getTurn().getLastPieceMoved().getLocation());
+		}
 
 		if(piece.move(toTile, direction)) {
 			Turn turn = Game.getInstance().getTurn();
@@ -340,40 +345,43 @@ public class BoardController {
 
 	 */
 	public String stepOnColorTile(int row,char col,SeconderyTileColor tileColor) {
+		System.out.println(tileColor);
 		try {
 			System.out.println("stepping on "+tileColor+" tile");
 
 			switch(tileColor) {
-			case RED: {		
+				case RED: {		
+					Game.getInstance().getTurn().setLastTileRed(true);
+					try {
+						Game.getInstance().getTurn().IncrementMoveCounter();						
+					}catch (GameUpgradeException e) {
+						return e.getMessage();
+					}					
+					return null;
+				}
+				case GREEN: {
+					Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
+					return null;
+				}
+
+
+				case YELLOW:
+				case YELLOW_ORANGE:{
+					// QuestionPOPUP
+					//call boardGUI to open pop up question with blur on screen
+					//continue in checkQuestionAnswer
+					DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col))).getQuestion(),
+							Game.getInstance().getTurn().getCurrentPlayer().getColor());
 				
-				Game.getInstance().getTurn().IncrementMoveCounter();
-				return null;
+					return null;
+				}
+				case BLUE:{
+					DisplayController.boardGUI.showRetrievalSelection(getAllAvailableRetrievals());
+					return "BLUE";
+				}
+			default:
+				break;
 			}
-			case GREEN: {
-				Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
-				return null;
-			}
-
-		case YELLOW:{ //getIdQuestion(row,col);
-			DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion(), 
-					Game.getInstance().getTurn().getCurrentPlayer().getColor()); return null;}
-		//
-			case YELLOW_ORANGE:{//getIdQuestion(row,col);
-				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion(),
-						Game.getInstance().getTurn().getCurrentPlayer().getColor()); return null;}
-				//TODO QuestionPOPUP
-				//call boardGUI to open pop up question with blur on screen
-				//continue in checkQuestionAnswer
-		
-			case BLUE:{
-				DisplayController.boardGUI.showRetrievalSelection(getAllAvailableRetrievals());
-				return null;
-			}
-
-
-			}
-		} catch (GameUpgradeException e) {
-			return e.getMessage();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -456,7 +464,7 @@ public class BoardController {
 	 */
 	public void retrieveSoldier(int row, char col, PrimaryColor pieceColor) {
 		try {
-			Board.getInstance().addPiece(new Soldier((22 + retrievals),pieceColor, new Location(row, col)));
+			Board.getInstance().addPiece(new Soldier((25 + retrievals),pieceColor, new Location(row, col)));
 		} catch (LocationException e) {
 			e.printStackTrace();
 		}
