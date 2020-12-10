@@ -968,6 +968,9 @@ public class Board {
 		//add red tiles
 
 		if(canAddRedTile()){
+			ArrayList<Tile> legalTiles=getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+			legalTiles.removeAll(coloredTilesList);
+			if(legalTiles.isEmpty()) return;
 			System.out.println("adding red");
 			Tile randTile=null;
 			do {
@@ -1008,6 +1011,7 @@ public class Board {
 
 	//helping method for checking if red tile can be added to board or not
 	private boolean canAddRedTile() {
+		
 		if(isAllPiecesEaten(Game.getInstance().getCurrentPlayerColor())) {
 			return true;
 
