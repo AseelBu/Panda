@@ -355,10 +355,12 @@ public class BoardController {
 			}
 
 		case YELLOW:{ //getIdQuestion(row,col);
-			DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion()); return null;}
+			DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion(), 
+					Game.getInstance().getTurn().getCurrentPlayer().getColor()); return null;}
 		//
 			case YELLOW_ORANGE:{//getIdQuestion(row,col);
-				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion()); return null;}
+				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion(),
+						Game.getInstance().getTurn().getCurrentPlayer().getColor()); return null;}
 				//TODO QuestionPOPUP
 				//call boardGUI to open pop up question with blur on screen
 				//continue in checkQuestionAnswer
@@ -461,4 +463,9 @@ public class BoardController {
 		DisplayController.boardGUI.addPieceToBoard(row, col, pieceColor, true);
 	}
 
+	public void refreshScoreInBoardGUI() {
+		DisplayController.boardGUI.setPlayerScore(Player.getInstance(0).getColor(), Player.getInstance(0).getCurrentScore());
+		DisplayController.boardGUI.setPlayerScore(Player.getInstance(1).getColor(), Player.getInstance(1).getCurrentScore());
+	}
+	
 }

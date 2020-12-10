@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
@@ -658,15 +659,9 @@ public class Queen extends Piece{
 	 * @return HashMap contains tiles, main key is the row (Integer), internal map key is column (Character)
 	 * @throws Exception if there is any missing tile in board
 	 */
-	public HashMap<Integer,HashMap<Character,Tile>> getAllAvailableMovesByDirection(Directions direction) throws Exception{
-		HashMap<Integer,HashMap<Character,Tile>> tiles = new HashMap<>();
-		for(int i = 1 ; i <= 8 ; i++) {
-			for(char c = 'A'; c <='H' ; c++) {
-				HashMap<Character,Tile> temp = new HashMap<>();
-				temp.put(c, null);
-				tiles.put(i, temp);
-			}
-		}
+	public ArrayList<Tile> getAllAvailableMovesByDirection(Directions direction) throws Exception{
+		HashSet<Tile> tiles = new HashSet<>();
+		
 		Board board =Board.getInstance();
 		Piece suspectedToBlock = null;
 		switch(direction) {
@@ -678,21 +673,21 @@ public class Queen extends Piece{
 					Location location = new Location(i, (char)c);
 					if(!this.getLocation().equals(location)) {
 						if(board.getTileInLocation(location).getPiece() != null)
-							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return tiles;
+							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
 						if(board.getTileInLocation(location).getPiece() != null) {
-							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return tiles;
-							if(suspectedToBlock != null) return tiles;
+							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
+							if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
 							else {
 								suspectedToBlock = board.getTileInLocation(location).getPiece();
 
 							}
 						}else {
 							if(suspectedToBlock != null) {
-								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
-								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
 								suspectedToBlock = null;
 							}else {
-								tiles.get(location.getRow()).put(location.getColumn(), board.getTileInLocation(getLocation()));
+								tiles.add(board.getTileInLocation(location));
 
 							}
 						}
@@ -714,21 +709,21 @@ public class Queen extends Piece{
 					Location location = new Location(i, (char)c);
 					if(!this.getLocation().equals(location)) {
 						if(board.getTileInLocation(location).getPiece() != null)
-							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return tiles;
+							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
 						if(board.getTileInLocation(location).getPiece() != null) {
-							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return tiles;
-							if(suspectedToBlock != null) return tiles;
+							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
+							if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
 							else {
 								suspectedToBlock = board.getTileInLocation(location).getPiece();
 
 							}
 						}else {
 							if(suspectedToBlock != null) {
-								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
-								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
 								suspectedToBlock = null;
 							}else {
-								tiles.get(location.getRow()).put(location.getColumn(), board.getTileInLocation(getLocation()));
+								tiles.add(board.getTileInLocation(location));
 
 							}
 						}
@@ -751,21 +746,21 @@ public class Queen extends Piece{
 					Location location = new Location(i, (char)c);
 					if(!this.getLocation().equals(location)) {
 						if(board.getTileInLocation(location).getPiece() != null)
-							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return tiles;
+							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
 						if(board.getTileInLocation(location).getPiece() != null) {
-							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return tiles;
-							if(suspectedToBlock != null) return tiles;
+							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
+							if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
 							else {
 								suspectedToBlock = board.getTileInLocation(location).getPiece();
 
 							}
 						}else {
 							if(suspectedToBlock != null) {
-								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
-								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
 								suspectedToBlock = null;
 							}else {
-								tiles.get(location.getRow()).put(location.getColumn(), board.getTileInLocation(getLocation()));
+								tiles.add(board.getTileInLocation(location));
 
 							}
 						}
@@ -788,21 +783,21 @@ public class Queen extends Piece{
 					Location location = new Location(i, (char)c);
 					if(!this.getLocation().equals(location)) {
 						if(board.getTileInLocation(location).getPiece() != null)
-							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return tiles;
+							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
 						if(board.getTileInLocation(location).getPiece() != null) {
-							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return tiles;
-							if(suspectedToBlock != null) return tiles;
+							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
+							if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
 							else {
 								suspectedToBlock = board.getTileInLocation(location).getPiece();
 
 							}
 						}else {
 							if(suspectedToBlock != null) {
-								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
-								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
 								suspectedToBlock = null;
 							}else {
-								tiles.get(location.getRow()).put(location.getColumn(), board.getTileInLocation(getLocation()));
+								tiles.add(board.getTileInLocation(location));
 
 							}
 						}
@@ -816,10 +811,10 @@ public class Queen extends Piece{
 				
 				break;
 			}
-			default: return tiles;
+			default: return new ArrayList<Tile>(tiles);
 		}
 		
-		return tiles;
+		return new ArrayList<Tile>(tiles);
 	}
 	
 	/**

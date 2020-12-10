@@ -677,10 +677,7 @@ public class BoardGUI extends Application {
 				removeSelectionFromPiece((ImageView) fromTile.getChildren().get(0));
 				selectedRow = -1;
 				selectedCol = '_';
-
-
-
-
+				
 				boolean burnt = boardController.checkBurnCurrent(toRow, toCol);
 				if(!burnt) {
 //					int pieceIndexInToTile = isToTileYellow? 1:0;
@@ -716,16 +713,15 @@ public class BoardGUI extends Application {
 
 					if(toTileColor!=null && isToTileYellow) {
 						//TODO handle  yellow
-						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);	
+						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);
 						if(msg != null) {
 							notifyUpgradeInGame(msg);
 						}
-
 						//TODO remove yellow and return piece to index 0 
 						//remove all tiles color
 						removeAllColoredTiles();
-					
-						
+						checkToBurnPiece();
+						return;
 					}
 				}
 				else {
@@ -1008,6 +1004,13 @@ public class BoardGUI extends Application {
 		}
 	}
 
+	public TurnTimerController getTurnTimer() {
+		return turnTimer;
+	}
+
+	
+	
+	
 	//	public void removeTileColor(int row, char col, SeconderyTileColor tileColor){
 	//		if(mainAnchor == null) return;
 	//		FlowPane board = (FlowPane) mainAnchor.lookup("#board");

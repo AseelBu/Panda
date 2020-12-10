@@ -6,6 +6,8 @@ package Model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Random;
 
@@ -621,23 +623,15 @@ public class Board {
 				}
 			}else if(p instanceof Queen){
 				try {
-					Collection<HashMap<Character, Tile>> temp = null;
-					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.UP_LEFT).values();
-					temp.iterator().next();
-					possibleTileSet.addAll(temp.iterator().next().values());
-
-					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.UP_RIGHT).values();
-					temp.iterator().next();
-					possibleTileSet.addAll(temp.iterator().next().values());
-
-					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_LEFT).values();
-					temp.iterator().next();
-					possibleTileSet.addAll(temp.iterator().next().values());
-
-					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT).values();
-					temp.iterator().next();
-					possibleTileSet.addAll(temp.iterator().next().values());
-
+					HashSet<Tile> hs = new HashSet<Tile>();
+					
+					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.UP_LEFT));
+					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.UP_RIGHT));
+					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_LEFT));
+					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT));
+					hs.remove(null);
+					
+					possibleTileSet.addAll(hs);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
@@ -645,7 +639,6 @@ public class Board {
 			}
 			//TODO handle queen
 		}
-
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>(possibleTileSet);
 		return possibleTiles;
 	}
@@ -975,7 +968,6 @@ public class Board {
 		//add red tiles
 
 		if(canAddRedTile()){
-
 			System.out.println("adding red");
 			Tile randTile=null;
 			do {

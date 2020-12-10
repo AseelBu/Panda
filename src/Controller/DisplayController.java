@@ -161,8 +161,8 @@ public class DisplayController {
 		nicknames.start(nicknames.getPrimary());
 	}
 	
-	public void showQuestion(Question question) throws Exception {
-		questions = new Questions();
+	public void showQuestion(Question question, PrimaryColor turnColor) throws Exception {
+		questions = new Questions(turnColor);
 		questions.start(questions.getPrimary());
 		HashMap<Integer, String> answers = new HashMap<>();
 		

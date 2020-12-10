@@ -29,14 +29,12 @@ public class BoardQuestionsController {
 	private static BoardQuestionsController instance;
 
 	private SysData sysData;
-	private Questions question;
 	
 	/**
 	 * 
 	 */
 	private BoardQuestionsController() {
 		// TODO Auto-generated constructor stub
-		this.question = new Questions();
 		this.sysData = SysData.getInstance();
 	}
 	
