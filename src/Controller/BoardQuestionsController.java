@@ -19,12 +19,12 @@ import View.Questions;
  *
  */
 public class BoardQuestionsController {
-	private final static float CORRECT_EASY_POINTS=100;
-	private final static float CORRECT_MEDIOCRE_POINTS=200;
-	private final static float CORRECT_HARD_POINTS=500;
-	private final static float WRONG_EASY_POINTS=250;
-	private final static float WRONG_MEDIOCRE_POINTS=100;
-	private final static float WRONG_HARD_POINTS=50;
+	private final static int CORRECT_EASY_POINTS=100;
+	private final static int CORRECT_MEDIOCRE_POINTS=200;
+	private final static int CORRECT_HARD_POINTS=500;
+	private final static int WRONG_EASY_POINTS=250;
+	private final static int WRONG_MEDIOCRE_POINTS=100;
+	private final static int WRONG_HARD_POINTS=50;
 	
 	private static BoardQuestionsController instance;
 
@@ -59,13 +59,13 @@ public class BoardQuestionsController {
 	 * @param chosenAnswer
 	 * @return true if the answer is correct, false otherwise
 	 */
-	public static boolean checkQuestionAnswer(int q,int chosenAnswer) {
+	public static boolean checkQuestionAnswer(int qId,int chosenAnswer) {
 		
 		//System.out.println("*********************************************885555558  "+ q);
 		//System.out.println("*********************************************885555558  "+ chosenAnswer);
 
 		
-		int questionId = q;
+		int questionId = qId;
 		
 		//**on close the question pop up ->get from boardGUI the chosen answer**
 		Question currentQuestion=SysData.getInstance().getQuesById(questionId);
@@ -91,14 +91,7 @@ public class BoardQuestionsController {
 		
 	}
 	
-	//TODO implement
-	//TODO use the constants:
-//	private final static float CORRECT_EASY_POINTS=100;
-//	private final static float CORRECT_MEDIOCRE_POINTS=200;
-//	private final static float CORRECT_HARD_POINTS=500;
-//	private final static float WRONG_EASY_POINTS=250;
-//	private final static float WRONG_MEDIOCRE_POINTS=100;
-//	private final static float WRONG_HARD_POINTS=50;
+	
 	/**
 	 * adds point for current player according to question difficulty
 	 * @param quDifficulty
@@ -106,23 +99,16 @@ public class BoardQuestionsController {
 	public static void addPointsForCorrectAnswer(DifficultyLevel quDifficulty){
 		int score=Game.getInstance().getPlayerr().getCurrentScore();
 		switch(quDifficulty){
-		case EASY:Game.getInstance().getPlayerr().setCurrentScore(score+100);
+		case EASY:Game.getInstance().getPlayerr().setCurrentScore(score+CORRECT_EASY_POINTS);
 			break;
-		case MEDIOCRE:Game.getInstance().getPlayerr().setCurrentScore(score+200);
+		case MEDIOCRE:Game.getInstance().getPlayerr().setCurrentScore(score+CORRECT_MEDIOCRE_POINTS);
 			break;
-		case HARD:Game.getInstance().getPlayerr().setCurrentScore(score+500);
+		case HARD:Game.getInstance().getPlayerr().setCurrentScore(score+CORRECT_HARD_POINTS);
 			break;
 		}
 	}
 	
-	//TODO implement
-	//TODO use the constants:
-//	private final static float CORRECT_EASY_POINTS=100;
-//	private final static float CORRECT_MEDIOCRE_POINTS=200;
-//	private final static float CORRECT_HARD_POINTS=500;
-//	private final static float WRONG_EASY_POINTS=250;
-//	private final static float WRONG_MEDIOCRE_POINTS=100;
-//	private final static float WRONG_HARD_POINTS=50;
+	
 	/**
 	 * removes points from current player according to question difficulty
 	 * @param quDifficulty
@@ -130,11 +116,11 @@ public class BoardQuestionsController {
 	public static void removePointsForWrongAnswer(DifficultyLevel quDifficulty){
 		int score=Game.getInstance().getPlayerr().getCurrentScore();
 		switch(quDifficulty){
-		case EASY:Game.getInstance().getPlayerr().setCurrentScore(score-250);
+		case EASY:Game.getInstance().getPlayerr().setCurrentScore(score-WRONG_EASY_POINTS);
 			break;
-		case MEDIOCRE:Game.getInstance().getPlayerr().setCurrentScore(score-100);
+		case MEDIOCRE:Game.getInstance().getPlayerr().setCurrentScore(score-WRONG_MEDIOCRE_POINTS);
 			break;
-		case HARD:Game.getInstance().getPlayerr().setCurrentScore(score-50);
+		case HARD:Game.getInstance().getPlayerr().setCurrentScore(score-WRONG_HARD_POINTS);
 			break;
 		}
 

@@ -15,6 +15,7 @@ public class Turn {
 	private GameTimer timer;
 	private int moveCounter;
 	private Piece lastPieceMoved;
+	private boolean isLastTileRed=false;
 	private Player currentPlayer;
 	private Piece eaten;
 
@@ -30,6 +31,7 @@ public class Turn {
 		lastPieceMoved = null;
 		eaten = null;
 		this.currentPlayer = currentPlayer;
+		System.out.println("new turn started...");
 	}
 
 	
@@ -71,6 +73,21 @@ public class Turn {
 	public void setEaten(Piece eaten) {
 		this.eaten = eaten;
 	}
+	
+	/**
+	 * @param isLastTileRed the isLastTileRed to set
+	 */
+	public void setLastTileRed(boolean isLastTileRed) {
+		this.isLastTileRed = isLastTileRed;
+	}
+
+	/**
+	 * @return the isLastTileRed
+	 */
+	public boolean isLastTileRed() {
+		return isLastTileRed;
+	}
+
 
 	//tostring
 	@Override

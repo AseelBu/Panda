@@ -677,7 +677,7 @@ public class BoardGUI extends Application {
 				removeSelectionFromPiece((ImageView) fromTile.getChildren().get(0));
 				selectedRow = -1;
 				selectedCol = '_';
-				
+
 				boolean burnt = boardController.checkBurnCurrent(toRow, toCol);
 				System.out.println("BURNTTTTTTTTTTTT" + burnt);
 				if(!burnt) {
@@ -725,7 +725,7 @@ public class BoardGUI extends Application {
 						if(msg != null) {
 							notifyUpgradeInGame(msg);
 						}
-						//TODO remove yellow and return piece to index 0 
+
 						//remove all tiles color
 						removeAllColoredTiles();
 						toTile.getChildren().add(fromTile.getChildren().get(0));
@@ -739,9 +739,10 @@ public class BoardGUI extends Application {
 					//remove all tiles color
 					removeAllColoredTiles();
 				}
+				
 				checkToBurnPiece();
 				GameController.getInstance().switchTurn();
-				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
+//				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
 				if(GameController.getInstance().isGameRunning()) {
 					PrimaryColor newColor = boardController.getPlayerTurn();
 					if(newColor != turnColor) {
