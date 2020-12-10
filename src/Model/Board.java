@@ -6,6 +6,8 @@ package Model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Random;
 
@@ -621,23 +623,15 @@ public class Board {
 				}
 			}else if(p instanceof Queen){
 				try {
-					Collection<HashMap<Character, Tile>> temp = null;
-					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.UP_LEFT).values();
-					temp.iterator().next();
-					possibleTileSet.addAll(temp.iterator().next().values());
-
-					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.UP_RIGHT).values();
-					temp.iterator().next();
-					possibleTileSet.addAll(temp.iterator().next().values());
-
-					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_LEFT).values();
-					temp.iterator().next();
-					possibleTileSet.addAll(temp.iterator().next().values());
-
-					temp = ((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT).values();
-					temp.iterator().next();
-					possibleTileSet.addAll(temp.iterator().next().values());
-
+					HashSet<Tile> hs = new HashSet<Tile>();
+					
+					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.UP_LEFT));
+					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.UP_RIGHT));
+					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_LEFT));
+					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT));
+					hs.remove(null);
+					
+					possibleTileSet.addAll(hs);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
@@ -645,7 +639,6 @@ public class Board {
 			}
 			//TODO handle queen
 		}
-
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>(possibleTileSet);
 		return possibleTiles;
 	}
@@ -965,7 +958,7 @@ public class Board {
 			Tile randTile=null;
 			do {
 				randTile= getRandomFreeTile();
-			}while(randTile==null || coloredTilesList.contains(randTile));
+			}while(coloredTilesList.contains(randTile));
 			YellowTile yTile= (YellowTile) coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.YELLOW);
 			replaceTileInSameTileLocation(yTile);
 			coloredTilesList.add(yTile);
@@ -977,11 +970,15 @@ public class Board {
 
 		if(canAddRedTile()){
 
-			
+			ArrayList<Tile> legalTiles=getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+			legalTiles.removeAll(coloredTilesList);
+			if(legalTiles.isEmpty()) return;
+			System.out.println("adding red");
+
 			Tile randTile=null;
 			do {
 				randTile= getRandomLegalTile();
-			}while(randTile==null || coloredTilesList.contains(randTile));
+			}while(coloredTilesList.contains(randTile));
 			Tile rTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.RED);
 			replaceTileInSameTileLocation(rTile);
 			coloredTilesList.add(rTile);
@@ -997,7 +994,7 @@ public class Board {
 			Tile randTile=null;
 			do {
 				randTile = getRandomFreeTile();
-			}while(randTile==null || coloredTilesList.contains(randTile));
+			}while(coloredTilesList.contains(randTile));
 			BlueTile bTile =(BlueTile)coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.BLUE);
 			replaceTileInSameTileLocation(bTile);
 			coloredTilesList.add(bTile);
@@ -1021,6 +1018,7 @@ public class Board {
 
 	//helping method for checking if red tile can be added to board or not
 	private boolean canAddRedTile() {
+		
 		if(isAllPiecesEaten(Game.getInstance().getCurrentPlayerColor())) {
 			return true;
 

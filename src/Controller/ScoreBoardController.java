@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -100,7 +101,13 @@ public class ScoreBoardController {
 			}
 			this.getSysData().sortHighscores();
 			objectInputStream.close();
+		}catch(FileNotFoundException e){
+			
+			this.writeHistory();
+			this.loadHistory();
+			
 		} catch (IOException e) {
+			
 			e.printStackTrace();
 		}
 

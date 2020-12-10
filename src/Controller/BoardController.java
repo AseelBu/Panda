@@ -362,18 +362,18 @@ public class BoardController {
 				return null;
 			}
 
+
 		case YELLOW:
 		case YELLOW_ORANGE:{
 			// QuestionPOPUP
 			//call boardGUI to open pop up question with blur on screen
 			//continue in checkQuestionAnswer
-				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col))).getQuestion());
+				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col))).getQuestion(),
+						Game.getInstance().getTurn().getCurrentPlayer().getColor());
 				
 				return null;
 				}
-				
-				
-				
+
 		
 			case BLUE:{
 				DisplayController.boardGUI.showRetrievalSelection(getAllAvailableRetrievals());
@@ -473,4 +473,9 @@ public class BoardController {
 		DisplayController.boardGUI.addPieceToBoard(row, col, pieceColor, true);
 	}
 
+	public void refreshScoreInBoardGUI() {
+		DisplayController.boardGUI.setPlayerScore(Player.getInstance(0).getColor(), Player.getInstance(0).getCurrentScore());
+		DisplayController.boardGUI.setPlayerScore(Player.getInstance(1).getColor(), Player.getInstance(1).getCurrentScore());
+	}
+	
 }

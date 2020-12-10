@@ -60,7 +60,8 @@ public class GameController {
 		}
 
 		if((board.getColorPieces(PrimaryColor.WHITE).size() == 0 
-				|| board.getColorPieces(PrimaryColor.BLACK).size() == 0) || !Game.getInstance().isGameRunning()) {
+				|| board.getColorPieces(PrimaryColor.BLACK).size() == 0) || !Game.getInstance().isGameRunning()
+				|| Game.getInstance().getBoard().isPlayerStuck((Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 			Game.getInstance().finishGame();
 			didSwitch=true;
 			Player player = BoardController.getInstance().getWinner();

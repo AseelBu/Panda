@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Controller.BoardController;
 import Controller.BoardQuestionsController;
+import Controller.DisplayController;
+import Controller.GameController;
 import Utils.DifficultyLevel;
+import Utils.PrimaryColor;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,6 +32,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class Questions extends Application{
@@ -35,6 +40,11 @@ public class Questions extends Application{
 	private static AnchorPane mainAnchor;
 	private Stage primary;
 	private ToggleGroup group;
+	private PrimaryColor turnColor;
+	
+	public Questions(PrimaryColor color) {
+		turnColor = color;
+	}
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -49,7 +59,7 @@ public class Questions extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
-		//		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
+		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -109,8 +119,6 @@ public class Questions extends Application{
 		mainAnchor.getChildren().add(ques);
 
 		btn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			
 			@Override
 			public void handle(ActionEvent event) {
 				
@@ -120,15 +128,22 @@ public class Questions extends Application{
 			   if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
 			   {
 				   notifyTrueAnswer("You earn extra points :)\nWell done!");
-				   primary.close();
 			   }
 			   else {
 				   notifyFalseAnswer("You lost points :(\nGood luck next time");
-
-			   primary.close();
 			   }
-
-				
+			   BoardController.getInstance().refreshScoreInBoardGUI();
+			   
+			   GameController.getInstance().switchTurn();
+			   DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
+			   if(GameController.getInstance().isGameRunning()) {
+					PrimaryColor newColor = BoardController.getInstance().getPlayerTurn();
+					if(newColor != turnColor) {
+						DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getPlayerTurn());
+						DisplayController.boardGUI.getTurnTimer().resetColors();
+					}
+				}
+			   primary.close();
 			}
 			
 			}
