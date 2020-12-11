@@ -122,7 +122,6 @@ public class Turn {
 	public void IncrementMoveCounter() throws GameUpgradeException
 	{
 		this.moveCounter++;
-		
 		throw new GameUpgradeException("You just got another move !!");
 	}
 

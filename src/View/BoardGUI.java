@@ -689,10 +689,10 @@ public class BoardGUI extends Application {
 						toTile.getChildren().add(fromTile.getChildren().get(0));
 						fromTile.getChildren().clear();
 						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);
-						if(msg.matches("BLUE")) {
-							return;
-						}
-						else if (msg != null) {
+						if (msg != null) {
+							if(msg.matches("BLUE")) {
+								return;
+							}
 							notifyUpgradeInGame(msg);
 						}
 					

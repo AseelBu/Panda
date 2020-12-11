@@ -345,45 +345,43 @@ public class BoardController {
 
 	 */
 	public String stepOnColorTile(int row,char col,SeconderyTileColor tileColor) {
+		System.out.println(tileColor);
 		try {
 			System.out.println("stepping on "+tileColor+" tile");
 
 			switch(tileColor) {
-			case RED: {		
-				
-				Game.getInstance().getTurn().IncrementMoveCounter();
-				Game.getInstance().getTurn().setLastTileRed(true);
-				System.out.println("board control set red= "+Game.getInstance().getTurn().isLastTileRed());
-				
-				return null;
-			}
-			case GREEN: {
-				Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
-				return null;
-			}
-
-
-		case YELLOW:
-		case YELLOW_ORANGE:{
-			// QuestionPOPUP
-			//call boardGUI to open pop up question with blur on screen
-			//continue in checkQuestionAnswer
-				DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col))).getQuestion(),
-						Game.getInstance().getTurn().getCurrentPlayer().getColor());
-				
-				return null;
+				case RED: {		
+					Game.getInstance().getTurn().setLastTileRed(true);
+					try {
+						Game.getInstance().getTurn().IncrementMoveCounter();						
+					}catch (GameUpgradeException e) {
+						return e.getMessage();
+					}					
+					return null;
+				}
+				case GREEN: {
+					Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
+					return null;
 				}
 
-		
-			case BLUE:{
-				DisplayController.boardGUI.showRetrievalSelection(getAllAvailableRetrievals());
-				return "BLUE";
-			}
 
-
+				case YELLOW:
+				case YELLOW_ORANGE:{
+					// QuestionPOPUP
+					//call boardGUI to open pop up question with blur on screen
+					//continue in checkQuestionAnswer
+					DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col))).getQuestion(),
+							Game.getInstance().getTurn().getCurrentPlayer().getColor());
+				
+					return null;
+				}
+				case BLUE:{
+					DisplayController.boardGUI.showRetrievalSelection(getAllAvailableRetrievals());
+					return "BLUE";
+				}
+			default:
+				break;
 			}
-		} catch (GameUpgradeException e) {
-			return e.getMessage();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
