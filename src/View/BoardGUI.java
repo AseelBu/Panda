@@ -730,7 +730,7 @@ public class BoardGUI extends Application {
 						removeAllColoredTiles();
 						toTile.getChildren().add(fromTile.getChildren().get(0));
 						fromTile.getChildren().clear();
-						
+					
 						checkToBurnPiece();
 						return;
 					}
