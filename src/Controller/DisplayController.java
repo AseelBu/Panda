@@ -44,8 +44,6 @@ public class DisplayController {
 	}
 	
 	public void showBoard(Player[] players) {
-		//TODO move to nicknames screen
-		
 		if(players != null) {
 			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
 			System.out.println("Player 2 : " + players[1].getNickname());
@@ -81,10 +79,10 @@ public class DisplayController {
 		load = MiscController.getInstance().loadGame(file); 
 		
 		if(load == null) {
-			//TODO
+			nicknames.notifyError("File cannot be loaded.. check the file format!");
+			this.showMainScreen();
+			return;
 		}
-		
-		//TODO GET PLAYERS NICKNAME from GUI
 	
 		if(players != null) {
 			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
