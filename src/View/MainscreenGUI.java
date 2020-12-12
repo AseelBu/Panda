@@ -65,14 +65,14 @@ public class MainscreenGUI extends Application {
     	file = fileChooser.showOpenDialog(primary);
     	
     	if (file != null) {        	
-        	DisplayController.getInstance().closeMainscreen();
-        	DisplayController.getInstance().showBoard(file);
+//        	DisplayController.getInstance().closeMainscreen();
+//        	DisplayController.getInstance().showBoard(file);
+    		DisplayController.getInstance().showNicknames(file);
         }
     }
 
     @FXML
     void manageQuestions(ActionEvent event) {
-    	
     	DisplayController.getInstance().closeMainscreen();
     	DisplayController.getInstance().showManageQuestions();
     }
@@ -87,8 +87,9 @@ public class MainscreenGUI extends Application {
 
     @FXML
     void startGame(ActionEvent event) {
-		DisplayController.getInstance().closeMainscreen();
-		DisplayController.getInstance().showBoard();
+//		DisplayController.getInstance().closeMainscreen();
+//		DisplayController.getInstance().showBoard();
+		DisplayController.getInstance().showNicknames();
     }
 	
 }

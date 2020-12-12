@@ -1,12 +1,16 @@
 package View;
 
+import java.io.File;
 import java.io.IOException;
 
 import Controller.BoardController;
+import Controller.DisplayController;
+import Model.Player;
 import Utils.PrimaryColor;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,15 +19,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class Nicknames extends Application {
 
 	private static AnchorPane mainAnchor;
 	private Stage primary;
-
+	private File file;
+	
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -37,7 +46,8 @@ public class Nicknames extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
-		//		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
+		primaryStage.initStyle(StageStyle.UNDECORATED);
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -72,13 +82,48 @@ public class Nicknames extends Application {
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Player 1 Nickname: " + getPlayerName(PrimaryColor.WHITE));
-				System.out.println("Player 2 Nickname: " + getPlayerName(PrimaryColor.BLACK));
+				
+				String name1 = getPlayerName(PrimaryColor.WHITE);
+				String name2 = getPlayerName(PrimaryColor.BLACK);
+				boolean err = false;
+				if(name1.matches("")) {
+					((Label) mainAnchor.lookup("#WHITE_err")).setVisible(true);
+					err = true;
+				}else {
+					((Label) mainAnchor.lookup("#WHITE_err")).setVisible(false);
+				}
+				if(name2.matches("")) {
+					((Label) mainAnchor.lookup("#BLACK_err")).setVisible(true);
+					err = true;
+				}else {
+					((Label) mainAnchor.lookup("#BLACK_err")).setVisible(false);
+				}
+				if(err) {
+					event.consume();
+					return;
+				}
+				
+				Player player1 = Player.getInstance(0);
+				Player player2 = Player.getInstance(1);
+				player1.setNickname(getPlayerName(PrimaryColor.WHITE));
+				player2.setNickname(getPlayerName(PrimaryColor.BLACK));
+
+				Player[] players = new Player[] {
+										player1,
+										player2
+										};
+				
+				DisplayController.getInstance().closeMainscreen();
+				if(file != null)
+					DisplayController.getInstance().showBoard(players, file);
+				else
+					DisplayController.getInstance().showBoard(players);
+				DisplayController.getInstance().closeNicknames();
 
 			}
 		});
 		
-		ImageView pic = new ImageView(new Image(getClass().getResource("pictures/logo.gif").toString()));
+		ImageView pic = new ImageView(new Image(getClass().getResource("pictures/logo.png").toString()));
 		pic.setFitHeight(158.0);
 		pic.setFitWidth(162.0);
 		pic.setLayoutX(215.0);
@@ -106,6 +151,15 @@ public class Nicknames extends Application {
 		pic1.setPickOnBounds(true);
 		pic1.setPreserveRatio(true);
 		
+		Label err1 = new Label("Please enter a nickname");
+		err1.setLayoutX(33.0);
+		err1.setLayoutY(156.0);
+		err1.setPrefHeight(17.0);
+		err1.setPrefWidth(149.0);
+		err1.setTextFill(Color.RED);
+		err1.setVisible(false);
+		err1.setId("WHITE_err");
+		
 		//Player 2
 		Label lbl2 = new Label("Black Player:");
 		lbl2.setLayoutX(413.0);
@@ -126,6 +180,25 @@ public class Nicknames extends Application {
 		pic2.setPickOnBounds(true);
 		pic2.setPreserveRatio(true);
 		
+		Label err2 = new Label("Please enter a nickname");
+		err2.setLayoutX(409.0);
+		err2.setLayoutY(156.0);
+		err2.setPrefHeight(17.0);
+		err2.setPrefWidth(149.0);
+		err2.setTextFill(Color.RED);
+		err2.setVisible(false);
+		err2.setId("BLACK_err");
+		
+		Button cancel = new Button("Cancel");
+		cancel.setLayoutX(14.0);
+		cancel.setLayoutY(278.0);
+		cancel.setMnemonicParsing(false);
+		cancel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+		    	DisplayController.getInstance().closeNicknames();
+			}
+		});
 		
 		// add components to the screen
 		mainAnchor.getChildren().add(btn);
@@ -136,7 +209,18 @@ public class Nicknames extends Application {
 		mainAnchor.getChildren().add(lbl2);
 		mainAnchor.getChildren().add(txt2);
 		mainAnchor.getChildren().add(pic2);
+		mainAnchor.getChildren().add(err1);
+		mainAnchor.getChildren().add(err2);
+		mainAnchor.getChildren().add(cancel);
 
+	}
+	
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 
 	public String getPlayerName(PrimaryColor color) {
@@ -155,5 +239,6 @@ public class Nicknames extends Application {
 		mainAnchor = null;
 		primary = null;
 	}
+	
 	
 }
