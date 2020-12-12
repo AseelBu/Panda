@@ -685,6 +685,8 @@ public class Queen extends Piece{
 							if(suspectedToBlock != null) {
 //								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
 //								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								tiles.add(board.getTileInLocation(location));
+
 								suspectedToBlock = null;
 							}else {
 								tiles.add(board.getTileInLocation(location));
@@ -721,6 +723,8 @@ public class Queen extends Piece{
 							if(suspectedToBlock != null) {
 //								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
 //								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								tiles.add(board.getTileInLocation(location));
+
 								suspectedToBlock = null;
 							}else {
 								tiles.add(board.getTileInLocation(location));
@@ -758,6 +762,8 @@ public class Queen extends Piece{
 							if(suspectedToBlock != null) {
 //								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
 //								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								tiles.add(board.getTileInLocation(location));
+
 								suspectedToBlock = null;
 							}else {
 								tiles.add(board.getTileInLocation(location));
@@ -795,6 +801,8 @@ public class Queen extends Piece{
 							if(suspectedToBlock != null) {
 //								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
 //								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								tiles.add(board.getTileInLocation(location));
+
 								suspectedToBlock = null;
 							}else {
 								tiles.add(board.getTileInLocation(location));
