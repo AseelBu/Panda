@@ -1017,15 +1017,36 @@ public class Board {
 		ColoredTilesFactory coloredTilesFactory =  new ColoredTilesFactory();
 
 		if(!isThereLegalTilesNotColored()) return null;
-
+		
 		Tile randTile=null;
-		do {
-			randTile= getRandomLegalTile();
-			System.out.println("doing do while");
-			System.out.println("randTile= "+randTile);
-			System.out.println("coloredTiles List \n"+coloredTilesList.size());
-			//TODO ask what to do when all possible tiles are taken by other colors
-		}while(coloredTilesList.contains(randTile));
+		if(Game.getInstance().getTurn().getLastPieceMoved() != null) {
+			if(Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0 || Game.getInstance().getTurn().isLastTileRed()) {
+				ArrayList<Tile> tiles = Game.getInstance().getTurn().getLastPieceMoved().getPossibleMoves(Game.getInstance().getCurrentPlayerColor());
+				tiles.removeAll(coloredTilesList);
+				if(tiles.isEmpty()) {
+					return null;
+				}
+				
+				if(tiles.size() > 0) {
+					Random random = new Random();
+					do {
+						int temp = random.nextInt(tiles.size());
+						randTile = tiles.get(temp);
+						tiles.remove(temp);
+					}while(coloredTilesList.contains(randTile) && tiles.size() > 0);
+				}
+			}
+		}else {
+			do {
+				randTile= getRandomLegalTile();
+				System.out.println("doing do while");
+				System.out.println("randTile= "+randTile);
+				System.out.println("coloredTiles List \n"+coloredTilesList.size());
+				//TODO ask what to do when all possible tiles are taken by other colors
+			}while(coloredTilesList.contains(randTile));
+		}
+		if(randTile == null) return null;
+		
 		Tile gTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.GREEN);
 		if(replaceTileInSameTileLocation(gTile)) {
 			coloredTilesList.add(gTile);
@@ -1042,9 +1063,17 @@ public class Board {
 	public void  addOrangeTiles()
 	{
 		updateBoardToAddingOrange();
+		ArrayList<Tile> tiles = null;
 
-
-		ArrayList<Tile> tiles=Board.getInstance().getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+		if(Game.getInstance().getTurn().getLastPieceMoved() != null) {
+			if(Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0 || Game.getInstance().getTurn().isLastTileRed()) {
+				tiles = Game.getInstance().getTurn().getLastPieceMoved().getPossibleMoves(Game.getInstance().getCurrentPlayerColor());
+			}
+		}else {
+			tiles = Board.getInstance().getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+			
+		}
+		
 		for(Tile tile:tiles)
 		{
 			SeconderyTileColor newSecColor= tile.getColor2()==SeconderyTileColor.YELLOW ? SeconderyTileColor.YELLOW_ORANGE:SeconderyTileColor.ORANGE ;
@@ -1057,8 +1086,20 @@ public class Board {
 	private boolean updateBoardToAddingOrange(){
 		ArrayList<Tile> legalTiles = getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
 
+		ArrayList<Tile> tiles = null;
+
+		if(Game.getInstance().getTurn().getLastPieceMoved() != null) {
+			if(Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0 || Game.getInstance().getTurn().isLastTileRed()) {
+				tiles = Game.getInstance().getTurn().getLastPieceMoved().getPossibleMoves(Game.getInstance().getCurrentPlayerColor());
+			}
+		}else {
+			tiles = Board.getInstance().getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+			
+		}
+		
+		
 		for(Tile t:this.coloredTilesList) {
-			if(legalTiles.contains(t) && !(t instanceof YellowTile)) {
+			if(tiles.contains(t) && !(t instanceof YellowTile)) {
 				//blue transfer to regular tile
 				if(t instanceof BlueTile) {
 					replaceTileInSameTileLocation(new Tile(t.getLocation(), t.getColor1(), null, t.getPiece()));
@@ -1077,10 +1118,19 @@ public class Board {
 	}
 
 	public void updateColoredTileListAfterOrange(){
-		ArrayList<Tile> legalTiles = getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+		ArrayList<Tile> tiles = null;
+		if(Game.getInstance().getTurn().getLastPieceMoved() != null) {
+			if(Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0 || Game.getInstance().getTurn().isLastTileRed()) {
+				tiles = Game.getInstance().getTurn().getLastPieceMoved().getPossibleMoves(Game.getInstance().getCurrentPlayerColor());
+			}
+		}else {
+			tiles = Board.getInstance().getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+			
+		}
+		
 		ArrayList<Tile> coloredTilesToRemove=new ArrayList<Tile>();		
 		for(Tile t:this.coloredTilesList) {
-			if(legalTiles.contains(t) ) {
+			if(tiles.contains(t)) {
 
 				coloredTilesToRemove.add(t);
 			}

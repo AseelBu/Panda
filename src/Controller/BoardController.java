@@ -97,7 +97,6 @@ public class BoardController {
 	}
 
 	public void loadTilesColors(){
-		System.out.println("loading tiles:\n"+Board.getInstance().getColoredTilesList());
 		for(Tile t: Board.getInstance().getColoredTilesList()) {
 			boardGUI.addColoredTileToBoard(t.getLocation().getRow(), t.getLocation().getColumn(), t.getColor2());
 		}
