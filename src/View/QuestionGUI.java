@@ -3,6 +3,7 @@ package View;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 import Controller.BoardController;
 import Controller.BoardQuestionsController;
@@ -17,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
@@ -31,6 +33,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -60,6 +63,7 @@ public class QuestionGUI extends Application{
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
 		primaryStage.initStyle(StageStyle.UNDECORATED);
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -213,13 +217,19 @@ public class QuestionGUI extends Application{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Correct Answer");
 		alert.setHeaderText(info);
-		alert.showAndWait();
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() != null){
+			GameController.getInstance().unpauseGame();
+		} 	
 	}
 	public void notifyFalseAnswer(String info) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Wrong Answer");
 		alert.setHeaderText(info);
-		alert.showAndWait();
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() != null){
+			GameController.getInstance().unpauseGame();
+		} 
 	}
 	/**
 	 * load answers

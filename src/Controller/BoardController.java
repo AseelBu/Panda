@@ -177,7 +177,8 @@ public class BoardController {
 				try {
 					Game.getInstance().getTurn().IncrementMoveCounter();
 				} catch (GameUpgradeException e) {
-					boardGUI.notifyUpgradeInGame(e.getMessage());
+					System.out.println(e.getMessage());
+//					boardGUI.notifyUpgradeInGame(e.getMessage());
 				}
 
 
@@ -372,7 +373,7 @@ public class BoardController {
 					try {
 						Game.getInstance().getTurn().IncrementMoveCounter();						
 					}catch (GameUpgradeException e) {
-						return e.getMessage();
+						return null;
 					}					
 					return null;
 				}

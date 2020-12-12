@@ -31,7 +31,7 @@ public class TurnTimerController extends Thread{
 						DisplayController.boardGUI.updateTurnTimer(seconds);
 
 						//TODO add boolean variable to declare if the special tiles already added
-						if(!addedOrange && seconds >= 10 && !BoardController.getInstance().isAnsweringQuestion()) {
+						if(!addedOrange && seconds >= 10) {
 							//TODO Orange Tile's feature to be added 
 							boardGUI.removeAllColoredTiles();
 							//add to board model
@@ -45,7 +45,7 @@ public class TurnTimerController extends Thread{
 							addedOrange = true;
 							//TODO Orange Tile's feature to be added 
 						
-					}else if(!addedGreen && seconds >= 5 && !BoardController.getInstance().isAnsweringQuestion()) {
+					}else if(!addedGreen && seconds >= 5) {
 						//TODO Green Tile's feature to be added
 						//add to board model
 						Tile addedTile = Board.getInstance().AddGreenTile();

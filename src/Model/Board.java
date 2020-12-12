@@ -1017,7 +1017,7 @@ public class Board {
 			System.out.println("randTile= "+randTile);
 			System.out.println("coloredTiles List \n"+coloredTilesList.size());
 			//TODO ask what to do when all possible tiles are taken by other colors
-		}while(coloredTilesList.contains(randTile) );
+		}while(coloredTilesList.contains(randTile));
 		Tile gTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.GREEN);
 		if(replaceTileInSameTileLocation(gTile)) {
 			coloredTilesList.add(gTile);
