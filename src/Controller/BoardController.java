@@ -144,8 +144,15 @@ public class BoardController {
 		if(currPlayer.getColor() != piece.getColor()) {
 			throw new IllegalMoveException("You cannot move your opponent's piece");
 		}
-		System.out.println("is tile red  "+Game.getInstance().getTurn().isLastTileRed());
-		System.out.println("lastpieceSame"+Game.getInstance().getTurn().getLastPieceMoved());
+		
+		if(Game.getInstance().getTurn().getLastPieceMoved() != null) {
+			if(Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0) {
+				if(!Game.getInstance().getTurn().getLastPieceMoved().equals(piece)) {
+					throw new IllegalMoveException("You can only move the piece in tile "+Game.getInstance().getTurn().getLastPieceMoved().getLocation());
+				}
+			}
+		}
+		
 		if(Game.getInstance().getTurn().isLastTileRed() && !Game.getInstance().getTurn().getLastPieceMoved().equals(piece)) {
 			throw new IllegalMoveException("You can only move the piece in tile "+Game.getInstance().getTurn().getLastPieceMoved().getLocation());
 		}
