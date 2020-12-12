@@ -3,6 +3,7 @@ package Model;
 
 import java.util.ArrayList;
 
+
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
 import Utils.Directions;
@@ -163,8 +164,12 @@ public abstract class  Piece {
 	 */
 	public abstract boolean canEatPiece(Piece targetPiece);
 
-
-
+	/**
+	 * gets all possible tiles for this piece to move to
+	 * @return ArrayList<Tile> of possible tiles for this piece to move to
+	 */
+	public abstract ArrayList<Tile> getPossibleMoves(PrimaryColor playerColor);
+	
 
 
 

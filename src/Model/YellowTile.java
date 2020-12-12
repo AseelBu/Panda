@@ -70,6 +70,6 @@ public class YellowTile extends Tile implements ColoredTileUpdate {
 
 	@Override
 	public String toString() {
-		return "YellowTile: "+super.getLocation()+"question=" + question ;
+		return "YellowTile: "+super.getLocation()+" secondaryColor:"+getColor2()+"\nquestion=" + question +"\n";
 	}
 }

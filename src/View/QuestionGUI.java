@@ -3,6 +3,7 @@ package View;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 import Controller.BoardController;
 import Controller.BoardQuestionsController;
@@ -17,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
@@ -31,21 +33,22 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-public class Questions extends Application{
+public class QuestionGUI extends Application{
 
 	private static AnchorPane mainAnchor;
 	private Stage primary;
 	private ToggleGroup group;
 	private PrimaryColor turnColor;
-	
-	public Questions(PrimaryColor color) {
+
+	public QuestionGUI(PrimaryColor color) {
 		turnColor = color;
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -60,6 +63,7 @@ public class Questions extends Application{
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
 		primaryStage.initStyle(StageStyle.UNDECORATED);
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -69,9 +73,9 @@ public class Questions extends Application{
 			}
 		});
 		primary = primaryStage;
-		
+
 	}
-	
+
 	/**
 	 * Loads Screen Design
 	 */
@@ -80,7 +84,7 @@ public class Questions extends Application{
 		if(answers.isEmpty()) throw new Exception("Question has no Answers");
 		for(String s : answers.values())
 			if(s.matches("")) throw new Exception("Invalid Answer");
-		
+
 		// loads background
 		mainAnchor.getChildren().clear();
 		AnchorPane background = new AnchorPane();
@@ -90,7 +94,7 @@ public class Questions extends Application{
 		AnchorPane.setRightAnchor(background, 0.0);
 		AnchorPane.setTopAnchor(background, 0.0);
 		mainAnchor.getChildren().add(background);
-		
+
 		ImageView img = new ImageView(new Image(getClass().getResource("pictures/3333.png").toString()));
 		img.setFitHeight(65.0);
 		img.setFitWidth(64.0);
@@ -98,7 +102,7 @@ public class Questions extends Application{
 		img.setPickOnBounds(true);
 		img.setPreserveRatio(true);
 		mainAnchor.getChildren().add(img);
-		
+
 		Button btn = new Button("Submit");
 		btn.setLayoutX(294.0);
 		btn.setLayoutY(412.0);
@@ -109,7 +113,7 @@ public class Questions extends Application{
 		mainAnchor.getChildren().add(btn);
 
 		loadDifficultyLabel(diff);
-		
+
 		Label ques = new Label(question);
 		ques.setLayoutX(29);
 		ques.setLayoutY(64);
@@ -121,34 +125,35 @@ public class Questions extends Application{
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
-			if(((Button) event.getSource()).getText().equals("Submit")) {
-							
-				int s = questionId;
-			   if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
-			   {
-				   notifyTrueAnswer("You earn extra points :)\nWell done!");
-			   }
-			   else {
-				   notifyFalseAnswer("You lost points :(\nGood luck next time");
-			   }
-			   BoardController.getInstance().refreshScoreInBoardGUI();
-			   
-			   GameController.getInstance().switchTurn();
-			   DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
-			   if(GameController.getInstance().isGameRunning()) {
-					PrimaryColor newColor = BoardController.getInstance().getPlayerTurn();
-					if(newColor != turnColor) {
-						DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getPlayerTurn());
-						DisplayController.boardGUI.getTurnTimer().resetColors();
+
+				if(((Button) event.getSource()).getText().equals("Submit")) {
+
+					int s = questionId;
+					if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
+					{
+						notifyTrueAnswer("You earn extra points :)\nWell done!");
 					}
+					else {
+						notifyFalseAnswer("You lost points :(\nGood luck next time");
+					}
+					BoardController.getInstance().refreshScoreInBoardGUI();
+
+					GameController.getInstance().switchTurn();
+					BoardController.getInstance().setAnsweringQuestion(false);
+					DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
+					if(GameController.getInstance().isGameRunning()) {
+						PrimaryColor newColor = BoardController.getInstance().getPlayerTurn();
+						if(newColor != turnColor) {
+							DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getPlayerTurn());
+							DisplayController.boardGUI.getTurnTimer().resetColors();
+						}
+					}
+					primary.close();
 				}
-			   primary.close();
-			}
-			
+
 			}
 		});
-		
+
 		GridPane grid = new GridPane();
 		grid.setId("Answers");
 		grid.setLayoutX(28.0);
@@ -160,7 +165,7 @@ public class Questions extends Application{
 		grid.getColumnConstraints().add(new ColumnConstraints(100));
 		loadAnswers(answers);
 	}
-	
+
 	/**
 	 * loads question difficulty label
 	 * @param diff
@@ -172,7 +177,7 @@ public class Questions extends Application{
 		lbl.setPrefHeight(25.0);
 		lbl.setPrefWidth(131.0);
 		lbl.setFont(new Font("System Bold", 16.0));
-		
+
 		ImageView img = new ImageView();
 		img.setFitHeight(39.0);
 		img.setFitWidth(36.0);
@@ -180,45 +185,51 @@ public class Questions extends Application{
 		img.setLayoutY(21.0);
 		img.setPickOnBounds(true);
 		img.setPreserveRatio(true);
-		
+
 		switch(diff) {
-			case EASY:{
-				lbl.setText("Easy Question");
-				lbl.setTextFill(Color.GREEN);
-				img.setImage(new Image(getClass().getResource("pictures/easy_question.png").toString()));
-				break;
-			}
-			case MEDIOCRE:{
-				lbl.setText("Medicore Question");
-				lbl.setTextFill(Color.ORANGE);
-				img.setImage(new Image(getClass().getResource("pictures/intermediate_question.png").toString()));
+		case EASY:{
+			lbl.setText("Easy Question");
+			lbl.setTextFill(Color.GREEN);
+			img.setImage(new Image(getClass().getResource("pictures/easy_question.png").toString()));
+			break;
+		}
+		case MEDIOCRE:{
+			lbl.setText("Medicore Question");
+			lbl.setTextFill(Color.ORANGE);
+			img.setImage(new Image(getClass().getResource("pictures/intermediate_question.png").toString()));
 
-				break;
-			}
-			case HARD:{
-				lbl.setText("Hard Question");
-				lbl.setTextFill(Color.RED);
-				img.setImage(new Image(getClass().getResource("pictures/hard_question.png").toString()));
+			break;
+		}
+		case HARD:{
+			lbl.setText("Hard Question");
+			lbl.setTextFill(Color.RED);
+			img.setImage(new Image(getClass().getResource("pictures/hard_question.png").toString()));
 
-				break;
-			}
+			break;
+		}
 		}
 		mainAnchor.getChildren().add(lbl);
 		mainAnchor.getChildren().add(img);
 
 	}
-	
+
 	public void notifyTrueAnswer(String info) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Correct Answer");
 		alert.setHeaderText(info);
-		alert.showAndWait();
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() != null){
+			GameController.getInstance().unpauseGame();
+		} 	
 	}
 	public void notifyFalseAnswer(String info) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Wrong Answer");
 		alert.setHeaderText(info);
-		alert.showAndWait();
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() != null){
+			GameController.getInstance().unpauseGame();
+		} 
 	}
 	/**
 	 * load answers
@@ -234,7 +245,7 @@ public class Questions extends Application{
 			pane.setPrefHeight(200.0);
 			pane.setPrefWidth(200.0);
 			grid.add(pane, 0, i - 1);
-			
+
 			RadioButton rb = new RadioButton();
 			rb.setId(String.valueOf(i));
 			rb.setLayoutX(23.0);
@@ -243,7 +254,7 @@ public class Questions extends Application{
 			rb.setFont(new Font(16.0));
 			rb.setToggleGroup(group);
 			pane.getChildren().add(rb);
-			
+
 			Label lbl = new Label(answers.get(i));
 			lbl.setLayoutX(74.0);
 			lbl.setLayoutY(2.0);
@@ -256,11 +267,11 @@ public class Questions extends Application{
 			sp.setPrefWidth(604.0);
 			sp.setLayoutY(1);
 			pane.getChildren().add(sp);
-			
+
 		}
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @return index of the selected answer, if not found returns -1
@@ -271,7 +282,7 @@ public class Questions extends Application{
 			return Integer.valueOf(selected.getId());
 		return -1;
 	}
-	
+
 	public Stage getPrimary() {
 		if(primary == null) {
 			primary = new Stage();
@@ -283,8 +294,8 @@ public class Questions extends Application{
 		mainAnchor = null;
 		primary = null;
 	}
-	
-	
 
-	
+
+
+
 }

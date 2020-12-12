@@ -15,7 +15,7 @@ import View.BoardGUI;
 import View.MainscreenGUI;
 import View.ManageQuestions;
 import View.Nicknames;
-import View.Questions;
+import View.QuestionGUI;
 import View.Scoreboard;
 import View.Winner;
 
@@ -27,7 +27,7 @@ public class DisplayController {
 	public static ManageQuestions manageQuestions;
 	public static Scoreboard scoreboard;
 	public static Nicknames nicknames;
-	public static Questions questions;
+	public static QuestionGUI questions;
 	public static Winner winner;
 
 	private DisplayController() {
@@ -43,17 +43,9 @@ public class DisplayController {
 		return instance; 
 	}
 	
-	public void showBoard() {
+	public void showBoard(Player[] players) {
 		//TODO move to nicknames screen
-		Player player1 = Player.getInstance(0);
-		Player player2 = Player.getInstance(1);
-		player1.setNickname("Jack");
-		player2.setNickname("Max");
-
-		Player[] players = new Player[] {
-								player1,
-								player2
-								};
+		
 		if(players != null) {
 			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
 			System.out.println("Player 2 : " + players[1].getNickname());
@@ -84,19 +76,11 @@ public class DisplayController {
 		fullTimer.start(); //TODO thread should be killed
 	}
 	
-	public void showBoard(File file) {
+	public void showBoard(Player[] players,File file) {
 		HashMap<Character, ArrayList<Piece>> load = null;
 		load = MiscController.getInstance().loadGame(file); 
 		//TODO GET PLAYERS NICKNAME from GUI
-		Player player1 = Player.getInstance(0);
-		Player player2 = Player.getInstance(1);
-		player1.setNickname("Jack");
-		player2.setNickname("Max");
-
-		Player[] players = new Player[] {
-								player1,
-								player2
-								};
+	
 		if(players != null) {
 			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
 			System.out.println("Player 2 : " + players[1].getNickname());
@@ -161,8 +145,14 @@ public class DisplayController {
 		nicknames.start(nicknames.getPrimary());
 	}
 	
+	public void showNicknames(File file) {
+		nicknames = new Nicknames();
+		nicknames.start(nicknames.getPrimary());
+		nicknames.setFile(file);
+	}
+	
 	public void showQuestion(Question question, PrimaryColor turnColor) throws Exception {
-		questions = new Questions(turnColor);
+		questions = new QuestionGUI(turnColor);
 		questions.start(questions.getPrimary());
 		HashMap<Integer, String> answers = new HashMap<>();
 		
@@ -201,5 +191,9 @@ public class DisplayController {
 	
 	public void closeWinner() {
 		winner.getPrimary().hide();
+	}
+	
+	public void closeNicknames() {
+		nicknames.getPrimary().hide();
 	}
 }

@@ -32,6 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -274,6 +275,22 @@ public class BoardGUI extends Application {
 			System.out.println("Error: Board doesn't contain requested tile");
 			return false;
 		}
+		
+		if(tileColor==SeconderyTileColor.ORANGE || tileColor==SeconderyTileColor.YELLOW_ORANGE) {
+			 InnerShadow innerShadow = new InnerShadow(); 
+		     		      
+		      innerShadow.setChoke(0.25); 
+		      innerShadow.setWidth(110);
+		      innerShadow.setWidth(110); 
+		      innerShadow.setRadius(54.5);
+		      innerShadow.setColor(Color.rgb(255, 122, 6));        
+		      tile.setEffect(innerShadow);      
+			if(tileColor==SeconderyTileColor.YELLOW_ORANGE) {
+			tileColor= SeconderyTileColor.YELLOW;
+			}else {
+				return true;
+			}
+		}
 		ImageView tileImage;
 		tileImage = new ImageView(new Image(getClass().getResource("pictures/"+tileColor+"Tile.png").toString()));
 		tileImage.setId("Tile_" + tileColor);
@@ -297,7 +314,7 @@ public class BoardGUI extends Application {
 		ArrayList<Tile> coloredTiles = boardController.getAllColoredTiles();
 		System.out.println("colored tiles board gui:\n"+coloredTiles.toString());
 		for(Tile t :coloredTiles) {
-			
+
 			int row = t.getLocation().getRow();
 			char col = t.getLocation().getColumn();
 			String tileId = String.valueOf("#" + row + "_" + col);
@@ -308,7 +325,13 @@ public class BoardGUI extends Application {
 				return false;
 			}
 			System.out.println("im removing from board in "+row+","+col );
+			if(t.getColor2()==SeconderyTileColor.ORANGE||t.getColor2()==SeconderyTileColor.YELLOW_ORANGE) {
+				tile.setEffect(null);
+			}
+			if(!t.getColor2().equals(SeconderyTileColor.ORANGE)){
+				System.out.println("removing "+t.getColor2()+ "from loc "+t.getLocation());
 			tile.getChildren().remove(0);
+			}
 
 		}
 		return true;
@@ -679,10 +702,11 @@ public class BoardGUI extends Application {
 				selectedCol = '_';
 
 				boolean burnt = boardController.checkBurnCurrent(toRow, toCol);
-				System.out.println("BURNTTTTTTTTTTTT" + burnt);
+				//System.out.println("BURNTTTTTTTTTTTT" + burnt);
 				if(!burnt) {
-//					int pieceIndexInToTile = isToTileYellow? 1:0;
+					//					int pieceIndexInToTile = isToTileYellow? 1:0;
 					//TODO should burning piece have the powers of colored tile???
+					//if tile is colored in any color that is not yellow
 					if(toTileColor!= null && !isToTileYellow) {
 						//step on color
 						removeAllColoredTiles();
@@ -691,11 +715,16 @@ public class BoardGUI extends Application {
 						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);
 						if (msg != null) {
 							if(msg.matches("BLUE")) {
+								if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
+									this.upgradeToQueen(toTile);
+								}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
+									this.upgradeToQueen(toTile);
+								}
 								return;
 							}
 							notifyUpgradeInGame(msg);
 						}
-					
+
 						System.out.println("removing "+toTileColor+" "+toRow+","+toCol);
 						//remove all tiles color
 					}
@@ -706,20 +735,16 @@ public class BoardGUI extends Application {
 					}
 					//add piece back to board in new location
 
-				}else {
+				}//moved piece did burn
+				else {
 					fromTile.getChildren().clear();
 				}
-				//remove piece from source tile
+				
 
 				//if piece still on board,check if it needs to become  queen
 				if(!burnt) {
-					if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
-						this.upgradeToQueen(toTile);
-					}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
-						this.upgradeToQueen(toTile);
-					}
-
 					if(toTileColor!=null && isToTileYellow) {
+						GameController.getInstance().pauseGame();
 						//TODO handle  yellow
 						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);
 						if(msg != null) {
@@ -728,21 +753,35 @@ public class BoardGUI extends Application {
 
 						//remove all tiles color
 						removeAllColoredTiles();
+						System.out.println("tiles are removed");
 						toTile.getChildren().add(fromTile.getChildren().get(0));
 						fromTile.getChildren().clear();
-						
+
 						checkToBurnPiece();
+						
+						if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
+							this.upgradeToQueen(toTile);
+						}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
+							this.upgradeToQueen(toTile);
+						}
 						return;
+					}else {
+						if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
+							this.upgradeToQueen(toTile);
+						}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
+							this.upgradeToQueen(toTile);
+						}
 					}
 				}
+				//moved piece is burnt
 				else {
 					//remove all tiles color
 					removeAllColoredTiles();
 				}
-				
+
 				checkToBurnPiece();
 				GameController.getInstance().switchTurn();
-//				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
+				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
 				if(GameController.getInstance().isGameRunning()) {
 					PrimaryColor newColor = boardController.getPlayerTurn();
 					if(newColor != turnColor) {
@@ -755,7 +794,7 @@ public class BoardGUI extends Application {
 			}
 		} catch (IllegalMoveException | LocationException e) {
 			notifyByError(e.getMessage());
-		
+
 		}
 	}
 
@@ -774,6 +813,7 @@ public class BoardGUI extends Application {
 	}
 
 	public void upgradeToQueen(FlowPane checkTile) {
+		
 		String[] id = checkTile.getChildren().get(0).getId().split("_");
 
 		if(id.length == 2 && (id[0].matches("Soldier") || id[0].matches("Queen"))) {
@@ -895,20 +935,20 @@ public class BoardGUI extends Application {
 	}
 
 	public void notifyWinner(String name, int score, PrimaryColor color) {
-//		Alert alert = new Alert(AlertType.NONE);
-//		alert.setTitle("Game Finished");
-//		alert.setHeaderText(name);
-//		alert.setContentText("Congratulations,you are the winner!");
-//		ButtonType button = new ButtonType("Close");
-//		alert.getButtonTypes().clear();
-//		alert.getButtonTypes().setAll(button);
-//
-//		Optional<ButtonType> result = alert.showAndWait();
-//		if (result.get() == button){
-//			alert.close();
-//			DisplayController.getInstance().closeBoard();
-//			DisplayController.getInstance().showMainScreen();
-//		}
+		//		Alert alert = new Alert(AlertType.NONE);
+		//		alert.setTitle("Game Finished");
+		//		alert.setHeaderText(name);
+		//		alert.setContentText("Congratulations,you are the winner!");
+		//		ButtonType button = new ButtonType("Close");
+		//		alert.getButtonTypes().clear();
+		//		alert.getButtonTypes().setAll(button);
+		//
+		//		Optional<ButtonType> result = alert.showAndWait();
+		//		if (result.get() == button){
+		//			alert.close();
+		//			DisplayController.getInstance().closeBoard();
+		//			DisplayController.getInstance().showMainScreen();
+		//		}
 		DisplayController.getInstance().showWinner(name, score, color);
 	}
 
@@ -951,7 +991,7 @@ public class BoardGUI extends Application {
 			}
 		}
 	}
-	
+
 	public Stage getPrimary() {
 		if(primary == null) {
 			primary = new Stage();
@@ -963,14 +1003,14 @@ public class BoardGUI extends Application {
 		mainAnchor = null;
 		primary = null;
 	}
-	
+
 	public void showRetrievalSelection(HashMap<Integer, ArrayList<Character>> tiles) {
 		for(Integer i : tiles.keySet()) {
 			for(Character c : tiles.get(i)) {
 				System.out.println("Available Location : (" + i + "," + c + ")");
 			}
 		}
-		
+
 		AnchorPane tempBoard = new AnchorPane();
 		tempBoard.setId("tempBoard");
 		AnchorPane.setBottomAnchor(tempBoard, 0.0);
@@ -979,7 +1019,7 @@ public class BoardGUI extends Application {
 		AnchorPane.setTopAnchor(tempBoard, 0.0);
 		tempBoard.setStyle("-fx-background-color: #dbdbdb66;");
 		mainAnchor.getChildren().add(tempBoard);
-		
+
 		FlowPane flow = new FlowPane();
 		flow.setLayoutX(477.0);
 		flow.setLayoutY(80.0);
@@ -996,7 +1036,7 @@ public class BoardGUI extends Application {
 				tilePane.setStyle("-fx-background-color: " + color + "; -fx-opacity: 0.3;");
 				tilePane.setId(String.valueOf("TEMP_"+i+"_"+j));
 				flow.getChildren().add(tilePane);
-				
+
 				if(tiles.containsKey(i)) {
 					if(tiles.get(i).contains(j)) {
 						tilePane.setStyle("-fx-background-color: " + color + "; -fx-opacity: 1;");
@@ -1009,7 +1049,9 @@ public class BoardGUI extends Application {
 								mainAnchor.getChildren().remove(tempBoard);
 								BoardController.getInstance().retrieveSoldier(Integer.parseInt(tileId[1]), tileId[2].toCharArray()[0], color);
 								BoardController.getInstance().refreshScoreInBoardGUI();
-								   
+								Game.getInstance().getTimer().unpauseTimer();
+								Game.getInstance().getTurn().getTimer().unpauseTimer();
+								
 								GameController.getInstance().switchTurn();
 								DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
 								if(GameController.getInstance().isGameRunning()) {
@@ -1031,9 +1073,9 @@ public class BoardGUI extends Application {
 		return turnTimer;
 	}
 
-	
-	
-	
+
+
+
 	//	public void removeTileColor(int row, char col, SeconderyTileColor tileColor){
 	//		if(mainAnchor == null) return;
 	//		FlowPane board = (FlowPane) mainAnchor.lookup("#board");

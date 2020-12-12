@@ -685,6 +685,8 @@ public class Queen extends Piece{
 							if(suspectedToBlock != null) {
 //								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
 //								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								tiles.add(board.getTileInLocation(location));
+
 								suspectedToBlock = null;
 							}else {
 								tiles.add(board.getTileInLocation(location));
@@ -721,6 +723,8 @@ public class Queen extends Piece{
 							if(suspectedToBlock != null) {
 //								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
 //								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								tiles.add(board.getTileInLocation(location));
+
 								suspectedToBlock = null;
 							}else {
 								tiles.add(board.getTileInLocation(location));
@@ -758,6 +762,8 @@ public class Queen extends Piece{
 							if(suspectedToBlock != null) {
 //								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
 //								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								tiles.add(board.getTileInLocation(location));
+
 								suspectedToBlock = null;
 							}else {
 								tiles.add(board.getTileInLocation(location));
@@ -795,6 +801,8 @@ public class Queen extends Piece{
 							if(suspectedToBlock != null) {
 //								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
 //								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+								tiles.add(board.getTileInLocation(location));
+
 								suspectedToBlock = null;
 							}else {
 								tiles.add(board.getTileInLocation(location));
@@ -1020,5 +1028,25 @@ public class Queen extends Piece{
 
 		return ediblePieces;
 	}
+
+
+	@Override
+	public ArrayList<Tile> getPossibleMoves(PrimaryColor playerColor) {
+		HashSet<Tile> hs = new HashSet<Tile>();
+		try {
+		hs.addAll((this).getAllAvailableMovesByDirection(Directions.UP_LEFT));
+		hs.addAll((this).getAllAvailableMovesByDirection(Directions.UP_RIGHT));
+		hs.addAll((this).getAllAvailableMovesByDirection(Directions.DOWN_LEFT));
+		hs.addAll((this).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT));
+		hs.remove(null);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return new ArrayList<Tile>(hs);
+	}
+
+
+	
 
 }

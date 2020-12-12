@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import Controller.BoardController;
 import Exceptions.IllegalMoveException;
@@ -263,6 +264,71 @@ public class Soldier extends Piece{
 	public ArrayList<Piece> getEdiblePieces() {
 		return getMustEdiblePieces();
 	}
+
+
+
+	@Override
+	public ArrayList<Tile> getPossibleMoves(PrimaryColor playerColor) {
+		Board board= Board.getInstance();
+		final Directions[] upDirections = {Directions.UP_LEFT,Directions.UP_RIGHT};
+		final Directions[] downDirections = {Directions.DOWN_LEFT,Directions.DOWN_RIGHT};
+		LinkedHashSet<Tile> possibleTileSet = new LinkedHashSet<Tile>();
+		try {
+			//adding tiles without eating
+			Location pieceLocal = this.getLocation();
+			Directions[] direc = null;
+			if(playerColor == PrimaryColor.WHITE)
+				direc = upDirections;
+			else 
+				direc = downDirections;
+
+			for (Directions dir : direc) {
+				Location tempLoc = pieceLocal.addToLocationDiagonally(dir, 1);
+
+				if(tempLoc != null) {
+					Tile locTile = board.getTileInLocation(tempLoc);
+					if( locTile.isEmpty()) {
+						possibleTileSet.add(locTile);
+					} 
+				}
+			}
+			Directions[] eat = null;
+			if(playerColor == PrimaryColor.WHITE)
+				eat = downDirections;
+			else 
+				eat = upDirections;
+
+			//adding tiles with eating
+			for (Directions dir :direc) {
+				Piece ediblePiece=this.getEdiblePieceByDirection(dir);
+				if(ediblePiece != null) {
+					Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
+					if(afterEatLoc != null && board.getTileInLocation(afterEatLoc).isEmpty()) {
+						possibleTileSet.add(board.getTileInLocation(afterEatLoc));
+					}
+				}
+			}
+			if(this.getEatingCntr()>=1) {
+				for (Directions dir :eat) {
+					Piece ediblePiece=this.getEdiblePieceByDirection(dir);
+					if(ediblePiece != null) {
+						Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
+						if(afterEatLoc != null && board.getTileInLocation(afterEatLoc).isEmpty()) {
+							possibleTileSet.add(board.getTileInLocation(afterEatLoc));
+						}
+					}
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<Tile>(possibleTileSet);
+	}
+
+
+
+	
 
 
 

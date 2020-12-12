@@ -84,11 +84,12 @@ public class GameTimer {
 	 */
 	public float getSeconds() {
 		if(startTime == -1) return -1;
-		if(pauseTime > -1) {
+		if(getPauseTime() != -1) {
 			long temp = anonStartTime + (System.currentTimeMillis() - getPauseTime());
 			return ( System.currentTimeMillis() -  temp) / 1000F;
-			
-		}else return ( System.currentTimeMillis() -  getAnonStartTime() ) / 1000F;
+		}else {
+			return ( System.currentTimeMillis() -  getAnonStartTime() ) / 1000F;
+		}
 	}
 	
 	/**
