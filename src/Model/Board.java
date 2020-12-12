@@ -579,74 +579,9 @@ public class Board {
 
 		ArrayList<Piece> colorPieces = getColorPieces(playerColor);
 		for(Piece p : colorPieces) {
-			if(p instanceof Soldier) {
-				try {
-					//adding tiles without eating
-					Location pieceLocal = p.getLocation();
-					Directions[] direc = null;
-					if(playerColor == PrimaryColor.WHITE)
-						direc = upDirections;
-					else 
-						direc = downDirections;
-
-					for (Directions dir : direc) {
-						Location tempLoc = pieceLocal.addToLocationDiagonally(dir, 1);
-
-						if(tempLoc != null) {
-							Tile locTile = getTileInLocation(tempLoc);
-							if( locTile.isEmpty()) {
-								possibleTileSet.add(locTile);
-							} 
-						}
-					}
-					Directions[] eat = null;
-					if(playerColor == PrimaryColor.WHITE)
-						eat = downDirections;
-					else 
-						eat = upDirections;
-
-					//adding tiles with eating
-					for (Directions dir :direc) {
-						Piece ediblePiece=p.getEdiblePieceByDirection(dir);
-						if(ediblePiece != null) {
-							Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
-							if(afterEatLoc != null && getTileInLocation(afterEatLoc).isEmpty()) {
-								possibleTileSet.add(getTileInLocation(afterEatLoc));
-							}
-						}
-					}
-					if(p.getEatingCntr()>=1) {
-						for (Directions dir :eat) {
-							Piece ediblePiece=p.getEdiblePieceByDirection(dir);
-							if(ediblePiece != null) {
-								Location afterEatLoc=ediblePiece.getLocation().addToLocationDiagonally(dir, 1);
-								if(afterEatLoc != null && getTileInLocation(afterEatLoc).isEmpty()) {
-									possibleTileSet.add(getTileInLocation(afterEatLoc));
-								}
-							}
-						}
-					}
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-			}else if(p instanceof Queen){
-				try {
-					HashSet<Tile> hs = new HashSet<Tile>();
-
-					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.UP_LEFT));
-					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.UP_RIGHT));
-					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_LEFT));
-					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT));
-					hs.remove(null);
-
-					possibleTileSet.addAll(hs);
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-					e.printStackTrace();
-				}
-			}
-			//TODO handle queen
+			
+				possibleTileSet.addAll(p.getPossibleMoves(playerColor));
+			
 		}
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>(possibleTileSet);
 		return possibleTiles;
@@ -955,7 +890,7 @@ public class Board {
 		this.coloredTilesList=new ArrayList<Tile>();
 		this.orangeTiles=null;
 		this.orangeTiles=new ArrayList<Tile>();
-		
+
 	}
 
 	/**
@@ -983,8 +918,9 @@ public class Board {
 		if(canAddRedTile() && isThereLegalTilesNotColored()){
 
 			System.out.println("adding red");
-
+			ArrayList<Tile> possibleRed=getPossibleRedTiles();
 			Tile randTile=null;
+			Random rand=new Random();
 			do {
 				randTile= getRandomLegalTile();
 			}while(coloredTilesList.contains(randTile));
@@ -1112,7 +1048,7 @@ public class Board {
 
 	private boolean updateBoardToAddingOrange(){
 		ArrayList<Tile> legalTiles = getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
-		
+
 		for(Tile t:this.coloredTilesList) {
 			if(legalTiles.contains(t) && !(t instanceof YellowTile)) {
 				//blue transfer to regular tile
@@ -1123,11 +1059,11 @@ public class Board {
 					t.setColor2(null);
 					replaceTileInSameTileLocation(t);
 				}
-				
+
 			}
 
 		}
-		
+
 		return true;
 
 	}
@@ -1148,12 +1084,60 @@ public class Board {
 		this.orangeTiles=null;
 		this.orangeTiles=new ArrayList<Tile>();
 	}
-	//TODO canLocateRedTile
-	private boolean canLocateRedInTile(){
-		//if player already stepped in red
-		//if check only in legal location for piece
-		//else
-		//check all legal moves if they can be red
-		return false;
+//	//TODO canLocateRedTile
+//	private boolean canLocateRedInTile(){
+//		//if player already stepped in red
+//		//if check only in legal location for piece
+//		//else
+//		//check all legal moves if they can be red
+//		return false;
+//	}
+
+	/**
+	 * checks for possible tiles for red tile
+	 * @return  ArrayList<Tile> of possible red tile
+	 */
+	private ArrayList<Tile> getPossibleRedTiles(){
+		Game game=Game.getInstance();
+		//final Directions[] upDir= {Directions.UP_LEFT,Directions.UP_RIGHT};
+		//final Directions[] downDir= {Directions.DOWN_LEFT,Directions.DOWN_RIGHT};
+		ArrayList<Tile> legalTiles= getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+		ArrayList<Tile> blockedTiles=new ArrayList<Tile>();
+		legalTiles.removeAll(coloredTilesList);
+		//		only one soldier can move
+		if(game.getTurn().isLastTileRed()) {
+			Piece lastPMoved = game.getTurn().getLastPieceMoved();
+			ArrayList<Tile> possibleTiles=lastPMoved.getPossibleMoves(game.getCurrentPlayerColor());
+			possibleTiles.removeAll(coloredTilesList);
+			if(!possibleTiles.isEmpty()) {
+				for(Tile t: possibleTiles) {
+					Piece tempPiece=null;
+					if(lastPMoved instanceof Soldier) {
+						tempPiece=new Soldier(lastPMoved.getId(), lastPMoved.getColor(), t.getLocation());
+					}else {
+						tempPiece=new Queen(lastPMoved.getId(), lastPMoved.getColor(), t.getLocation());
+					}
+					if(tempPiece.getPossibleMoves(game.getCurrentPlayerColor()).isEmpty()) {
+						blockedTiles.add(t);
+					}
+				}
+				possibleTiles.removeAll(blockedTiles);
+				return possibleTiles;
+			}
+		}
+		else {
+			for(Tile t:legalTiles) {
+				
+			}
+		}
+		
+
+
+		//				Random random = new Random();
+		//				Tile randomTile  = possibleTiles.get( random.nextInt(possibleTiles.size()));
+		//				return randomTile;
 	}
+
+
+
 }
