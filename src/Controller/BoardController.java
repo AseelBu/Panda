@@ -395,7 +395,12 @@ public class BoardController {
 					return null;
 				}
 				case BLUE:{
-					DisplayController.boardGUI.showRetrievalSelection(getAllAvailableRetrievals());
+					HashMap<Integer, ArrayList<Character>> tiles = getAllAvailableRetrievals();
+					if(!tiles.keySet().isEmpty()) {
+						Game.getInstance().getTimer().pauseTimer();
+						Game.getInstance().getTurn().getTimer().pauseTimer();
+						DisplayController.boardGUI.showRetrievalSelection(tiles);
+					}
 					return "BLUE";
 				}
 			default:

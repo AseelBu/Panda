@@ -845,9 +845,11 @@ public class Board {
 	public void burnAllPiecesMissedEating(HashMap<Piece, ArrayList<Piece>> toBurn) {
 		Turn turn = Game.getInstance().getTurn();
 
-		if(toBurn.containsKey(turn.getLastPieceMoved()))
+		if(toBurn.containsKey(turn.getLastPieceMoved())) {
 			if(toBurn.get(turn.getLastPieceMoved()).contains(turn.getEaten())) return;
-
+		}else{
+			if(Game.getInstance().getTurn().isLastTileRed()) return;
+		}
 		//TODO Red Tile to be a condition is this case
 
 		if(toBurn.keySet().size() > 0) {
@@ -920,14 +922,20 @@ public class Board {
 			System.out.println("adding red");
 			ArrayList<Tile> possibleRed=getPossibleRedTiles();
 			Tile randTile=null;
-			Random rand=new Random();
-			do {
-				randTile= getRandomLegalTile();
-			}while(coloredTilesList.contains(randTile));
-			Tile rTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.RED);
-			replaceTileInSameTileLocation(rTile);
-			coloredTilesList.add(rTile);
-			System.out.println("adding red in "+randTile);
+			if(possibleRed.size() > 0) {
+				Random rand=new Random();
+				do {
+					int tempp = rand.nextInt(possibleRed.size());
+					randTile= possibleRed.get(tempp);
+					possibleRed.remove(tempp);
+				}while(coloredTilesList.contains(randTile) && !possibleRed.isEmpty());
+				Tile rTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.RED);
+				replaceTileInSameTileLocation(rTile);
+				coloredTilesList.add(rTile);
+				System.out.println("adding red in "+randTile);
+			}else {
+				System.out.println("not adding red");
+			}
 		}else {
 			System.out.println("not adding red");
 		}
@@ -1098,6 +1106,8 @@ public class Board {
 	 * @return  ArrayList<Tile> of possible red tile
 	 */
 	private ArrayList<Tile> getPossibleRedTiles(){
+		ArrayList<Tile> toReturn = new ArrayList<>();
+		
 		Game game=Game.getInstance();
 		//final Directions[] upDir= {Directions.UP_LEFT,Directions.UP_RIGHT};
 		//final Directions[] downDir= {Directions.DOWN_LEFT,Directions.DOWN_RIGHT};
@@ -1122,22 +1132,82 @@ public class Board {
 					}
 				}
 				possibleTiles.removeAll(blockedTiles);
-				return possibleTiles;
 			}
+			toReturn =  possibleTiles;
 		}
 		else {
+			HashMap<Tile, ArrayList<Piece>> tempCollection = new HashMap<>();
+			
 			for(Tile t:legalTiles) {
-				
+				for(Piece p : getColorPieces(Game.getInstance().getCurrentPlayerColor())){
+					boolean canMove = false;
+					if(!canMove) {
+						try {
+							canPieceMove(p, t.getLocation(), Directions.UP_LEFT);
+						} catch (LocationException | IllegalMoveException e) {
+						}
+						canMove = true;
+					}
+					if(!canMove) {
+						try {
+							canPieceMove(p, t.getLocation(), Directions.UP_RIGHT);
+						} catch (LocationException | IllegalMoveException e) {
+						}
+						canMove = true;
+					}
+					if(!canMove) {
+						try {
+							canPieceMove(p, t.getLocation(), Directions.DOWN_RIGHT);
+						} catch (LocationException | IllegalMoveException e) {
+						}
+						canMove = true;
+					}
+					if(!canMove) {
+						try {
+							canPieceMove(p, t.getLocation(), Directions.DOWN_LEFT);
+						} catch (LocationException | IllegalMoveException e) {
+						}
+						canMove = true;
+					}
+					if(canMove) {
+						ArrayList<Piece> pp = null;
+						if(!tempCollection.containsKey(t)) {
+							pp = new ArrayList<>();
+						}else {
+							pp = tempCollection.get(t);
+						}
+						pp.add(p);
+						tempCollection.put(t, pp);
+					}
+				}
 			}
+			
+			ArrayList<Tile> tilesToRemove = new ArrayList<>();
+			
+			for(Tile t : tempCollection.keySet()) {
+				ArrayList<Piece> pieces= tempCollection.get(t);
+				for(Piece p : pieces) {
+					Piece tempPiece=null;
+					if(p instanceof Soldier) {
+						tempPiece=new Soldier(p.getId(), p.getColor(), t.getLocation());
+					}else {
+						tempPiece=new Queen(p.getId(), p.getColor(), t.getLocation());
+					}
+					if(tempPiece.getPossibleMoves(game.getCurrentPlayerColor()).isEmpty()) {
+						if(!tilesToRemove.contains(t))
+							tilesToRemove.add(t);
+					}
+				}
+			}
+			
+			for(Tile t : tilesToRemove) {
+				tempCollection.remove(t);
+			}
+			
+			toReturn =  new ArrayList<Tile>(tempCollection.keySet());	
 		}
-		
-
-
-		//				Random random = new Random();
-		//				Tile randomTile  = possibleTiles.get( random.nextInt(possibleTiles.size()));
-		//				return randomTile;
+		return toReturn;
 	}
-
 
 
 }

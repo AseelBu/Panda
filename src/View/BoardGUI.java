@@ -715,6 +715,11 @@ public class BoardGUI extends Application {
 						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);
 						if (msg != null) {
 							if(msg.matches("BLUE")) {
+								if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
+									this.upgradeToQueen(toTile);
+								}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
+									this.upgradeToQueen(toTile);
+								}
 								return;
 							}
 							notifyUpgradeInGame(msg);
@@ -738,12 +743,6 @@ public class BoardGUI extends Application {
 
 				//if piece still on board,check if it needs to become  queen
 				if(!burnt) {
-					if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
-						this.upgradeToQueen(toTile);
-					}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
-						this.upgradeToQueen(toTile);
-					}
-
 					if(toTileColor!=null && isToTileYellow) {
 						GameController.getInstance().pauseGame();
 						//TODO handle  yellow
@@ -759,7 +758,19 @@ public class BoardGUI extends Application {
 						fromTile.getChildren().clear();
 
 						checkToBurnPiece();
+						
+						if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
+							this.upgradeToQueen(toTile);
+						}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
+							this.upgradeToQueen(toTile);
+						}
 						return;
+					}else {
+						if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
+							this.upgradeToQueen(toTile);
+						}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
+							this.upgradeToQueen(toTile);
+						}
 					}
 				}
 				//moved piece is burnt
@@ -1038,7 +1049,9 @@ public class BoardGUI extends Application {
 								mainAnchor.getChildren().remove(tempBoard);
 								BoardController.getInstance().retrieveSoldier(Integer.parseInt(tileId[1]), tileId[2].toCharArray()[0], color);
 								BoardController.getInstance().refreshScoreInBoardGUI();
-
+								Game.getInstance().getTimer().unpauseTimer();
+								Game.getInstance().getTurn().getTimer().unpauseTimer();
+								
 								GameController.getInstance().switchTurn();
 								DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
 								if(GameController.getInstance().isGameRunning()) {
