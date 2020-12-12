@@ -37,7 +37,6 @@ public class TurnTimerController extends Thread{
 							//add to board model
 							Board.getInstance().addOrangeTiles();
 							//add to board Gui
-							
 							Board.getInstance().updateColoredTileListAfterOrange();
 							BoardController.getInstance().loadTilesColors();
 							
