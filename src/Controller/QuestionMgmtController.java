@@ -32,7 +32,7 @@ public class QuestionMgmtController {
 	
 	
 	/**
-	 * 
+	 * Constructor
 	 */
 	public QuestionMgmtController() {
 		
@@ -42,10 +42,10 @@ public class QuestionMgmtController {
 		
 	}
 	
-	//TODO java doc
+
 	/**
-	 *
-	 * @return
+	 * Instance Getter Of QuestionMgmtController
+	 * @return instance
 	 */
 	public static QuestionMgmtController getInstance() 
 	{ 
@@ -232,13 +232,29 @@ public class QuestionMgmtController {
 
 	}
 	
+	/**
+	 * Get Questions
+	 * @return - Questions From Model
+	 */
+	
 	public ArrayList<Question> getQuestions(){
 		return this.sysData.getQuestions();
 	}
 	
+	/**
+	 * removes question that had give id
+	 * @param id - question id
+	 */
+	
 	public void removeQuestions(int id){
 		 this.sysData.removeQuestion(id);
 	}
+	
+	/**
+	 * Checks if question already exists
+	 * @param content - question's content
+	 * @return true/false
+	 */
 	
 	public boolean quesAlreadyExists(String content) {
 		
