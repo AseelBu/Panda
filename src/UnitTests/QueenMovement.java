@@ -55,7 +55,6 @@ public class QueenMovement {
 			Game.getInstance().startGame(players, pieces, 'W');
 			Game.getInstance().getBoard().printBoard();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Queen queen2 = (Queen) Game.getInstance().getBoard().getTilesMap().get(queen.getLocation().getRow()).get(queen.getLocation().getColumn() - 'A').getPiece();
@@ -83,7 +82,6 @@ public class QueenMovement {
 			Game.getInstance().startGame(players, pieces, 'W');
 			Game.getInstance().getBoard().printBoard();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Queen queen2 = (Queen) Game.getInstance().getBoard().getTilesMap().get(queen.getLocation().getRow()).get(queen.getLocation().getColumn() - 'A').getPiece();
@@ -114,17 +112,13 @@ public class QueenMovement {
 			Game.getInstance().startGame(players, pieces, 'W');
 			Game.getInstance().getBoard().printBoard();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Queen queen2 = (Queen) Game.getInstance().getBoard().getTilesMap().get(queen.getLocation().getRow()).get(queen.getLocation().getColumn() - 'A').getPiece();
-//		queen2.move(Game.getInstance().getBoard().getTilesMap().get(ROW_LOCATION).get(COLUMN_LOCATION - 'A'),DIR);
-//		Game.getInstance().getBoard().printBoard();
 		boolean canMove = false;
 		try {
 			canMove = queen2.isMoveLegalByDirection(Game.getInstance().getBoard().getTilesMap().get(8).get('D' - 'A').getLocation(),Directions.UP_LEFT);
 		} catch (IllegalMoveException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		System.out.println("\nEnd Test 1");

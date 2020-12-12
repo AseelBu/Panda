@@ -3,16 +3,11 @@
  */
 package Controller;
 
-import java.util.ArrayList;
 
-import Model.Answer;
-import Model.Board;
 import Model.Game;
 import Model.Question;
 import Model.SysData;
 import Utils.DifficultyLevel;
-import View.ManageQuestions;
-import View.QuestionGUI;
 
 /**
  * @author aseel

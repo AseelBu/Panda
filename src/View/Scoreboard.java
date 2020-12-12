@@ -1,10 +1,6 @@
 package View;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,15 +8,12 @@ import Controller.DisplayController;
 import Controller.ScoreBoardController;
 import Model.Player;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -39,7 +32,6 @@ public class Scoreboard extends Application {
 		try {
 			mainAnchor = FXMLLoader.load(getClass().getResource("/View/scoreboard.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(mainAnchor);
@@ -48,23 +40,14 @@ public class Scoreboard extends Application {
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
 //		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
-//		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo1.png"))); add logo
+		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
 		
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
 			@Override
 			public void handle(WindowEvent event) {
-				
 				DisplayController.getInstance().closeScoreboard();
 				DisplayController.getInstance().showMainScreen();
-				
 			}
-			
-			
-			
-			
-			
-			
 		});
 		primaryStage.show();
 		

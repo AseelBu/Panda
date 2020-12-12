@@ -1,7 +1,6 @@
 package View;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -213,6 +212,10 @@ public class QuestionGUI extends Application{
 
 	}
 
+	/**
+	 * Pop up notification for true answer
+	 * @param info
+	 */
 	public void notifyTrueAnswer(String info) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Correct Answer");
@@ -222,6 +225,10 @@ public class QuestionGUI extends Application{
 			GameController.getInstance().unpauseGame();
 		} 	
 	}
+	/**
+	 * Pop up notification for false answer
+	 * @param info
+	 */
 	public void notifyFalseAnswer(String info) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Wrong Answer");

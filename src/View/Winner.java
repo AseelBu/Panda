@@ -2,7 +2,6 @@ package View;
 
 import java.io.IOException;
 
-import Controller.BoardController;
 import Controller.DisplayController;
 import Controller.ScoreBoardController;
 import Utils.PrimaryColor;
@@ -54,7 +53,6 @@ public class Winner extends Application{
 	 * loads score of the winner
 	 */
 	public void loadDisplay(String name, int score, PrimaryColor color) {
-//		int score = BoardController.getInstance().getWinnerScore();
 		if(score == Integer.MIN_VALUE) {
 			Label lbl = (Label) mainAnchor.lookup("#Score");
 			lbl.setVisible(false);
@@ -79,6 +77,9 @@ public class Winner extends Application{
 		return primary;
 	}
 
+	/**
+	 * destruct class
+	 */
 	public void destruct() {
 		mainAnchor = null;
 		primary = null;

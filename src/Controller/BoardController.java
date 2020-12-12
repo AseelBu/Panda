@@ -7,14 +7,12 @@ import java.util.TreeSet;
 import Exceptions.GameUpgradeException;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
-import Model.Answer;
 import Model.Board;
 import Model.Game;
 import Model.Location;
 import Model.Piece;
 import Model.Player;
 import Model.Queen;
-import Model.Question;
 import Model.Soldier;
 import Model.Tile;
 import Model.Turn;
@@ -43,6 +41,15 @@ public class BoardController {
 			instance = new BoardController(); 
 		} 
 		return instance; 
+	}
+	
+	public void setPlayersNicknames(String name1, String name2) {
+		Player.getInstance(0).setNickname(name1);
+		Player.getInstance(1).setNickname(name2);
+	}
+	
+	public Player[] getPlayers() {
+		return new Player[] {Player.getInstance(0), Player.getInstance(1)};
 	}
 
 	/**

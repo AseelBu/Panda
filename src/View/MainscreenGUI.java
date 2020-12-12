@@ -4,9 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import Controller.DisplayController;
-import Controller.QuestionMgmtController;
-import Controller.ScoreBoardController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,7 +50,7 @@ public class MainscreenGUI extends Application {
 	
     @FXML
     void exit(ActionEvent event) {
-    	
+    	Platform.exit();
     }
 
     @FXML

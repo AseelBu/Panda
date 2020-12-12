@@ -1,10 +1,6 @@
 package Controller;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import Model.Game;
-import Model.Player;
 import javafx.application.Platform;
 
 public class GameTimerController extends Thread{

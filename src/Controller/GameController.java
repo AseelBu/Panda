@@ -6,11 +6,8 @@ package Controller;
 import Model.Board;
 import Model.Game;
 import Model.Player;
-import Model.SysData;
-import Model.Turn;
 import Utils.PrimaryColor;
-import View.BoardGUI;
-import View.Scoreboard;
+
 
 /**
  * @author aseel

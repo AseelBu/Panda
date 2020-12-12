@@ -5,12 +5,10 @@ import java.io.IOException;
 
 import Controller.BoardController;
 import Controller.DisplayController;
-import Model.Player;
 import Utils.PrimaryColor;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -105,21 +103,13 @@ public class Nicknames extends Application {
 					return;
 				}
 				
-				Player player1 = Player.getInstance(0);
-				Player player2 = Player.getInstance(1);
-				player1.setNickname(getPlayerName(PrimaryColor.WHITE));
-				player2.setNickname(getPlayerName(PrimaryColor.BLACK));
-
-				Player[] players = new Player[] {
-										player1,
-										player2
-										};
+				BoardController.getInstance().setPlayersNicknames(name1, name2);
 				
 				DisplayController.getInstance().closeMainscreen();
 				if(file != null)
-					DisplayController.getInstance().showBoard(players, file);
+					DisplayController.getInstance().showBoard(BoardController.getInstance().getPlayers(), file);
 				else
-					DisplayController.getInstance().showBoard(players);
+					DisplayController.getInstance().showBoard(BoardController.getInstance().getPlayers());
 				DisplayController.getInstance().closeNicknames();
 
 			}
@@ -242,6 +232,10 @@ public class Nicknames extends Application {
 		primary = null;
 	}
 	
+	/**
+	 * Pop up alert with an error message
+	 * @param err
+	 */
 	public void notifyError(String err) {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Warning");
