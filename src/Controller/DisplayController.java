@@ -79,6 +79,11 @@ public class DisplayController {
 	public void showBoard(Player[] players,File file) {
 		HashMap<Character, ArrayList<Piece>> load = null;
 		load = MiscController.getInstance().loadGame(file); 
+		
+		if(load == null) {
+			//TODO
+		}
+		
 		//TODO GET PLAYERS NICKNAME from GUI
 	
 		if(players != null) {

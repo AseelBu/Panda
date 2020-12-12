@@ -109,6 +109,15 @@ public class MiscController {
 		int helper = 8;
 		int row = 1;
 		int cnt = 1;
+		
+		if(board_map.get(31).equals("2") || board_map.get(30).equals("2") || board_map.get(29).equals("2") || board_map.get(28).equals("2")) {
+			System.out.println("Invalid File : Bounds Cant Be Queens");
+			return null;
+		}
+		else if(board_map.get(0).equals("1") || board_map.get(1).equals("1") || board_map.get(2).equals("1") || board_map.get(3).equals("1")) {
+			System.out.println("Invalid File : Bounds Cant Be Queens)");
+			return null;
+		}
 
 		ArrayList<Piece> loaded = new ArrayList<Piece>();
 
