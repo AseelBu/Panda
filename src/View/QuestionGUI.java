@@ -33,6 +33,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -62,6 +63,7 @@ public class QuestionGUI extends Application{
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
 		primaryStage.initStyle(StageStyle.UNDECORATED);
+		primaryStage.initModality(Modality.APPLICATION_MODAL);
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
