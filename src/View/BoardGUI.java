@@ -745,6 +745,7 @@ public class BoardGUI extends Application {
 					}
 
 					if(toTileColor!=null && isToTileYellow) {
+						GameController.getInstance().pauseGame();
 						//TODO handle  yellow
 						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);
 						if(msg != null) {

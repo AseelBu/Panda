@@ -79,5 +79,13 @@ public class GameController {
 		return Game.getInstance().isGameRunning();
 	}
 
+	public void pauseGame() {
+		Game.getInstance().getTimer().pauseTimer();
+		Game.getInstance().getTurn().getTimer().pauseTimer();
+	}
 
+	public void unpauseGame() {
+		Game.getInstance().getTimer().unpauseTimer();
+		Game.getInstance().getTurn().getTimer().unpauseTimer();
+	}
 }

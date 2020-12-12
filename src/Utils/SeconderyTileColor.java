@@ -8,5 +8,5 @@ package Utils;
  *
  */
 public enum SeconderyTileColor {
-	RED, ORANGE, YELLOW ,YELLOW_ORANGE, BLUE, GREEN
+	NOCOLOR, RED, ORANGE, YELLOW ,YELLOW_ORANGE, BLUE, GREEN
 }
