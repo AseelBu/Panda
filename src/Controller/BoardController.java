@@ -29,6 +29,7 @@ public class BoardController {
 	private static BoardController instance;
 	private BoardGUI boardGUI;
 	private int retrievals;
+	private boolean answeringQuestion=false;
 	
 	private BoardController() {
 		boardGUI = DisplayController.boardGUI;
@@ -42,6 +43,20 @@ public class BoardController {
 			instance = new BoardController(); 
 		} 
 		return instance; 
+	}
+
+	/**
+	 * @return the answeringQuestion
+	 */
+	public boolean isAnsweringQuestion() {
+		return answeringQuestion;
+	}
+
+	/**
+	 * @param answeringQuestion the answeringQuestion to set
+	 */
+	public void setAnsweringQuestion(boolean answeringQuestion) {
+		this.answeringQuestion = answeringQuestion;
 	}
 
 	/**
@@ -63,6 +78,7 @@ public class BoardController {
 		return tile.getColor1();
 	}
 
+	
 	/**
 	 * method to add piece to board's display
 	 * @param piece
@@ -81,6 +97,7 @@ public class BoardController {
 	}
 
 	public void loadTilesColors(){
+		System.out.println("loading tiles:\n"+Board.getInstance().getColoredTilesList());
 		for(Tile t: Board.getInstance().getColoredTilesList()) {
 			boardGUI.addColoredTileToBoard(t.getLocation().getRow(), t.getLocation().getColumn(), t.getColor2());
 		}
@@ -371,7 +388,8 @@ public class BoardController {
 					//call boardGUI to open pop up question with blur on screen
 					//continue in checkQuestionAnswer
 					DisplayController.getInstance().showQuestion(((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col))).getQuestion(),
-							Game.getInstance().getTurn().getCurrentPlayer().getColor());
+							Game.getInstance().getCurrentPlayerColor());
+					this.answeringQuestion = true;
 				
 					return null;
 				}

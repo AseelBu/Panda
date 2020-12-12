@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +15,7 @@
 
 <AnchorPane prefHeight="858.0" prefWidth="1218.0" stylesheets="@board.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-         <AnchorPane fx:id="background" layoutX="238.0" layoutY="35.0" prefHeight="958.0" prefWidth="1327.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         <AnchorPane fx:id="background" layoutX="238.0" layoutY="35.0" prefHeight="958.0" prefWidth="1327.0" style="-fx-border-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
   
       <FlowPane layoutX="477.0" layoutY="80.0" prefHeight="800.0" prefWidth="800.0">
          <children>
@@ -61,7 +62,10 @@
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
+               <effect>
+                  <InnerShadow choke="0.24" color="#ff7a06" height="139.6" radius="66.83" width="129.72" />
+               </effect></FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
@@ -123,7 +127,10 @@
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
-            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;">
+               <effect>
+                  <InnerShadow choke="0.25" color="#ff7a06" height="110.0" radius="54.5" width="110.0" />
+               </effect></FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />
@@ -142,10 +149,16 @@
                <children>
                   <ImageView fitHeight="99.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@pictures/redTile.png" />
+                        <Image url="@pictures/YELLOWTile.png" />
                      </image>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
                   </ImageView>
                </children>
+               <effect>
+                  <InnerShadow choke="0.25" color="#ff7a06" height="110.0" radius="54.5" width="110.0" />
+               </effect>
             </FlowPane>
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;" />
             <FlowPane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: black;" />

@@ -12,7 +12,7 @@ import Model.Question;
 import Model.SysData;
 import Utils.DifficultyLevel;
 import View.ManageQuestions;
-import View.Questions;
+import View.QuestionGUI;
 
 /**
  * @author aseel

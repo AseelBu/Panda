@@ -30,6 +30,7 @@ public class Board {
 	private ArrayList<Piece> pieces;
 	private HashMap<Integer, ArrayList<Tile>> tiles; //key:row number,value: array list of tiles ordered by column
 	private ArrayList<Tile> coloredTilesList;
+	private ArrayList<Tile> orangeTiles;
 	//Singleton Class
 
 	private static Board instance;
@@ -41,6 +42,7 @@ public class Board {
 		pieces = new ArrayList<Piece>();
 		tiles = new HashMap<Integer, ArrayList<Tile>>(BOARD_SIZE);
 		coloredTilesList = new ArrayList<Tile>();
+		orangeTiles=new ArrayList<Tile>();
 		System.out.println("Board created..");
 	}
 
@@ -140,6 +142,11 @@ public class Board {
 	public ArrayList<Tile> getColoredTilesList() {
 		return coloredTilesList;
 	}
+
+	public ArrayList<Tile> getOrangeTiles() {
+		return orangeTiles;
+	}
+
 
 	//helping method to get random black tile on the board
 	private Tile getRandomBlackTile() {
@@ -326,8 +333,9 @@ public class Board {
 	 * add color to board tile
 	 * @param tile
 	 * @param color
+	 * @return added Tile
 	 */
-	public void addSeconderyColorToBoardTile(Tile tilee,SeconderyTileColor color) {
+	public Tile addSeconderyColorToBoardTile(Tile tilee,SeconderyTileColor color) {
 		Location tLoc =tilee.getLocation();
 
 		Tile tile=null;
@@ -339,6 +347,7 @@ public class Board {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+		return tile;
 	}
 
 
@@ -624,13 +633,13 @@ public class Board {
 			}else if(p instanceof Queen){
 				try {
 					HashSet<Tile> hs = new HashSet<Tile>();
-					
+
 					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.UP_LEFT));
 					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.UP_RIGHT));
 					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_LEFT));
 					hs.addAll(((Queen) p).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT));
 					hs.remove(null);
-					
+
 					possibleTileSet.addAll(hs);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -944,6 +953,9 @@ public class Board {
 		}
 		this.coloredTilesList=null;
 		this.coloredTilesList=new ArrayList<Tile>();
+		this.orangeTiles=null;
+		this.orangeTiles=new ArrayList<Tile>();
+		
 	}
 
 	/**
@@ -968,11 +980,8 @@ public class Board {
 
 		//add red tiles
 
-		if(canAddRedTile()){
+		if(canAddRedTile() && isThereLegalTilesNotColored()){
 
-			ArrayList<Tile> legalTiles=getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
-			legalTiles.removeAll(coloredTilesList);
-			if(legalTiles.isEmpty()) return;
 			System.out.println("adding red");
 
 			Tile randTile=null;
@@ -1003,22 +1012,22 @@ public class Board {
 		}
 
 
-//		System.out.println("board  tiles in init secondary:\n");
-//		for(Tile t :Game.getInstance().getBoard().getAllBoardTiles()) {
-//			System.out.println(t);
-//
-//		}
-//		
-//		
-//		System.out.println("colored list after init: ");
-//		for(Tile t:this.coloredTilesList) {
-//			System.out.println(t);
-//		}
+		//		System.out.println("board  tiles in init secondary:\n");
+		//		for(Tile t :Game.getInstance().getBoard().getAllBoardTiles()) {
+		//			System.out.println(t);
+		//
+		//		}
+		//		
+		//		
+		//		System.out.println("colored list after init: ");
+		//		for(Tile t:this.coloredTilesList) {
+		//			System.out.println(t);
+		//		}
 	}
 
 	//helping method for checking if red tile can be added to board or not
 	private boolean canAddRedTile() {
-		
+
 		if(isAllPiecesEaten(Game.getInstance().getCurrentPlayerColor())) {
 			return true;
 
@@ -1046,17 +1055,25 @@ public class Board {
 		return (soldierCount == 2 && queenCount == 1);
 	}
 
+	// helping method checks if there is not colored legal tiles left
+	private boolean isThereLegalTilesNotColored(){
+
+		ArrayList<Tile> legalTiles=getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+		legalTiles.removeAll(coloredTilesList);
+		if(legalTiles.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * A green tile to Board
 	 */
 	public Tile AddGreenTile(){
 		ColoredTilesFactory coloredTilesFactory =  new ColoredTilesFactory();
-		
-		//check if legal tiles are all colored
-		ArrayList<Tile> legalTiles=getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
-		legalTiles.removeAll(coloredTilesList);
-		if(legalTiles.isEmpty()) return null;
-		
+
+		if(!isThereLegalTilesNotColored()) return null;
+
 		Tile randTile=null;
 		do {
 			randTile= getRandomLegalTile();
@@ -1075,16 +1092,68 @@ public class Board {
 	}
 
 	/**
-	 * TODO
-	 * An orange tile toBoard
+	 *
+	 * Adds orange tile toBoard
 	 */
 	public void  addOrangeTiles()
 	{
+		updateBoardToAddingOrange();
+
 
 		ArrayList<Tile> tiles=Board.getInstance().getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
 		for(Tile tile:tiles)
 		{
-			Board.getInstance().addSeconderyColorToBoardTile(tile,SeconderyTileColor.ORANGE);
+			SeconderyTileColor newSecColor= tile.getColor2()==SeconderyTileColor.YELLOW ? SeconderyTileColor.YELLOW_ORANGE:SeconderyTileColor.ORANGE ;
+
+			Tile orangeTile=Board.getInstance().addSeconderyColorToBoardTile(tile,newSecColor);
+			this.orangeTiles.add(orangeTile);
 		}
+	}
+
+	private boolean updateBoardToAddingOrange(){
+		ArrayList<Tile> legalTiles = getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+		
+		for(Tile t:this.coloredTilesList) {
+			if(legalTiles.contains(t) && !(t instanceof YellowTile)) {
+				//blue transfer to regular tile
+				if(t instanceof BlueTile) {
+					replaceTileInSameTileLocation(new Tile(t.getLocation(), t.getColor1(), null, t.getPiece()));
+				}else {
+					//remove secondary color
+					t.setColor2(null);
+					replaceTileInSameTileLocation(t);
+				}
+				
+			}
+
+		}
+		
+		return true;
+
+	}
+
+	public void updateColoredTileListAfterOrange(){
+		ArrayList<Tile> legalTiles = getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+		ArrayList<Tile> coloredTilesToRemove=new ArrayList<Tile>();		
+		for(Tile t:this.coloredTilesList) {
+			if(legalTiles.contains(t) ) {
+
+				coloredTilesToRemove.add(t);
+			}
+
+		}
+		System.out.println("colored Tiles To remove:\n"+coloredTilesToRemove);
+		this.coloredTilesList.removeAll(coloredTilesToRemove);
+		this.coloredTilesList.addAll(this.orangeTiles);
+		this.orangeTiles=null;
+		this.orangeTiles=new ArrayList<Tile>();
+	}
+	//TODO canLocateRedTile
+	private boolean canLocateRedInTile(){
+		//if player already stepped in red
+		//if check only in legal location for piece
+		//else
+		//check all legal moves if they can be red
+		return false;
 	}
 }

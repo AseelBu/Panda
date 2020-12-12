@@ -15,7 +15,7 @@ import View.BoardGUI;
 import View.MainscreenGUI;
 import View.ManageQuestions;
 import View.Nicknames;
-import View.Questions;
+import View.QuestionGUI;
 import View.Scoreboard;
 import View.Winner;
 
@@ -27,7 +27,7 @@ public class DisplayController {
 	public static ManageQuestions manageQuestions;
 	public static Scoreboard scoreboard;
 	public static Nicknames nicknames;
-	public static Questions questions;
+	public static QuestionGUI questions;
 	public static Winner winner;
 
 	private DisplayController() {
@@ -162,7 +162,7 @@ public class DisplayController {
 	}
 	
 	public void showQuestion(Question question, PrimaryColor turnColor) throws Exception {
-		questions = new Questions(turnColor);
+		questions = new QuestionGUI(turnColor);
 		questions.start(questions.getPrimary());
 		HashMap<Integer, String> answers = new HashMap<>();
 		
