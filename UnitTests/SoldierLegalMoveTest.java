@@ -17,6 +17,11 @@ import Model.Soldier;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
+/**
+ * Test ID: 1
+ * @author maryam
+ *
+ */
 public class SoldierLegalMoveTest {
 
 	static final int ROW_LOCATION = 8;

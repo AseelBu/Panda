@@ -20,9 +20,13 @@ import Model.Soldier;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
+
+/**
+ * 
+ * @author firas
+ *
+ */
 public class QueenMovementTests {
-	
-	
 	
 	@Before
 	public void initiatePlayersNames() throws LocationException {
@@ -55,6 +59,10 @@ public class QueenMovementTests {
 		Player.destruct();
 	}
 	
+	/**
+	 * Test ID: 10
+	 * @throws LocationException
+	 */
 	@Test
 	public void queenBlocked() throws LocationException {
 		System.out.println("Start Test 3\n");
@@ -65,6 +73,10 @@ public class QueenMovementTests {
 		assertFalse("Piece is not blocked", isBlocked);
 	}
 	
+	/**
+	 * Test ID: 11
+	 * @throws LocationException
+	 */
 	@Test
 	public void queenEat() throws LocationException {
 		System.out.println("Start Test 2\n");
@@ -78,6 +90,10 @@ public class QueenMovementTests {
 
 	}
 	
+	/**
+	 * Test ID: 12
+	 * @throws LocationException
+	 */
 	@Test
 	public void legalDestination() throws LocationException {
 		System.out.println("Start Test 1\n");
@@ -94,5 +110,6 @@ public class QueenMovementTests {
 		assertTrue("Can Move", canMove);
 
 	}
+	
 	
 }

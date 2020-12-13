@@ -13,8 +13,17 @@ import Model.Question;
 import Model.SysData;
 import Model.YellowTile;
 
+
+/**
+ * 
+ * @author saleh
+ *
+ */
 public class QuestionAnswerTests {
 
+	/**
+	 * Test ID: 9
+	 */
 	@Test
 	public void checkAllAnswers() {
 		QuestionAnswering();

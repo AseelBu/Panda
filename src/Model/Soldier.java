@@ -3,7 +3,6 @@ package Model;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-import Controller.BoardController;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
 import Utils.Directions;

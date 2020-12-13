@@ -24,6 +24,7 @@ import Utils.Directions;
 import Utils.PrimaryColor;
 
 /**
+ * 
  * @author aseel
  *
  */
@@ -131,6 +132,9 @@ public class FinishGameTest {
 	}
 
 
+	/**
+	 * Test ID: 2
+	 */
 	@Test
 	public void playingPlayerIsStuck() {
 		System.out.println("executing test 1 in test finish game ");
@@ -147,6 +151,9 @@ public class FinishGameTest {
 		assertTrue("Playing player must be identified as stuck,game must finish", result);
 	}
 
+	/**
+	 * Test ID: 3
+	 */
 	@Test
 	public void opponentPlayerIsStuck() {
 		System.out.println("executing test 2 in test finish game ");
@@ -163,6 +170,9 @@ public class FinishGameTest {
 		assertFalse("Playing player didn't move yet,game shouldn't finish", result);
 	}
 
+	/**
+	 * Test ID: 4
+	 */
 	@Test
 	public void playingPlayerHasNoPeicesLeft() {
 		System.out.println("executing test 3 in test finish game ");
@@ -180,6 +190,9 @@ public class FinishGameTest {
 		assertTrue("Playing player is out of pieces,Game must finish",result);
 	}
 
+	/**
+	 * Test ID: 5
+	 */
 	@Test
 	public void opponentPlayerHasNoPeicesLeft() {
 		System.out.println("executing test 4 in test finish game ");

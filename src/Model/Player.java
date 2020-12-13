@@ -2,7 +2,6 @@ package Model;
 
 import java.io.Serializable;
 
-import Controller.BoardController;
 import Utils.PrimaryColor;
 
 /**

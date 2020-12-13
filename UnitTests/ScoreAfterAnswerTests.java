@@ -17,6 +17,11 @@ import Model.SysData;
 import Model.Turn;
 import Utils.DifficultyLevel;
 
+/**
+ * 
+ * @author saleh
+ *
+ */
 public class ScoreAfterAnswerTests {
 	
 	@BeforeClass
@@ -37,6 +42,9 @@ public class ScoreAfterAnswerTests {
     }
 	
 
+	/**
+	 * Test ID: 6
+	 */
 	@Test
 	public void answerIntermediate() {
 	
@@ -81,6 +89,9 @@ public class ScoreAfterAnswerTests {
 		
 	}
 	
+	/**
+	 * Test ID: 7
+	 */
 	@Test
 	public void answerEasy() {
 		
@@ -122,6 +133,9 @@ public class ScoreAfterAnswerTests {
 		}
 	}
 	
+	/**
+	 * Test ID: 8
+	 */
 	@Test
 	public void answerHard() {
 		

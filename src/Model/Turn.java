@@ -1,8 +1,4 @@
 package Model;
-import java.util.ArrayList;
-import Utils.PrimaryColor;
-import Utils.SeconderyTileColor;
-import java.util.Random;
 
 import Exceptions.GameUpgradeException; 
 
