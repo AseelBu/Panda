@@ -10,7 +10,7 @@ import Utils.SeconderyTileColor;
  * @author aseel
  *
  */
-public class Tile implements Comparable<Tile>,ColoredTileUpdate{
+public class Tile implements Comparable<Tile>{
 
 	private Location location;
 	private PrimaryColor color1;
@@ -202,25 +202,7 @@ public class Tile implements Comparable<Tile>,ColoredTileUpdate{
 		return false;
 	}
 
-	@Override
-	//TODO REMOVE METHOD
-	public void stepOnBy(Piece piece) {
-//		// TODO Auto-generated method stub
-//		switch (this.color2) {
-//		case RED: {
-//
-//			Game.getInstance().getTurn().IncrementMoveCounter();
-//		}
-//		case GREEN: {
-//
-//			Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
-//		}
-//
-//
-//		}
-//		return;
-//
-	}
+	
 
 	@Override
 	public String toString() {

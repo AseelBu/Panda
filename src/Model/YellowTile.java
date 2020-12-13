@@ -3,7 +3,7 @@ package Model;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
 
-public class YellowTile extends Tile implements ColoredTileUpdate {
+public class YellowTile extends Tile  {
 
 
 	private Question question;

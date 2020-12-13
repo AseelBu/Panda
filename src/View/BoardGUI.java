@@ -742,7 +742,7 @@ public class BoardGUI extends Application {
 				if(!burnt) {
 					if(toTileColor!=null && isToTileYellow) {
 						GameController.getInstance().pauseGame();
-						//TODO handle  yellow
+						// handle  yellow tile
 						String msg = boardController.stepOnColorTile(toRow, toCol, toTileColor);
 						if(msg != null) {
 							notifyUpgradeInGame(msg);

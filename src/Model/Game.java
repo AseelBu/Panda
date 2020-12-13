@@ -320,7 +320,7 @@ public class Game {
 		//		destruct();
 		//		Board.destruct();
 		//		Player.destruct();
-		//		System.exit(1); //TODO On Implementing GUI, to replace this
+		//		System.exit(1); 
 	}
 
 	/**

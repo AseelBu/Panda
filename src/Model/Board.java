@@ -738,77 +738,6 @@ public class Board {
 		return false;
 	}
 
-	/**
-	 * Method to be called for moving a piece
-	 * @param from location of a piece to move
-	 * @param to location of a tile to move to
-	 * @param direction the direction to move the piece
-	 * @return true if the move has succeeded, otherwise false
-	 * @throws IllegalMoveException 
-	 * @throws LocationException 
-	 */
-	//TODO remove method
-	public boolean movePiece(Location from, Location to, Directions direction) throws IllegalMoveException, LocationException {
-		//		System.out.println("Attempting to move piece from: " + from.getColumn() + "" + from.getRow() + " | to : " + to.getColumn() + "" + to.getRow());
-		//		HashMap<Piece, ArrayList<Piece>> toBurn = searchToBurn();
-		//		Player currPlayer =Game.getInstance().getTurn().getCurrentPlayer();
-		//		Piece piece = null;
-		//		Tile fromTile = null, toTile = null;
-		//		try {
-		//			fromTile = getTileInLocation(from);
-		//			toTile = getTileInLocation(to);
-		//		} catch (Exception e) {
-		//			System.out.println(e.getMessage());
-		//			return false;
-		//		}
-		//		if(fromTile == null || toTile == null) {
-		//			System.out.println("Invalid Locations..");
-		//			return false;
-		//		}
-		//		piece = fromTile.getPiece();
-		//
-		//		if(piece == null) {
-		//			this.printBoard();
-		//			System.out.println("Tile has no piece!");
-		//			return false;
-		//		}
-		//		if(currPlayer.getColor() != piece.getColor()) {
-		//			throw new IllegalMoveException("You cannot move your opponent's piece");
-		//		}
-		//
-		//		if(piece.move(toTile, direction)) {
-		//			Turn turn = Game.getInstance().getTurn();
-		//			if(toBurn.containsKey(piece)) {
-		//				ArrayList<Piece> temp = toBurn.get(piece);
-		//				toBurn.remove(piece);
-		//				toBurn.put(turn.getLastPieceMoved(), temp);
-		//			}
-		//			burnAllPiecesMissedEating(toBurn);
-		//
-		//			if(turn.getMoveCounter()>0) {
-		//				Game.getInstance().getTurn().decrementMoveCounter();
-		//			}
-		//			if(piece.getLocation() != null)
-		//				if(piece instanceof Queen) System.out.println("Queen has been moved!");
-		//				else System.out.println("Soldier has been moved!");
-		//
-		//			// is there eating left for the piece
-		//			if(!isAllPiecesEaten(Game.getInstance().getTurn().getLastPieceMoved()) && 
-		//					Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0) {
-		//				Game.getInstance().getTurn().IncrementMoveCounter();
-		//			}
-		//			if(turn.getMoveCounter() == 0) {
-		//				Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
-		//			}
-		//
-		//			if(getColorPieces(PrimaryColor.WHITE).size() == 0 || getColorPieces(PrimaryColor.BLACK).size() == 0)
-		//				Game.getInstance().finishGame();
-		//			return true;
-		//		}
-		//
-		//
-		return false;
-	}
 
 	/**
 	 * Used to print the board
@@ -914,7 +843,7 @@ public class Board {
 	public void initiateBoardSecondaryColors(){
 		removeAllSeconderyColorsFromBoard();
 		ColoredTilesFactory coloredTilesFactory =  new ColoredTilesFactory();
-		//TODO add yellow tiles
+		// add yellow tiles
 
 		for(int i=0 ; i<YELLOW_TILES_AMOUNT;i++) {
 			Tile randTile=null;
@@ -954,7 +883,7 @@ public class Board {
 		}
 
 
-		//TODO check add blue tiles
+		// add blue tiles
 		if(canAddBlueTile()){
 			System.out.println("adding red");
 			Tile randTile=null;
@@ -1155,14 +1084,7 @@ public class Board {
 		this.orangeTiles=null;
 		this.orangeTiles=new ArrayList<Tile>();
 	}
-//	//TODO canLocateRedTile
-//	private boolean canLocateRedInTile(){
-//		//if player already stepped in red
-//		//if check only in legal location for piece
-//		//else
-//		//check all legal moves if they can be red
-//		return false;
-//	}
+
 
 	/**
 	 * checks for possible tiles for red tile
