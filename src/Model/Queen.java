@@ -23,7 +23,7 @@ public class Queen extends Piece{
 		// TODO Auto-generated constructor stub
 	}
 
-	
+
 	/**
 	 * Method used to move a piece by selected direction
 	 * @param targetTile
@@ -65,9 +65,9 @@ public class Queen extends Piece{
 			isMoveLegalByDirection(targetLocation, Directions.DOWN_LEFT);
 			isMoveLegalByDirection(targetLocation, Directions.DOWN_RIGHT);
 		}
-		
+
 		return true;
-		
+
 	}
 	/**
 	 * Checks whether the move is legal by direction
@@ -81,76 +81,76 @@ public class Queen extends Piece{
 		Board board =Board.getInstance();
 		if(getLocation().getRow() == targetLocation.getRow() || getLocation().getColumn() == targetLocation.getColumn()) return false;
 		switch(direction) {
-			case UP_LEFT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
+		case UP_LEFT:{
 
-				do {
-					if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
-					i++;
-					c--;
-					if(i > board.getBoardSize()) i = 1;
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
 
-				break;
+			do {
+				if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
+				i++;
+				c--;
+				if(i > board.getBoardSize()) i = 1;
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
 			}
-			case UP_RIGHT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				do {
-					if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
-					i++;
-					c++;
-					if(i > board.getBoardSize()) i = 1;
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
-				
-				break;
-			}
-			case DOWN_LEFT:{//
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
 
-				do {
-					if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
-					i--;
-					c--;
-					if(i < 1) i = board.getBoardSize();
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
-				
-				break;
-			}
-			case DOWN_RIGHT:{//
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-
-				do {
-					if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
-					i--;
-					c++;
-					if(i < 1) i = board.getBoardSize();
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
-				
-				break;
-			}
-			default: return false;
+			break;
 		}
-		
+		case UP_RIGHT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			do {
+				if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
+				i++;
+				c++;
+				if(i > board.getBoardSize()) i = 1;
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
+		}
+		case DOWN_LEFT:{//
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
+				i--;
+				c--;
+				if(i < 1) i = board.getBoardSize();
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+			}
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
+		}
+		case DOWN_RIGHT:{//
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				if(targetLocation.getRow() == i && targetLocation.getColumn() == c) return true;
+				i--;
+				c++;
+				if(i < 1) i = board.getBoardSize();
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
+		}
+		default: return false;
+		}
+
 		return false;
 	}
-	
-	
+
+
 	@Override
 	public ArrayList<Piece> getEdiblePieces() {
 		ArrayList<Piece> pieces = new ArrayList<>();
@@ -167,10 +167,10 @@ public class Queen extends Piece{
 		temp  = getEdiblePieceByDirection(Directions.DOWN_RIGHT);
 		if(temp != null)
 			pieces.add(temp);
-		
+
 		return pieces;
 	}
-	
+
 	/**
 	 * 
 	 * @param direction
@@ -181,136 +181,136 @@ public class Queen extends Piece{
 		Board board = Board.getInstance();
 		HashMap<Integer, ArrayList<Tile>> boardMap = board.getTilesMap();
 		Piece suspectedToAdd = null;
-		
+
 		switch(direction) {
-			case UP_LEFT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-	
-				do {
-					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
-						if(boardMap.get(i).get(c - 'A').getPiece() != null)
-							if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
-						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
-							if(suspectedToAdd != null) break;
-							else {
-								if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
-									suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
-							}
-						}else {
-							if(suspectedToAdd != null) {
-								System.out.println(suspectedToAdd.getLocation());
-								return suspectedToAdd;
-							}
-						}
-					}
-					i++;
-					c--;
-					if(i > board.getBoardSize()) i = 1;
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
-	
-				break;
-			}
-			case UP_RIGHT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-	
-				do {
-					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
-						if(boardMap.get(i).get(c - 'A').getPiece() != null)
-							if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
-						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
-							if(suspectedToAdd != null) break;
-							else {
-								if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
-									suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
-							}
-						}else {
-							if(suspectedToAdd != null) {
-								return suspectedToAdd;
-	
-							}
-						}
-					}
-					i++;
-					c++;
-					if(i > board.getBoardSize()) i = 1;
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
+		case UP_LEFT:{
 
-				break;
-			}
-			case DOWN_LEFT:{//
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-	
-				do {
-					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
-						if(boardMap.get(i).get(c - 'A').getPiece() != null)
-							if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
-						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
-							if(suspectedToAdd != null) break;
-							else {
-								if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
-									suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
-							}
-						}else {
-							if(suspectedToAdd != null) {
-								return suspectedToAdd;
-							}
-						}
-					}
-					i--;
-					c--;
-					if(i < 1) i = board.getBoardSize();
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
-				
-				break;
-			}
-			case DOWN_RIGHT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-	
-				do {
-					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
-						if(boardMap.get(i).get(c - 'A').getPiece() != null)
-							if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
-						if(boardMap.get(i).get(c - 'A').getPiece() != null) {
-							if(suspectedToAdd != null) break;
-							else {
-								if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
-									suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
-							}
-						}else {
-							if(suspectedToAdd != null) {
-								return suspectedToAdd;
-							}
-						}
-					}
-					i--;
-					c++;
-					if(i < 1) i = board.getBoardSize();
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
 
-				break;
+			do {
+				if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+					if(boardMap.get(i).get(c - 'A').getPiece() != null)
+						if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
+					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
+						if(suspectedToAdd != null) break;
+						else {
+							if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
+								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+						}
+					}else {
+						if(suspectedToAdd != null) {
+							System.out.println(suspectedToAdd.getLocation());
+							return suspectedToAdd;
+						}
+					}
+				}
+				i++;
+				c--;
+				if(i > board.getBoardSize()) i = 1;
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
 			}
-			default: return null;
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
 		}
-		
+		case UP_RIGHT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+					if(boardMap.get(i).get(c - 'A').getPiece() != null)
+						if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
+					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
+						if(suspectedToAdd != null) break;
+						else {
+							if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
+								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+						}
+					}else {
+						if(suspectedToAdd != null) {
+							return suspectedToAdd;
+
+						}
+					}
+				}
+				i++;
+				c++;
+				if(i > board.getBoardSize()) i = 1;
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
+		}
+		case DOWN_LEFT:{//
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+					if(boardMap.get(i).get(c - 'A').getPiece() != null)
+						if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
+					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
+						if(suspectedToAdd != null) break;
+						else {
+							if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
+								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+						}
+					}else {
+						if(suspectedToAdd != null) {
+							return suspectedToAdd;
+						}
+					}
+				}
+				i--;
+				c--;
+				if(i < 1) i = board.getBoardSize();
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+			}
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
+		}
+		case DOWN_RIGHT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+					if(boardMap.get(i).get(c - 'A').getPiece() != null)
+						if(boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor())) break;
+					if(boardMap.get(i).get(c - 'A').getPiece() != null) {
+						if(suspectedToAdd != null) break;
+						else {
+							if(!boardMap.get(i).get(c - 'A').getPiece().getColor().equals(this.getColor()))
+								suspectedToAdd = boardMap.get(i).get(c - 'A').getPiece();
+						}
+					}else {
+						if(suspectedToAdd != null) {
+							return suspectedToAdd;
+						}
+					}
+				}
+				i--;
+				c++;
+				if(i < 1) i = board.getBoardSize();
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
+		}
+		default: return null;
+		}
+
 		return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param targetLocation
@@ -321,196 +321,196 @@ public class Queen extends Piece{
 		Board board = Board.getInstance();
 		HashMap<Integer, ArrayList<Tile>> boardMap = board.getTilesMap();
 		Piece suspectedToBlock = null;
-		
+
 		switch(direction) {
-			case UP_LEFT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				int counter = 1;
-				do {
+		case UP_LEFT:{
 
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
-							if(suspectedToBlock != null) return null;
-							else {
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-							}
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							return suspectedToBlock;
-						}
-					}
-					i++;
-					c--;
-					counter++;
-					if(i > board.getBoardSize()) i = 1;
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
-	
-				if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
-							if(suspectedToBlock != null) return null;
-							else {
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-							}
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							return suspectedToBlock;
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			int counter = 1;
+			do {
+
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
+						if(suspectedToBlock != null) return null;
+						else {
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
 						}
 					}
+				}else {
+					if(suspectedToBlock != null) {
+						return suspectedToBlock;
+					}
 				}
-				
-				break;
+				i++;
+				c--;
+				counter++;
+				if(i > board.getBoardSize()) i = 1;
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
 			}
-			case UP_RIGHT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				int counter = 1;
-	
-				do {
+			while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
-							if(suspectedToBlock != null) return null;
-							else {
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-							}
-
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							return suspectedToBlock;
+			if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
+						if(suspectedToBlock != null) return null;
+						else {
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
 						}
 					}
-					i++;
-					c++;
-					counter++;
-	
-					if(i > board.getBoardSize()) i = 1;
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
-	
-				if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
-							if(suspectedToBlock != null) return null;
-							else {
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-							}
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							return suspectedToBlock;
-						}
+				}else {
+					if(suspectedToBlock != null) {
+						return suspectedToBlock;
 					}
 				}
-				break;
 			}
-			case DOWN_LEFT:{//
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				int counter = 1;
-	
-				do {
 
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
-							if(suspectedToBlock != null) return null;
-							else {
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-							}
+			break;
+		}
+		case UP_RIGHT:{
 
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			int counter = 1;
+
+			do {
+
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
+						if(suspectedToBlock != null) return null;
+						else {
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
 						}
-					}else {
-						if(suspectedToBlock != null) {
-							return suspectedToBlock;
-						}
+
 					}
-					i--;
-					c--;
-					counter++;
-	
-					if(i < 1) i = board.getBoardSize();
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
-	
-				if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
-							if(suspectedToBlock != null) return null;
-							else {
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-							}
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							return suspectedToBlock;
-						}
+				}else {
+					if(suspectedToBlock != null) {
+						return suspectedToBlock;
 					}
 				}
-				break;
+				i++;
+				c++;
+				counter++;
+
+				if(i > board.getBoardSize()) i = 1;
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
 			}
-			case DOWN_RIGHT:{//
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				int counter = 1;
-	
-				do {
+			while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
-							if(suspectedToBlock != null) return null;
-							else {
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-							}
-
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							return suspectedToBlock;
+			if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
+						if(suspectedToBlock != null) return null;
+						else {
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
 						}
 					}
-					i--;
-					c++;
-					counter++;
-	
-					if(i < 1) i = board.getBoardSize();
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
-	
-				if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c -board.getColumnLowerBound()).getPiece().equals(this)) {
-							if(suspectedToBlock != null) return null;
-							else {
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-							}
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							return suspectedToBlock;
-						}
+				}else {
+					if(suspectedToBlock != null) {
+						return suspectedToBlock;
 					}
 				}
-				
-				break;
 			}
-			default: return null;
+			break;
+		}
+		case DOWN_LEFT:{//
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			int counter = 1;
+
+			do {
+
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
+						if(suspectedToBlock != null) return null;
+						else {
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
+						}
+
+					}
+				}else {
+					if(suspectedToBlock != null) {
+						return suspectedToBlock;
+					}
+				}
+				i--;
+				c--;
+				counter++;
+
+				if(i < 1) i = board.getBoardSize();
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+			}
+			while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
+
+			if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
+						if(suspectedToBlock != null) return null;
+						else {
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
+						}
+					}
+				}else {
+					if(suspectedToBlock != null) {
+						return suspectedToBlock;
+					}
+				}
+			}
+			break;
+		}
+		case DOWN_RIGHT:{//
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			int counter = 1;
+
+			do {
+
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) {
+						if(suspectedToBlock != null) return null;
+						else {
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
+						}
+
+					}
+				}else {
+					if(suspectedToBlock != null) {
+						return suspectedToBlock;
+					}
+				}
+				i--;
+				c++;
+				counter++;
+
+				if(i < 1) i = board.getBoardSize();
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
+
+			if(i == targetLocation.getRow() && c == targetLocation.getColumn() ) {
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() != this.getColor()) && !boardMap.get(i).get(c -board.getColumnLowerBound()).getPiece().equals(this)) {
+						if(suspectedToBlock != null) return null;
+						else {
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
+						}
+					}
+				}else {
+					if(suspectedToBlock != null) {
+						return suspectedToBlock;
+					}
+				}
+			}
+
+			break;
+		}
+		default: return null;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Checks if piece is blocked in a specific direction
 	 * @param targetLocation
@@ -523,136 +523,136 @@ public class Queen extends Piece{
 		Piece suspectedToBlock = null;
 		if(boardMap.get(targetLocation.getRow()).get(targetLocation.getColumn() - board.getColumnLowerBound()).getPiece() != null) return true;
 		switch(direction) {
-			case UP_LEFT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				int counter = 1;
-				do {
+		case UP_LEFT:{
 
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
-						if(suspectedToBlock != null) return true;
-						else {
-							if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							suspectedToBlock = null;
-						}
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			int counter = 1;
+			do {
+
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
+					if(suspectedToBlock != null) return true;
+					else {
+						if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
 					}
-					i++;
-					c--;
-					counter++;
-					if(i > board.getBoardSize()) i = 1;
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
-	
-				break;
-			}
-			case UP_RIGHT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				int counter = 1;
-
-				do {
-
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) 
-								&& !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
-						if(suspectedToBlock != null) return true;
-						else {
-							if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							suspectedToBlock = null;
-						}
+				}else {
+					if(suspectedToBlock != null) {
+						suspectedToBlock = null;
 					}
-					
-					i++;
-					c++;
-					counter++;
-					if(i > board.getBoardSize()) i = 1;
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
 				}
-				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
-
-				break;
+				i++;
+				c--;
+				counter++;
+				if(i > board.getBoardSize()) i = 1;
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
 			}
-			case DOWN_LEFT:{//
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				int counter = 1;
+			while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
 
-				do {
-
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
-						if(suspectedToBlock != null) return true;
-						else {
-							if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							suspectedToBlock = null;
-						}
-					}
-					i--;
-					c--;
-					counter++;
-
-					if(i < 1) i = board.getBoardSize();
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
-
-				break;
-			}
-			case DOWN_RIGHT:{//
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				int counter = 1;
-
-				do {
-
-					if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
-						if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
-						if(suspectedToBlock != null) return true;
-						else {
-							if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
-								suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
-						}
-					}else {
-						if(suspectedToBlock != null) {
-							suspectedToBlock = null;
-						}
-					}
-					i--;
-					c++;
-					counter++;
-
-					if(i < 1) i = board.getBoardSize();
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
-
-				break;
-			}
-			default: return false;
+			break;
 		}
-		
+		case UP_RIGHT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			int counter = 1;
+
+			do {
+
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) 
+							&& !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
+					if(suspectedToBlock != null) return true;
+					else {
+						if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
+
+					}
+				}else {
+					if(suspectedToBlock != null) {
+						suspectedToBlock = null;
+					}
+				}
+
+				i++;
+				c++;
+				counter++;
+				if(i > board.getBoardSize()) i = 1;
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
+
+			break;
+		}
+		case DOWN_LEFT:{//
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			int counter = 1;
+
+			do {
+
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
+					if(suspectedToBlock != null) return true;
+					else {
+						if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
+					}
+				}else {
+					if(suspectedToBlock != null) {
+						suspectedToBlock = null;
+					}
+				}
+				i--;
+				c--;
+				counter++;
+
+				if(i < 1) i = board.getBoardSize();
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+			}
+			while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
+
+			break;
+		}
+		case DOWN_RIGHT:{//
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			int counter = 1;
+
+			do {
+
+				if(boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece() != null) {
+					if((boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor() == this.getColor()) && !boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().equals(this)) return true;
+					if(suspectedToBlock != null) return true;
+					else {
+						if(!boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece().getColor().equals(this.getColor()))
+							suspectedToBlock = boardMap.get(i).get(c - board.getColumnLowerBound()).getPiece();
+					}
+				}else {
+					if(suspectedToBlock != null) {
+						suspectedToBlock = null;
+					}
+				}
+				i--;
+				c++;
+				counter++;
+
+				if(i < 1) i = board.getBoardSize();
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while((i != targetLocation.getRow() && c != targetLocation.getColumn() ) &&  counter <= board.getBoardSize());
+
+			break;
+		}
+		default: return false;
+		}
+
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * @param direction
@@ -661,170 +661,170 @@ public class Queen extends Piece{
 	 */
 	public ArrayList<Tile> getAllAvailableMovesByDirection(Directions direction) throws Exception{
 		HashSet<Tile> tiles = new HashSet<>();
-		
+
 		Board board =Board.getInstance();
 		Piece suspectedToBlock = null;
 		switch(direction) {
-			case UP_LEFT:{
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
+		case UP_LEFT:{
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
 
-				do {
-					Location location = new Location(i, (char)c);
-					if(!this.getLocation().equals(location)) {
-						if(board.getTileInLocation(location).getPiece() != null)
-							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
-						if(board.getTileInLocation(location).getPiece() != null) {
-							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
-							if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
-							else {
-								suspectedToBlock = board.getTileInLocation(location).getPiece();
+			do {
+				Location location = new Location(i, (char)c);
+				if(!this.getLocation().equals(location)) {
+					if(board.getTileInLocation(location).getPiece() != null)
+						if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
+					if(board.getTileInLocation(location).getPiece() != null) {
+						if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
+						if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
+						else {
+							suspectedToBlock = board.getTileInLocation(location).getPiece();
 
-							}
+						}
+					}else {
+						if(suspectedToBlock != null) {
+							//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+							//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+							tiles.add(board.getTileInLocation(location));
+
+							suspectedToBlock = null;
 						}else {
-							if(suspectedToBlock != null) {
-//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
-//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
-								tiles.add(board.getTileInLocation(location));
+							tiles.add(board.getTileInLocation(location));
 
-								suspectedToBlock = null;
-							}else {
-								tiles.add(board.getTileInLocation(location));
-
-							}
 						}
 					}
-					i++;
-					c--;
-					if(i > board.getBoardSize()) i = 1;
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
 				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
-
-				break;
+				i++;
+				c--;
+				if(i > board.getBoardSize()) i = 1;
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
 			}
-			case UP_RIGHT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-				do {
-					Location location = new Location(i, (char)c);
-					if(!this.getLocation().equals(location)) {
-						if(board.getTileInLocation(location).getPiece() != null)
-							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
-						if(board.getTileInLocation(location).getPiece() != null) {
-							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
-							if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
-							else {
-								suspectedToBlock = board.getTileInLocation(location).getPiece();
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
 
-							}
-						}else {
-							if(suspectedToBlock != null) {
-//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
-//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
-								tiles.add(board.getTileInLocation(location));
-
-								suspectedToBlock = null;
-							}else {
-								tiles.add(board.getTileInLocation(location));
-
-							}
-						}
-					}
-					i++;
-					c++;
-					if(i > board.getBoardSize()) i = 1;
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
-				
-				break;
-			}
-			case DOWN_LEFT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-
-				do {
-					Location location = new Location(i, (char)c);
-					if(!this.getLocation().equals(location)) {
-						if(board.getTileInLocation(location).getPiece() != null)
-							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
-						if(board.getTileInLocation(location).getPiece() != null) {
-							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
-							if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
-							else {
-								suspectedToBlock = board.getTileInLocation(location).getPiece();
-
-							}
-						}else {
-							if(suspectedToBlock != null) {
-//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
-//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
-								tiles.add(board.getTileInLocation(location));
-
-								suspectedToBlock = null;
-							}else {
-								tiles.add(board.getTileInLocation(location));
-
-							}
-						}
-					}
-					i--;
-					c--;
-					if(i < 1) i = board.getBoardSize();
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
-				
-				break;
-			}
-			case DOWN_RIGHT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-
-				do {
-					Location location = new Location(i, (char)c);
-					if(!this.getLocation().equals(location)) {
-						if(board.getTileInLocation(location).getPiece() != null)
-							if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
-						if(board.getTileInLocation(location).getPiece() != null) {
-							if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
-							if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
-							else {
-								suspectedToBlock = board.getTileInLocation(location).getPiece();
-
-							}
-						}else {
-							if(suspectedToBlock != null) {
-//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
-//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
-								tiles.add(board.getTileInLocation(location));
-
-								suspectedToBlock = null;
-							}else {
-								tiles.add(board.getTileInLocation(location));
-
-							}
-						}
-					}
-					i--;
-					c++;
-					if(i < 1) i = board.getBoardSize();
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while(i != getLocation().getRow() && c != getLocation().getColumn());
-				
-				break;
-			}
-			default: return new ArrayList<Tile>(tiles);
+			break;
 		}
-		
+		case UP_RIGHT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+			do {
+				Location location = new Location(i, (char)c);
+				if(!this.getLocation().equals(location)) {
+					if(board.getTileInLocation(location).getPiece() != null)
+						if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
+					if(board.getTileInLocation(location).getPiece() != null) {
+						if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
+						if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
+						else {
+							suspectedToBlock = board.getTileInLocation(location).getPiece();
+
+						}
+					}else {
+						if(suspectedToBlock != null) {
+							//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+							//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+							tiles.add(board.getTileInLocation(location));
+
+							suspectedToBlock = null;
+						}else {
+							tiles.add(board.getTileInLocation(location));
+
+						}
+					}
+				}
+				i++;
+				c++;
+				if(i > board.getBoardSize()) i = 1;
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
+		}
+		case DOWN_LEFT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				Location location = new Location(i, (char)c);
+				if(!this.getLocation().equals(location)) {
+					if(board.getTileInLocation(location).getPiece() != null)
+						if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
+					if(board.getTileInLocation(location).getPiece() != null) {
+						if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
+						if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
+						else {
+							suspectedToBlock = board.getTileInLocation(location).getPiece();
+
+						}
+					}else {
+						if(suspectedToBlock != null) {
+							//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+							//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+							tiles.add(board.getTileInLocation(location));
+
+							suspectedToBlock = null;
+						}else {
+							tiles.add(board.getTileInLocation(location));
+
+						}
+					}
+				}
+				i--;
+				c--;
+				if(i < 1) i = board.getBoardSize();
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+			}
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
+		}
+		case DOWN_RIGHT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				Location location = new Location(i, (char)c);
+				if(!this.getLocation().equals(location)) {
+					if(board.getTileInLocation(location).getPiece() != null)
+						if(board.getTileInLocation(location).getPiece().getColor().equals(this.getColor())) return new ArrayList<Tile>(tiles);
+					if(board.getTileInLocation(location).getPiece() != null) {
+						if((board.getTileInLocation(location).getPiece().getColor() == this.getColor()) && !board.getTileInLocation(location).getPiece().equals(this)) return new ArrayList<Tile>(tiles);
+						if(suspectedToBlock != null) return new ArrayList<Tile>(tiles);
+						else {
+							suspectedToBlock = board.getTileInLocation(location).getPiece();
+
+						}
+					}else {
+						if(suspectedToBlock != null) {
+							//								HashMap<Character,Tile> temp = tiles.get(suspectedToBlock.getLocation().getRow());
+							//								temp.put(suspectedToBlock.getLocation().getColumn(), board.getTileInLocation(suspectedToBlock.getLocation()));
+							tiles.add(board.getTileInLocation(location));
+
+							suspectedToBlock = null;
+						}else {
+							tiles.add(board.getTileInLocation(location));
+
+						}
+					}
+				}
+				i--;
+				c++;
+				if(i < 1) i = board.getBoardSize();
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while(i != getLocation().getRow() && c != getLocation().getColumn());
+
+			break;
+		}
+		default: return new ArrayList<Tile>(tiles);
+		}
+
 		return new ArrayList<Tile>(tiles);
 	}
-	
+
 	/**
 	 *  
 	 * @param targetLocation 
@@ -836,93 +836,93 @@ public class Queen extends Piece{
 		Board board = Board.getInstance();
 		Integer count = 0;
 		switch(direction) {
-			case UP_LEFT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-	
-				do {
-					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
-						if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
-							count++;
-						}
-					i++;
-					c--;
-					if(i > board.getBoardSize()) i = 1;
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+		case UP_LEFT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+					if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
+						count++;
 				}
-				while((i != getLocation().getRow() && c != getLocation().getColumn()) 
-						&&
-						(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
-	
-				break;
+				i++;
+				c--;
+				if(i > board.getBoardSize()) i = 1;
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
 			}
-			case UP_RIGHT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-	
-				do {
-					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
-						if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
-							count++;
-					}
-					i++;
-					c++;
-					if(i > board.getBoardSize()) i = 1;
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while((i != getLocation().getRow() && c != getLocation().getColumn()) 
-						&&
-						(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
-				break;
-			}
-			case DOWN_LEFT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-	
-				do {
-					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
-						if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
-							count++;
-					}
-					i--;
-					c--;
-					if(i < 1) i = board.getBoardSize();
-					if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-				}
-				while((i != getLocation().getRow() && c != getLocation().getColumn()) 
-						&&
-						(i != targetLocation.getRow() && c != targetLocation.getColumn()) );				
-				break;
-			}
-			case DOWN_RIGHT:{
-				
-				int i = getLocation().getRow();
-				int c = getLocation().getColumn();
-	
-				do {
-					if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
-						if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
-							count++;
-					}
-					i--;
-					c++;
-					if(i < 1) i = board.getBoardSize();
-					if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-				}
-				while((i != getLocation().getRow() && c != getLocation().getColumn()) 
-						&&
-						(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
-				break;
-			}
-			default: return count;
+			while((i != getLocation().getRow() && c != getLocation().getColumn()) 
+					&&
+					(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
+
+			break;
 		}
-		
+		case UP_RIGHT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+					if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
+						count++;
+				}
+				i++;
+				c++;
+				if(i > board.getBoardSize()) i = 1;
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while((i != getLocation().getRow() && c != getLocation().getColumn()) 
+					&&
+					(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
+			break;
+		}
+		case DOWN_LEFT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+					if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
+						count++;
+				}
+				i--;
+				c--;
+				if(i < 1) i = board.getBoardSize();
+				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+			}
+			while((i != getLocation().getRow() && c != getLocation().getColumn()) 
+					&&
+					(i != targetLocation.getRow() && c != targetLocation.getColumn()) );				
+			break;
+		}
+		case DOWN_RIGHT:{
+
+			int i = getLocation().getRow();
+			int c = getLocation().getColumn();
+
+			do {
+				if(this.getLocation().getRow() != i && this.getLocation().getColumn() != c) {
+					if(board.getTileInLocation(new Location(i, (char) c)).getPiece() != null)
+						count++;
+				}
+				i--;
+				c++;
+				if(i < 1) i = board.getBoardSize();
+				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+			}
+			while((i != getLocation().getRow() && c != getLocation().getColumn()) 
+					&&
+					(i != targetLocation.getRow() && c != targetLocation.getColumn()) );
+			break;
+		}
+		default: return count;
+		}
+
 		return count;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Queen-"+this.getColor()+" in "+getLocation();
@@ -945,7 +945,7 @@ public class Queen extends Piece{
 		Location UR = null;
 		Location DL = null;
 		Location DR = null;
-		
+
 		try {
 			UL = pieceLoc.addToLocationDiagonally(Directions.UP_LEFT, 1);
 			UR =pieceLoc.addToLocationDiagonally(Directions.UP_RIGHT, 1);
@@ -987,12 +987,12 @@ public class Queen extends Piece{
 					}
 				}
 			}
-			
+
 
 			if(DL!=null) {
 				Piece p =board.getTileInLocation(DL).getPiece();
 				if(p!=null) {
-						if(!p.getColor().equals(currPlayer.getColor())) {
+					if(!p.getColor().equals(currPlayer.getColor())) {
 						Location jmpLoc = DL.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
 						if(jmpLoc == null) {
 							jmpLoc = DL.rotateLocation(Directions.DOWN_LEFT);
@@ -1019,7 +1019,7 @@ public class Queen extends Piece{
 					}
 				}
 			}
-			
+
 		}
 		catch (Exception e) {
 			// TODO: handle exception
@@ -1034,11 +1034,11 @@ public class Queen extends Piece{
 	public ArrayList<Tile> getPossibleMoves(PrimaryColor playerColor) {
 		HashSet<Tile> hs = new HashSet<Tile>();
 		try {
-		hs.addAll((this).getAllAvailableMovesByDirection(Directions.UP_LEFT));
-		hs.addAll((this).getAllAvailableMovesByDirection(Directions.UP_RIGHT));
-		hs.addAll((this).getAllAvailableMovesByDirection(Directions.DOWN_LEFT));
-		hs.addAll((this).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT));
-		hs.remove(null);
+			hs.addAll((this).getAllAvailableMovesByDirection(Directions.UP_LEFT));
+			hs.addAll((this).getAllAvailableMovesByDirection(Directions.UP_RIGHT));
+			hs.addAll((this).getAllAvailableMovesByDirection(Directions.DOWN_LEFT));
+			hs.addAll((this).getAllAvailableMovesByDirection(Directions.DOWN_RIGHT));
+			hs.remove(null);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
@@ -1047,6 +1047,6 @@ public class Queen extends Piece{
 	}
 
 
-	
+
 
 }

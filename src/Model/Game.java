@@ -103,7 +103,7 @@ public class Game {
 			PrimaryColor temp = pieces.get(0).getColor();
 			boolean invalid = true;
 			for(Piece p : pieces) {
-				//TODO what does this check??
+				
 				if(!p.getColor().equals(temp))
 					invalid = false;
 			}

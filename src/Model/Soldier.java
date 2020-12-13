@@ -25,16 +25,16 @@ public class Soldier extends Piece{
 
 
 	@Override
-	
+
 	public boolean move(Tile targetTile,Directions direction) throws LocationException, IllegalMoveException {
-		
+
 		Board board = Board.getInstance();
 		Location targetLocation = targetTile.getLocation();
 		direction =getLocation().getRelativeDirection(targetLocation);
 		if(direction==null) {
 			throw new IllegalMoveException("Error:The move direction is Null, please try to move the piece again");
 		}
-		
+
 		if(this.isMoveLegal(targetLocation)) {
 			if(Board.getInstance().canPieceMove(this, targetLocation, direction)) {
 				Piece toEat = getEdiblePieceByDirection(targetTile.getLocation(), direction);
@@ -53,12 +53,12 @@ public class Soldier extends Piece{
 				}else {
 					this.setLocation(targetLocation);
 					board.addPiece(this);
-					
+
 					Game.getInstance().getTurn().setLastPieceMoved(this);
-						
+
 					return true;
 				}
-				
+
 			}
 		}else {
 			throw new IllegalMoveException("Illegal Move!");
@@ -197,7 +197,7 @@ public class Soldier extends Piece{
 
 	}
 
-	
+
 	@Override
 	/**
 	 * gets the piece that is going be eaten by soldier if it moves to direction
@@ -248,7 +248,7 @@ public class Soldier extends Piece{
 		if(targetPiece.equals(legalTargetPiece)) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -329,7 +329,7 @@ public class Soldier extends Piece{
 
 
 
-	
+
 
 
 
