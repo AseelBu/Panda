@@ -89,7 +89,7 @@ public class Winner extends Application{
     void finish(ActionEvent event) {
     	ScoreBoardController.getInstance().writeHistory();
     	DisplayController.getInstance().closeWinner();
-    	DisplayController.getInstance().showMainScreen();
     	DisplayController.getInstance().closeBoard();
+    	DisplayController.getInstance().showMainScreen();
     }
 }
