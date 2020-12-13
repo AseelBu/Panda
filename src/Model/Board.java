@@ -792,7 +792,7 @@ public class Board {
 		}else{
 			if(Game.getInstance().getTurn().isLastTileRed()) return;
 		}
-		//TODO Red Tile to be a condition is this case
+		
 
 		if(toBurn.keySet().size() > 0) {
 			Random r = new Random();

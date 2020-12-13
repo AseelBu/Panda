@@ -677,7 +677,7 @@ public class BoardGUI extends Application {
 		}
 		//System.out.println(color);
 		this.turnColor = color;
-		//TODO Put shadow on player on his turn
+	
 	}
 
 	public void movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
