@@ -96,6 +96,12 @@ public class MiscController {
 			return null;
 
 		}
+		
+		if(countW < 1 || countB < 1) {
+			
+			System.out.println("Invalid File :  one color dosent have pieces");
+			return null;
+		}
 
 		if (board_map.get(32).equals("B")) {
 			turn = 'B';

@@ -94,6 +94,9 @@ public class ScoreBoardController {
 			ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 			try {
 				ArrayList<Player> scores = (ArrayList<Player>) objectInputStream.readObject();
+				if(scores == null) {
+					scores = new ArrayList<Player>();
+				}
 				this.getSysData().setScoreboard(scores);
 			} catch (ClassNotFoundException e) {
 				System.out.println("");

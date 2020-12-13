@@ -1,6 +1,7 @@
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 
@@ -24,9 +25,26 @@ public class QueenMovementTests {
 	
 	
 	@Before
-	public void initiatePlayersNames() {
+	public void initiatePlayersNames() throws LocationException {
 		Player.getInstance(0).setNickname("Tester1");
         Player.getInstance(1).setNickname("Tester2");
+        
+        Player[] players = {Player.getInstance(0),Player.getInstance(1)};
+		ArrayList<Piece> pieces = new ArrayList<>();
+		Piece queen = new Queen(1, PrimaryColor.WHITE, new Location(1,'A'));
+		Piece soldier = new Soldier(2, PrimaryColor.WHITE, new Location(6,'F'));
+		Piece soldier2 = new Soldier(3, PrimaryColor.BLACK, new Location(5,'E'));
+		
+		pieces.add(queen);
+		pieces.add(soldier);
+		pieces.add(soldier2);
+
+		try {
+			Game.getInstance().startGame(players, pieces, 'W');
+			Game.getInstance().getBoard().printBoard();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@After
@@ -41,54 +59,22 @@ public class QueenMovementTests {
 	public void queenBlocked() throws LocationException {
 		System.out.println("Start Test 3\n");
 		
-		Player[] players = {Player.getInstance(0),Player.getInstance(1)};
-		ArrayList<Piece> pieces = new ArrayList<>();
-		Piece queen = new Queen(1, PrimaryColor.WHITE, new Location(2,'B'));
-		Piece soldier = new Soldier(2, PrimaryColor.WHITE, new Location(6,'F'));
-		Piece soldier2 = new Soldier(3, PrimaryColor.BLACK, new Location(5,'E'));
-		
-		pieces.add(queen);
-		pieces.add(soldier);
-		pieces.add(soldier2);
-
-		try {
-			Game.getInstance().startGame(players, pieces, 'W');
-			Game.getInstance().getBoard().printBoard();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Queen queen2 = (Queen) Game.getInstance().getBoard().getTilesMap().get(queen.getLocation().getRow()).get(queen.getLocation().getColumn() - 'A').getPiece();
-		boolean isBlocked = queen2.isPieceBlockedByDirection(Game.getInstance().getBoard().getTilesMap().get(7).get('E' - 'A').getLocation(),Directions.UP_LEFT);
+		Queen queen2 = (Queen) Game.getInstance().getBoard().getTileInLocation(new Location(1,'A')).getPiece();
+		boolean isBlocked = queen2.isPieceBlockedByDirection(Game.getInstance().getBoard().getTilesMap().get(7).get('C' - 'A').getLocation(),Directions.UP_LEFT);
 		System.out.println("\nEnd Test 3");
-		assertTrue("Piece is blocked", isBlocked);
+		assertFalse("Piece is not blocked", isBlocked);
 	}
 	
 	@Test
 	public void queenEat() throws LocationException {
 		System.out.println("Start Test 2\n");
 		
-		Player[] players = {Player.getInstance(0),Player.getInstance(1)};
-        
-		ArrayList<Piece> pieces = new ArrayList<>();
-		Piece queen = new Queen(1, PrimaryColor.WHITE, new Location(1,'A'));
-		Piece soldier = new Soldier(2, PrimaryColor.BLACK, new Location(6,'F'));
-		Piece soldier2 = new Soldier(3, PrimaryColor.BLACK, new Location(5,'E'));
-		
-		pieces.add(queen);
-		pieces.add(soldier);
-		pieces.add(soldier2);
 
-		try {
-			Game.getInstance().startGame(players, pieces, 'W');
-			Game.getInstance().getBoard().printBoard();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Queen queen2 = (Queen) Game.getInstance().getBoard().getTileInLocation(queen.getLocation()).getPiece();
+		Queen queen2 = (Queen) Game.getInstance().getBoard().getTileInLocation(new Location(1,'A')).getPiece();
 		Piece p = queen2.getEdiblePieceByDirection(Game.getInstance().getBoard().getTilesMap().get(7).get('C' - 'A').getLocation(),Directions.UP_LEFT);
 		System.out.println("\nEnd Test 2");
 
-		assertEquals("F6 To be Eaten", "E5",p.getLocation().getColumn() + "" + p.getLocation().getRow());
+		assertEquals("E5 To be Eaten", "E5",p.getLocation().getColumn() + "" + p.getLocation().getRow());
 
 	}
 	
@@ -96,27 +82,10 @@ public class QueenMovementTests {
 	public void legalDestination() throws LocationException {
 		System.out.println("Start Test 1\n");
 		
-		Player[] players = {Player.getInstance(0),Player.getInstance(1)};
-        
-		ArrayList<Piece> pieces = new ArrayList<>();
-		Piece queen = new Queen(1, PrimaryColor.WHITE, new Location(2,'B'));
-		Piece soldier = new Soldier(2, PrimaryColor.BLACK, new Location(5,'G'));
-		Piece soldier2 = new Soldier(3, PrimaryColor.BLACK, new Location(7,'G'));
-		
-		pieces.add(queen);
-		pieces.add(soldier);
-		pieces.add(soldier2);
-
-		try {
-			Game.getInstance().startGame(players, pieces, 'W');
-			Game.getInstance().getBoard().printBoard();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Queen queen2 = (Queen) Game.getInstance().getBoard().getTilesMap().get(queen.getLocation().getRow()).get(queen.getLocation().getColumn() - 'A').getPiece();
+		Queen queen2 = (Queen) Game.getInstance().getBoard().getTileInLocation(new Location(1,'A')).getPiece();
 		boolean canMove = false;
 		try {
-			canMove = queen2.isMoveLegalByDirection(Game.getInstance().getBoard().getTilesMap().get(8).get('D' - 'A').getLocation(),Directions.UP_LEFT);
+			canMove = queen2.isMoveLegalByDirection(Game.getInstance().getBoard().getTilesMap().get(7).get('C' - 'A').getLocation(),Directions.UP_LEFT);
 		} catch (IllegalMoveException e1) {
 			e1.printStackTrace();
 		}

@@ -54,7 +54,8 @@ public class DisplayController {
 			game.startGame(players);
 		} catch (Exception e) {
 			System.out.println(game.getGameTime());
-			System.out.println(e.getMessage());
+			nicknames.notifyError(e.getMessage());
+			this.showMainScreen();
 			if(boardGUI != null)
 				if(boardGUI.getPrimary() != null)
 					if(boardGUI.getPrimary().isShowing())
@@ -97,7 +98,7 @@ public class DisplayController {
 			}
 		}catch (Exception e) {
 			System.out.println(Game.getInstance().getGameTime());
-			System.out.println(e.getMessage());
+			nicknames.notifyError(e.getMessage());
 			e.printStackTrace();
 			if(boardGUI != null)
 				if(boardGUI.getPrimary() != null)
@@ -113,6 +114,18 @@ public class DisplayController {
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
 		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
+		
+		if(Board.getInstance().isPlayerStuck(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+			Player player = BoardController.getInstance().getWinner();
+			if(player != null)
+				DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
+			else
+				DisplayController.boardGUI.notifyWinner(null, Integer.MIN_VALUE, PrimaryColor.WHITE);
+			closeBoard();
+			boardGUI.destruct();
+			return;
+		}
+
 		GameTimerController fullTimer = new GameTimerController(); 
 		Game.getInstance().getTimer().startTimer();
 		fullTimer.start();
