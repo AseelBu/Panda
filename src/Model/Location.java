@@ -233,7 +233,7 @@ public class Location {
 	}
 
 	/**
-	 * without going through walls??
+	 * 
 	 * works for current black tiles only
 	 * 
 	 * @param targetLocation -black tile location
@@ -250,23 +250,23 @@ public class Location {
 		int colCmp = targetCol-curCol;
 
 		Directions dir = getRelativeDirection(targetLocation);
-		switch (dir) {
-		case DOWN_STRAIGHT: 
-		case UP_STRAIGHT:{
-			if(rowCmp%2==0) {
-				steps = Math.abs(rowCmp)-(Math.abs(rowCmp)/2);
-			}
-			break;
-		}
-		case LEFT_STRAIGHT:
-		case RIGHT_STRAIGHT:{
-			if(colCmp%2==0) {
-				steps = Math.abs(colCmp)-(Math.abs(colCmp)/2);
-			}
-			break;
-		}
+//		switch (dir) {
+//		case DOWN_STRAIGHT: 
+//		case UP_STRAIGHT:{
+//			if(rowCmp%2==0) {
+//				steps = Math.abs(rowCmp)-(Math.abs(rowCmp)/2);
+//			}
+//			break;
+//		}
+//		case LEFT_STRAIGHT:
+//		case RIGHT_STRAIGHT:{
+//			if(colCmp%2==0) {
+//				steps = Math.abs(colCmp)-(Math.abs(colCmp)/2);
+//			}
+//			break;
+//		}
 		//diagonal location
-		default:
+		if(dir!=null) {
 			steps = Math.abs(rowCmp);
 		}
 		return steps;
@@ -298,10 +298,10 @@ public class Location {
 			else if(colCmp<0) {
 				direction = Directions.UP_LEFT;
 			}
-			//forward
-			else if(colCmp==0) {
-				direction = Directions.UP_STRAIGHT;
-			}
+//			//forward
+//			else if(colCmp==0) {
+//				direction = Directions.UP_STRAIGHT;
+//			}
 
 		}//down
 		else if(rowCmp<0) {
@@ -313,26 +313,26 @@ public class Location {
 			else if(colCmp<0) {
 				direction = Directions.DOWN_LEFT;
 			}
-			//forward
-			else if(colCmp==0) {
-				direction = Directions.DOWN_STRAIGHT;
-			}
+//			//forward
+//			else if(colCmp==0) {
+//				direction = Directions.DOWN_STRAIGHT;
+//			}
 
 		}//same line
-		else if(rowCmp==0) {
-			//right
-			if(colCmp>0) {
-				direction=Directions.RIGHT_STRAIGHT;
-			}
-			//left
-			else if(colCmp<0) {
-				direction = Directions.LEFT_STRAIGHT;
-			}
-			//forward
-			else if(colCmp==0) {
-				direction = Directions.SAME_PLACE;
-			}
-		}
+//		else if(rowCmp==0) {
+//			//right
+//			if(colCmp>0) {
+//				direction=Directions.RIGHT_STRAIGHT;
+//			}
+//			//left
+//			else if(colCmp<0) {
+//				direction = Directions.LEFT_STRAIGHT;
+//			}
+//			//forward
+//			else if(colCmp==0) {
+//				direction = Directions.SAME_PLACE;
+//			}
+//		}
 		return direction;
 
 	};

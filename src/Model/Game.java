@@ -75,25 +75,29 @@ public class Game {
 
 
 	/**
-	 * Start a game from file
-	 * @throws Exception 
+	 * load a game from given board status
+	 * @param players
+	 * @param pieces
+	 * @param cturn
+	 * @return true if game successfully started,false if it was finished
+	 * @throws Exception
 	 */
-	public void startGame(Player[] players, ArrayList<Piece> pieces, char cturn) throws Exception {
+	public boolean startGame(Player[] players, ArrayList<Piece> pieces, char cturn) throws Exception {
 		if(isGameRunning()) {
 			System.out.println("A Game has already started");
-			return;
+			return true;
 		}
 		if(players != null) {
-			if(players.length != 2) throw new Exception("Invalid Game Initiation- game should contain exactly 2 players");
+			if(players.length != 2) throw new Exception("Invalid Game Initiation- game should contain exactly 2 players!!!");
 		}
-		else throw new Exception("Invalid Game Initiation- no players provided");	
+		else throw new Exception("Invalid Game Initiation- no players provided!!!!");	
 		if(pieces == null)
 		{
-			throw new Exception("Invalid Game Initiation- no provided pieces");
+			throw new Exception("Invalid Game Initiation- no provided pieces !!!!");
 		}
-		//TODO check if each player has maximum of 12 pieces
+
 		else if (pieces.size() < 2 || pieces.size() > 24) {
-		
+
 			throw new Exception("Invalid Game Initiation-number of provided pieces can't be "+pieces.size()+". should be between (2,12)");
 		}else if(pieces.size() >= 2) {
 			PrimaryColor temp = pieces.get(0).getColor();
@@ -107,28 +111,29 @@ public class Game {
 				throw new Exception("Invalid Game Initiation");
 		}
 		setPlayers(players);
+
+
+		board.addPiecesToBoard(pieces);
 		
-		
-		for(Piece piece : pieces)
-			board.addPiece(piece);
 		if(cturn == 'W')
 			turn = new Turn(Player.getInstance(0));
 		else
 			turn = new Turn(Player.getInstance(1));
-		
+
 		board.initiateBoardSecondaryColors();
-		
+
 		timer.startTimer();
 		turn.getTimer().startTimer();
 		System.out.println("Game has started");
 		System.out.println("\r\n********************************************\r\n");
 		System.out.println(turn.getCurrentPlayer().getNickname() + " Player to Move | Color: " + turn.getCurrentPlayer().getColor());
 		System.out.println("\r\n********************************************\r\n");
-		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
+		if(isGameFinished()) {
 			getBoard().printBoard();
 			finishGame();
-			return;
+			return false;
 		}
+		return true;
 	}
 
 	/**
@@ -164,11 +169,10 @@ public class Game {
 				Piece soldier = new Soldier(pieces.size(), PrimaryColor.BLACK, new Location(i,c));
 				pieces.add(soldier);
 			}
-		
-		
-		
-		for(Piece piece : pieces)
-			board.addPiece(piece);
+
+
+
+		board.addPiecesToBoard(pieces);
 
 		turn = new Turn(Player.getInstance(0));
 		board.initiateBoardSecondaryColors();
@@ -178,11 +182,11 @@ public class Game {
 		System.out.println("\r\n********************************************\r\n");
 		System.out.println(turn.getCurrentPlayer().getNickname() + " Player to Move | Color: " + turn.getCurrentPlayer().getColor());
 		System.out.println("\r\n********************************************\r\n");
-		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
-			getBoard().printBoard();
-			finishGame();
-			return;
-		}
+//		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
+//			getBoard().printBoard();
+//			finishGame();
+//			return;
+//		}
 	}
 
 	/**
@@ -246,6 +250,21 @@ public class Game {
 		for(Piece p : pieces)
 			board.addPiece(p);
 	}
+
+	/**
+	 * checks if game is over 
+	 * @return true if game should finish, false otherwise
+	 */
+	public boolean isGameFinished() {
+		PrimaryColor opponentColor= getCurrentPlayerColor().equals(PrimaryColor.WHITE)? PrimaryColor.BLACK:PrimaryColor.WHITE;
+		if(getBoard().isPlayerStuck(getCurrentPlayerColor())
+				||board.getColorPieces(getCurrentPlayerColor()).isEmpty() 
+				|| board.getColorPieces(opponentColor).isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * finish a game
 	 */
@@ -266,42 +285,42 @@ public class Game {
 		}
 		if(winner > 0) {
 			System.out.println("-------___-----___----------___-----------\r\n"
-						+ "------/  /-----\\  \\--------/  /-----------\r\n"
-						+ "-----/__/-------\\__\\------/__/------------\r\n"
-						+ "-----------___----------------------------\r\n"
-						+ "-----------\\  \\-------___-----------------\r\n"
-						+ "------___---\\__\\-----/  /------___--------\r\n"
-						+ "-----/  /-----------/__/-------\\  \\-------\r\n"
-						+ "----/__/------------------------\\__\\------\r\n"
-						+ "---------------------------------_--------\r\n"
-						+ "                                | |      \r\n"
-						+ "  ___ ___  _ __   __ _ _ __ __ _| |_ ___ \r\n"
-						+ " / __/ _ \\| '_ \\ / _` | '__/ _` | __/ __|\r\n"
-						+ "| (_| (_) | | | | (_| | | | (_| | |_\\__ \\\r\n"
-						+ " \\___\\___/|_| |_|\\__, |_|  \\__,_|\\__|___/\r\n"
-						+ "                  __/ |                  \r\n"
-						+ "                 |___/  \r\n"
-						+ "------------------------------------------\r\n"
-						+ players[winner - 1].getNickname() + " Has Won, Congratulations!!!\r\n"
-						+ "Score: " + players[winner - 1].getCurrentScore() + "\r\n"
-						+ "Color: " + players[winner - 1].getColor() + "\r\n"
-						+ "------------------------------------------");
+					+ "------/  /-----\\  \\--------/  /-----------\r\n"
+					+ "-----/__/-------\\__\\------/__/------------\r\n"
+					+ "-----------___----------------------------\r\n"
+					+ "-----------\\  \\-------___-----------------\r\n"
+					+ "------___---\\__\\-----/  /------___--------\r\n"
+					+ "-----/  /-----------/__/-------\\  \\-------\r\n"
+					+ "----/__/------------------------\\__\\------\r\n"
+					+ "---------------------------------_--------\r\n"
+					+ "                                | |      \r\n"
+					+ "  ___ ___  _ __   __ _ _ __ __ _| |_ ___ \r\n"
+					+ " / __/ _ \\| '_ \\ / _` | '__/ _` | __/ __|\r\n"
+					+ "| (_| (_) | | | | (_| | | | (_| | |_\\__ \\\r\n"
+					+ " \\___\\___/|_| |_|\\__, |_|  \\__,_|\\__|___/\r\n"
+					+ "                  __/ |                  \r\n"
+					+ "                 |___/  \r\n"
+					+ "------------------------------------------\r\n"
+					+ players[winner - 1].getNickname() + " Has Won, Congratulations!!!\r\n"
+					+ "Score: " + players[winner - 1].getCurrentScore() + "\r\n"
+					+ "Color: " + players[winner - 1].getColor() + "\r\n"
+					+ "------------------------------------------");
 		}else {
 			System.out.println("It's a tie (draw)..");
 		}
 		timer.stopTimer();
 
-//		if(winner > -1)
-//			BoardController.getInstance().finishGame(players[winner - 1].getNickname(),
-//					players[winner - 1].getCurrentScore(), players[winner - 1].getColor());
-//			
+		//		if(winner > -1)
+		//			BoardController.getInstance().finishGame(players[winner - 1].getNickname(),
+		//					players[winner - 1].getCurrentScore(), players[winner - 1].getColor());
+		//			
 		SysData.getInstance().addScoreToHistory(players[0]);
 		SysData.getInstance().addScoreToHistory(players[1]);
-		
-//		destruct();
-//		Board.destruct();
-//		Player.destruct();
-//		System.exit(1); //TODO On Implementing GUI, to replace this
+
+		//		destruct();
+		//		Board.destruct();
+		//		Player.destruct();
+		//		System.exit(1); //TODO On Implementing GUI, to replace this
 	}
 
 	/**
@@ -309,28 +328,28 @@ public class Game {
 	 */
 	public void switchTurn(){
 		System.out.println("\r\n********************************************");
-		
+
 		turn.finishTurn(this);
 		System.out.println(Player.getInstance(0).getNickname() + " Score: " + Player.getInstance(0).getCurrentScore());
 		System.out.println(Player.getInstance(1).getNickname() + " Score: " + Player.getInstance(1).getCurrentScore());
 		int index = (turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? 1 : 0;
-		
+
 		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname() + " | Color: " + Player.getInstance(index).getColor());
 		this.turn = new Turn(Player.getInstance(index));
-		
+
 		//TODO move to controller 
 		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 			finishGame();
 			return; 
 		}
 		board.removeAllSeconderyColorsFromBoard();
-//		board.initiateBoardSecondaryColors();
+		//		board.initiateBoardSecondaryColors();
 		turn.getTimer().startTimer();
-		
+
 		System.out.println("********************************************\r\n");
 
 	}
-	
+
 	/**
 	 * 
 	 * @return true if the game is running, otherwise false
@@ -339,7 +358,7 @@ public class Game {
 		if(timer.getStartTime() == -1) return false;
 		return true;
 	}
-	
+
 	//////////////////////////  Questions Related
 
 	/**
@@ -427,11 +446,11 @@ public class Game {
 	public GameTimer getTimer() {
 		return timer;
 	}
-	
+
 	public void setTimer(GameTimer timer) {
 		this.timer = timer;
 	}
-	
+
 	public ArrayList<Question> getAvailableQuestions() {
 		return availableQuestions;
 	}
@@ -442,11 +461,11 @@ public class Game {
 		else
 			this.availableQuestions = availableQuestions;
 	}
-	
+
 	public PrimaryColor getCurrentPlayerColor() {
 		return this.turn.getCurrentPlayer().getColor();
 	}
-	
+
 	public Player getPlayerr()
 	{
 		return this.turn.getCurrentPlayer();

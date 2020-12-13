@@ -277,6 +277,19 @@ public class Board {
 		}
 		return false;
 	}
+	
+	/**
+	 * adds given pieces list to game board
+	 * @param pieces to add
+	 * @return true if input was'nt null or empty,false otherwise
+	 */
+	public boolean addPiecesToBoard(ArrayList<Piece> pieces) {
+		if(pieces==null || pieces.isEmpty())return false;
+		for(Piece p:pieces) {
+			addPiece(p);
+		}
+		return true;
+	}
 
 	/**
 	 * remove piece from board

@@ -176,8 +176,7 @@ public class BoardController {
 				Game.getInstance().getTurn().decrementMoveCounter();
 			}
 
-			// TODO step on handling not finished
-			//toTile.stepOnBy(piece);
+		
 
 			if(piece.getLocation() != null)
 				if(piece instanceof Queen) System.out.println("Queen has been moved!");

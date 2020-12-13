@@ -41,7 +41,10 @@ public class GameController {
 	}
 
 
-	//switches current turn or finishes game if needed
+	/**
+	 * switches current turn or finishes game if needed
+	 * @return true if turn did switch,false otherwise
+	 */
 	public boolean switchTurn() {
 		Board board= Board.getInstance();
 		Game game= Game.getInstance();
@@ -56,9 +59,7 @@ public class GameController {
 			didSwitch=true;
 		}
 
-		if((board.getColorPieces(PrimaryColor.WHITE).size() == 0 
-				|| board.getColorPieces(PrimaryColor.BLACK).size() == 0) || !Game.getInstance().isGameRunning()
-				|| Game.getInstance().getBoard().isPlayerStuck((Game.getInstance().getTurn().getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
+		if(!Game.getInstance().isGameRunning() || Game.getInstance().isGameFinished()) {
 			Game.getInstance().finishGame();
 			didSwitch=true;
 			Player player = BoardController.getInstance().getWinner();
