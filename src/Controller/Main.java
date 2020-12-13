@@ -3,7 +3,6 @@ package Controller;
 import View.MainscreenGUI;
 import javafx.application.Application;
 
-
 public class Main {
 	
 	public static DisplayController displayController;
