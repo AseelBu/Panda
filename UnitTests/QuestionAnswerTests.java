@@ -5,12 +5,16 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import Controller.QuestionMgmtController;
 import Model.Answer;
+import Model.Game;
+import Model.Player;
 import Model.Question;
 import Model.SysData;
+import Model.Turn;
 import Model.YellowTile;
 
 
@@ -20,17 +24,11 @@ import Model.YellowTile;
  *
  */
 public class QuestionAnswerTests {
+	
+	private static Question q;
 
-	/**
-	 * Test ID: 9
-	 */
-	@Test
-	public void checkAllAnswers() {
-		QuestionAnswering();
-	}
-	
-	
-	private void QuestionAnswering() {
+	@BeforeClass
+	public static void onceExecutedBeforeAll() {
 		
 		Random r = new Random();
 		
@@ -38,26 +36,30 @@ public class QuestionAnswerTests {
 		
 		QuestionMgmtController.getInstance().LoadQuestions();
 		
+		QuestionAnswerTests.q = SysData.getInstance().getQuestions().get(r.nextInt(SysData.getInstance().getQuestions().size()));
 		
+		// test Yellow Tile
 		
-		Question q = SysData.getInstance().getQuestions().get(r.nextInt(SysData.getInstance().getQuestions().size()));
+		YellowTile testTile = new YellowTile(null, null, null, null);
+				
+		testTile.setQuestionId(q);
+    }
+	
+	@Test
+	public void AnswerIncorrectly() {
+					
 		
-		// contains wrong answers
 		
 		ArrayList<Answer> wrongAnswers = new ArrayList<Answer>();
 		
 		// correct answer 
 		
-		Answer correctAnswer = null;
 		
-		for(Answer a : q.getAnswers()) {
+		for(Answer a : QuestionAnswerTests.q.getAnswers()) {
 			
 			if(!a.isCorrect()) {
 				wrongAnswers.add(a);
 			}
-			else {
-				correctAnswer = a;
-			}	
 			
 		}
 		
@@ -77,12 +79,37 @@ public class QuestionAnswerTests {
 		
 		}
 		
-		// test on correct answer
-		
-		assertEquals(testTile.isAnswerCorrect(correctAnswer),true);
-		assertTrue("Question is Correct",true);
+	
 		
 		}
+	
+	@Test
+	public void AnswerCorrectly() {
+			
+		// test Yellow Tile
+		
+		Answer CorrectAnswer = null;
+		
+		YellowTile testTile = new YellowTile(null, null, null, null);
+				
+		testTile.setQuestionId(q);
+		
+		for(Answer a : QuestionAnswerTests.q.getAnswers()) {
+			
+		
+			if(a.isCorrect()) {
+				CorrectAnswer = a;
+				break;
+			}
+			
+		}
+		
+		// test on correct answer
+		
+		assertEquals(testTile.isAnswerCorrect(CorrectAnswer),true);
+		assertTrue("Question is Correct",true);
+			
+	}
 
 		
 	
