@@ -101,7 +101,9 @@ public class Game {
 			PrimaryColor temp = pieces.get(0).getColor();
 			boolean invalid = true;
 			for(Piece p : pieces) {
+
 				// to check there are pieces of two colors
+
 				if(!p.getColor().equals(temp))
 					invalid = false;
 			}
