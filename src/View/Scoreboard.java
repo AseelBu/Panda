@@ -40,7 +40,7 @@ public class Scoreboard extends Application {
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
 //		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
-		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
+		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("pictures/logo.png")));
 		
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
