@@ -27,11 +27,12 @@ public class Soldier extends Piece{
 	@Override
 	
 	public boolean move(Tile targetTile,Directions direction) throws LocationException, IllegalMoveException {
+		
 		Board board = Board.getInstance();
 		Location targetLocation = targetTile.getLocation();
-		Directions legalDirection =getLocation().getRelativeDirection(targetLocation);
-		if(legalDirection!=direction) {
-			throw new IllegalMoveException("The move direction doesn't match the relative direction of target tile location which is "+ legalDirection);
+		direction =getLocation().getRelativeDirection(targetLocation);
+		if(direction==null) {
+			throw new IllegalMoveException("Error:The move direction is Null, please try to move the piece again");
 		}
 		
 		if(this.isMoveLegal(targetLocation)) {
