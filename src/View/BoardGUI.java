@@ -159,6 +159,28 @@ public class BoardGUI extends Application {
 		totalTimeF.setStyle("-fx-opacity: 1;");
 		totalTimeF.setFont(new Font(24.0));
 		mainAnchor.getChildren().add(totalTimeF);
+		
+		ImageView pause = new ImageView(new Image(getClass().getResource("pictures/pause.png").toString()));
+		pause.setFitHeight(36);
+		pause.setFitWidth(38);
+		
+		FlowPane pausePane = new FlowPane();
+		pausePane.setId("pause");
+		pausePane.setPrefHeight(36);
+		pausePane.setPrefHeight(38);
+		pausePane.setLayoutX(322);
+		pausePane.setLayoutY(37);
+		pausePane.setCursor(Cursor.HAND);
+		pausePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				GameController.getInstance().pauseGame();
+				pauseDisplay();
+			}
+		});
+		
+		pausePane.getChildren().add(pause);
+		mainAnchor.getChildren().add(pausePane);
 
 		ImageView whiteImg = new ImageView(new Image(getClass().getResource("pictures/Queen_WHITE.png").toString()));
 		whiteImg.setFitHeight(90);
@@ -1075,7 +1097,39 @@ public class BoardGUI extends Application {
 		return turnTimer;
 	}
 
-
+	public void pauseDisplay() {
+		AnchorPane pause = new AnchorPane();
+		pause.setId("pausePane");
+		AnchorPane.setBottomAnchor(pause, 0.0);
+		AnchorPane.setLeftAnchor(pause, 0.0);
+		AnchorPane.setRightAnchor(pause, 0.0);
+		AnchorPane.setTopAnchor(pause, 0.0);
+		pause.setStyle("-fx-background-color: #dbdbdb88;");
+		mainAnchor.getChildren().add(pause);
+		
+		ImageView play = new ImageView(new Image(getClass().getResource("pictures/play.png").toString()));
+		play.setFitHeight(200);
+		play.setFitWidth(200);
+		
+		FlowPane pausePane = new FlowPane();
+		pausePane.setId("playPane");
+		pausePane.setPrefHeight(200);
+		pausePane.setPrefHeight(200);
+		pausePane.setLayoutX(450);
+		pausePane.setLayoutY(200);
+		pausePane.setCursor(Cursor.HAND);
+		pausePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				GameController.getInstance().unpauseGame();
+				mainAnchor.getChildren().remove(pause);
+			}
+		});
+		
+		pausePane.getChildren().add(play);
+		pause.getChildren().add(pausePane);
+		
+	}
 
 
 	//	public void removeTileColor(int row, char col, SeconderyTileColor tileColor){
