@@ -503,8 +503,13 @@ public class BoardGUI extends Application {
 
 						return;
 					}
-					movePiece(selectedRow2, selectedCol2
-							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2, isSoldier));
+					
+					movePiece(selectedRow2, selectedCol2 , 8-relativeY, (char) ((char) relativeX + 'A'),
+							BoardController.getInstance().getMoveDirection(selectedRow2, selectedCol2
+									, 8-relativeY, (char) ((char) relativeX + 'A')));
+					
+//					movePiece(selectedRow2, selectedCol2
+//							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2, isSoldier));
 					if(mainAnchor != null)
 						mainAnchor.getChildren().remove(tempImage);
 					dragCol = '_';

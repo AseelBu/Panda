@@ -511,6 +511,18 @@ public class BoardController {
 		DisplayController.boardGUI.setPlayerScore(Player.getInstance(0).getColor(), Player.getInstance(0).getCurrentScore());
 		DisplayController.boardGUI.setPlayerScore(Player.getInstance(1).getColor(), Player.getInstance(1).getCurrentScore());
 	}
+	
+	public Directions getMoveDirection(int fromRow, char fromCol, int toRow, char toCol) {
+		Location from = null;
+		Location to = null;
+		try {
+			from = new Location(fromRow, fromCol);
+			to = new Location(toRow, toCol);
+		} catch (LocationException e) {
+			return null;
+		}
+		return 	from.getRelativeDirection(to);
+	}
 
 	
 }
