@@ -12,6 +12,7 @@ import Model.Player;
 import Model.Question;
 import Utils.PrimaryColor;
 import View.BoardGUI;
+import View.InstructionsGame;
 import View.MainscreenGUI;
 import View.ManageQuestions;
 import View.Nicknames;
@@ -28,6 +29,7 @@ public class DisplayController {
 	public static Scoreboard scoreboard;
 	public static Nicknames nicknames;
 	public static QuestionGUI questions;
+	public static InstructionsGame instructions;
 	public static Winner winner;
 
 	private DisplayController() {
@@ -149,6 +151,13 @@ public class DisplayController {
 		}
 	}
 	
+	public void showInstructionsGame() {
+		instructions = new InstructionsGame();
+		//System.out.println(instructions);
+
+		instructions.start(instructions .getPrimary());
+		
+	}
 	
 	public void showScoreboard() {
 		ScoreBoardController.getInstance().loadHistory();
@@ -185,6 +194,7 @@ public class DisplayController {
 		winner.loadDisplay(name, score, color);
 	}
 	
+	
 	public void closeMainscreen() {
 		mainscreen.getPrimary().hide();
 	}
@@ -204,6 +214,12 @@ public class DisplayController {
 	
 	public void closeManageQuestions() {
 		QuestionMgmtController.getInstance().getQuestionScreen().getPrimary().hide();
+		showMainScreen();
+
+	}
+	
+	public void closeInstructionsGame() {
+		instructions.getPrimary().hide();
 		showMainScreen();
 
 	}
