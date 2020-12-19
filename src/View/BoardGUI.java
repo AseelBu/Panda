@@ -1,12 +1,15 @@
 package View;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 import Controller.BoardController;
 import Controller.DisplayController;
 import Controller.GameController;
+import Controller.MiscController;
 import Controller.TurnTimerController;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
@@ -25,8 +28,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
@@ -37,6 +42,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -73,8 +79,10 @@ public class BoardGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
-				BoardController.getInstance().forceFinishGame();
-
+				if(!exitAlert()) {
+					event.consume();
+					return;
+				}
 			}
 		});
 
@@ -178,9 +186,31 @@ public class BoardGUI extends Application {
 				pauseDisplay();
 			}
 		});
+		Tooltip.install(pausePane, new Tooltip("Pause Game"));
 		
 		pausePane.getChildren().add(pause);
 		mainAnchor.getChildren().add(pausePane);
+		
+		ImageView save = new ImageView(new Image(getClass().getResource("pictures/save.png").toString()));
+		save.setFitHeight(36);
+		save.setFitWidth(38);
+		
+		FlowPane savePane = new FlowPane();
+		savePane.setId("save");
+		savePane.setPrefHeight(36);
+		savePane.setPrefHeight(38);
+		savePane.setLayoutX(360);
+		savePane.setLayoutY(37);
+		savePane.setCursor(Cursor.HAND);
+		savePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				saveGameDialog();
+			}
+		});
+		Tooltip.install(savePane, new Tooltip("Save Game"));
+		savePane.getChildren().add(save);
+		mainAnchor.getChildren().add(savePane);
 
 		ImageView whiteImg = new ImageView(new Image(getClass().getResource("pictures/Queen_WHITE.png").toString()));
 		whiteImg.setFitHeight(90);
@@ -1131,6 +1161,38 @@ public class BoardGUI extends Application {
 		
 	}
 
+	
+	public boolean exitAlert() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Exit Confirmation");
+		alert.setHeaderText("Are you sure you want to quit the game ?");
+		alert.setContentText("");
+		alert.getButtonTypes().clear();
+		ButtonType bt1 = ButtonType.YES;
+		ButtonType bt2 = ButtonType.NO;
+		alert.getButtonTypes().addAll(bt1,bt2);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.YES){
+			alert.close();
+			System.out.println("LOOOOOOOOOOOOOL");
+			BoardController.getInstance().forceFinishGame();
+			return true;
+		} else {
+		    return false;
+		}
+	}
+	
+	public void saveGameDialog() {
+		FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Game as text");
+        fileChooser.setInitialFileName("Game_Backup.txt");
+        fileChooser.getExtensionFilters().clear();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text", "*.txt"));
+        File file = fileChooser.showSaveDialog(primary);
+        if (file != null) {
+        	MiscController.getInstance().saveGame(file);
+        }
+	}
 
 	//	public void removeTileColor(int row, char col, SeconderyTileColor tileColor){
 	//		if(mainAnchor == null) return;

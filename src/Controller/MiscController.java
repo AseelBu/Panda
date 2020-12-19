@@ -116,11 +116,11 @@ public class MiscController {
 		int row = 1;
 		int cnt = 1;
 		
-		if(board_map.get(31).equals("2") || board_map.get(30).equals("2") || board_map.get(29).equals("2") || board_map.get(28).equals("2")) {
+		if(board_map.get(0).equals("2") || board_map.get(1).equals("2") || board_map.get(2).equals("2") || board_map.get(3).equals("2")) {
 			System.out.println("Invalid File : Bounds Cant Be Queens");
 			return null;
 		}
-		else if(board_map.get(0).equals("1") || board_map.get(1).equals("1") || board_map.get(2).equals("1") || board_map.get(3).equals("1")) {
+		else if(board_map.get(31).equals("1") || board_map.get(30).equals("1") || board_map.get(29).equals("1") || board_map.get(28).equals("1")) {
 			System.out.println("Invalid File : Bounds Cant Be Queens)");
 			return null;
 		}
@@ -241,7 +241,7 @@ public class MiscController {
 	/**
 	 * saves current game to a text file
 	 */
-	public void saveGame() {
+	public void saveGame(File file) {
 		
 		ArrayList<Tile> tiles = Board.getInstance().getAllBoardTiles();
 		
@@ -287,23 +287,23 @@ public class MiscController {
 		}
 		
 		String dateTime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
-		String path = "saved_games/game_"+dateTime+".txt";
-		
+//		String path = "saved_games/game_"+dateTime+".txt";
+//		
+//		
+//		 try {
+//		      File myObj = new File(path);
+//		      if (myObj.createNewFile()) {
+//		        System.out.println("File created: " + myObj.getName());
+//		      } else {
+//		        System.out.println("File already exists.");
+//		      }
+//		 } catch (IOException e) {
+//		      System.out.println("An error occurred.");
+//		      e.printStackTrace();   
+//		 }
 		
 		 try {
-		      File myObj = new File(path);
-		      if (myObj.createNewFile()) {
-		        System.out.println("File created: " + myObj.getName());
-		      } else {
-		        System.out.println("File already exists.");
-		      }
-		 } catch (IOException e) {
-		      System.out.println("An error occurred.");
-		      e.printStackTrace();   
-		 }
-		 
-		 try {
-		      FileWriter myWriter = new FileWriter(path);
+		      FileWriter myWriter = new FileWriter(file.getPath());
 		      myWriter.write(data_line);
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file.");
