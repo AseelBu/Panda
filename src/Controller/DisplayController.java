@@ -199,10 +199,13 @@ public class DisplayController {
 	
 	public void closeScoreboard() {
 		scoreboard.getPrimary().hide();
+		showMainScreen();
 	}
 	
 	public void closeManageQuestions() {
 		QuestionMgmtController.getInstance().getQuestionScreen().getPrimary().hide();
+		showMainScreen();
+
 	}
 	
 	public void closeWinner() {
