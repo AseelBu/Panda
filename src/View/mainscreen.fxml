@@ -9,43 +9,41 @@
 
 <AnchorPane prefHeight="563.0" prefWidth="459.0" stylesheets="@mainscreen.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainscreenGUI">
    <children>
-      <AnchorPane fx:id="mainPane" layoutY="78.0" prefHeight="497.0" prefWidth="459.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="mainPane" layoutX="40.0" layoutY="118.0" prefHeight="909.3333333333334" prefWidth="559.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <effect>
             <ColorAdjust brightness="-0.5" />
          </effect>
-         <children>
-            <Button layoutX="97.0" layoutY="431.0" mnemonicParsing="false" onAction="#InstructionsGame" prefHeight="36.0" prefWidth="270.0" text="Instructions Game">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Button>
-            <Button layoutX="97.0" layoutY="144.0" mnemonicParsing="false" onAction="#startGame" prefHeight="59.0" prefWidth="270.0" text="Start Game">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Button>
-            <Button layoutX="97.0" layoutY="215.0" mnemonicParsing="false" onAction="#loadGame" prefHeight="59.0" prefWidth="270.0" text="Load Game">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Button>
-            <Button layoutX="97.0" layoutY="290.0" mnemonicParsing="false" onAction="#scoreboard" prefHeight="59.0" prefWidth="270.0" text="Scoreboard">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Button>
-            <Button layoutX="97.0" layoutY="359.0" mnemonicParsing="false" onAction="#manageQuestions" prefHeight="59.0" prefWidth="270.0" text="Manage Questions">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="61.0" fitWidth="285.0" layoutX="148.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pictures/Pieace_6.png" />
-               </image>
-            </ImageView>
-            <Button layoutX="23.0" layoutY="507.0" mnemonicParsing="false" onAction="#exit" prefHeight="36.0" prefWidth="112.0" text="Exit" />
-         </children>
       </AnchorPane>
+      <ImageView fitHeight="61.0" fitWidth="285.0" layoutX="148.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Pieace_6.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="95.0" layoutY="132.0" mnemonicParsing="false" onAction="#startGame" prefHeight="59.0" prefWidth="270.0" text="Start Game">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="14.0" layoutY="513.0" mnemonicParsing="false" onAction="#exit" prefHeight="36.0" prefWidth="112.0" text="Exit" />
+      <Button layoutX="95.0" layoutY="202.0" mnemonicParsing="false" onAction="#loadGame" prefHeight="59.0" prefWidth="270.0" text="Load Game">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="95.0" layoutY="339.0" mnemonicParsing="false" onAction="#InstructionsGame" prefHeight="36.0" prefWidth="270.0" text="Game Instructions ">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="95.0" layoutY="407.0" mnemonicParsing="false" onAction="#manageQuestions" prefHeight="59.0" prefWidth="270.0" text="Manage Questions">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="95.0" layoutY="270.0" mnemonicParsing="false" onAction="#scoreboard" prefHeight="59.0" prefWidth="270.0" text="Scoreboard">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
