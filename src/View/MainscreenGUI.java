@@ -90,5 +90,11 @@ public class MainscreenGUI extends Application {
 //		DisplayController.getInstance().showBoard();
 		DisplayController.getInstance().showNicknames();
     }
+    
+    @FXML
+    void InstructionsGame(ActionEvent event) {
+    DisplayController.getInstance().showInstructionsGame();
+    }
+
 	
 }

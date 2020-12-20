@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="971.0" stylesheets="@InstructionsGame.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.InstructionsGame">
+   <children>
+      <AnchorPane fx:id="mainPane" layoutY="-6.0" prefHeight="704.0" prefWidth="1111.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="591.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text layoutX="139.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gameboard,24 playing pieces." wrappingWidth="200.0" />
+            <ImageView fitHeight="113.0" fitWidth="127.0" layoutX="539.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/q.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="319.0" layoutY="28.0" prefHeight="36.0" prefWidth="220.0" text="Hamka Instructions" textFill="#1171cc">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label />
+            <Label layoutX="40.0" layoutY="74.0" prefHeight="36.0" prefWidth="82.0" text="CONTENS:" textFill="#1171cc">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="41.0" layoutY="124.0" prefHeight="21.0" prefWidth="64.0" text="OBJECT:" textFill="#1171cc">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="40.0" layoutY="173.0" prefHeight="17.0" prefWidth="91.0" text="GAME SETUP:" textFill="#1171cc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Text layoutX="139.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remove all opponent's pieces from the game board by eating them,or block them, that is, do not allow the opponent to make a move." />
+            <Text layoutX="139.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a nickname and start the game with 12 soldiers of some color arranged on the 3 rows closest to you in the black  tiles." />
+            <Label layoutX="40.0" layoutY="224.0" prefHeight="20.0" prefWidth="112.0" text="HOW TO PLAY:" textFill="#1171cc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="44.0" layoutY="625.0" prefHeight="20.0" prefWidth="112.0" text="HOW TO WIN:" textFill="#1171cc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Text layoutX="44.0" layoutY="671.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The winning player is the player with the most points." />
+            <TextArea editable="false" layoutX="40.0" layoutY="260.0" prefHeight="355.0" prefWidth="887.0" text="&#10;Movement Soldier Rules&#10;Each player in his  turn moves a soldier diagonally from black tile  to an empty tile and adjacent black tile&#10; in the direction of the opponent (displacement diagonally). An ordinary soldier cannot take steps &quot;backwards&quot; (in the direction&#10; from which he came).&#10;&#10;**************************************************************************************************************************************************&#10;&#10;Eating Soldier Rules&#10;“Eating” an opposing soldier is carried out when an opponent's game soldier is placed in a next tile  to the player's play soldier and beyond the &#10;opponent's soldier there is a free tile, so you can skip over the opponent's soldier and &quot;eat&quot; him. A soldier who is &quot;eaten&quot; out of the game and &#10;gives points to the opponent. If it is possible to perform an &quot;eating&quot; operation - it must be performed, if the soldier who could have performed&#10; it was not &quot;burned&quot; and left the game. If after eating a soldier another meal is allowed by the same soldier, it is obligatory to perform it as well &#10;(in the same turn).&#10;&#10;**************************************************************************************************************************************************&#10;&#10;Becoming a “Queen”&#10;When a soldier reaches the last row and is stopped there, he becomes a &quot;queen.&quot;&#10;&#10;**************************************************************************************************************************************************&#10;&#10;Movement Queen Rules&#10;A queen, unlike a regular soldier, can move diagonally in all directions (even backwards), without limiting the number of squares on the way &#10;(long steps are allowed),and has another special ability and that is passing through walls.&#10;&#10;**************************************************************************************************************************************************&#10;&#10;Eating Queen  Rules&#10;“Eat&quot; soldiers / queens at a long distance.&#10;A queen must perform &quot;eating&quot; only when an opponent's soldier is close to her, but not when he is further down the diagonal (although &quot;eating&quot;&#10; is possible).&#10;&#10;**************************************************************************************************************************************************&#10;&#10;Special Tiles:&#10;1-Yellow Tile:A player who takes a step and stops on a yellow tile should answer a question.&#10;2-Red Tile - A red square appears only when there are no options to eat in the current turn. Stepping on it entitles the player to another step in&#10; the same queue with the same soldier.&#10;3-Green Tile - if 30 seconds have passed since the beginning of the player's turn and he has not yet made a move. &#10;4-Blue Tile - If the player has one queen and exactly 2 regular soldiers on the board, one blue square will appear on the board. Stepping on it&#10; entitles the player to the return of one soldier for life.&#10;5-Orange Tile- If 90 seconds have passed since the player's turn and he has not yet made a move, orange squares will appear in all possible&#10; positions for the player to make a move, in order to guide him in the game.&#10;&#10;**************************************************************************************************************************************************&#10;&#10;Points:&#10;1-The player wins 100 points from eating soldier/Queen.&#10;2-If a player's turn lasts more than a minute until the end of the move, the player will lose one point for every second that passes.&#10;3-If a player finishes his turn in less than a minute, he will earn points according to the time he saved according to the same rule of point per &#10;second.&#10;4- Yellow tile .&#10;Correct answer:&#10;Easy Question Score - 100 points, Medium Question Score - 200 points, Hard Question Score - 500 points.&#10;Wrong answer:&#10;Easy Question Score - 250 points, Medium Question Score - 100 points, Hard Question Score - 50 points.&#10;5-Green Tile- adding 50 points.&#10;&#10;" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

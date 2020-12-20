@@ -27,6 +27,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -1065,7 +1067,25 @@ public class ManageQuestions extends Application {
 		
 
 		
-		
+		 Image image = new Image(getClass().getResourceAsStream("pictures/icons8-back-arrow-64.png"));
+			//back button to main screen
+				Button back = new Button("");
+				back .setLayoutX(950.0);
+				back .setLayoutY(6.0);
+				back .setMnemonicParsing(false);
+				back .setGraphic(new ImageView(image));
+				back .setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+				    	DisplayController.getInstance().closeManageQuestions();
+					}
+				});
+				
+				// add components to the screen
+				mainAnchor.getChildren().add(back );
+
+
+
 	}
 	
 
