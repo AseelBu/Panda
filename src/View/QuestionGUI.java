@@ -94,7 +94,7 @@ public class QuestionGUI extends Application{
 		AnchorPane.setTopAnchor(background, 0.0);
 		mainAnchor.getChildren().add(background);
 
-		ImageView img = new ImageView(new Image(getClass().getResource("pictures/3333.png").toString()));
+		ImageView img = new ImageView(new Image(getClass().getResource("pictures/questionPanda.png").toString()));
 		img.setFitHeight(65.0);
 		img.setFitWidth(64.0);
 		img.setLayoutX(28.0);
@@ -187,29 +187,30 @@ public class QuestionGUI extends Application{
 
 		switch(diff) {
 		case EASY:{
+
+			img.setImage(new Image(getClass().getResource("pictures/easy_question.png").toString()));
 			lbl.setText("Easy Question");
 			lbl.setTextFill(Color.GREEN);
-			img.setImage(new Image(getClass().getResource("pictures/easy_question.png").toString()));
 			break;
 		}
 		case MEDIOCRE:{
+
+			img.setImage(new Image(getClass().getResource("pictures/intermediate_question.png").toString()));
 			lbl.setText("Medicore Question");
 			lbl.setTextFill(Color.ORANGE);
-			img.setImage(new Image(getClass().getResource("pictures/intermediate_question.png").toString()));
-
 			break;
 		}
 		case HARD:{
+
+			img.setImage(new Image(getClass().getResource("pictures/hard_question.png").toString()));
 			lbl.setText("Hard Question");
 			lbl.setTextFill(Color.RED);
-			img.setImage(new Image(getClass().getResource("pictures/hard_question.png").toString()));
-
 			break;
 		}
 		}
-		mainAnchor.getChildren().add(lbl);
+		
 		mainAnchor.getChildren().add(img);
-
+		mainAnchor.getChildren().add(lbl);
 	}
 
 	/**
