@@ -847,7 +847,7 @@ public class Board {
 			do {
 				randTile= getRandomFreeTile();
 			}while(coloredTilesList.contains(randTile));
-			YellowTile yTile= (YellowTile) coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.YELLOW);
+			YellowTile yTile= (YellowTile) coloredTilesFactory.getColoredTile(randTile, SeconderyTileColor.YELLOW);
 			replaceTileInSameTileLocation(yTile);
 			coloredTilesList.add(yTile);
 			System.out.println("adding yellow in "+randTile);
@@ -868,7 +868,7 @@ public class Board {
 					randTile= possibleRed.get(tempp);
 					possibleRed.remove(tempp);
 				}while(coloredTilesList.contains(randTile) && !possibleRed.isEmpty());
-				Tile rTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.RED);
+				Tile rTile =coloredTilesFactory.getColoredTile(randTile, SeconderyTileColor.RED);
 				replaceTileInSameTileLocation(rTile);
 				coloredTilesList.add(rTile);
 				System.out.println("adding red in "+randTile);
@@ -887,7 +887,7 @@ public class Board {
 			do {
 				randTile = getRandomFreeTile();
 			}while(coloredTilesList.contains(randTile));
-			BlueTile bTile =(BlueTile)coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.BLUE);
+			BlueTile bTile =(BlueTile)coloredTilesFactory.getColoredTile(randTile, SeconderyTileColor.BLUE);
 			replaceTileInSameTileLocation(bTile);
 			coloredTilesList.add(bTile);
 		}else {
@@ -986,7 +986,7 @@ public class Board {
 		}
 		if(randTile == null) return null;
 		
-		Tile gTile =coloredTilesFactory.createColoredTile(randTile, SeconderyTileColor.GREEN);
+		Tile gTile =coloredTilesFactory.getColoredTile(randTile, SeconderyTileColor.GREEN);
 		if(replaceTileInSameTileLocation(gTile)) {
 			coloredTilesList.add(gTile);
 		}else {

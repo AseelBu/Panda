@@ -14,13 +14,11 @@ public class ColoredTilesFactory {
 
 	/**
 	 * 
+	 * @param tileToColor
+	 * @param color2
+	 * @return Tile createdColor
 	 */
-	public ColoredTilesFactory() {
-		// TODO Auto-generated constructor stub
-	}
-
-	//TODO
-	public Tile createColoredTile(Tile tileToColor, SeconderyTileColor color2) {
+	public Tile getColoredTile(Tile tileToColor, SeconderyTileColor color2) {
 		if (tileToColor==null) {
 			System.out.println("didn't get the tile to add color to- tileToColor==null");
 			return null;
