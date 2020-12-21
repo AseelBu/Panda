@@ -229,8 +229,8 @@ public class Scoreboard extends Application {
 		 Image image = new Image(getClass().getResourceAsStream("pictures/icons8-back-arrow-64.png"));
 		//back button to main screen
 		Button back2 = new Button("");
-		back2.setLayoutX(370.0);
-		back2.setLayoutY(6.0);
+		back2.setLayoutX(0.0);
+		back2.setLayoutY(0.0);
 		back2.setMnemonicParsing(false);
 		back2.setGraphic(new ImageView(image));
 		//cancel.setGraphic(new ImageView("pictures/icons8-back-arrow-64.png"));

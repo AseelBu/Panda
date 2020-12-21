@@ -72,8 +72,8 @@ public class InstructionsGame extends Application {
 		 Image image = new Image(getClass().getResourceAsStream("pictures/icons8-back-arrow-64.png"));
 			//back button to main screen
 				Button back = new Button("");
-				back .setLayoutX(880.0);
-				back .setLayoutY(6.0);
+				back .setLayoutX(0.0);
+				back .setLayoutY(0.0);
 				back .setMnemonicParsing(false);
 				back .setGraphic(new ImageView(image));
 				back .setOnAction(new EventHandler<ActionEvent>() {
