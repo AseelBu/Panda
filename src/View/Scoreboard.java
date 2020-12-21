@@ -130,8 +130,8 @@ public class Scoreboard extends Application {
 				first_name.setFont(new Font("verdana",20));
 				first_name.setTextFill(Color.web("#ffffff"));
 				mainAnchor.getChildren().add(first_name);
-				first_name.setLayoutX(217);
-				first_name.setLayoutY(80);
+				first_name.setLayoutX(215);
+				first_name.setLayoutY(70);
 				
 				
 				Label first_score = new Label("" + p.getCurrentScore());
@@ -149,15 +149,15 @@ public class Scoreboard extends Application {
 				first_name.setFont(new Font("verdana",20));
 				first_name.setTextFill(Color.web("#ffffff"));
 				mainAnchor.getChildren().add(first_name);
-				first_name.setLayoutX(120);
-				first_name.setLayoutY(115);
+				first_name.setLayoutX(110);
+				first_name.setLayoutY(105);
 				
 				
 				Label first_score = new Label("" + p.getCurrentScore());
 				first_score.setFont(new Font("verdana",16.0));
 				mainAnchor.getChildren().add(first_score);
 				first_score.setTextFill(Color.web("#ffffff"));
-				first_score.setLayoutX(126);
+				first_score.setLayoutX(114);
 				first_score.setLayoutY(140);
 				
 			}
@@ -167,8 +167,8 @@ public class Scoreboard extends Application {
 				first_name.setFont(new Font("verdana",20));
 				first_name.setTextFill(Color.web("#ffffff"));
 				mainAnchor.getChildren().add(first_name);
-				first_name.setLayoutX(320);
-				first_name.setLayoutY(135);
+				first_name.setLayoutX(310);
+				first_name.setLayoutY(125);
 				
 				
 				Label first_score = new Label("" + p.getCurrentScore());
