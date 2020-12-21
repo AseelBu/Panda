@@ -171,7 +171,7 @@ public class QuestionGUI extends Application{
 	 */
 	public void loadDifficultyLabel(DifficultyLevel diff) {
 		Label lbl = new Label();
-		lbl.setLayoutX(107.0);
+		lbl.setLayoutX(150.0);
 		lbl.setLayoutY(26.0);
 		lbl.setPrefHeight(25.0);
 		lbl.setPrefWidth(131.0);
@@ -180,7 +180,7 @@ public class QuestionGUI extends Application{
 		ImageView img = new ImageView();
 		img.setFitHeight(39.0);
 		img.setFitWidth(36.0);
-		img.setLayoutX(238.0);
+		img.setLayoutX(107.0);
 		img.setLayoutY(21.0);
 		img.setPickOnBounds(true);
 		img.setPreserveRatio(true);
