@@ -3,3 +3,8 @@
 	-fx-background-repeat: no-repeat;
 	-fx-background-size: cover;
 }
+#startgame:hover{
+	-fx-border-width: 2;
+    	-fx-border-color: #000000;
+
+}
