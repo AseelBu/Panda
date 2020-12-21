@@ -250,12 +250,12 @@
                   <Image url="@pictures/Queen_WHITE.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="109.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="109.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@pictures/Soldier_WHITE.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="68.0" layoutY="350.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="68.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@pictures/Soldier_BLACK.png" />
                </image>
