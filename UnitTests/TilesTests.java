@@ -10,9 +10,7 @@ import org.junit.Test;
 import Model.ColoredTilesFactory;
 import Model.Location;
 import Model.Tile;
-import Model.YellowTile;
 import Utils.PrimaryColor;
-import Utils.SeconderyTileColor;
 
 /**
  * 
