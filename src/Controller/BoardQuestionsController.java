@@ -54,6 +54,7 @@ public class BoardQuestionsController {
 	 * @param chosenAnswer
 	 * @return true if the answer is correct, false otherwise
 	 */
+	
 	public static boolean checkQuestionAnswer(int qId,int chosenAnswer) {
 		
 		//System.out.println("*********************************************885555558  "+ q);
@@ -85,8 +86,18 @@ public class BoardQuestionsController {
 		}	
 		
 	}
-	
-	
+	//return difficulty of question
+	public static DifficultyLevel Diffeculty(int qId){
+	int questionId = qId;
+		
+		//**on close the question pop up ->get from boardGUI the chosen answer**
+		Question currentQuestion=SysData.getInstance().getQuesById(questionId);
+		
+		
+		//TODO something went wrong add exception
+		
+	return currentQuestion.getDifficulty();
+	}
 	/**
 	 * adds point for current player according to question difficulty
 	 * @param quDifficulty
