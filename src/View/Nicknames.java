@@ -134,6 +134,10 @@ public class Nicknames extends Application {
 		txt1.setLayoutX(33.0);
 		txt1.setLayoutY(125.0);
 		txt1.setPromptText("Nickname");
+		txt1.textProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue.length() > 10)
+				txt1.setText(oldValue);
+		});
 		
 		ImageView pic1 = new ImageView(new Image(getClass().getResource("pictures/Soldier_WHITE.png").toString()));
 		pic1.setFitHeight(67.0);
@@ -163,6 +167,10 @@ public class Nicknames extends Application {
 		txt2.setLayoutX(409.0);
 		txt2.setLayoutY(125.0);
 		txt2.setPromptText("Nickname");
+		txt2.textProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue.length() > 10)
+				txt2.setText(oldValue);
+		});
 		
 		ImageView pic2 = new ImageView(new Image(getClass().getResource("pictures/Soldier_BLACK.png").toString()));
 		pic2.setFitHeight(67.0);
