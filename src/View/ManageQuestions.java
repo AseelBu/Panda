@@ -8,6 +8,7 @@ import Controller.DisplayController;
 import Controller.QuestionMgmtController;
 import Model.Answer;
 import Model.Question;
+import Model.SysData;
 import Utils.DifficultyLevel;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -123,7 +124,7 @@ public class ManageQuestions extends Application {
 		
 		for(Question q : QuestionMgmtController.getInstance().getQuestions()) {
 			
-			data.add(q.getId()+ "." + q.getContent());
+			data.add((q.getId()+1) + "." + q.getContent());
 			
 		}
 		
@@ -487,7 +488,7 @@ public class ManageQuestions extends Application {
 					System.out.println("Success");
 					QuestionMgmtController.getInstance().getSysData().addQuestion(newQues);
 					QuestionMgmtController.getInstance().WriteQuestions();
-					questionList.getItems().add(newQues.getId()+"."+newQues.getContent());
+					questionList.getItems().add((newQues.getId()+1)+"."+newQues.getContent());
 					ta1.setText("");
 		    		ta2.setText("");
 		    		ta3.setText("");
@@ -534,7 +535,6 @@ public class ManageQuestions extends Application {
 		    		
 		    	}else if(!newValue.equals(oldValue)){
 		    		
-		    		System.out.print("here");
 		    		error.setVisible(false);
 		    		
 		    		btnSaveOrAdd.setText("Save");
@@ -557,16 +557,17 @@ public class ManageQuestions extends Application {
 		    		System.out.println(newValue);
 		    		ArrayList<String> data = new ArrayList<String>(Arrays.asList(newValue.split("\\.")));
 		    		
-		    		int questionID = Integer.valueOf(data.get(0));
-		    		String Content = data.get(1);
-		    		
+		    		int questionID = Integer.valueOf(data.get(0)) - 1;
 		    		Question q = QuestionMgmtController.getInstance().getSysData().getQuesById(questionID);
+		    		
+		    		if(q== null) {
+		    			return;
+		    		}
 		    		
 		    		questionContent.setText(q.getContent());
 		    		
 		    		int count = 0;		    		
 		    		
-		    		System.out.println(q.getAnswers().size());
 		    		
 		    		for(Answer a : q.getAnswers()) {
 		    			
@@ -628,9 +629,23 @@ public class ManageQuestions extends Application {
 				    		questionContent.setText("");
 				    		diff_selector.getSelectionModel().clearSelection();
 				    		
-				    		QuestionMgmtController.getInstance().removeQuestions(Integer.valueOf(questionList.getSelectionModel().getSelectedItems().get(0).split("\\.")[0]));
+				    		System.out.print(SysData.getInstance().getQuestions());
+				    		System.out.print("id " + (Integer.valueOf(questionList.getSelectionModel().getSelectedItem().split("\\.")[0]) - 1));
+				    		
+				    		QuestionMgmtController.getInstance().removeQuestions(Integer.valueOf(questionList.getSelectionModel().getSelectedItem().split("\\.")[0]) - 1);
 				    		QuestionMgmtController.getInstance().WriteQuestions();
 				    		questionList.getItems().remove(questionList.getSelectionModel().getSelectedIndex());
+				    		questionList.getItems().clear();
+	    					
+	    					ObservableList<String> data = FXCollections.observableArrayList();
+	    					
+	    					for(Question q : QuestionMgmtController.getInstance().getQuestions()) {
+	    						
+	    						data.add((q.getId()+1) + "." + q.getContent());
+	    						
+	    					}
+	    					
+	    					questionList.getItems().addAll(data);
 				    		
 				    		error.setVisible(true);
 							error.setText("Successfuly Deleted!");
@@ -825,7 +840,7 @@ public class ManageQuestions extends Application {
 		    					
 		    					for(Question q : QuestionMgmtController.getInstance().getQuestions()) {
 		    						
-		    						data.add(q.getId()+ "." + q.getContent());
+		    						data.add((q.getId()+1) + "." + q.getContent());
 		    						
 		    					}
 		    					
@@ -986,7 +1001,6 @@ public class ManageQuestions extends Application {
 		    				
 		    				boolean foundCorrect = false;
 		    				
-		    				System.out.print(newQues.getAnswers());
 		    				
 		    				for(Answer a : newQues.getAnswers()) {
 		    					
@@ -1024,7 +1038,7 @@ public class ManageQuestions extends Application {
 		    					System.out.println("Success");
 		    					QuestionMgmtController.getInstance().getSysData().addQuestion(newQues);
 		    					QuestionMgmtController.getInstance().WriteQuestions();
-		    					questionList.getItems().add(newQues.getId()+"."+newQues.getContent());
+		    					questionList.getItems().add((newQues.getId()+1) +  "."+newQues.getContent());
 		    					ta1.setText("");
 		    		    		ta2.setText("");
 		    		    		ta3.setText("");

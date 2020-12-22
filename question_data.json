@@ -1,35 +1,15 @@
 {
   "questions": [
     {
-      "question": "What is the definition of Unit testing?",
+      "question": "q11",
       "answers": [
-        "The application system that provides the business services .",
-        "The process that starts when you create an initial project plan during the project startup phase. ",
-        "The process of testing individual components in isolation."
-      ],
-      "correct_ans": "3",
-      "level": "1",
-      "team": "animal"
-    },
-    {
-      "question": "Overall, which has the most maintenance effort distribution?",
-      "answers": [
-        "Environmental adaptation.",
-        "Functionality addition or modification.",
-        "Fault  repair."
+        "a",
+        "b",
+        "c",
+        "d"
       ],
       "correct_ans": "2",
-      "level": "3",
-      "team": "animal"
-    },
-    {
-      "question": "About 67% of the  total cost of a product accrues during the maintenance phase.",
-      "answers": [
-        "True",
-        "False"
-      ],
-      "correct_ans": "1",
-      "level": "2",
+      "level": "1",
       "team": "animal"
     }
   ]

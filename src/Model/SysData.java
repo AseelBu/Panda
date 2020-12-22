@@ -139,9 +139,17 @@ public class SysData {
 			iterator++;
 
 		}
-
+		
+		if(i == -1) {
+			return;
+		}
+		for(int c = i + 1 ; c <  this.getQuestions().size(); c++) {
+			this.getQuestions().get(c).setId(id);
+			id++;
+			
+		}
 		if (i != -1) {
-			this.getQuestions().remove(i);
+			this.questions.remove(i);
 		}
 
 	}
