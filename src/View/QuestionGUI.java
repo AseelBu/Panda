@@ -135,29 +135,29 @@ public class QuestionGUI extends Application{
 						if(diff==	DifficultyLevel .EASY) {
 						notifyTrueAnswer("You earn 100 extra points :)\nWell done!");
 						}
-							if(diff==	DifficultyLevel .HARD)
+						else {   if(diff==	DifficultyLevel .HARD)
 							{
 								notifyTrueAnswer("You earn 500 extra points :)\nWell done!");
 							}
-							if(diff==	DifficultyLevel.MEDIOCRE)
+							else
 							{
 								notifyTrueAnswer("You earn 200 extra points :)\nWell done!");
 							}
-					}
+					}}
 					else {
 						DifficultyLevel diff=BoardQuestionsController.Diffeculty(s);
 						if(diff==	DifficultyLevel .EASY) {
 							notifyFalseAnswer("You lost 250  points :(\nGood luck next time");
 						}
-							if(diff==	DifficultyLevel .HARD)
+						else {	if(diff==	DifficultyLevel .HARD)
 							{
 								notifyFalseAnswer("You lost 50 points :(\nGood luck next time");
 							}
-							if(diff==	DifficultyLevel.MEDIOCRE)
+						else 
 							{
 								notifyFalseAnswer("You lost 100 points :(\nGood luck next time");
 							}
-						
+						}
 					}
 					BoardController.getInstance().refreshScoreInBoardGUI();
 
