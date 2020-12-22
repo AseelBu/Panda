@@ -10,11 +10,8 @@ import org.junit.Test;
 
 import Controller.QuestionMgmtController;
 import Model.Answer;
-import Model.Game;
-import Model.Player;
 import Model.Question;
 import Model.SysData;
-import Model.Turn;
 import Model.YellowTile;
 
 
@@ -40,9 +37,9 @@ public class QuestionAnswerTests {
 		
 		// test Yellow Tile
 		
-		YellowTile testTile = new YellowTile(null, null, null, null);
-				
-		testTile.setQuestionId(q);
+		YellowTile testTile = new YellowTile.Builder(null, null).build();
+//		YellowTile testTile = new YellowTile(null, null, null, null);
+//		testTile.setQuestionId(q);
     }
 	
 	@Test
@@ -65,9 +62,10 @@ public class QuestionAnswerTests {
 		
 		// test Yellow Tile
 		
-		YellowTile testTile = new YellowTile(null, null, null, null);
+		YellowTile testTile = new YellowTile.Builder(null, null).build();
 		
-		testTile.setQuestionId(q);
+//		YellowTile testTile = new YellowTile(null, null, null, null);		
+//		testTile.setQuestionId(q);
 		
 		// test on wrong answers 
 		
@@ -89,10 +87,11 @@ public class QuestionAnswerTests {
 		// test Yellow Tile
 		
 		Answer CorrectAnswer = null;
+		YellowTile testTile = new YellowTile.Builder(null, null).build();
 		
-		YellowTile testTile = new YellowTile(null, null, null, null);
-				
-		testTile.setQuestionId(q);
+//		YellowTile testTile = new YellowTile(null, null, null, null);
+//				
+//		testTile.setQuestionId(q);
 		
 		for(Answer a : QuestionAnswerTests.q.getAnswers()) {
 			

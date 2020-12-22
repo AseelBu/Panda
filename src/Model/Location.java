@@ -247,7 +247,7 @@ public class Location {
 		char targetCol = targetLocation.getColumn();
 
 		int rowCmp = targetRow-curRow;
-		int colCmp = targetCol-curCol;
+//		int colCmp = targetCol-curCol;
 
 		Directions dir = getRelativeDirection(targetLocation);
 //		switch (dir) {

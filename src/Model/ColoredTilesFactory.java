@@ -28,26 +28,26 @@ public class ColoredTilesFactory {
 		PrimaryColor color1 = tileToColor.getColor1();
 		Piece pieceOnTile = tileToColor.getPiece();
 		if(color2==null) {
-			return new Tile(location, color1, color2, pieceOnTile);
+			return new Tile.Builder(location, color1).setPiece(pieceOnTile).build();
 		}
 		
 		switch(color2){
 		case YELLOW:
-			YellowTile yTile = new YellowTile(location, color1, color2, pieceOnTile);
-			yTile.drawQuestion();
+			YellowTile yTile = new YellowTile.Builder(location, color1).setColor2(color2).setPiece(pieceOnTile).build();
+//			yTile.drawQuestion();
 			return yTile;
 		case YELLOW_ORANGE:
 			tileToColor.setColor2(color2);
 			return tileToColor;
 
 		case BLUE:
-			BlueTile bTile = new BlueTile(location, color1, color2, pieceOnTile);
+			BlueTile bTile = new BlueTile.Builder(location, color1).setColor2(color2).setPiece(pieceOnTile).build();
 			return bTile;
 
 		case RED:
 		case GREEN:
 		case ORANGE:
-			return new Tile(location, color1, color2, pieceOnTile);
+			return new Tile.Builder(location, color1).setColor2(color2).setPiece(pieceOnTile).build();
 
 		default:{
 			
