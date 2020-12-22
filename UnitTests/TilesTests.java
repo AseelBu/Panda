@@ -10,9 +10,7 @@ import org.junit.Test;
 import Model.ColoredTilesFactory;
 import Model.Location;
 import Model.Tile;
-import Model.YellowTile;
 import Utils.PrimaryColor;
-import Utils.SeconderyTileColor;
 
 /**
  * 
@@ -47,7 +45,7 @@ public class TilesTests {
 	@Before
 	public void setUp() throws Exception {
 		Location location= new Location(5, 'A');
-	 regularTile = new Tile(location, PrimaryColor.BLACK);
+	 regularTile = new Tile.Builder(location, PrimaryColor.BLACK).build();
 	 factory = new ColoredTilesFactory();
 	}
 

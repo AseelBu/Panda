@@ -1,26 +1,56 @@
 package Model;
 
 import Utils.PrimaryColor;
-import Utils.SeconderyTileColor;
 
 public class YellowTile extends Tile  {
 
 
-	private Question question;
+	private final Question question;
 
+
+	protected static abstract class Init <T extends Init<T>> extends Tile.Init<T>{
+		
+		private Question question;
+		
+		/**
+		 * Draws an available random question
+		 */
+		public T drawQuestion() {
+			Question q = Game.getInstance().getAvailableRandomQuestion();
+			System.out.println("drawn question is "+q);
+			this.question = q;
+			return self();
+		}
+		
+		public YellowTile build() {
+			drawQuestion();
+			return new YellowTile(this);
+		}
+	}
+
+	public static class Builder extends Init<Builder>{
+		public Builder(Location location,PrimaryColor color1) {
+			super.location = location;
+			super.color1 = color1;	
+		}
+		@Override
+		protected Builder self() {
+			return this;
+		}
+
+	}
 
 	/**
 	 * Constructor
-	 * 
-	 * @param location
-	 * @param color1
-	 * @param color2
-	 * @param piece
-	 * @param questionId
+	 * @param init
 	 */
-	public YellowTile(Location location,PrimaryColor color1,SeconderyTileColor color2,Piece piece) {
-		super(location, color1, color2, piece);
+	protected YellowTile(Init<?> init) {
+		super(init);
+		this.question=init.question;
+
 	}
+
+	
 
 	/**
 	 * getters & setters
@@ -28,21 +58,18 @@ public class YellowTile extends Tile  {
 	public Question getQuestion() {
 		return question;
 	}
-	
-	public void setQuestionId(Question question) {
-		this.question = question;
-	}
-	
-	
+		
 	
 	/**
 	 * Draws an available random question
 	 */
-	public void drawQuestion() {
-		Question q = Game.getInstance().getAvailableRandomQuestion();
-		System.out.println("drawn question is "+q);
-		this.setQuestionId(q);
-	}
+
+//	public void drawQuestion() {
+//		
+//		Question q = Game.getInstance().getAvailableRandomQuestion();
+//		System.out.println("drawn question is "+q);
+//		this.setQuestion(q);
+//	}
 	
 	/**
 	 * Checks if chosen answer is correct

@@ -401,7 +401,8 @@ public class BoardController {
 					//call boardGUI to open pop up question with blur on screen
 					//continue in checkQuestionAnswer
 					YellowTile yt = ((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col)));
-					yt.drawQuestion();
+//					yt.drawQuestion(); 
+					//TODO here we should put the draw question
 					
 					DisplayController.getInstance().showQuestion(yt.getQuestion(), Game.getInstance().getCurrentPlayerColor());
 					this.answeringQuestion = true;

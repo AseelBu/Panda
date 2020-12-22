@@ -131,30 +131,20 @@ public class QuestionGUI extends Application{
 					System.out.println("========" + s + " " + diff);
 					if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
 					{
-						if(diff ==	DifficultyLevel.EASY) {
+						if(diff ==DifficultyLevel.EASY)
 							notifyTrueAnswer("You earn 100 extra points :)\nWell done!");
-						}
-						else if(diff == DifficultyLevel.HARD)
-						{
-								notifyTrueAnswer("You earn 500 extra points :)\nWell done!");
-						}
+						else if(diff ==	DifficultyLevel.HARD)
+							notifyTrueAnswer("You earn 500 extra points :)\nWell done!");
 						else
-						{
-								notifyTrueAnswer("You earn 200 extra points :)\nWell done!");
-						}
-					}
-					else {
-						if(diff==	DifficultyLevel.EASY) {
+							notifyTrueAnswer("You earn 200 extra points :)\nWell done!");
+					}else {
+						if(diff ==DifficultyLevel.EASY) 
 							notifyFalseAnswer("You lost 250  points :(\nGood luck next time");
-						}
-						else if(diff==	DifficultyLevel.HARD)
-						{
-								notifyFalseAnswer("You lost 50 points :(\nGood luck next time");
-						}
+						else if(diff ==DifficultyLevel.HARD)
+							notifyFalseAnswer("You lost 50 points :(\nGood luck next time");
 						else
-						{
-								notifyFalseAnswer("You lost 100 points :(\nGood luck next time");
-						}
+							notifyFalseAnswer("You lost 100 points :(\nGood luck next time");
+						
 					}
 					BoardController.getInstance().refreshScoreInBoardGUI();
 
@@ -195,7 +185,7 @@ public class QuestionGUI extends Application{
 		lbl.setLayoutX(150.0);
 		lbl.setLayoutY(26.0);
 		lbl.setPrefHeight(25.0);
-		lbl.setPrefWidth(131.0);
+		
 		lbl.setFont(new Font("System Bold", 16.0));
 
 		ImageView img = new ImageView();

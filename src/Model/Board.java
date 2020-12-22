@@ -87,15 +87,16 @@ public class Board {
 		try {
 			for(int i = 1 ; i <= BOARD_SIZE ; i+=2) {
 				for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
-					addTile(new Tile(new Location(i, c), PrimaryColor.BLACK));
-					addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE));
+					
+					addTile(new Tile.Builder(new Location(i, c), PrimaryColor.BLACK).build());
+					addTile(new Tile.Builder(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE).build());
 				}
 			}
 			for(int i = 2 ; i <= BOARD_SIZE ; i+=2) {
 				for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
 
-					addTile(new Tile(new Location(i, c), PrimaryColor.WHITE));
-					addTile(new Tile(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK));
+					addTile(new Tile.Builder(new Location(i, c), PrimaryColor.WHITE).build());
+					addTile(new Tile.Builder(new Location(i, (char) ( c + 1)), PrimaryColor.BLACK).build());
 				}
 			}
 		}catch(LocationException e) {
@@ -582,8 +583,7 @@ public class Board {
 	 */
 	public ArrayList<Tile> getAllLegalMoves(PrimaryColor playerColor) {
 
-		final Directions[] upDirections = {Directions.UP_LEFT,Directions.UP_RIGHT};
-		final Directions[] downDirections = {Directions.DOWN_LEFT,Directions.DOWN_RIGHT};
+		
 
 		LinkedHashSet<Tile> possibleTileSet = new LinkedHashSet<Tile>();
 
@@ -823,7 +823,7 @@ public class Board {
 		if(!this.coloredTilesList.isEmpty()) {
 			boardTiles.retainAll(coloredTilesList);
 			for(Tile t :boardTiles) {
-				Tile basicTile= new Tile(t.getLocation(), t.getColor1(), null, t.getPiece());
+				Tile basicTile= new Tile.Builder(t.getLocation(), t.getColor1()).setPiece(t.getPiece()).build();
 				replaceTileInSameTileLocation(basicTile);						
 			}
 		}
@@ -1023,7 +1023,7 @@ public class Board {
 	}
 
 	private boolean updateBoardToAddingOrange(){
-		ArrayList<Tile> legalTiles = getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
+		
 
 		ArrayList<Tile> tiles = null;
 
@@ -1041,8 +1041,9 @@ public class Board {
 			if(tiles.contains(t) && !(t instanceof YellowTile)) {
 				//blue transfer to regular tile
 				if(t instanceof BlueTile) {
-					replaceTileInSameTileLocation(new Tile(t.getLocation(), t.getColor1(), null, t.getPiece()));
-				}else {
+					replaceTileInSameTileLocation(new Tile.Builder(t.getLocation(), t.getColor1()).setPiece(t.getPiece()).build());
+				}else //any other color not blue or yellow
+				{
 					//remove secondary color
 					t.setColor2(null);
 					replaceTileInSameTileLocation(t);
