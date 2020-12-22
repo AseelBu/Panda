@@ -13,6 +13,8 @@ public class GameTimerController extends Thread{
             	Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+                    	if(Game.getInstance().getTimer().getPauseTime() != -1)
+                    		return;
                     	DisplayController.boardGUI.updateFullTimer((int) Game.getInstance().getGameTime());
                     }
                   });

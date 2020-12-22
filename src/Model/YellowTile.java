@@ -39,12 +39,9 @@ public class YellowTile extends Tile  {
 	 * Draws an available random question
 	 */
 	public void drawQuestion() {
-		
 		Question q = Game.getInstance().getAvailableRandomQuestion();
 		System.out.println("drawn question is "+q);
 		this.setQuestionId(q);
-		
-		
 	}
 	
 	/**

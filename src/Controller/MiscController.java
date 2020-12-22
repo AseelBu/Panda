@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -116,11 +117,11 @@ public class MiscController {
 		int row = 1;
 		int cnt = 1;
 		
-		if(board_map.get(0).equals("2") || board_map.get(1).equals("2") || board_map.get(2).equals("2") || board_map.get(3).equals("2")) {
+		if(board_map.get(31).equals("2") || board_map.get(30).equals("2") || board_map.get(29).equals("2") || board_map.get(28).equals("2")) {
 			System.out.println("Invalid File : Bounds Cant Be Queens");
 			return null;
 		}
-		else if(board_map.get(31).equals("1") || board_map.get(30).equals("1") || board_map.get(29).equals("1") || board_map.get(28).equals("1")) {
+		else if(board_map.get(0).equals("1") || board_map.get(1).equals("1") || board_map.get(2).equals("1") || board_map.get(3).equals("1")) {
 			System.out.println("Invalid File : Bounds Cant Be Queens)");
 			return null;
 		}
@@ -246,7 +247,7 @@ public class MiscController {
 		ArrayList<Tile> tiles = Board.getInstance().getAllBoardTiles();
 		
 		String data_line = "";
-		
+		Collections.reverse(tiles);
 		for(Tile l : tiles) {
 			
 			if(l.getColor1().equals(PrimaryColor.WHITE)) {

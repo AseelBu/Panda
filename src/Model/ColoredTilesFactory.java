@@ -34,7 +34,7 @@ public class ColoredTilesFactory {
 		switch(color2){
 		case YELLOW:
 			YellowTile yTile = new YellowTile(location, color1, color2, pieceOnTile);
-			yTile.drawQuestion();
+//			yTile.drawQuestion();
 			return yTile;
 		case YELLOW_ORANGE:
 			tileToColor.setColor2(color2);

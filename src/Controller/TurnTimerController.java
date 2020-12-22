@@ -28,6 +28,8 @@ public class TurnTimerController extends Thread{
 					public void run() {
 
 						int seconds = (int) Game.getInstance().getTurn().getTimer().getSeconds();
+                    	if(Game.getInstance().getTimer().getPauseTime() != -1)
+                    		return;
 						DisplayController.boardGUI.updateTurnTimer(seconds);
 
 						

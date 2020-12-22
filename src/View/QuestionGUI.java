@@ -128,36 +128,33 @@ public class QuestionGUI extends Application{
 				if(((Button) event.getSource()).getText().equals("Submit")) {
 
 					int s = questionId;
+					System.out.println("========" + s + " " + diff);
 					if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
 					{
-			
-						DifficultyLevel diff=BoardQuestionsController.Diffeculty(s);
-						if(diff==	DifficultyLevel .EASY) {
-						notifyTrueAnswer("You earn 100 extra points :)\nWell done!");
+						if(diff ==	DifficultyLevel.EASY) {
+							notifyTrueAnswer("You earn 100 extra points :)\nWell done!");
 						}
-							if(diff==	DifficultyLevel .HARD)
-							{
+						else if(diff == DifficultyLevel.HARD)
+						{
 								notifyTrueAnswer("You earn 500 extra points :)\nWell done!");
-							}
-							else
-							{
+						}
+						else
+						{
 								notifyTrueAnswer("You earn 200 extra points :)\nWell done!");
-							}
+						}
 					}
 					else {
-						DifficultyLevel diff=BoardQuestionsController.Diffeculty(s);
-						if(diff==	DifficultyLevel .EASY) {
+						if(diff==	DifficultyLevel.EASY) {
 							notifyFalseAnswer("You lost 250  points :(\nGood luck next time");
 						}
-							if(diff==	DifficultyLevel .HARD)
-							{
+						else if(diff==	DifficultyLevel.HARD)
+						{
 								notifyFalseAnswer("You lost 50 points :(\nGood luck next time");
-							}
-							else
-							{
+						}
+						else
+						{
 								notifyFalseAnswer("You lost 100 points :(\nGood luck next time");
-							}
-						
+						}
 					}
 					BoardController.getInstance().refreshScoreInBoardGUI();
 
