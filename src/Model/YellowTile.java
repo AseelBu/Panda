@@ -5,25 +5,25 @@ import Utils.PrimaryColor;
 public class YellowTile extends Tile  {
 
 
-	private final Question question;
+	private  Question question=null;
 
 
 	protected static abstract class Init <T extends Init<T>> extends Tile.Init<T>{
-		
-		private Question question;
-		
+
+	//	private Question question=null;
+
 		/**
 		 * Draws an available random question
 		 */
-		public T drawQuestion() {
-			Question q = Game.getInstance().getAvailableRandomQuestion();
-			System.out.println("drawn question is "+q);
-			this.question = q;
-			return self();
-		}
-		
+		//		public T drawQuestion() {
+		//			Question q = Game.getInstance().getAvailableRandomQuestion();
+		//			System.out.println("drawn question is "+q);
+		//			this.question = q;
+		//			return self();
+		//		}
+
 		public YellowTile build() {
-			drawQuestion();
+			//			drawQuestion();
 			return new YellowTile(this);
 		}
 	}
@@ -46,38 +46,49 @@ public class YellowTile extends Tile  {
 	 */
 	protected YellowTile(Init<?> init) {
 		super(init);
-		this.question=init.question;
+		//		this.question=init.question;
 
 	}
 
-	
+
+
+
+	//getters & setters
 
 	/**
-	 * getters & setters
+	 * 
+	 * @return question in Tile
 	 */
 	public Question getQuestion() {
 		return question;
 	}
-		
-	
+
+
+	/**
+	 * @param question the question to set
+	 */
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+
 	/**
 	 * Draws an available random question
 	 */
+	public void drawQuestion() {
 
-//	public void drawQuestion() {
-//		
-//		Question q = Game.getInstance().getAvailableRandomQuestion();
-//		System.out.println("drawn question is "+q);
-//		this.setQuestion(q);
-//	}
-	
+		Question q = Game.getInstance().getAvailableRandomQuestion();
+		System.out.println("drawn question is "+q);
+		this.setQuestion(q);
+	}
+
 	/**
 	 * Checks if chosen answer is correct
 	 * @param answer chosen answer
 	 * @return correct/not correct
 	 */
 	public boolean isAnswerCorrect(Answer answer) {
-		// TODO Auto-generated method stub
+		
 		boolean result= false;
 		try {
 			if(this.question.getCorrectAnswer()==answer.getId()) {
@@ -89,8 +100,8 @@ public class YellowTile extends Tile  {
 		}
 		return result;
 	}
-	
-	
+
+
 
 	@Override
 	public String toString() {
