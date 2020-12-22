@@ -11,71 +11,146 @@ import Utils.SeconderyTileColor;
  *
  */
 public class Tile implements Comparable<Tile>{
-
+	//requiredParameters
 	private Location location;
 	private PrimaryColor color1;
+
+	//optional parameters
 	private SeconderyTileColor color2=null;
 	private Piece piece = null;
 
 
+	protected static abstract class Init<T extends Init<T>>{
+		
+		protected abstract T self();
 
-	/**
-	 * Constructor for regular tile without piece
-	 * 
-	 * @param location - Tile's location
-	 * @param color1 - Tile's primary color - white or black
-	 */
-	public Tile(Location location, PrimaryColor color1) {
-		super();
-		this.location = location;
-		this.color1 = color1;		
+		//requiredParameters
+		protected Location location;
+		protected PrimaryColor color1;
+
+		//optional parameters
+		private SeconderyTileColor color2=null;
+		private Piece piece=null ;
+
+//		/**
+//		 * Constructor
+//		 * @param location
+//		 * @param color1
+//		 */
+//		public TileBuilder(Location location,PrimaryColor color1) {
+//			this.location = location;
+//			this.color1 = color1;	
+//		}
+
+		/**
+		 * sets secondary color to tile
+		 * @param color2 secondary color to set to tile
+		 * @return TileBuilder
+		 */
+		public T setColor2(SeconderyTileColor color2) {
+			this.color2 = color2;
+			return self();
+		}
+
+		/**
+		 * sets piece to tile
+		 * @param piece to set to tile
+		 * @return TileBuilder
+		 */
+		public T setPiece(Piece piece) {
+			this.piece = piece;
+			return self();
+		}
+
+		/**
+		 * Build the the Tile instance
+		 * @return Tile instance
+		 */
+		public Tile build() {
+			return new Tile(this);
+		}
 	}
 
+	//Builder class
+	public static class Builder extends Init<Builder>{
+		public Builder(Location location,PrimaryColor color1) {
+			this.location = location;
+			this.color1 = color1;	
+		}
+		@Override
+		protected Builder self() {
+			return this;
+		}
+	}
+	
 	/**
-	 * Constructor for Special tile without piece
-	 * 
-	 * @param location - Tile's location
-	 * @param color1 - Tile's primary color - white or black
-	 * @param color2 - Tile's secondary color
+	 *  Constructor
+	 * @param builder 
 	 */
-	public Tile(Location location, PrimaryColor color1, SeconderyTileColor color2) {
-		super();
-		this.location = location;
-		this.color1 = color1;
-		this.color2 = color2;
-
+	protected Tile(Init<?> init) {
+		this.location=init.location;
+		this.color1 = init.color1;
+		this.color2 = init.color2;
+		this.piece = init.piece;
 	}
 
-	/**
-	 * Constructor for regular tile with piece
-	 * 
-	 * @param location
-	 * @param color1
-	 * @param piece
-	 */
-
-	public Tile(Location location, PrimaryColor color1, Piece piece) {
-		super();
-		this.location = location;
-		this.color1 = color1;		
-		this.piece = piece;
-	}
-
-	/**
-	 * Constructor for Special tile with piece
-	 * 
-	 * @param location
-	 * @param color1
-	 * @param color2
-	 * @param piece
-	 */
-	public Tile(Location location, PrimaryColor color1, SeconderyTileColor color2, Piece piece) {
-		super();
-		this.location = location;
-		this.color1 = color1;
-		this.color2 = color2;
-		this.piece = piece;
-	}
+	//	/**
+	//	 * Constructor for regular tile without piece
+	//	 * 
+	//	 * @param location - Tile's location
+	//	 * @param color1 - Tile's primary color - white or black
+	//	 */
+	//	public Tile(Location location, PrimaryColor color1) {
+	//		super();
+	//		this.location = location;
+	//		this.color1 = color1;		
+	//	}
+	//
+	//	/**
+	//	 * Constructor for Special tile without piece
+	//	 * 
+	//	 * @param location - Tile's location
+	//	 * @param color1 - Tile's primary color - white or black
+	//	 * @param color2 - Tile's secondary color
+	//	 */
+	//	public Tile(Location location, PrimaryColor color1, SeconderyTileColor color2) {
+	//		super();
+	//		this.location = location;
+	//		this.color1 = color1;
+	//		this.color2 = color2;
+	//
+	//	}
+	//
+	//	/**
+	//	 * Constructor for regular tile with piece
+	//	 * 
+	//	 * @param location
+	//	 * @param color1
+	//	 * @param piece
+	//	 */
+	//
+	//	public Tile(Location location, PrimaryColor color1, Piece piece) {
+	//		super();
+	//		this.location = location;
+	//		this.color1 = color1;		
+	//		this.piece = piece;
+	//	}
+	//
+	//	/**
+	//	 * Constructor for Special tile with piece
+	//	 * 
+	//	 * @param location
+	//	 * @param color1
+	//	 * @param color2
+	//	 * @param piece
+	//	 */
+	//	public Tile(Location location, PrimaryColor color1, SeconderyTileColor color2, Piece piece) {
+	//		super();
+	//		this.location = location;
+	//		this.color1 = color1;
+	//		this.color2 = color2;
+	//		this.piece = piece;
+	//	}
 
 
 
@@ -126,12 +201,7 @@ public class Tile implements Comparable<Tile>{
 		return location;
 	}
 
-	/**
-	 * @param location the location to set
-	 */
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+
 
 	/**
 	 * @return the color1
@@ -140,12 +210,7 @@ public class Tile implements Comparable<Tile>{
 		return color1;
 	}
 
-	/**
-	 * @param color1 the color1 to set
-	 */
-	public void setColor1(PrimaryColor color1) {
-		this.color1 = color1;
-	}
+
 
 	/**
 	 * @return the color2
@@ -154,12 +219,7 @@ public class Tile implements Comparable<Tile>{
 		return color2;
 	}
 
-	/**
-	 * @param color2 the color2 to set
-	 */
-	public void setColor2(SeconderyTileColor color2) {
-		this.color2 = color2;
-	}
+
 
 	/**
 	 * @return the piece
@@ -169,26 +229,25 @@ public class Tile implements Comparable<Tile>{
 	}
 
 	/**
-	 * @param piece the piece to set
+	 * 
+	 * @param color2 secondary color
 	 */
-	public void setPiece(Piece piece) {
-		this.piece = piece;
+	public void setColor2(SeconderyTileColor color2) {
+		this.color2 = color2;
+
 	}
-
-
-	//methods
 
 	/**
 	 * 
-	 * @return dominant tile color- secondary color if exists else the primary color of the tile
+	 * @param piece to set
 	 */
-	public String getColorName() {
-		if(this.color2 != null) {
-			return  this.color2.name();
-		}
-		return this.color1.name();
+	public void setPiece(Piece piece) {
+		this.piece = piece;
 
 	}
+
+	//methods
+
 
 	/**
 	 * checks if this tile has piece on it or not
@@ -202,7 +261,7 @@ public class Tile implements Comparable<Tile>{
 		return false;
 	}
 
-	
+
 
 	@Override
 	public String toString() {
