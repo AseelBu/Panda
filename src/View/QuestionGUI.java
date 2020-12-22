@@ -139,7 +139,7 @@ public class QuestionGUI extends Application{
 							{
 								notifyTrueAnswer("You earn 500 extra points :)\nWell done!");
 							}
-							else
+							if(diff==	DifficultyLevel.MEDIOCRE)
 							{
 								notifyTrueAnswer("You earn 200 extra points :)\nWell done!");
 							}
@@ -153,7 +153,7 @@ public class QuestionGUI extends Application{
 							{
 								notifyFalseAnswer("You lost 50 points :(\nGood luck next time");
 							}
-							else
+							if(diff==	DifficultyLevel.MEDIOCRE)
 							{
 								notifyFalseAnswer("You lost 100 points :(\nGood luck next time");
 							}
