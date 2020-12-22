@@ -15,7 +15,14 @@
 
 <AnchorPane prefHeight="465.0" prefWidth="681.0" stylesheets="@question.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-         <AnchorPane fx:id="background" layoutX="238.0" layoutY="35.0" opacity="0.13" prefHeight="958.0" prefWidth="1327.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         <AnchorPane fx:id="background" layoutX="238.0" layoutY="35.0" opacity="0.13" prefHeight="958.0" prefWidth="1327.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="653.0" layoutY="14.0" prefHeight="39.0" prefWidth="36.0" text="30" textFill="#ff3700">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
    
                         <ImageView fitHeight="65.0" fitWidth="64.0" layoutX="40.0" pickOnBounds="true" preserveRatio="true">
          <image>

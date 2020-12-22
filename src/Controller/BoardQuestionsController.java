@@ -56,31 +56,21 @@ public class BoardQuestionsController {
 	 */
 	
 	public static boolean checkQuestionAnswer(int qId,int chosenAnswer) {
-		
-		//System.out.println("*********************************************885555558  "+ q);
-		//System.out.println("*********************************************885555558  "+ chosenAnswer);
-
-		
 		int questionId = qId;
 		
 		//**on close the question pop up ->get from boardGUI the chosen answer**
 		Question currentQuestion=SysData.getInstance().getQuesById(questionId);
 		
-		
 		//TODO something went wrong add exception
 		if(currentQuestion==null) return false;
 		
 		//if answer is correct add points according to qu difficulty
-		if(currentQuestion.getCorrectAnswer()==chosenAnswer) {
+		if(currentQuestion.getCorrectAnswer() == chosenAnswer) {
 			addPointsForCorrectAnswer(currentQuestion.getDifficulty());
-		 //  System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
-
 			return true;
 		}
 		//if answer is wrong remove points according to qu difficulty
 		else {
-		//	System.out.println("*********************************************885555558 wwwweeeeeeeww  ");
-
 			removePointsForWrongAnswer(currentQuestion.getDifficulty());
 			return false;
 		}	

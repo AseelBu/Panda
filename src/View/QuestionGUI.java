@@ -8,12 +8,14 @@ import Controller.BoardController;
 import Controller.BoardQuestionsController;
 import Controller.DisplayController;
 import Controller.GameController;
+import Controller.QuestionTimerController;
 import Utils.DifficultyLevel;
 import Utils.PrimaryColor;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -43,6 +45,10 @@ public class QuestionGUI extends Application{
 	private Stage primary;
 	private ToggleGroup group;
 	private PrimaryColor turnColor;
+	
+	private int questionId;
+	private DifficultyLevel diff;
+	private QuestionTimerController questionThread;
 
 	public QuestionGUI(PrimaryColor color) {
 		turnColor = color;
@@ -83,7 +89,8 @@ public class QuestionGUI extends Application{
 		if(answers.isEmpty()) throw new Exception("Question has no Answers");
 		for(String s : answers.values())
 			if(s.matches("")) throw new Exception("Invalid Answer");
-
+		this.questionId = questionId;
+		this.diff = diff;
 		// loads background
 		mainAnchor.getChildren().clear();
 		AnchorPane background = new AnchorPane();
@@ -128,7 +135,6 @@ public class QuestionGUI extends Application{
 				if(((Button) event.getSource()).getText().equals("Submit")) {
 
 					int s = questionId;
-					System.out.println("========" + s + " " + diff);
 					if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
 					{
 						if(diff ==DifficultyLevel.EASY)
@@ -158,6 +164,7 @@ public class QuestionGUI extends Application{
 							DisplayController.boardGUI.getTurnTimer().resetColors();
 						}
 					}
+					questionThread.stop();
 					primary.close();
 				}
 
@@ -174,6 +181,7 @@ public class QuestionGUI extends Application{
 		grid.getRowConstraints().clear();
 		grid.getColumnConstraints().add(new ColumnConstraints(100));
 		loadAnswers(answers);
+		loadTimer();
 	}
 
 	/**
@@ -185,7 +193,8 @@ public class QuestionGUI extends Application{
 		lbl.setLayoutX(150.0);
 		lbl.setLayoutY(26.0);
 		lbl.setPrefHeight(25.0);
-		
+		lbl.setPrefWidth(200.0);
+		lbl.setAlignment(Pos.CENTER_LEFT);
 		lbl.setFont(new Font("System Bold", 16.0));
 
 		ImageView img = new ImageView();
@@ -315,6 +324,62 @@ public class QuestionGUI extends Application{
 	}
 
 
+	public void outOfTime() {
+		if(BoardQuestionsController.checkQuestionAnswer(questionId,-1))
+		{
+			if(diff ==DifficultyLevel.EASY)
+				notifyTrueAnswer("You earn 100 extra points :)\nWell done!");
+			else if(diff ==	DifficultyLevel.HARD)
+				notifyTrueAnswer("You earn 500 extra points :)\nWell done!");
+			else
+				notifyTrueAnswer("You earn 200 extra points :)\nWell done!");
+		}else {
+			if(diff ==DifficultyLevel.EASY) 
+				notifyFalseAnswer("You lost 250  points :(\nGood luck next time");
+			else if(diff ==DifficultyLevel.HARD)
+				notifyFalseAnswer("You lost 50 points :(\nGood luck next time");
+			else
+				notifyFalseAnswer("You lost 100 points :(\nGood luck next time");
+			
+		}
+		BoardController.getInstance().refreshScoreInBoardGUI();
 
-
+		GameController.getInstance().switchTurn();
+		BoardController.getInstance().setAnsweringQuestion(false);
+		DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
+		if(GameController.getInstance().isGameRunning()) {
+			PrimaryColor newColor = BoardController.getInstance().getPlayerTurn();
+			if(newColor != turnColor) {
+				DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getPlayerTurn());
+				DisplayController.boardGUI.getTurnTimer().resetColors();
+			}
+		}
+		primary.close();
+	}
+	
+	private void loadTimer() {
+		Label timerLbl = new Label();
+		timerLbl.setId("Timer");
+		timerLbl.setLayoutX(645.0);
+		timerLbl.setLayoutY(14.0);
+		timerLbl.setPrefHeight(39.0);
+		timerLbl.setPrefWidth(36.0);
+		timerLbl.setFont(new Font("System Bold", 27.0));
+		mainAnchor.getChildren().add(timerLbl);
+		
+		questionThread = new QuestionTimerController();
+		questionThread.start();
+	}
+	
+	public void setTimerSeconds(int seconds) {
+		Label timerLbl = (Label) mainAnchor.lookup("#Timer");
+		if(seconds > 10) {
+			timerLbl.setStyle("-fx-text-fill: #1a5e32");
+		}else if(seconds > 5) {
+			timerLbl.setStyle("-fx-text-fill: #ff4000");
+		}else {
+			timerLbl.setStyle("-fx-text-fill: #ff0000");
+		}
+		timerLbl.setText(String.valueOf(seconds));
+	}
 }
