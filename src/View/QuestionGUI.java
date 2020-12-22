@@ -198,7 +198,7 @@ public class QuestionGUI extends Application{
 		lbl.setLayoutX(150.0);
 		lbl.setLayoutY(26.0);
 		lbl.setPrefHeight(25.0);
-		lbl.setPrefWidth(131.0);
+		
 		lbl.setFont(new Font("System Bold", 16.0));
 
 		ImageView img = new ImageView();
