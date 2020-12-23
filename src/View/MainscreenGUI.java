@@ -25,33 +25,7 @@ public class MainscreenGUI extends Application {
 
     private AnchorPane mainBorder;
 	private static Stage primary;	
-	
-	@FXML
-    private AnchorPane mainPane;
-
-    @FXML
-    private ImageView startgame;
-
-    @FXML
-    private ImageView loadgame;
-
-    @FXML
-    private ImageView instruct;
-
-    @FXML
-    private ImageView mgmtques;
-
-    @FXML
-    private ImageView scoreboard;
     
-    @FXML
-    private ImageView title;
-    
-    @FXML
-    private ImageView settings;
-
-	
-	
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -72,105 +46,114 @@ public class MainscreenGUI extends Application {
 		primaryStage.show();
 		primary = primaryStage;
 		
-		this.startgame = (ImageView) mainBorder.lookup("#startgame");
-		this.loadgame = (ImageView) mainBorder.lookup("#loadgame");
-		this.instruct = (ImageView) mainBorder.lookup("#instruct");
-		this.mgmtques = (ImageView) mainBorder.lookup("#mgmtques");
-		this.scoreboard = (ImageView) mainBorder.lookup("#scoreboard");
-		this.title = (ImageView) mainBorder.lookup("#title");
-		this.settings = (ImageView) mainBorder.lookup("#settings");
-	
-		
-		loadesign();
+		loadesign(1);
 
 	}
 
-	private void loadesign() {
+	private void loadesign(int design) {
+		mainBorder.getChildren().clear();
+		AnchorPane background = new AnchorPane();
+		background.setId("mainPane");
+		AnchorPane.setBottomAnchor(background, 0.0);
+		AnchorPane.setLeftAnchor(background, 0.0);
+		AnchorPane.setRightAnchor(background, 0.0);
+		AnchorPane.setTopAnchor(background, 0.0);
+		mainBorder.getChildren().add(background);
 		
-		this.title.setLayoutX(150);
-		this.title.setLayoutY(20);
+		ImageView title = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/Pieace_6.png")));
+		title.setId("title");
+		title.setFitHeight(61);
+		title.setFitWidth(285);
+		title.setLayoutX(150);
+		title.setLayoutY(20);
+		title.setPickOnBounds(true);
+		title.setPreserveRatio(true);
+		mainBorder.getChildren().add(title);
 		
-		Image seting = new Image(getClass().getResourceAsStream("/View/pictures/settings.png"));
-		this.settings.setImage(seting);
-		this.settings.setLayoutX(405);
-		this.settings.setLayoutY(5);
-		this.settings.setFitWidth(45);
-		this.settings.setFitHeight(45);
-		this.settings.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-	        
-	     });
+		addButton(new Image(getClass().getResourceAsStream("/View/pictures/settings.png"))
+				, 405, 5, 45, 45).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+	    });
 		
-		this.settings.setCursor(Cursor.HAND);
+		switch(design) {
+			case 1:{
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))
+						, 150, 110, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//			        this.startGame();
+					loadesign(2);
+			        event.consume();
+			    });
+//			
+//				addButton(new Image(getClass().getResourceAsStream("/View/pictures/load_btn.png"))
+//						, 150, 195, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//			       this.loadGame();
+//			       event.consume();
+//			    });
+				
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/instructions_btn.png"))
+						, 150, 195, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			       this.InstructionsGame();
+			       event.consume();
+			    });
+
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/score_btn.png"))
+						, 150, 280, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+					this.scoreboard();
+			        event.consume();
+			    });
+				
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/mgmt_btn.png"))
+						, 150, 365, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			        this.manageQuestions();
+			        event.consume();
+			    });
+
+				break;
+			}
+			case 2:{
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/settings.png"))
+						, 10, 5, 45, 45).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+							//TODO picture to be changed to back icon
+							loadesign(1);
+							event.consume();
+			    });
+				
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))
+						, 150, 110, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+							//TODO picture to be changed to "Normal Game"
+							this.startGame();
+							event.consume();
+			    });
+				
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/load_btn.png"))
+						, 150, 195, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+							this.loadGame();
+			       			event.consume();
+			    });
+				
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))
+						, 150, 280, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+							//TODO picture to be changed to "Normal Game"
+							event.consume();
+			    });
+				
+				
+				break;
+			}
+		}
 		
-		
-		Image start = new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"));
-		this.startgame.setImage(start);
-		this.startgame.setLayoutX(150);
-		this.startgame.setLayoutY(110);
-		this.startgame.setFitWidth(310);
-		this.startgame.setFitHeight(70);
-		this.startgame.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-	         this.startGame();
-	         event.consume();
-	     });
-		
-		this.startgame.setCursor(Cursor.HAND);
-		
-		Image load = new Image(getClass().getResourceAsStream("/View/pictures/load_btn.png"));
-		this.loadgame.setImage(load);
-		this.loadgame.setLayoutX(150);
-		this.loadgame.setLayoutY(195);
-		this.loadgame.setFitWidth(310);
-		this.loadgame.setFitHeight(70);
-		this.loadgame.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-	         this.loadGame();
-	         event.consume();
-	     });
-		
-		this.loadgame.setCursor(Cursor.HAND);
-		
-		Image instr = new Image(getClass().getResourceAsStream("/View/pictures/instructions_btn.png"));
-		this.instruct.setImage(instr);
-		this.instruct.setLayoutX(150);
-		this.instruct.setLayoutY(280);
-		this.instruct.setFitWidth(310);
-		this.instruct.setFitHeight(70);
-		this.instruct.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-	         this.InstructionsGame();
-	         event.consume();
-	     });
-		
-		this.instruct.setCursor(Cursor.HAND);
-		
-		Image score = new Image(getClass().getResourceAsStream("/View/pictures/score_btn.png"));
-		this.scoreboard.setImage(score);
-		this.scoreboard.setLayoutX(150);
-		this.scoreboard.setLayoutY(365);
-		this.scoreboard.setFitWidth(310);
-		this.scoreboard.setFitHeight(70);
-		this.scoreboard.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-	         this.scoreboard();
-	         event.consume();
-	     });
-		
-		this.scoreboard.setCursor(Cursor.HAND);
-		
-		Image manag = new Image(getClass().getResourceAsStream("/View/pictures/mgmt_btn.png"));
-		this.mgmtques.setImage(manag);
-		this.mgmtques.setLayoutX(150);
-		this.mgmtques.setLayoutY(450);
-		this.mgmtques.setFitWidth(310);
-		this.mgmtques.setFitHeight(70);
-		this.mgmtques.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-	         this.manageQuestions();
-	         event.consume();
-	     });
-		
-		this.mgmtques.setCursor(Cursor.HAND);
-		
-		
-		
-		
+	}
+	
+	public ImageView addButton(Image img, double layoutX, double layoutY, double width, double height) {
+		ImageView button = new ImageView(img);
+		button.setLayoutX(layoutX);
+		button.setLayoutY(layoutY);
+		button.setFitWidth(width);
+		button.setFitHeight(height);
+		button.setPickOnBounds(true);
+		button.setPreserveRatio(true);
+		button.setCursor(Cursor.HAND);
+		mainBorder.getChildren().add(button);
+		return button;
 	}
 
 	public Stage getPrimary() {
