@@ -49,6 +49,9 @@ public class MainscreenGUI extends Application {
     
     @FXML
     private ImageView settings;
+    
+    @FXML
+    private ImageView exit;
 
 	
 	
@@ -79,6 +82,7 @@ public class MainscreenGUI extends Application {
 		this.scoreboard = (ImageView) mainBorder.lookup("#scoreboard");
 		this.title = (ImageView) mainBorder.lookup("#title");
 		this.settings = (ImageView) mainBorder.lookup("#settings");
+		this.exit = (ImageView) mainBorder.lookup("#exit");
 	
 		
 		loadesign();
@@ -92,7 +96,7 @@ public class MainscreenGUI extends Application {
 		
 		Image seting = new Image(getClass().getResourceAsStream("/View/pictures/settings.png"));
 		this.settings.setImage(seting);
-		this.settings.setLayoutX(405);
+		this.settings.setLayoutX(5);
 		this.settings.setLayoutY(5);
 		this.settings.setFitWidth(45);
 		this.settings.setFitHeight(45);
@@ -101,6 +105,18 @@ public class MainscreenGUI extends Application {
 	     });
 		
 		this.settings.setCursor(Cursor.HAND);
+		
+		Image exitIMG = new Image(getClass().getResourceAsStream("/View/pictures/exit.png"));
+		this.exit.setImage(exitIMG);
+		this.exit.setLayoutX(405);
+		this.exit.setLayoutY(5);
+		this.exit.setFitWidth(45);
+		this.exit.setFitHeight(45);
+		this.exit.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+	        this.exit();
+	     });
+		
+		this.exit.setCursor(Cursor.HAND);
 		
 		
 		Image start = new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"));
@@ -182,8 +198,7 @@ public class MainscreenGUI extends Application {
 	
 
 	
-    @FXML
-    void exit(ActionEvent event) {
+    void exit() {
     	Platform.exit();
     }
 

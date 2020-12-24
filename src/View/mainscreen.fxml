@@ -22,5 +22,7 @@
       <ImageView fx:id="mgmtques" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="scoreboard" fitHeight="150.0" fitWidth="200.0" layoutX="164.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="settings" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="settings1" fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="exit" fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
