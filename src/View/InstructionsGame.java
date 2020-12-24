@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,6 +19,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -69,22 +71,20 @@ public class InstructionsGame extends Application {
 	
 	public void loadDesign() {
 		
-		 Image image = new Image(getClass().getResourceAsStream("pictures/icons8-back-arrow-64.png"));
-			//back button to main screen
-				Button back = new Button("");
-				back .setLayoutX(0.0);
-				back .setLayoutY(0.0);
-				back .setMnemonicParsing(false);
-				back .setGraphic(new ImageView(image));
-				back .setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent event) {
-				    	DisplayController.getInstance().closeInstructionsGame();
-					}
-				});
-				
-				// add components to the screen
-				mainAnchor.getChildren().add(back );
+		ImageView backbutton = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/back.png")));
+		backbutton.setLayoutX(10.0);
+		backbutton.setLayoutY(5.0);
+		backbutton.setFitWidth(45.0);
+		backbutton.setFitHeight(45.0);
+		backbutton.setPickOnBounds(true);
+		backbutton.setPreserveRatio(true);
+		backbutton.setCursor(Cursor.HAND);
+		backbutton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			DisplayController.getInstance().closeInstructionsGame();
+			event.consume();
+		});
+		
+		mainAnchor.getChildren().add(backbutton);
 
 
 	}

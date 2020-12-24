@@ -72,6 +72,7 @@ public class MainscreenGUI extends Application {
 		
 		addButton(new Image(getClass().getResourceAsStream("/View/pictures/settings.png"))
 				, 405, 5, 45, 45).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+					loadesign(3);
 	    });
 		
 		switch(design) {
@@ -110,16 +111,14 @@ public class MainscreenGUI extends Application {
 				break;
 			}
 			case 2:{
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/settings.png"))
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/back.png"))
 						, 10, 5, 45, 45).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							//TODO picture to be changed to back icon
 							loadesign(1);
 							event.consume();
 			    });
 				
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/normalgame_btn.png"))
 						, 150, 110, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							//TODO picture to be changed to "Normal Game"
 							this.startGame();
 							event.consume();
 			    });
@@ -130,13 +129,22 @@ public class MainscreenGUI extends Application {
 			       			event.consume();
 			    });
 				
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/customGame_btn.png"))
 						, 150, 280, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							//TODO picture to be changed to "Normal Game"
+							
 							event.consume();
 			    });
 				
+				break;
+			}
+			case 3:{
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/back.png"))
+						, 10, 5, 45, 45).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+							loadesign(1);
+							event.consume();
+			    });
 				
+				//TODO settings screen
 				break;
 			}
 		}
