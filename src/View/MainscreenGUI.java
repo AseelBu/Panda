@@ -79,16 +79,9 @@ public class MainscreenGUI extends Application {
 			case 1:{
 				addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))
 						, 150, 110, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//			        this.startGame();
 					loadesign(2);
 			        event.consume();
 			    });
-//			
-//				addButton(new Image(getClass().getResourceAsStream("/View/pictures/load_btn.png"))
-//						, 150, 195, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//			       this.loadGame();
-//			       event.consume();
-//			    });
 				
 				addButton(new Image(getClass().getResourceAsStream("/View/pictures/instructions_btn.png"))
 						, 150, 195, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -162,6 +155,7 @@ public class MainscreenGUI extends Application {
 		button.setCursor(Cursor.HAND);
 		mainBorder.getChildren().add(button);
 		return button;
+
 	}
 
 	public Stage getPrimary() {
@@ -173,8 +167,7 @@ public class MainscreenGUI extends Application {
 	
 
 	
-    @FXML
-    void exit(ActionEvent event) {
+    void exit() {
     	Platform.exit();
     }
 
