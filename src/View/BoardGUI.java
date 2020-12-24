@@ -10,6 +10,7 @@ import Controller.BoardController;
 import Controller.DisplayController;
 import Controller.GameController;
 import Controller.MiscController;
+import Controller.SoundController;
 import Controller.TurnTimerController;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
@@ -76,6 +77,7 @@ public class BoardGUI extends Application {
 		//		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
+		SoundController.getInstance().stopIntro();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
@@ -93,6 +95,7 @@ public class BoardGUI extends Application {
 		loadStandardTiles();
 		boardController.loadPiecesToBoard();
 		boardController.loadTilesColors();
+		SoundController.getInstance().stopIntro();
 	}
 
 	/**
@@ -758,6 +761,7 @@ public class BoardGUI extends Application {
 				boolean burnt = boardController.checkBurnCurrent(toRow, toCol);
 				//System.out.println("BURNTTTTTTTTTTTT" + burnt);
 				if(!burnt) {
+					SoundController.getInstance().playMove();
 					//					int pieceIndexInToTile = isToTileYellow? 1:0;
 					//TODO should burning piece have the powers of colored tile???
 					//if tile is colored in any color that is not yellow
@@ -791,6 +795,7 @@ public class BoardGUI extends Application {
 
 				}//moved piece did burn
 				else {
+					SoundController.getInstance().playBurn();
 					fromTile.getChildren().clear();
 				}
 				

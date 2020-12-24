@@ -9,6 +9,7 @@ import Controller.BoardQuestionsController;
 import Controller.DisplayController;
 import Controller.GameController;
 import Controller.QuestionTimerController;
+import Controller.SoundController;
 import Utils.DifficultyLevel;
 import Utils.PrimaryColor;
 import javafx.application.Application;
@@ -133,7 +134,9 @@ public class QuestionGUI extends Application{
 			public void handle(ActionEvent event) {
 
 				if(((Button) event.getSource()).getText().equals("Submit")) {
-
+					
+					SoundController.getInstance().stopQues();
+					
 					int s = questionId;
 					if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
 					{
@@ -325,6 +328,8 @@ public class QuestionGUI extends Application{
 
 
 	public void outOfTime() {
+		
+		SoundController.getInstance().stopQues();
 		if(BoardQuestionsController.checkQuestionAnswer(questionId,-1))
 		{
 			if(diff ==DifficultyLevel.EASY)

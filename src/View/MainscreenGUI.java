@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import Controller.DisplayController;
+import Controller.SoundController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -47,6 +48,7 @@ public class MainscreenGUI extends Application {
 		primary = primaryStage;
 		
 		loadesign(1);
+		//SoundController.getInstance().playIntro();
 
 	}
 

@@ -403,7 +403,7 @@ public class BoardController {
 					YellowTile yt = ((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col)));
 					yt.drawQuestion(); 
 					
-					
+					SoundController.getInstance().play30();
 					DisplayController.getInstance().showQuestion(yt.getQuestion(), Game.getInstance().getCurrentPlayerColor());
 					this.answeringQuestion = true;
 				
