@@ -16,6 +16,7 @@ import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
 import Model.Game;
 import Model.Tile;
+import Utils.Config;
 import Utils.Directions;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
@@ -305,7 +306,20 @@ public class BoardGUI extends Application {
 				tilePane.setPrefHeight(65.0);
 				tilePane.setPrefWidth(65.0);
 				tilePane.setId(String.valueOf(i+"_"+j));
-				tilePane.setStyle("-fx-background-color: " + color + ";");
+				if(i%2 == 0) {
+					if(j%2 == 0)
+						tilePane.setStyle("-fx-background-color: " + Config.THEME_COLOR1 + ";");
+					else {
+						tilePane.setStyle("-fx-background-color: " + Config.THEME_COLOR2 + ";");
+					}
+				}
+				else {
+					if(j%2 != 0)
+						tilePane.setStyle("-fx-background-color: " + Config.THEME_COLOR1 + ";");
+					else {
+						tilePane.setStyle("-fx-background-color: " + Config.THEME_COLOR2 + ";");
+					}		
+				}
 				board.getChildren().add(tilePane);
 			}
 		}
