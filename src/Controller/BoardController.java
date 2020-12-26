@@ -226,7 +226,9 @@ public class BoardController {
 	 * @return true if should be burnt in display, otherwise false
 	 */
 	public boolean checkBurnCurrent(int row, char col) {
-		if(Board.getInstance().getTilesMap().get(row).get(col - 'A').getPiece() == null) return true;
+		if(Board.getInstance().getTilesMap().get(row).get(col - 'A').getPiece() == null) {
+			return true;
+		}
 		return false;
 	}
 
