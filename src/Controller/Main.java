@@ -11,6 +11,7 @@ public class Main {
 		QuestionMgmtController.getInstance().LoadQuestions();
 		ScoreBoardController.getInstance().loadHistory();
 		
+		
 		displayController = DisplayController.getInstance();
         Application.launch(MainscreenGUI.class, args);
 	}
