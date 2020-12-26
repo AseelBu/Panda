@@ -59,6 +59,8 @@ public class MainscreenGUI extends Application {
 		primaryStage.show();
 		primary = primaryStage;
 		
+		
+		
 		loadesign(1);
 		SoundController.getInstance().playIntro();
 
@@ -75,6 +77,39 @@ public class MainscreenGUI extends Application {
 		ColorAdjust effect = new ColorAdjust();
 		effect.setBrightness(-0.5);
 		background.setEffect(effect);
+		Properties prop=new Properties();
+		FileInputStream ip = null;
+		
+		try {
+			ip= new FileInputStream("config.properties");
+			prop.load(ip);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(prop.getProperty("THEME_COLOR1").equals("#779556")) {
+			Config.THEME_COLOR1 = "#779556";
+			Config.THEME_COLOR2 = "#EBECD0";
+		}
+		else if (prop.getProperty("THEME_COLOR1").equals("#48769A")) {
+			Config.THEME_COLOR1 = "#48769A";
+			Config.THEME_COLOR2 = "#B3B5B4";
+		}
+		else if (prop.getProperty("THEME_COLOR1").equals("#B3B5B4")) {
+			Config.THEME_COLOR1 = "#B3B5B4";
+			Config.THEME_COLOR2 = "#DADADA";
+		}
+		else if (prop.getProperty("THEME_COLOR1").equals("#7C3937")) {
+			Config.THEME_COLOR1 = "#7C3937";
+			Config.THEME_COLOR2 = "#D68E5F";
+		}
+		else {
+			Config.THEME_COLOR1 = "#000000";
+			Config.THEME_COLOR2 = "#ffffff";
+		}
+		
+	
 				
 		mainBorder.getChildren().add(background);
 		
@@ -92,17 +127,7 @@ public class MainscreenGUI extends Application {
 				, 405, 5, 45, 45).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 					loadesign(3);
 					
-					Properties prop=new Properties();
-					FileInputStream ip = null;
 					
-					
-					try {
-						ip= new FileInputStream("config.properties");
-						prop.load(ip);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 					
 					
 					
