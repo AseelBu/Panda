@@ -23,6 +23,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -59,7 +60,7 @@ public class MainscreenGUI extends Application {
 		primary = primaryStage;
 		
 		loadesign(1);
-		//SoundController.getInstance().playIntro();
+		SoundController.getInstance().playIntro();
 
 	}
 
@@ -71,6 +72,10 @@ public class MainscreenGUI extends Application {
 		AnchorPane.setLeftAnchor(background, 0.0);
 		AnchorPane.setRightAnchor(background, 0.0);
 		AnchorPane.setTopAnchor(background, 0.0);
+		ColorAdjust effect = new ColorAdjust();
+		effect.setBrightness(-0.5);
+		background.setEffect(effect);
+				
 		mainBorder.getChildren().add(background);
 		
 		ImageView title = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/Pieace_6.png")));

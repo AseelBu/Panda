@@ -1039,8 +1039,10 @@ public class BoardGUI extends Application {
 						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
 								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
 							if(!boardController.pieceExists(i, c, 
-									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
+									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
+								SoundController.getInstance().playBurn();
 								this.removePiece(i, c, true);
+							}
 						}
 					}
 				}
@@ -1056,8 +1058,10 @@ public class BoardGUI extends Application {
 						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
 								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
 							if(!boardController.pieceExists(i, c, 
-									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
+									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 								this.removePiece(i, c, true);
+								SoundController.getInstance().playBurn();
+							}
 						}
 					}
 				}
