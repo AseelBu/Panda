@@ -11,6 +11,7 @@ import Model.Piece;
 import Model.Player;
 import Model.Question;
 import Utils.PrimaryColor;
+import View.BoardEdit;
 import View.BoardGUI;
 import View.InstructionsGame;
 import View.MainscreenGUI;
@@ -31,6 +32,7 @@ public class DisplayController {
 	public static QuestionGUI questions;
 	public static InstructionsGame instructions;
 	public static Winner winner;
+	public static BoardEdit boardEdit;
 
 	private DisplayController() {
 		
@@ -133,6 +135,49 @@ public class DisplayController {
 		fullTimer.start();
 	}
 	
+	public void showBoard(Player[] players,ArrayList<Piece> pieces, PrimaryColor turn) {	
+		if(players != null) {
+			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
+			System.out.println("Player 2 : " + players[1].getNickname());
+		}
+		System.out.println(pieces);
+		try {
+			Game.getInstance().startGame(players, pieces, (turn.equals(PrimaryColor.WHITE) ? 'W' : 'B'));
+		}catch (Exception e) {
+			System.out.println(Game.getInstance().getGameTime());
+			nicknames.notifyError(e.getMessage());
+			e.printStackTrace();
+			if(boardGUI != null)
+				if(boardGUI.getPrimary() != null)
+					if(boardGUI.getPrimary().isShowing())
+						closeBoard();
+			if(!mainscreen.getPrimary().isShowing())
+				showMainScreen();
+			return;
+		}
+		DisplayController.getInstance().closeBoardEit();
+		boardGUI = new BoardGUI();
+		BoardController.getInstance().setBoard(boardGUI);
+		boardGUI.start(boardGUI.getPrimary());
+		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
+		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
+		
+		if(Board.getInstance().isPlayerStuck(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+			Player player = BoardController.getInstance().getWinner();
+			if(player != null)
+				DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
+			else
+				DisplayController.boardGUI.notifyWinner(null, Integer.MIN_VALUE, PrimaryColor.WHITE);
+			closeBoard();
+			boardGUI.destruct();
+			return;
+		}
+
+		GameTimerController fullTimer = new GameTimerController(); 
+		Game.getInstance().getTimer().startTimer();
+		fullTimer.start();
+	}
+	
 	public void showMainScreen() {
 		mainscreen = new MainscreenGUI();
 		mainscreen.start(mainscreen.getPrimary());
@@ -176,6 +221,14 @@ public class DisplayController {
 		nicknames.setFile(file);
 	}
 	
+	public void showNicknames(HashMap<String,String> pieces, PrimaryColor turn) {
+		nicknames = new Nicknames();
+		nicknames.start(nicknames.getPrimary());
+		nicknames.setPieces(pieces);
+		nicknames.setTurn(turn);
+
+	}
+	
 	public void showQuestion(Question question, PrimaryColor turnColor) throws Exception {
 		questions = new QuestionGUI(turnColor);
 		questions.start(questions.getPrimary());
@@ -192,6 +245,16 @@ public class DisplayController {
 		winner = new Winner();
 		winner.start(winner.getPrimary());
 		winner.loadDisplay(name, score, color);
+	}
+	
+	public void showBoardEdit() {
+		boardEdit = new BoardEdit();
+		boardEdit.start(boardEdit.getPrimary());
+	}
+	
+	
+	public void closeBoardEit() {
+		boardEdit.getPrimary().hide();
 	}
 	
 	

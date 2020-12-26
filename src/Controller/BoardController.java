@@ -527,5 +527,62 @@ public class BoardController {
 		return 	from.getRelativeDirection(to);
 	}
 
+	/**
+	 * to be used only when game is off
+	 * @param pieces HashMap, key is the location (row_col), Value is the type i.e. Soldier_BLACK
+	 * @return
+	 */
+	public ArrayList<Piece> createPieces(HashMap<String,String> allPieces) {
+		ArrayList<Piece> pieces = new ArrayList<>();
+		int i = 1;
+		for(String str : allPieces.keySet()) {
+			String location[] = str.split("_");
+			int row = Integer.valueOf(location[0]);
+			char col = location[1].toCharArray()[0];
+			String type[] = allPieces.get(str).split("_");
+			try {
+				Piece piece = null;
+				if(type[0].matches("Soldier")) {
+					piece = new Soldier(i,(type[1].matches("WHITE") ? PrimaryColor.WHITE : PrimaryColor.BLACK)
+							,new Location(row, col ));
+				}else {
+					piece = new Queen(i,(type[1].matches("WHITE") ? PrimaryColor.WHITE : PrimaryColor.BLACK)
+							,new Location(row, col ));
+				}
+				if(piece != null)
+					pieces.add(piece);
+			} catch (LocationException e) {
+				continue;
+			}
+			i++;
+		}
+		return pieces;
+	}
 	
+	public Tile createTile(ArrayList<Piece> pieces, int row, char col) {
+		Tile tile = null;
+		try {
+			PrimaryColor color = null;
+			if(row % 2 == 1 && (col - 'A') % 2 == 0) {
+				color = PrimaryColor.BLACK;
+			}else if(row % 2 == 0 && (col - 'A') % 2 == 1) {
+				color = PrimaryColor.BLACK;
+			}else {
+				color = PrimaryColor.WHITE;
+			}
+			tile = new Tile.Builder(new Location(row, col), color).build();
+			Piece piece = null;
+			for(Piece p : pieces) {
+				if(p.getLocation().getRow() == row && p.getLocation().getColumn() == col) {
+					piece = p;
+					break;
+				}
+			}
+			tile.setPiece(piece);
+			
+		} catch (LocationException e) {
+			return tile;
+		}
+		return tile;
+	}
 }

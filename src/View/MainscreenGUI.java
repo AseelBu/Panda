@@ -266,7 +266,8 @@ public class MainscreenGUI extends Application {
 				
 				addButton(new Image(getClass().getResourceAsStream("/View/pictures/customGame_btn.png"))
 						, 150, 280, 310, 70).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							
+					    	DisplayController.getInstance().closeMainscreen();
+							DisplayController.getInstance().showBoardEdit();
 							event.consume();
 			    });
 				
