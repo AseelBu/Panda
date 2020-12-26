@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="648.0" prefWidth="1048.0" stylesheets="@board.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="91.0" layoutY="40.0" text="Build Your Board">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+  
+      <FlowPane layoutX="477.0" layoutY="80.0" prefHeight="525.0" prefWidth="525.0">
+         <children>
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: black;" />
+            <FlowPane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: white;" />
+         </children>
+      </FlowPane>
+      <FlowPane layoutX="427.0" layoutY="80.0" prefHeight="525.0" prefWidth="50.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="8">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="7">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="6">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="5">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="4">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="3">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="2">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="1">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </FlowPane>
+      <FlowPane layoutX="1000.0" layoutY="80.0" prefHeight="525.0" prefWidth="50.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="8">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="7">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="6">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="5">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="4">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="3">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="2">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="65.0" prefWidth="50.0" text="1">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </FlowPane>
+      <FlowPane layoutX="477.0" layoutY="30.0" prefHeight="50.0" prefWidth="525.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="A">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="B">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="C">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="D">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="E">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="F">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="G">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="H">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </FlowPane>
+      <FlowPane layoutX="477.0" layoutY="600.0" prefHeight="50.0" prefWidth="525.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="A">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="B">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="C">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="D">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="E">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="F">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="G">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="65.0" text="H">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </FlowPane>
+      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Pieace_4.png" />
+         </image>
+         <effect>
+            <DropShadow color="RED" height="134.41" radius="66.705" spread="0.27" width="134.41" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="65.0" fitWidth="65.0" layoutX="63.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Soldier_BLACK.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="65.0" fitWidth="65.0" layoutX="200.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Queen_BLACK.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="65.0" fitWidth="65.0" layoutX="63.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Soldier_WHITE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="65.0" fitWidth="65.0" layoutX="200.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Queen_WHITE.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="326.0" layoutY="126.0" text="/">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="296.0" layoutY="226.0" prefHeight="32.0" prefWidth="26.0" text="0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="339.0" layoutY="226.0" text="12" textFill="RED">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="339.0" layoutY="126.0" text="12" textFill="RED">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="326.0" layoutY="226.0" text="/">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="296.0" layoutY="126.0" prefHeight="32.0" prefWidth="32.0" text="0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="145.0" layoutY="316.0" text="Player Turn">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Circle layoutX="114.0" layoutY="421.0" radius="50.0" stroke="WHITE" strokeType="INSIDE" />
+      <Circle fill="WHITE" layoutX="294.0" layoutY="421.0" radius="50.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fitHeight="100.0" fitWidth="137.0" layoutX="244.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Queen_WHITE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="137.0" layoutX="64.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Queen_BLACK.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="135.0" layoutY="471.0" prefHeight="25.0" prefWidth="138.0" text="Select Player Turn" textFill="RED">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Separator layoutY="510.0" prefHeight="1.0" prefWidth="428.0" />
+      <Separator layoutX="1.0" layoutY="304.0" prefHeight="1.0" prefWidth="428.0" />
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="65.0" layoutY="560.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/save.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="42.0" layoutX="249.0" layoutY="560.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/upload.png" />
+         </image>
+      </ImageView>
+      <Hyperlink layoutX="101.0" layoutY="565.0" text="Save Game">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink layoutX="278.0" layoutY="565.0" text="Start Game">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Hyperlink>
+   </children>
+</AnchorPane>

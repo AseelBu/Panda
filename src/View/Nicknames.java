@@ -2,6 +2,8 @@ package View;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import Controller.BoardController;
 import Controller.DisplayController;
@@ -31,6 +33,8 @@ public class Nicknames extends Application {
 	private static AnchorPane mainAnchor;
 	private Stage primary;
 	private File file;
+	private HashMap<String,String> pieces;
+	private PrimaryColor turn;
 	
 	
 	@Override
@@ -108,6 +112,8 @@ public class Nicknames extends Application {
 				DisplayController.getInstance().closeMainscreen();
 				if(file != null)
 					DisplayController.getInstance().showBoard(BoardController.getInstance().getPlayers(), file);
+				else if(pieces != null)
+					DisplayController.getInstance().showBoard(BoardController.getInstance().getPlayers(), BoardController.getInstance().createPieces(pieces), turn);
 				else
 					DisplayController.getInstance().showBoard(BoardController.getInstance().getPlayers());
 				DisplayController.getInstance().closeNicknames();
@@ -221,6 +227,22 @@ public class Nicknames extends Application {
 
 	public void setFile(File file) {
 		this.file = file;
+	}
+
+	public HashMap<String, String> getPieces() {
+		return pieces;
+	}
+
+	public void setPieces(HashMap<String, String> pieces) {
+		this.pieces = pieces;
+	}
+
+	public PrimaryColor getTurn() {
+		return turn;
+	}
+
+	public void setTurn(PrimaryColor turn) {
+		this.turn = turn;
 	}
 
 	public String getPlayerName(PrimaryColor color) {

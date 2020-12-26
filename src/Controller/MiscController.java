@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -288,20 +289,6 @@ public class MiscController {
 		}
 		
 		String dateTime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
-//		String path = "saved_games/game_"+dateTime+".txt";
-//		
-//		
-//		 try {
-//		      File myObj = new File(path);
-//		      if (myObj.createNewFile()) {
-//		        System.out.println("File created: " + myObj.getName());
-//		      } else {
-//		        System.out.println("File already exists.");
-//		      }
-//		 } catch (IOException e) {
-//		      System.out.println("An error occurred.");
-//		      e.printStackTrace();   
-//		 }
 		
 		 try {
 		      FileWriter myWriter = new FileWriter(file.getPath());
@@ -312,9 +299,103 @@ public class MiscController {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
 		    }
-		  	 	 
 	}
 	
+	
+	/**
+	 * saves current game to a text file
+	 */
+	public void saveGame(ArrayList<Tile> tiles, File file, PrimaryColor turn) {
+		
+		String data_line = "";
+        Collections.sort(tiles, new SortTiles());
+
+		for(int i = 0 ; i < tiles.size() ; i++) {
+			
+			System.out.print(tiles.get(i).getLocation() + " ");
+			
+			if((i+1)%4 == 0) System.out.println();
+		}
+		for(Tile l : tiles) {
+			
+			if(l.getColor1().equals(PrimaryColor.WHITE)) {
+				continue;
+			}
+			if(l.getPiece() == null) {
+				data_line+="0,";
+				continue;
+			}
+			else if(l.getPiece() instanceof Queen){
+				if(l.getPiece().getColor().equals(PrimaryColor.WHITE)) {
+					data_line+="11,";
+					continue;
+				}
+				else {
+					data_line+="22,";
+					continue;
+				}
+			}
+			else if(l.getPiece() instanceof Soldier){
+				if(l.getPiece().getColor().equals(PrimaryColor.WHITE)) {
+					data_line+="1,";
+					continue;
+				}
+				else {
+					data_line+="2,";
+					continue;
+				}
+			}
+		}
+		
+		if(turn.equals(PrimaryColor.WHITE))
+		{
+			data_line+="W";
+		}
+		else 
+		{
+			data_line+="B";
+		}
+		
+		String dateTime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+		
+		 try {
+		      FileWriter myWriter = new FileWriter(file.getPath());
+		      myWriter.write(data_line);
+		      myWriter.close();
+		      System.out.println("Successfully wrote to the file.");
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+	}
+	
+	private class SortTiles implements Comparator<Tile>
+	{
+	    // Used for sorting in ascending order of
+	    // name
+	    public int compare(Tile a, Tile b)
+	    {
+	        if(a.getLocation().getRow() > b.getLocation().getRow()) {
+	        	if(a.getLocation().getColumn() > b.getLocation().getColumn()) {
+	        		return -1;
+	        	}else {
+	        		return 1;
+	        	}
+	        }else if(a.getLocation().getRow() < b.getLocation().getRow()){
+	        	if(a.getLocation().getColumn() > b.getLocation().getColumn()) {
+	        		return -1;
+	        	}else {
+	        		return 1;
+	        	}
+	        }else {
+	        	if(a.getLocation().getColumn() > b.getLocation().getColumn()) {
+	        		return 1;
+	        	}else {
+	        		return -1;
+	        	}
+	        }
+	    }
+	}
 	
 
 }
