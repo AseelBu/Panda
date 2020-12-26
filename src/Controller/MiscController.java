@@ -27,12 +27,8 @@ public class MiscController {
 	
 	private static MiscController instance;
 	
-	public MiscController() {
-		
-		
-		
-		
-		
+	private MiscController() {
+	
 	}
 	
 	public static MiscController getInstance() 

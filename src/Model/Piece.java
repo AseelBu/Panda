@@ -22,7 +22,7 @@ public abstract class  Piece {
 	 * @param color
 	 * @param location
 	 */
-	public Piece(int id,PrimaryColor color, Location location) {
+	protected Piece(int id,PrimaryColor color, Location location) {
 		super();
 		this.id = id;
 		this.color = color;
