@@ -61,8 +61,6 @@ public class ManageQuestions extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
-//		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
-//		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logo1.png"))); add logo
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
 			@Override
