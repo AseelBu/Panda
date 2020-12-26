@@ -362,5 +362,8 @@ public class MainscreenGUI extends Application {
     DisplayController.getInstance().showInstructionsGame();
     }
 
+    void pointstable() {
+        DisplayController.getInstance().showPointsTable();
+        }
 	
 }

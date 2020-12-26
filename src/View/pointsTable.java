@@ -26,7 +26,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class InstructionsGame extends Application {
+public class pointsTable extends Application {
 	
     private AnchorPane mainAnchor;
 	private static Stage primary;	
@@ -34,12 +34,12 @@ public class InstructionsGame extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			mainAnchor = FXMLLoader.load(getClass().getResource("/View/InstructionsGame.fxml"));
+			mainAnchor = FXMLLoader.load(getClass().getResource("/View/pointstable.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(mainAnchor);
-     	scene.getStylesheets().add(getClass().getResource("/View/InstructionsGame.css").toExternalForm());
+     	scene.getStylesheets().add(getClass().getResource("/View/pointsTable.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
@@ -68,25 +68,7 @@ public class InstructionsGame extends Application {
 	/**
 	 * Loads GUI of Scoreboard
 	 */
-	public Button addButton(Image img, double layoutX, double layoutY, double width, double height) {
-		ImageView i= new ImageView(img);
-		i.setLayoutX(layoutX);
-		i.setLayoutY(layoutY);
-		i.setFitHeight( height);
-		i.setFitWidth(width);
-		Button button = new Button("Points Table",i);
-		button.setLayoutX(layoutX);
-		button.setLayoutY(layoutY);
-		button.setMaxWidth(width+100);
-   	button.maxHeight(height);
-		button.setPickOnBounds(true);
-//		button.setPreserveRatio(true);
-		button.setCursor(Cursor.HAND);
-		mainAnchor.getChildren().add(button);
-		return button;
-
-	}
-
+	
 	public void loadDesign() {
 		
 		ImageView backbutton = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/back.png")));
@@ -98,22 +80,14 @@ public class InstructionsGame extends Application {
 		backbutton.setPreserveRatio(true);
 		backbutton.setCursor(Cursor.HAND);
 		backbutton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			DisplayController.getInstance().closeInstructionsGame();
+			DisplayController.getInstance().closePointstable();
 			event.consume();
 		});
 		
 		mainAnchor.getChildren().add(backbutton);
-		addButton(new Image(getClass().getResourceAsStream("/View/pictures/Earn_Reward_Points-512.png"))
-				,320,590,45,45).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-	       this.pointsTable();
-	       event.consume();
-	    });
 
 
 	}
-	  void pointsTable() {
-		    DisplayController.getInstance().showPointsTable();
-		    }
 		
 }
 
