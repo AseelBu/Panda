@@ -59,7 +59,7 @@ public class MainscreenGUI extends Application {
 		primary = primaryStage;
 		
 		loadesign(1);
-		//SoundController.getInstance().playIntro();
+		SoundController.getInstance().playIntro();
 
 	}
 
