@@ -1,7 +1,11 @@
 {
   "questions": [
     {
+<<<<<<< HEAD
       "question": "What is the definition of â€œUnit testingâ€?",
+=======
+      "question": "What is the definition of “Unit testing”?",
+>>>>>>> branch 'master' of https://github.com/AseelBu/Panda.git
       "answers": [
         "The application system that provides the business services .",
         "The process that starts when you create an initial project plan during the project startup phase. ",

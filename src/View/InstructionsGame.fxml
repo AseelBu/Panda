@@ -8,13 +8,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="1336.0" stylesheets="@InstructionsGame.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.InstructionsGame">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="991.0" stylesheets="@InstructionsGame.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.InstructionsGame">
    <children>
-      <AnchorPane fx:id="mainPane" layoutX="-2.0" prefHeight="671.0" prefWidth="1336.0">
+      <AnchorPane fx:id="mainPane" layoutX="-3.0" layoutY="-1.0" prefHeight="672.0" prefWidth="1000.0">
          <children>
-            <Label prefHeight="18.0" prefWidth="591.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Text layoutX="24.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gameboard and 24 playing pieces , 12 black -12 white" wrappingWidth="291.33335876464844" />
+            <Text layoutX="25.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gameboard and 24 playing pieces , 12 black -12 white." wrappingWidth="291.33335876464844" />
             <ImageView fitHeight="113.0" fitWidth="127.0" layoutX="604.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@pictures/cute-panda-bear-sits-and-reads-book-in-hardcover-vector-20790591.jpg" />
@@ -41,7 +40,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Text layoutX="22.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To End the Game, remove all opponent's pieces from the game board by eating them,or block them, while collecting points" />
+            <Text layoutX="22.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To End the Game with the largest possible number of points." />
             <Text layoutX="20.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sart the game with 12 soldiers of some color arranged on the 3 rows closest to you in the black  tiles. " />
             <Label layoutX="17.0" layoutY="249.0" prefHeight="20.0" prefWidth="112.0" text="HOW TO PLAY:" textFill="#12b6cc">
                <font>
@@ -88,66 +87,6 @@
             <Label layoutX="159.0" layoutY="528.0" text="must perform &quot;eating&quot; only when an opponent's " />
             <Label layoutX="158.0" layoutY="545.0" text="soldier is close to her." />
             <Label layoutX="932.0" layoutY="630.0" />
-            <Line endX="209.5" layoutX="1124.0" layoutY="207.0" startX="-144.79290771484375" />
-            <Line endX="-16.0" endY="363.05078125" layoutX="1178.0" layoutY="284.0" startX="-16.0" startY="-101.94921875" />
-            <Label layoutX="1032.0" layoutY="181.0" text="What to do?" textFill="#ee1515">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="1229.0" layoutY="182.0" prefHeight="17.0" prefWidth="40.0" text="Points" textFill="#ee1515">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="983.0" layoutY="212.0" text="Eating opponent  Soldier/Queen" />
-            <Line endX="142.5" layoutX="1190.0" layoutY="238.0" startX="-210.0" />
-            <Label layoutX="1043.0" layoutY="287.0" text="Turn time" />
-            <Label layoutX="987.0" layoutY="365.0" text="Answered corectly yellow tile" />
-            <Label layoutX="1140.0" layoutY="140.0" textFill="#12b6cc">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Line endX="132.5" layoutX="1200.0" layoutY="361.0" startX="-221.0" />
-            <Line endX="157.5" layoutX="1176.0" layoutY="404.0" startX="-198.0" />
-            <Label layoutX="990.0" layoutY="502.0" text="Stepping on green tile" />
-            <Line endX="146.5" layoutX="1186.0" layoutY="454.0" startX="-207.0" />
-            <Line endX="142.5" layoutX="1190.0" layoutY="499.0" startX="-210.5858154296875" />
-            <Label layoutX="988.0" layoutY="385.0" text="easy question" />
-            <Label layoutX="987.0" layoutY="413.0" text="Answered corectly yellow tile" />
-            <Label layoutX="988.0" layoutY="433.0" text="intermediate question" />
-            <Label layoutX="987.0" layoutY="462.0" text="Answered corectly yellow tile" />
-            <Label layoutX="988.0" layoutY="479.0" text="hard question" />
-            <Line endX="142.5" layoutX="1190.0" layoutY="532.0" startX="-210.0" />
-            <Line endX="143.5" layoutX="1190.0" layoutY="567.0" startX="-210.5858154296875" />
-            <Label layoutX="1226.0" layoutY="212.0" text="+100" />
-            <Label layoutX="1226.0" layoutY="509.0" text="+50" />
-            <Label layoutX="1223.0" layoutY="462.0" text="+500" />
-            <Label layoutX="1223.0" layoutY="420.0" text="+200" />
-            <Label layoutX="1223.0" layoutY="373.0" text="+100" />
-            <Label layoutX="1166.0" layoutY="242.0" text="+ 1 point for every second left" />
-            <Label layoutX="1225.0" layoutY="574.0" text="-100" />
-            <Label layoutX="1225.0" layoutY="542.0" text="-250" />
-            <Label layoutX="1234.0" layoutY="295.0" text="OR" textFill="#ff0303">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font></Label>
-            <Label layoutX="1178.0" layoutY="311.0" text="-1 point for every second" />
-            <Label layoutX="1211.0" layoutY="342.0" text=" player's turn" />
-            <Label layoutX="990.0" layoutY="536.0" text="Answered wrong yellow tile" />
-            <Label layoutX="991.0" layoutY="606.0" text="Answered wrong yellow tile" />
-            <Label layoutX="989.0" layoutY="570.0" text="Answered wrong yellow tile" />
-            <Label layoutX="991.0" layoutY="550.0" text="easy question" />
-            <Label layoutX="992.0" layoutY="623.0" text="hard question" />
-            <Label layoutX="988.0" layoutY="583.0" text="intermediate question" />
-            <Label layoutX="1231.0" layoutY="615.0" text="-50" />
-            <Label layoutX="1193.0" layoutY="257.0" text="for 60 seconds when " />
-            <Label layoutX="1192.0" layoutY="328.0" text="passes after 60 sec in" />
-            <Line endX="-13.29290771484375" endY="353.0" layoutX="992.0" layoutY="297.0" startX="-13.5" startY="-116.5" />
-            <Line endX="-16.0" endY="359.5" layoutX="1349.0" layoutY="290.0" startX="-16.0" startY="-109.0" />
-            <Line endX="150.5" endY="-0.5" layoutX="1183.0" layoutY="181.0" startX="-204.0" />
-            <Line endX="139.5" layoutX="1193.0" layoutY="650.0" startX="-213.79290771484375" />
             <Line endX="-17.707111358642578" endY="259.84368896484375" layoutX="33.0" layoutY="314.0" startX="-15.499988555908203" startY="-38.5" />
             <Line endX="-15.5" endY="251.05078125" layoutX="468.0" layoutY="324.0" startX="-15.5" startY="-49.5" />
             <Line endX="243.0" endY="5.55078125" layoutX="209.0" layoutY="570.0" startX="-193.0" startY="4.55078125" />
@@ -205,22 +144,6 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Line endX="151.5" layoutX="1181.0" layoutY="604.0" startX="-203.20709228515625" />
-            <ImageView fitHeight="36.0" fitWidth="113.0" layoutX="126.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pictures/checker-board-checkers-512.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="91.0" layoutX="1213.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pictures/Earn_Reward_Points-512.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="90.0" fitWidth="91.0" layoutX="644.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@pictures/Capture.JPG" />
-               </image>
-            </ImageView>
             <ImageView fitHeight="39.0" fitWidth="38.0" layoutX="564.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@pictures/Orange.JPG" />
@@ -267,13 +190,7 @@
                </image>
             </ImageView>
             <Text layoutX="19.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The first move is made by white player." wrappingWidth="236.68812561035156" />
-            <Label layoutX="1196.0" layoutY="275.0" text="player's turn ended" />
-            <Label layoutX="1109.0" layoutY="127.0" prefHeight="27.0" prefWidth="108.0" text="Points Table" textFill="#12b6cc">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="37.0" fitWidth="40.0" layoutX="15.0" layoutY="582.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="12.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@pictures/winner.png" />
                </image>
