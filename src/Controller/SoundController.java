@@ -129,6 +129,18 @@ public class SoundController {
 			this.movePlayer.setVolume(0.7);
 			
 		}
+		/**
+		 * check of player is muted
+		 * @return
+		 */
+		public boolean isMuted() {
+			if(this.introPlayer.getVolume() != 0.0) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
 			
 			
 			

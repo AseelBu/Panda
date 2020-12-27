@@ -42,6 +42,7 @@ public class MainscreenGUI extends Application {
     private AnchorPane mainBorder;
 	private static Stage primary;	
 	private String mute;
+	private int firstRun = 0;
     
 
 	@Override
@@ -93,12 +94,34 @@ public class MainscreenGUI extends Application {
 		}
 		
 		if(prop.getProperty("ALWAYS_MUTE_SOUND").equals("TRUE")) {
+			if(firstRun == 0) {
+				SoundController.getInstance().muteSound();
+				mute = "Off";
+				this.firstRun++;
+			}
+			else {
+			if(SoundController.getInstance().isMuted()) {
 			SoundController.getInstance().muteSound();
 			mute = "Off";
+			}
+			else {
+				mute = "On";
+			}
+			}
 		}
 		else {
+			if(firstRun == 0) {
+				SoundController.getInstance().unmuteSound();
+				mute = "On";
+				this.firstRun++;
+			}
+			if(!SoundController.getInstance().isMuted()) {
 			SoundController.getInstance().unmuteSound();
 			mute = "On";
+			}
+			else {
+				mute = "Off";
+			}
 		}
 		
 		if(prop.getProperty("THEME_COLOR1").equals("#779556")) {
