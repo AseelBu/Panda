@@ -42,4 +42,12 @@ public class QuestionTimerController  extends Thread{
 	private double countTimeSeconds() {
 		return 30 - timer.getSeconds();
 	}
+	
+	public void pauseTimer() {
+		timer.pauseTimer();
+	}
+	
+	public void unpauseTimer() {
+		timer.pauseTimer();
+	}
 }
