@@ -31,7 +31,9 @@ public class SoundController {
 			return instance; 
 		}
 		
-		
+		/**
+		 * Sound Constructor
+		 */
 		public SoundController() {
 			
 			

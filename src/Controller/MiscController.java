@@ -4,15 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
-
 import Exceptions.LocationException;
 import Model.Board;
 import Model.Game;
@@ -25,7 +22,9 @@ import Utils.PrimaryColor;
 
 public class MiscController {
 	
-	
+	/**
+	 * Misc Controller aids the system in extra utilities
+	 */
 	private static MiscController instance;
 	
 	private MiscController() {
@@ -42,10 +41,12 @@ public class MiscController {
 		return instance; 
 	}
 	
-	/**
-	 * load game from text file
-	 */
 	@SuppressWarnings("resource")
+	/**
+	 * Load Game from file
+	 * @param file file to load
+	 * @return order of game
+	 */
 	public HashMap<Character, ArrayList<Piece>> loadGame(File file) {
 
 		Character turn;
@@ -284,7 +285,6 @@ public class MiscController {
 			data_line+="B";
 		}
 		
-		String dateTime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
 		
 		 try {
 		      FileWriter myWriter = new FileWriter(file.getPath());
@@ -352,7 +352,6 @@ public class MiscController {
 			data_line+="B";
 		}
 		
-		String dateTime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
 		
 		 try {
 		      FileWriter myWriter = new FileWriter(file.getPath());

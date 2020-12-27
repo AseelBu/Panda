@@ -7,6 +7,9 @@ import javafx.scene.text.Font;
 
 public class QuestionListCell extends ListCell<Question> {
 	
+	/**
+	 * ListView Cell in Question Managment Screen
+	 */
 	@Override 
     protected void updateItem(Question item, boolean empty) {
         super.updateItem(item, empty);
