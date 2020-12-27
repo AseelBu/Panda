@@ -381,7 +381,7 @@ public class MainscreenGUI extends Application {
 			    });
 				
 				addButton(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png"))
-						, 5, 510, 70, 50,mute).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						, 5, 500, 70, 50,mute).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 							
 							ImageView source = ((ImageView)event.getSource());
 							if(source.getId().equals("On")) {
@@ -429,6 +429,24 @@ public class MainscreenGUI extends Application {
 							DisplayController.getInstance().showBoardEdit();
 							event.consume();
 			    });
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png"))
+						, 5, 500, 70, 50,mute).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+							
+							ImageView source = ((ImageView)event.getSource());
+							if(source.getId().equals("On")) {
+								
+								source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
+								source.setId("Off");
+								SoundController.getInstance().muteSound();
+							}
+							else {
+								source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+								source.setId("On");
+								SoundController.getInstance().unmuteSound();
+							}
+							
+			
+				});
 				
 				break;
 			}
