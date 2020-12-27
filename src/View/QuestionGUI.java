@@ -138,6 +138,7 @@ public class QuestionGUI extends Application{
 					SoundController.getInstance().stopQues();
 					
 					int s = questionId;
+					questionThread.pauseTimer();
 					if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
 					{
 						if(diff ==DifficultyLevel.EASY)
