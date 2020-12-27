@@ -49,6 +49,7 @@ public class ManageQuestions extends Application {
 	private static Stage primary;
 	private ListView<Question> questionList;
 	private ScrollPane listScroll;
+	private ChangeListener<Question> listener = null;
 	
 	/**
 	 * Starts the page
@@ -404,235 +405,9 @@ public class ManageQuestions extends Application {
 		});
 		
 
-		btnSaveOrAdd.setOnAction(new EventHandler<ActionEvent>() {
-			
-			
-			@Override
-			public void handle(ActionEvent event) {
-				
-				error.setTextFill(Color.web("#FF0000"));
-				
-			if(((Button) event.getSource()).getId()=="Add") {
-				
-				ArrayList<Integer> answers = new ArrayList<Integer>();
-				int count_answers = 0;
-				
-				if(ta1.getText().equals("") || ta1.getText() == null) {
-					
-				}
-				else if(ta1.getText().length() != 0) {
-					count_answers++;
-					answers.add(1);
-				}
-				if(ta2.getText().equals("") || ta2.getText() == null) {
-					
-				}
-				else if(ta2.getText().length() != 0) {
-					count_answers++;
-					answers.add(2);
-				}
-				if(ta3.getText().equals("") || ta3.getText() == null) {
-					
-				}
-				else if(ta3.getText().length() != 0) {
-					count_answers++;
-					answers.add(3);
-				}
-				if(ta4.getText().equals("") || ta4.getText() == null) {
-					
-				}
-				else if(ta4.getText().length() != 0) {
-					count_answers++;
-					answers.add(4);
-				}
-				
-				// at least two answers
-				
-				if(count_answers < 2) {
-					error.setVisible(true);
-					error.setText("Fill In At Least Two Answers");
-					return;
-				}
-				
-				// correct answer 
-				
-				int correctAnswer = 0;
-				// no correct answer marked
-				if(toggleGroup.getSelectedToggle() == null) {
-					error.setVisible(true);
-					error.setText("Select A Correct Answer");
-					return;
-				}
-				else if(toggleGroup.getSelectedToggle().equals(ans1)) {
-					correctAnswer = 1;
-				}
-				else if(toggleGroup.getSelectedToggle().equals(ans2)) {
-					correctAnswer = 2;
-				}
-				else if(toggleGroup.getSelectedToggle().equals(ans3)) {
-					correctAnswer = 3;
-				}
-				else if(toggleGroup.getSelectedToggle().equals(ans4)) {
-					correctAnswer = 4;
-				}
-				
-				// fill in question content
-				
-				if(questionContent.getText().length() == 0 ) {
-					error.setVisible(true);
-					error.setText("Fill In Question Content");
-					return;
-					
-				}
-				
-				DifficultyLevel dl = null;
-				
-				// fill in difficulty 
-				if(diff_selector.getSelectionModel().getSelectedItem() == null) {
-					error.setVisible(true);
-					error.setText("Choose Question Difficulty");
-					return;
-				}
-				
-				else if(diff_selector.getSelectionModel().getSelectedIndex() == 0) {
-					dl = DifficultyLevel.EASY;
-				}
-				else if(diff_selector.getSelectionModel().getSelectedIndex() == 1) {
-					dl = DifficultyLevel.MEDIOCRE;
-				}
-				else if(diff_selector.getSelectionModel().getSelectedIndex() == 2) {
-					dl = DifficultyLevel.HARD;
-				}
-				
-				if(dl == null) {
-					error.setVisible(true);
-					error.setText("Choose Question Difficulty");
-					return;
-				}
-				
-				ArrayList<Answer> new_Answers = new ArrayList<Answer>();
-				
-				int counter = 1;
-				for(Integer i : answers) {
-					
-					if(i == 1) {
-						if(correctAnswer == 1)
-							new_Answers.add(new Answer(counter,ta1.getText(),true));
-						else
-							new_Answers.add(new Answer(counter,ta1.getText(),false));
-					}
-					else if(i == 2) {
-						if(correctAnswer == 2)
-							new_Answers.add(new Answer(counter,ta2.getText(),true));
-						else
-							new_Answers.add(new Answer(counter,ta2.getText(),false));
-					}
-					else if(i == 3) {
-						if(correctAnswer == 3)
-							new_Answers.add(new Answer(counter,ta3.getText(),true));
-						else
-							new_Answers.add(new Answer(counter,ta3.getText(),false));
-					}
-					else if(i == 4) {
-						if(correctAnswer == 4)
-							new_Answers.add(new Answer(counter,ta4.getText(),true));
-						else
-							new_Answers.add(new Answer(counter,ta4.getText(),false));
-					}
-					
-					counter++;
-				}
-				
-				Question newQues = new Question(QuestionMgmtController.getInstance().getQuestions().size(),questionContent.getText(),dl,new_Answers,"panda");
-				
-				boolean foundCorrect = false;
-				
-				for(Answer a : newQues.getAnswers()) {
-					
-					if(a.isCorrect()) {
-						foundCorrect = true;
-					}
-				}
-				
-				// correct Answer Cannot Be Empty
-				if(foundCorrect == false) {
-					error.setVisible(true);
-					error.setText("Choose A Correct Answer That Is Not Blank");
-					return;
-					
-				}
-				
-				// Same As Old Question 
-				
-				boolean alreadyExists = false;
-				for(Question Q : QuestionMgmtController.getInstance().getSysData().getQuestions()) {
-					
-					if(Q.equals(newQues)) {
-						alreadyExists = true;
-					}
-				}
-				
-				if(alreadyExists) {
-					error.setVisible(true);
-					error.setText("Question Already Exists");
-					return;
-				}
-				else {
-					System.out.println("Success");
-					QuestionMgmtController.getInstance().getSysData().addQuestion(newQues);
-					QuestionMgmtController.getInstance().WriteQuestions();
-					questionList = new ListView<Question>();
-					questionList.setCellFactory(new Callback<ListView<Question>, ListCell<Question>>() {
-					    @Override 
-					    public ListCell<Question> call(ListView<Question> list) {
-					        return new QuestionListCell();
-					    }
-					});
-					ObservableList<Question> data = FXCollections.observableArrayList();
-					
-					for(Question q : QuestionMgmtController.getInstance().getQuestions()) {
-						
-						data.add(q);
-						
-					}
-					questionList.getItems().addAll(data);
-					questionList.setPrefHeight(230);
-					questionList.setPrefWidth(780);
-					listScroll.setContent(questionList);
-					ta1.setText("");
-		    		ta2.setText("");
-		    		ta3.setText("");
-		    		ta4.setText("");
-		    		questionContent.setText("");
-		    		diff_selector.getSelectionModel().clearSelection();
-		    		questionList.getSelectionModel().clearSelection();
-		    		
-		    		error.setVisible(true);
-					error.setText("Successfuly Added!");
-					error.setTextFill(Color.web("#4A95FF"));
-					
-					PauseTransition visiblePause = new PauseTransition(
-					        Duration.seconds(3)
-					);
-					visiblePause.setOnFinished(t -> error.setVisible(false)
-					         
-					);
-					visiblePause.play();
-				
-				
-				
-			}
-			
-			}
-			}
-		});
 		
-		questionList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Question>() {
-
-		    public void changed(ObservableValue<? extends Question> observable, Question oldValue, Question newValue) {
+		this.listener = (ObservableValue<? extends Question> observable, Question oldValue, Question newValue) -> {
 		    	
-		    	ChangeListener<Question> current = this;
-		        
 		    	if(newValue == null) {
 		    		btnSaveOrAdd.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/add.png"))));
 		    		btnSaveOrAdd.setId("Add");
@@ -767,7 +542,7 @@ public class ManageQuestions extends Application {
 								data.add(q);
 								
 							}
-							questionList.getSelectionModel().selectedItemProperty().addListener(current);
+							questionList.getSelectionModel().selectedItemProperty().addListener(listener);
 							questionList.getItems().addAll(data);
 							questionList.setPrefHeight(230);
 							questionList.setPrefWidth(780);
@@ -975,7 +750,7 @@ public class ManageQuestions extends Application {
 		    						data.add(q);
 		    						
 		    					}
-		    					questionList.getSelectionModel().selectedItemProperty().addListener(current);
+		    					questionList.getSelectionModel().selectedItemProperty().addListener(listener);
 		    					questionList.getItems().addAll(data);
 		    					questionList.setPrefHeight(230);
 		    					questionList.setPrefWidth(780);
@@ -1188,7 +963,7 @@ public class ManageQuestions extends Application {
 		    						data.add(q);
 		    						
 		    					}
-		    					questionList.getSelectionModel().selectedItemProperty().addListener(current);
+		    					questionList.getSelectionModel().selectedItemProperty().addListener(listener);
 		    					questionList.getItems().addAll(data);
 		    					ta1.setText("");
 		    		    		ta2.setText("");
@@ -1221,14 +996,242 @@ public class ManageQuestions extends Application {
 		    			
 		    		});
 
-
 		    	}
-		    }
+		    	
+		};
+		
+			questionList.getSelectionModel().selectedItemProperty().addListener(listener);
 		
 		
-		
-		
+			btnSaveOrAdd.setOnAction(new EventHandler<ActionEvent>() {
+			
+			
+			@Override
+			public void handle(ActionEvent event) {
+				
+				
+				
+				error.setTextFill(Color.web("#FF0000"));
+				
+			if(((Button) event.getSource()).getId()=="Add") {
+				
+				ArrayList<Integer> answers = new ArrayList<Integer>();
+				int count_answers = 0;
+				
+				if(ta1.getText().equals("") || ta1.getText() == null) {
+					
+				}
+				else if(ta1.getText().length() != 0) {
+					count_answers++;
+					answers.add(1);
+				}
+				if(ta2.getText().equals("") || ta2.getText() == null) {
+					
+				}
+				else if(ta2.getText().length() != 0) {
+					count_answers++;
+					answers.add(2);
+				}
+				if(ta3.getText().equals("") || ta3.getText() == null) {
+					
+				}
+				else if(ta3.getText().length() != 0) {
+					count_answers++;
+					answers.add(3);
+				}
+				if(ta4.getText().equals("") || ta4.getText() == null) {
+					
+				}
+				else if(ta4.getText().length() != 0) {
+					count_answers++;
+					answers.add(4);
+				}
+				
+				// at least two answers
+				
+				if(count_answers < 2) {
+					error.setVisible(true);
+					error.setText("Fill In At Least Two Answers");
+					return;
+				}
+				
+				// correct answer 
+				
+				int correctAnswer = 0;
+				// no correct answer marked
+				if(toggleGroup.getSelectedToggle() == null) {
+					error.setVisible(true);
+					error.setText("Select A Correct Answer");
+					return;
+				}
+				else if(toggleGroup.getSelectedToggle().equals(ans1)) {
+					correctAnswer = 1;
+				}
+				else if(toggleGroup.getSelectedToggle().equals(ans2)) {
+					correctAnswer = 2;
+				}
+				else if(toggleGroup.getSelectedToggle().equals(ans3)) {
+					correctAnswer = 3;
+				}
+				else if(toggleGroup.getSelectedToggle().equals(ans4)) {
+					correctAnswer = 4;
+				}
+				
+				// fill in question content
+				
+				if(questionContent.getText().length() == 0 ) {
+					error.setVisible(true);
+					error.setText("Fill In Question Content");
+					return;
+					
+				}
+				
+				DifficultyLevel dl = null;
+				
+				// fill in difficulty 
+				if(diff_selector.getSelectionModel().getSelectedItem() == null) {
+					error.setVisible(true);
+					error.setText("Choose Question Difficulty");
+					return;
+				}
+				
+				else if(diff_selector.getSelectionModel().getSelectedIndex() == 0) {
+					dl = DifficultyLevel.EASY;
+				}
+				else if(diff_selector.getSelectionModel().getSelectedIndex() == 1) {
+					dl = DifficultyLevel.MEDIOCRE;
+				}
+				else if(diff_selector.getSelectionModel().getSelectedIndex() == 2) {
+					dl = DifficultyLevel.HARD;
+				}
+				
+				if(dl == null) {
+					error.setVisible(true);
+					error.setText("Choose Question Difficulty");
+					return;
+				}
+				
+				ArrayList<Answer> new_Answers = new ArrayList<Answer>();
+				
+				int counter = 1;
+				for(Integer i : answers) {
+					
+					if(i == 1) {
+						if(correctAnswer == 1)
+							new_Answers.add(new Answer(counter,ta1.getText(),true));
+						else
+							new_Answers.add(new Answer(counter,ta1.getText(),false));
+					}
+					else if(i == 2) {
+						if(correctAnswer == 2)
+							new_Answers.add(new Answer(counter,ta2.getText(),true));
+						else
+							new_Answers.add(new Answer(counter,ta2.getText(),false));
+					}
+					else if(i == 3) {
+						if(correctAnswer == 3)
+							new_Answers.add(new Answer(counter,ta3.getText(),true));
+						else
+							new_Answers.add(new Answer(counter,ta3.getText(),false));
+					}
+					else if(i == 4) {
+						if(correctAnswer == 4)
+							new_Answers.add(new Answer(counter,ta4.getText(),true));
+						else
+							new_Answers.add(new Answer(counter,ta4.getText(),false));
+					}
+					
+					counter++;
+				}
+				
+				Question newQues = new Question(QuestionMgmtController.getInstance().getQuestions().size(),questionContent.getText(),dl,new_Answers,"panda");
+				
+				boolean foundCorrect = false;
+				
+				for(Answer a : newQues.getAnswers()) {
+					
+					if(a.isCorrect()) {
+						foundCorrect = true;
+					}
+				}
+				
+				// correct Answer Cannot Be Empty
+				if(foundCorrect == false) {
+					error.setVisible(true);
+					error.setText("Choose A Correct Answer That Is Not Blank");
+					return;
+					
+				}
+				
+				// Same As Old Question 
+				
+				boolean alreadyExists = false;
+				for(Question Q : QuestionMgmtController.getInstance().getSysData().getQuestions()) {
+					
+					if(Q.equals(newQues)) {
+						alreadyExists = true;
+					}
+				}
+				
+				if(alreadyExists) {
+					error.setVisible(true);
+					error.setText("Question Already Exists");
+					return;
+				}
+				else {
+					System.out.println("Success");
+					QuestionMgmtController.getInstance().getSysData().addQuestion(newQues);
+					QuestionMgmtController.getInstance().WriteQuestions();
+					questionList = new ListView<Question>();
+					questionList.setCellFactory(new Callback<ListView<Question>, ListCell<Question>>() {
+					    @Override 
+					    public ListCell<Question> call(ListView<Question> list) {
+					        return new QuestionListCell();
+					    }
+					});
+					ObservableList<Question> data = FXCollections.observableArrayList();
+					
+					for(Question q : QuestionMgmtController.getInstance().getQuestions()) {
+						
+						data.add(q);
+						
+					}
+					questionList.getItems().addAll(data);
+					questionList.getSelectionModel().selectedItemProperty().addListener(listener);
+					questionList.setPrefHeight(230);
+					questionList.setPrefWidth(780);
+					listScroll.setContent(questionList);
+					ta1.setText("");
+		    		ta2.setText("");
+		    		ta3.setText("");
+		    		ta4.setText("");
+		    		questionContent.setText("");
+		    		diff_selector.getSelectionModel().clearSelection();
+		    		questionList.getSelectionModel().clearSelection();
+		    		
+		    		error.setVisible(true);
+					error.setText("Successfuly Added!");
+					error.setTextFill(Color.web("#4A95FF"));
+					
+					PauseTransition visiblePause = new PauseTransition(
+					        Duration.seconds(3)
+					);
+					visiblePause.setOnFinished(t -> error.setVisible(false)
+					         
+					);
+					visiblePause.play();
+				
+				
+				
+			}
+			
+			}
+			}
 		});
+		
+		
+		
+		
 		
 		
 		ImageView backbutton = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/back.png")));
