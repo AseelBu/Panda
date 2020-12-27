@@ -398,6 +398,11 @@ public class MainscreenGUI extends Application {
 							
 			
 				});
+				
+				addButton(new Image(getClass().getResourceAsStream("/View/pictures/exit.png"))
+						, 405, 500, 70, 50,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			        this.exit();
+			    });
 		
 
 
@@ -455,14 +460,9 @@ public class MainscreenGUI extends Application {
 						, 10, 5, 45, 45,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 							loadesign(1);
 							
-							
-							
-							
-							
 							event.consume();
 			    });
 				
-				//TODO settings screen
 				break;
 			}
 		}

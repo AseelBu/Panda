@@ -172,6 +172,45 @@ public class BoardGUI extends Application {
 		totalTimeF.setFont(new Font(24.0));
 		mainAnchor.getChildren().add(totalTimeF);
 		
+		ImageView mute = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+		if(SoundController.getInstance().isMuted()) {
+			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
+			mute.setId("Off");
+		}
+		else {
+			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+			mute.setId("On");
+		}
+		mute.setLayoutX(10);
+		mute.setLayoutY(570);
+		mute.setFitWidth(70);
+		mute.setFitHeight(50);
+		mute.setPickOnBounds(true);
+		mute.setPreserveRatio(true);
+		mute.setCursor(Cursor.HAND);
+		mainAnchor.getChildren().add(mute);
+		
+		mute.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				if(mute.getId().equals("Off")) {
+					mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+					mute.setId("On");
+					SoundController.getInstance().unmuteSound();
+				}
+				else {
+					mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
+					mute.setId("Off");
+					SoundController.getInstance().muteSound();
+				}
+				
+			}
+			
+			
+		});
+		
 		ImageView pause = new ImageView(new Image(getClass().getResource("pictures/pause.png").toString()));
 		pause.setFitHeight(36);
 		pause.setFitWidth(38);
