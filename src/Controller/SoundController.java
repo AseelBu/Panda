@@ -60,31 +60,44 @@ public class SoundController {
 			
 		}
 		
+		/**
+		 * Intro Music
+		 */
 		public void playIntro() {
 			this.introPlayer.play();
 		}
-		
+		/**
+		 * Stops Intro Music
+		 */
 		public void stopIntro() {
 			 this.introPlayer.stop();
 		}
-		
+		/**
+		 * Plays Question Music
+		 */
 		public void play30() {
 			
 			 this.quesPlayer.play();
 			
 		}
-		
+		/**
+		 * Stops Question Music
+		 */
 		public void stopQues() {
 			
 			 this.quesPlayer.stop();
 		}
-		
+		/**
+		 * Play Burn Sound Effect
+		 */
 		public void playBurn() {
 			
 			this.burnPlayer.play();
 			this.burnPlayer.seek(Duration.ZERO);
 		}
-		
+		/**
+		 * Play Move Sound Effect
+		 */
 		public void playMove() {
 			
 			this.movePlayer.play();
@@ -94,7 +107,9 @@ public class SoundController {
 
 
 
-		
+		/**
+		 * Mute All Sounds
+		 */
 		public void muteSound() {
 			
 			this.burnPlayer.setVolume(0);
@@ -103,6 +118,9 @@ public class SoundController {
 			this.movePlayer.setVolume(0);
 		}
 		
+		/**
+		 * Unmute All Sounds
+		 */
 		public void unmuteSound() {
 			
 			this.burnPlayer.setVolume(0.7);
