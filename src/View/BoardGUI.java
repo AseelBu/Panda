@@ -484,6 +484,9 @@ public class BoardGUI extends Application {
 		pieceImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				if(!event.isPrimaryButtonDown()) {
+					return;
+				}
 				ImageView image = (ImageView) event.getSource();
 				FlowPane tile = (FlowPane) image.getParent();
 				String[] id = tile.getId().split("_");
@@ -517,7 +520,15 @@ public class BoardGUI extends Application {
 
 			@Override
 			public void handle(MouseEvent event) {
+				if(!event.isPrimaryButtonDown()) {
+					return;
+				}
 				if (primary != null) {
+					if((ImageView) mainAnchor.lookup("#drag") != null) {
+//						if((ImageView) mainAnchor.lookup("#tempDirections") != null)
+//							mainAnchor.getChildren().remove((ImageView) mainAnchor.lookup("#tempDirections"));
+						mainAnchor.getChildren().remove((ImageView) mainAnchor.lookup("#drag"));
+					}
 					ImageView image = (ImageView) event.getSource();
 					ImageView tempImage = new ImageView(image.getImage());
 					tempImage.setId("drag");
@@ -547,6 +558,9 @@ public class BoardGUI extends Application {
 
 			@Override
 			public void handle(MouseEvent event) {
+				if(!event.isPrimaryButtonDown()) {
+					return;
+				}
 				if (primary != null) {
 					ImageView tempImage = (ImageView) mainAnchor.lookup("#drag");
 					if(tempImage != null) {
@@ -581,6 +595,7 @@ public class BoardGUI extends Application {
 			public void handle(MouseEvent event) {
 				if (primary != null) {
 					ImageView tempImage = (ImageView) mainAnchor.lookup("#drag");
+					if(tempImage == null) return;
 					mainAnchor.getChildren().remove(tempImage);
 					int relativeX = ((int) ( tempImage.getLayoutX() - board.getLayoutX() )) / 65;
 					int relativeY = ((int) ( tempImage.getLayoutY() - board.getLayoutY() )) / 65;
@@ -590,11 +605,16 @@ public class BoardGUI extends Application {
 					FlowPane tempboard = (FlowPane) mainAnchor.lookup("#board");
 					String tileId = String.valueOf("#" + selectedRow2 + "_" + selectedCol2);
 					FlowPane temptile = (FlowPane) tempboard.lookup(tileId);
-
-					if(temptile.getChildren().get(0).getId().split("_")[0].matches("Soldier")) {
-						isSoldier = true;
-					}else {
-						isSoldier = false;
+					try {
+						if(temptile.getChildren().get(0).getId().split("_")[0].matches("Soldier")) {
+							isSoldier = true;
+						}else if(temptile.getChildren().get(0).getId().split("_")[0].matches("Queen")){
+							isSoldier = false;
+						}else {
+							return;
+						}
+					}catch(Exception e) {
+						return;
 					}
 
 					if((char) ((char) relativeX + 'A') == selectedCol2 || 8 - relativeY == selectedRow2) return ;
