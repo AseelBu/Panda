@@ -262,8 +262,6 @@ public class BoardGUI extends Application {
 				ImageView whiteImg = new ImageView(new Image(getClass().getResource("pictures/Queen_WHITE.png").toString()));
 				whiteImg.setFitHeight(90);
 				whiteImg.setFitWidth(90);
-//				whiteImg.setLayoutX(16);
-//				whiteImg.setLayoutY(102);
 				whiteImg.setLayoutX(16);
 				whiteImg.setLayoutY(97);
 		
@@ -292,9 +290,6 @@ public class BoardGUI extends Application {
 		timeField.setStyle("-fx-opacity: 1;");
 		timeField.setAlignment(Pos.CENTER);
 		timeField.setFont(new Font(24));
-
-
-
 
 		mainAnchor.getChildren().add(vsLbl);
 		mainAnchor.getChildren().add(timeField);
