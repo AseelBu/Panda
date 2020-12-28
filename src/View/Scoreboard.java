@@ -148,7 +148,7 @@ public class Scoreboard extends Application {
 				first_name.setFont(new Font("verdana",20));
 				first_name.setTextFill(Color.web("#ffffff"));
 				mainAnchor.getChildren().add(first_name);
-				first_name.setLayoutX(110);
+				first_name.setLayoutX(90);
 				first_name.setLayoutY(105);
 				
 				
