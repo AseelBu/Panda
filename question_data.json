@@ -11,7 +11,7 @@
       "level": "1",
       "team": "animal"
     },
-    {
+    { 
       "question": "When the “Mediator” Design Pattern is used?",
       "answers": [
         "When you need to ensure that only K instance of the object exists throughout runtime ",
