@@ -53,15 +53,12 @@ public class MainscreenGUI extends Application {
 		try {
 			mainBorder = FXMLLoader.load(getClass().getResource("/View/mainscreen.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(mainBorder);
-		//		scene.getStylesheets().add(getClass().getResource("/View/mainscreen.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
-		//		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primary = primaryStage;
@@ -73,6 +70,13 @@ public class MainscreenGUI extends Application {
 
 	}
 
+	/**
+	 * Design is loaded according to some designs divided by switch case
+	 * case 1 is the actual main screen
+	 * case 2 is the start game buttons
+	 * case 3 is the settings
+	 * @param design
+	 */
 	private void loadesign(int design) {
 		mainBorder.getChildren().clear();
 		AnchorPane background = new AnchorPane();
@@ -91,7 +95,6 @@ public class MainscreenGUI extends Application {
 			ip= new FileInputStream("config.properties");
 			prop.load(ip);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -256,7 +259,6 @@ public class MainscreenGUI extends Application {
 								try {
 									prop.store(new FileOutputStream("config.properties"),null);
 								} catch (IOException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 							}
@@ -266,7 +268,6 @@ public class MainscreenGUI extends Application {
 								try {
 									prop.store(new FileOutputStream("config.properties"),null);
 								} catch (IOException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 							}
@@ -354,7 +355,6 @@ public class MainscreenGUI extends Application {
 							try {
 								prop.store(new FileOutputStream("config.properties"),null);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
@@ -364,7 +364,6 @@ public class MainscreenGUI extends Application {
 					});
 				});
 		
-		//TODO document
 		switch(design) {
 		case 1:{
 			addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))

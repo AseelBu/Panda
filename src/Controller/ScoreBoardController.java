@@ -33,7 +33,6 @@ public class ScoreBoardController {
 	 * Get Instance
 	 * @return - Controller's instance
 	 */
-	
 	public static ScoreBoardController getInstance() 
 	{ 
 		if (instance == null) 

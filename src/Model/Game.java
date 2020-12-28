@@ -184,11 +184,6 @@ public class Game {
 		System.out.println("\r\n********************************************\r\n");
 		System.out.println(turn.getCurrentPlayer().getNickname() + " Player to Move | Color: " + turn.getCurrentPlayer().getColor());
 		System.out.println("\r\n********************************************\r\n");
-//		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
-//			getBoard().printBoard();
-//			finishGame();
-//			return;
-//		}
 	}
 
 	/**
@@ -223,12 +218,6 @@ public class Game {
 		// turn.unpause()  to be added to turn class
 		timer.unpauseTimer();
 		System.out.printf("Game unpaused || Full Game Timer %.2f Seconds.\n", timer.getSeconds());
-	}
-	/**
-	 * save game as txt file
-	 */
-	public void saveGame() {
-
 	}
 	/**
 	 * load game from txt file
@@ -311,18 +300,9 @@ public class Game {
 			System.out.println("It's a tie (draw)..");
 		}
 		timer.stopTimer();
-
-		//		if(winner > -1)
-		//			BoardController.getInstance().finishGame(players[winner - 1].getNickname(),
-		//					players[winner - 1].getCurrentScore(), players[winner - 1].getColor());
-		//			
+		
 		SysData.getInstance().addScoreToHistory(players[0]);
 		SysData.getInstance().addScoreToHistory(players[1]);
-
-		//		destruct();
-		//		Board.destruct();
-		//		Player.destruct();
-		//		System.exit(1); 
 	}
 
 	/**
@@ -345,7 +325,6 @@ public class Game {
 			return; 
 		}
 		board.removeAllSeconderyColorsFromBoard();
-		//		board.initiateBoardSecondaryColors();
 		turn.getTimer().startTimer();
 
 		System.out.println("********************************************\r\n");

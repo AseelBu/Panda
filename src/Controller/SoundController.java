@@ -1,9 +1,6 @@
 package Controller;
 
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.net.URI;
 import java.util.HashMap;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

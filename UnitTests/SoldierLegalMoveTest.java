@@ -59,7 +59,6 @@ public class SoldierLegalMoveTest {
 			Game.getInstance().startGame(players, pieces, 'W');
 			Game.getInstance().getBoard().printBoard();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//Soldier soldierr = (Soldier) Game.getInstance().getBoard().getTilesMap().get(mainSoldier.getLocation().getRow()).get(mainSoldier.getLocation().getColumn() - 'A').getPiece();

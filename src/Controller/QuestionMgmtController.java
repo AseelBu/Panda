@@ -134,10 +134,8 @@ public class QuestionMgmtController {
 			w.close();
 			System.out.println("Success");
 		} catch (JsonIOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -158,7 +156,6 @@ public class QuestionMgmtController {
 		try {
 			reader = new JsonReader(new FileReader("question_data.json"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

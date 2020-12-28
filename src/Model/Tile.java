@@ -114,7 +114,6 @@ public class Tile implements Comparable<Tile>{
 
 	@Override
 	public int compareTo(Tile t) {
-		// TODO Auto-generated method stub
 		int result;
 		if (this.location.getRow()==t.location.getRow()) {
 			result = this.location.getColumn()-t.location.getColumn();
