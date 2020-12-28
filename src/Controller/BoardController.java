@@ -151,7 +151,6 @@ public class BoardController {
 		}
 	}
 
-
 	/**
 	 * move piece, made to be controlled by GUI
 	 * @param fromRow

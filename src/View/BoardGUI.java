@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import Controller.BoardController;
 import Controller.DisplayController;
 import Controller.GameController;
@@ -24,20 +21,17 @@ import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
@@ -466,9 +460,7 @@ public class BoardGUI extends Application {
 			return false;
 		}
 
-		//remove color from 
-
-		//TODO check piece existence in tile
+		
 		ImageView pieceImage;
 		if(isSoldier) {
 			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Soldier_" + pieceColor + ".png").toString()));

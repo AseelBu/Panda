@@ -133,6 +133,7 @@ public class QuestionGUI extends Application{
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				
 				try {
 				if(((Button) event.getSource()).getText().equals("Submit")) {
 					
@@ -140,7 +141,7 @@ public class QuestionGUI extends Application{
 					
 					int s = questionId;
 					questionThread.pauseTimer();
-					if(BoardQuestionsController.checkQuestionAnswer(s,getSelectedAnswerIndex()))
+					if(BoardQuestionsController.getInstance().checkQuestionAnswer(s,getSelectedAnswerIndex()))
 					{
 						if(diff ==DifficultyLevel.EASY)
 							notifyTrueAnswer("You earn 100 extra points :)\nWell done!");
@@ -334,7 +335,7 @@ public class QuestionGUI extends Application{
 	public void outOfTime() {
 		try {
 		SoundController.getInstance().stopQues();
-		if(BoardQuestionsController.checkQuestionAnswer(questionId,-1))
+		if(BoardQuestionsController.getInstance().checkQuestionAnswer(questionId,-1))
 		{
 			if(diff ==DifficultyLevel.EASY)
 				notifyTrueAnswer("You earn 100 extra points :)\nWell done!");
