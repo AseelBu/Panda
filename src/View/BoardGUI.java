@@ -20,6 +20,7 @@ import Utils.Config;
 import Utils.Directions;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -49,6 +50,7 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class BoardGUI extends Application {
 
@@ -416,6 +418,7 @@ public class BoardGUI extends Application {
 		//			}
 		//			
 		//		});
+
 		tile.getChildren().add(tileImage);
 		return true;
 	}
@@ -897,6 +900,7 @@ public class BoardGUI extends Application {
 
 				}//moved piece did burn
 				else {
+					
 					SoundController.getInstance().playBurn();
 					fromTile.getChildren().clear();
 				}
@@ -1318,6 +1322,8 @@ public class BoardGUI extends Application {
 			MiscController.getInstance().saveGame(file);
 		}
 	}
+	
+
 
 	//	public void removeTileColor(int row, char col, SeconderyTileColor tileColor){
 	//		if(mainAnchor == null) return;

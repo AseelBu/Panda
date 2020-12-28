@@ -2,16 +2,14 @@ package Utils;
 
 import Model.Question;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class QuestionListCell extends ListCell<Question> {
 	
-	/**
-	 * ListView Cell in Question Managment Screen
-	 */
-	@Override 
+	
+	
+	@Override
     protected void updateItem(Question item, boolean empty) {
         super.updateItem(item, empty);
         if(item == null) {

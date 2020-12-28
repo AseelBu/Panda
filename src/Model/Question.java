@@ -47,9 +47,7 @@ public class Question {
 		return result;
 	}
 
-	/**
-	 * Equals
-	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
