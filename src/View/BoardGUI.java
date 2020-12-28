@@ -1293,14 +1293,18 @@ public class BoardGUI extends Application {
 		alert.getButtonTypes().clear();
 		ButtonType bt1 = ButtonType.YES;
 		ButtonType bt2 = ButtonType.NO;
-		alert.getButtonTypes().addAll(bt1,bt2);
+		ButtonType bt3 = new ButtonType("Save Game");
+		alert.getButtonTypes().addAll(bt1,bt2,bt3);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.YES){
 			alert.close();
-			
 			BoardController.getInstance().forceFinishGame();
 			return true;
-		} else {
+		} else if(result.get() == bt3) {
+			saveGameDialog();
+			BoardController.getInstance().forceFinishGame();
+			return true;
+		}else {
 			return false;
 		}
 	}
