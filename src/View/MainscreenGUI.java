@@ -362,6 +362,7 @@ public class MainscreenGUI extends Application {
 				});
 		
 		switch(design) {
+//		actual main screen
 		case 1:{
 			 Hyperlink hyperlink = new Hyperlink("Contact Us!");
 			   
@@ -432,6 +433,7 @@ public class MainscreenGUI extends Application {
 
 			break;
 		}
+//		the start game buttons
 		case 2:{
 			addButton(new Image(getClass().getResourceAsStream("/View/pictures/back.png"))
 					, 10, 5, 45, 45,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -478,6 +480,7 @@ public class MainscreenGUI extends Application {
 
 			break;
 		}
+//		the settings
 		case 3:{
 			addButton(new Image(getClass().getResourceAsStream("/View/pictures/back.png"))
 					, 10, 5, 45, 45,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
