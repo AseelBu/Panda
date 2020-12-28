@@ -262,6 +262,7 @@ public class DisplayController {
 		nicknames.start(nicknames.getPrimary());
 		nicknames.setFile(file);
 	}
+	
 	/**
 	 * shows nicknames screen
 	 * @param pieces
@@ -272,7 +273,6 @@ public class DisplayController {
 		nicknames.start(nicknames.getPrimary());
 		nicknames.setPieces(pieces);
 		nicknames.setTurn(turn);
-
 	}
 	/**
 	 * shows question screen
@@ -314,6 +314,12 @@ public class DisplayController {
 	 * closes custom board screen
 	 */
 	public void closeBoardEit() {
+		if(boardEdit == null)
+		{
+			if(mainscreen != null)
+				mainscreen.getPrimary().hide();
+			return;
+		}
 		boardEdit.getPrimary().hide();
 	}
 	

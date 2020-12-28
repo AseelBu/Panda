@@ -33,6 +33,7 @@ public class Nicknames extends Application {
 	private File file;
 	private HashMap<String,String> pieces;
 	private PrimaryColor turn;
+	private boolean queens;
 	
 	
 	@Override
@@ -59,7 +60,7 @@ public class Nicknames extends Application {
 			}
 		});
 		primary = primaryStage;
-		
+		queens = false;
 		loadDesign();
 	}
 	
@@ -250,6 +251,14 @@ public class Nicknames extends Application {
 		return ((TextField) mainAnchor.lookup(str)).getText();
 	}
 	
+	public boolean isQueens() {
+		return queens;
+	}
+
+	public void setQueens(boolean queens) {
+		this.queens = queens;
+	}
+
 	public Stage getPrimary() {
 		if(primary == null) {
 			primary = new Stage();

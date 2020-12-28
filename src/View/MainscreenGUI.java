@@ -6,9 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 import Controller.DisplayController;
+import Controller.GameController;
 import Controller.ScoreBoardController;
 import Controller.SoundController;
 import Utils.Config;
+import Utils.PrimaryColor;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -212,7 +214,7 @@ public class MainscreenGUI extends Application {
 							ScoreBoardController.getInstance().getSysData().getScoreboard().clear();
 							myObj.delete();
 
-							Label notfiaction = new Label("Highscores Rest ✓");
+							Label notfiaction = new Label("Highscores Reset ✓");
 							notfiaction.setFont(new Font("verdana", 20));
 							notfiaction.setLayoutX(127);
 							notfiaction.setLayoutY(360);
@@ -457,6 +459,13 @@ public class MainscreenGUI extends Application {
 						DisplayController.getInstance().showBoardEdit();
 						event.consume();
 					});
+			
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/queenmode.png"))
+					, 150, 365, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						loadQueensMode();
+						event.consume();
+					});
+			
 			addButton(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png"))
 					, 5, 500, 70, 50,mute).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 
@@ -472,8 +481,6 @@ public class MainscreenGUI extends Application {
 							source.setId("On");
 							SoundController.getInstance().unmuteSound();
 						}
-
-
 					});
 
 			break;
@@ -576,4 +583,8 @@ public class MainscreenGUI extends Application {
 		DisplayController.getInstance().showPointsTable();
 	}
 
+	void loadQueensMode() {
+		DisplayController.getInstance().showNicknames(GameController.getInstance().queensMode(), PrimaryColor.WHITE);
+	}
+	
 }
