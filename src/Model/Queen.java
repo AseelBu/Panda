@@ -1010,7 +1010,7 @@ public class Queen extends Piece{
 			}
 
 		}
-		catch (Exception e) {
+		catch (LocationException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}

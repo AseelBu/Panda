@@ -32,15 +32,6 @@ public class Tile implements Comparable<Tile>{
 		private SeconderyTileColor color2=null;
 		private Piece piece=null ;
 
-//		/**
-//		 * Constructor
-//		 * @param location
-//		 * @param color1
-//		 */
-//		public TileBuilder(Location location,PrimaryColor color1) {
-//			this.location = location;
-//			this.color1 = color1;	
-//		}
 
 		/**
 		 * sets secondary color to tile
@@ -93,64 +84,6 @@ public class Tile implements Comparable<Tile>{
 		this.color2 = init.color2;
 		this.piece = init.piece;
 	}
-
-	//	/**
-	//	 * Constructor for regular tile without piece
-	//	 * 
-	//	 * @param location - Tile's location
-	//	 * @param color1 - Tile's primary color - white or black
-	//	 */
-	//	public Tile(Location location, PrimaryColor color1) {
-	//		super();
-	//		this.location = location;
-	//		this.color1 = color1;		
-	//	}
-	//
-	//	/**
-	//	 * Constructor for Special tile without piece
-	//	 * 
-	//	 * @param location - Tile's location
-	//	 * @param color1 - Tile's primary color - white or black
-	//	 * @param color2 - Tile's secondary color
-	//	 */
-	//	public Tile(Location location, PrimaryColor color1, SeconderyTileColor color2) {
-	//		super();
-	//		this.location = location;
-	//		this.color1 = color1;
-	//		this.color2 = color2;
-	//
-	//	}
-	//
-	//	/**
-	//	 * Constructor for regular tile with piece
-	//	 * 
-	//	 * @param location
-	//	 * @param color1
-	//	 * @param piece
-	//	 */
-	//
-	//	public Tile(Location location, PrimaryColor color1, Piece piece) {
-	//		super();
-	//		this.location = location;
-	//		this.color1 = color1;		
-	//		this.piece = piece;
-	//	}
-	//
-	//	/**
-	//	 * Constructor for Special tile with piece
-	//	 * 
-	//	 * @param location
-	//	 * @param color1
-	//	 * @param color2
-	//	 * @param piece
-	//	 */
-	//	public Tile(Location location, PrimaryColor color1, SeconderyTileColor color2, Piece piece) {
-	//		super();
-	//		this.location = location;
-	//		this.color1 = color1;
-	//		this.color2 = color2;
-	//		this.piece = piece;
-	//	}
 
 
 

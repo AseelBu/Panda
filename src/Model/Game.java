@@ -138,6 +138,7 @@ public class Game {
 
 	/**
 	 * Start a game
+	 * @param players the players of the game
 	 * @throws Exception 
 	 */
 	public void startGame(Player[] players) throws Exception {
@@ -155,6 +156,7 @@ public class Game {
 
 		ArrayList<Piece> pieces = new ArrayList<>();
 
+		
 		//adding black soldiers to board
 		for(int i = 1 ; i <= 3 ; i++)
 			for(char c = board.getColumnLowerBound() ; c <= board.getColumnUpperBound() ; c+=2) {
@@ -337,7 +339,7 @@ public class Game {
 		System.out.println("Switching Turn to player : " + Player.getInstance(index).getNickname() + " | Color: " + Player.getInstance(index).getColor());
 		this.turn = new Turn(Player.getInstance(index));
 
-		//TODO move to controller 
+		
 		if(getBoard().isPlayerStuck((turn.getCurrentPlayer().getColor().equals(PrimaryColor.WHITE)) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 			finishGame();
 			return; 
