@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -362,6 +363,22 @@ public class MainscreenGUI extends Application {
 		
 		switch(design) {
 		case 1:{
+			 Hyperlink hyperlink = new Hyperlink("Contact Us!");
+			   
+		        hyperlink.setOnAction(new EventHandler<ActionEvent>() {
+		 
+		            @Override
+		            public void handle(ActionEvent event) {
+		                getHostServices().showDocument("https://forms.gle/4D6tPEVscVScbLZX7\r\n"
+		                		+ "");
+		            }
+		        });
+	        hyperlink.setStyle( "-fx-font-size: 25px; -fx-faint-focus-color: transparent; -fx-focus-color:rgba(250,0,0,0);");
+
+		 hyperlink.setLayoutX(160);
+		 hyperlink.setLayoutY(500);
+		 
+		        mainBorder.getChildren().addAll(hyperlink);
 			addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))
 					, 150, 110, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 						loadesign(2);
