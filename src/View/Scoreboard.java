@@ -65,7 +65,6 @@ public class Scoreboard extends Application {
 	/**
 	 * Loads GUI of Scoreboard
 	 */
-	
 	public void loadDesign() {
 		
 		mainAnchor.getChildren().clear();

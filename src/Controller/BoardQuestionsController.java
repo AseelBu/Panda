@@ -69,22 +69,6 @@ public class BoardQuestionsController {
 		}	
 		
 	}
-	/**
-	 * return difficulty of question by question id
-	 * @param qId the question id
-	 * @return DifficultyLevel the difficulty level of the question
-	 * @throws QuestionException wasn't able to retrieve question from system data
-	 */
-	public  DifficultyLevel Diffeculty(int qId) throws QuestionException{
-	int questionId = qId;
-		
-		Question currentQuestion=SysData.getInstance().getQuesById(questionId);
-		
-		if(currentQuestion==null) 
-			throw new QuestionException("Error getting the question data from system");
-		
-	return currentQuestion.getDifficulty();
-	}
 	
 	/**
 	 * adds point for current player according to question difficulty

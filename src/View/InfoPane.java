@@ -93,7 +93,6 @@ public class InfoPane extends Application {
 	        try {
 				primary.hide();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 	    });

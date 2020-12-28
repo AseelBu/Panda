@@ -3,9 +3,15 @@
  */
 package Controller;
 
+import java.util.HashMap;
+
 import Model.Board;
 import Model.Game;
+import Model.Location;
+import Model.Piece;
 import Model.Player;
+import Model.Soldier;
+import Utils.PrimaryColor;
 
 /**
  * @author aseel
@@ -95,5 +101,26 @@ public class GameController {
 	 */
 	public void resetTurn() {
 		Game.getInstance().getTurn().getTimer().resetTimer();
+	}
+	
+	/**
+	 * 
+	 * @return HashMap of queens
+	 */
+	public HashMap<String,String> queensMode(){
+		HashMap<String, String> queens = new HashMap<>();
+		Board board = Board.getInstance();
+		for(int i = 1 ; i <= 3 ; i++)
+			for(char c = board.getColumnLowerBound() ; c <= board.getColumnUpperBound() ; c+=2) {
+				if(i == 2 && c == board.getColumnLowerBound()) c = (char)(board.getColumnLowerBound()+1);
+				queens.put(i + "_" + c, "Queen_WHITE");
+			}
+		//adding white soldiers to board
+		for(int i = board.getBoardSize()-2 ; i <= board.getBoardSize() ; i++)
+			for(char c = (char) (board.getColumnLowerBound()+1) ; c <= board.getColumnUpperBound() ; c+=2) {
+				if(i == board.getBoardSize()-1 && c == (char)(board.getColumnLowerBound()+1)) c = board.getColumnLowerBound();
+				queens.put(i + "_" + c, "Queen_BLACK");
+			}
+		return queens;
 	}
 }
