@@ -345,9 +345,7 @@ public class QuestionGUI extends Application{
 	}
 
 
-	/**
-	 * 
-	 */
+	
 	public void outOfTime() {
 		try {
 		SoundController.getInstance().stopQues();
