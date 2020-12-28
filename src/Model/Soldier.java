@@ -132,7 +132,6 @@ public class Soldier extends Piece{
 			DL =pieceLoc.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
 			DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
@@ -204,7 +203,6 @@ public class Soldier extends Piece{
 		try {
 			newLocal = this.getLocation().addToLocationDiagonally(direction, 1);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//if location not out of boundaries

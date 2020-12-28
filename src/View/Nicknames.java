@@ -2,9 +2,7 @@ package View;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-
 import Controller.BoardController;
 import Controller.DisplayController;
 import Utils.PrimaryColor;
@@ -220,6 +218,8 @@ public class Nicknames extends Application {
 		mainAnchor.getChildren().add(cancel);
 
 	}
+	
+	// Getters and setters
 	
 	public File getFile() {
 		return file;

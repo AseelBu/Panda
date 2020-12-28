@@ -23,6 +23,10 @@ import View.Scoreboard;
 import View.Winner;
 import View.pointsTable;
 
+/**
+ * Control's all the displays
+ *
+ */
 public class DisplayController {
 
 	private static DisplayController instance;
@@ -50,6 +54,10 @@ public class DisplayController {
 		return instance; 
 	}
 	
+	/**
+	 * Opens board display
+	 * @param players
+	 */
 	public void showBoard(Player[] players) {
 		if(players != null) {
 			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
@@ -82,6 +90,11 @@ public class DisplayController {
 		fullTimer.start();
 	}
 	
+	/**
+	 * Opens board display
+	 * @param players
+	 * @param file
+	 */
 	public void showBoard(Player[] players,File file) {
 		HashMap<Character, ArrayList<Piece>> load = null;
 		load = MiscController.getInstance().loadGame(file); 
@@ -138,6 +151,12 @@ public class DisplayController {
 		fullTimer.start();
 	}
 	
+	/**
+	 * Opens board display
+	 * @param players
+	 * @param pieces
+	 * @param turn
+	 */
 	public void showBoard(Player[] players,ArrayList<Piece> pieces, PrimaryColor turn) {	
 		if(players != null) {
 			System.out.print("Player 1 : " + players[0].getNickname() + " || ");
@@ -181,56 +200,73 @@ public class DisplayController {
 		fullTimer.start();
 	}
 	
+	/**
+	 * Shows main screen
+	 */
 	public void showMainScreen() {
 		mainscreen = new MainscreenGUI();
 		mainscreen.start(mainscreen.getPrimary());
 
 	}
 	
-	
+	/**
+	 * Shows manage questions screen
+	 */
 	public void showManageQuestions(){
 		
 		manageQuestions = QuestionMgmtController.getInstance().getQuestionScreen();
 		try {
 			manageQuestions.start(manageQuestions.getPrimary());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * shows instructions screen
+	 */
 	public void showInstructionsGame() {
 		instructions = new InstructionsGame();
-		//System.out.println(instructions);
-
 		instructions.start(instructions .getPrimary());
 		
 	}
+	/**
+	 * shows point's table screen
+	 */
 	public void showPointsTable() {
 		points = new pointsTable();
-		//System.out.println(instructions);
-
 		points.start(instructions .getPrimary());
 		
 	}
-	
+	/**
+	 * shows scoreboard screen
+	 */
 	public void showScoreboard() {
 		ScoreBoardController.getInstance().loadHistory();
 		scoreboard = new Scoreboard();
 		scoreboard.start(scoreboard.getPrimary());
 	}
 	
+	/**
+	 * shows nicknames screen
+	 */
 	public void showNicknames() {
 		nicknames = new Nicknames();
 		nicknames.start(nicknames.getPrimary());
 	}
-	
+	/**
+	 * shows nicknames screen
+	 * @param file
+	 */
 	public void showNicknames(File file) {
 		nicknames = new Nicknames();
 		nicknames.start(nicknames.getPrimary());
 		nicknames.setFile(file);
 	}
-	
+	/**
+	 * shows nicknames screen
+	 * @param pieces
+	 * @param turn
+	 */
 	public void showNicknames(HashMap<String,String> pieces, PrimaryColor turn) {
 		nicknames = new Nicknames();
 		nicknames.start(nicknames.getPrimary());
@@ -238,7 +274,12 @@ public class DisplayController {
 		nicknames.setTurn(turn);
 
 	}
-	
+	/**
+	 * shows question screen
+	 * @param question
+	 * @param turnColor
+	 * @throws QuestionException
+	 */
 	public void showQuestion(Question question, PrimaryColor turnColor) throws QuestionException {
 		questions = new QuestionGUI(turnColor);
 		questions.start(questions.getPrimary());
@@ -250,28 +291,41 @@ public class DisplayController {
 		
 		questions.loadDesign(question.getId(), question.getContent(), answers, question.getDifficulty());
 	}
-	
+	/**
+	 * shows winner screen
+	 * @param name
+	 * @param score
+	 * @param color
+	 */
 	public void showWinner(String name, int score,PrimaryColor color) {
 		winner = new Winner();
 		winner.start(winner.getPrimary());
 		winner.loadDisplay(name, score, color);
 	}
-	
+	/**
+	 * shows custom board screen
+	 */
 	public void showBoardEdit() {
 		boardEdit = new BoardEdit();
 		boardEdit.start(boardEdit.getPrimary());
 	}
 	
-	
+	/**
+	 * closes custom board screen
+	 */
 	public void closeBoardEit() {
 		boardEdit.getPrimary().hide();
 	}
 	
-	
+	/**
+	 * closes main screen
+	 */
 	public void closeMainscreen() {
 		mainscreen.getPrimary().hide();
 	}
-	
+	/**
+	 * closes board screen
+	 */
 	public void closeBoard() {
 		boardGUI.getPrimary().hide();
 		boardGUI.destruct();
@@ -279,33 +333,46 @@ public class DisplayController {
 		Board.destruct();
 		Player.destruct();
 	}
-	
+	/**
+	 * closes scoreboard screen
+	 */
 	public void closeScoreboard() {
 		scoreboard.getPrimary().hide();
 		showMainScreen();
 	}
-	
+	/**
+	 * closes manage question's screen
+	 */
 	public void closeManageQuestions() {
 		QuestionMgmtController.getInstance().getQuestionScreen().getPrimary().hide();
 		showMainScreen();
 
 	}
-	
+	/**
+	 * closes instructions screen
+	 */
 	public void closeInstructionsGame() {
 		instructions.getPrimary().hide();
 		showMainScreen();
 
 	}
+	/**
+	 * closes point's table screen
+	 */
 	public void closePointstable() {
 		points.getPrimary().hide();
 		showInstructionsGame();
 
 	}
-	
+	/**
+	 * closes winners screen
+	 */
 	public void closeWinner() {
 		winner.getPrimary().hide();
 	}
-	
+	/**
+	 * closes nicknames screen
+	 */
 	public void closeNicknames() {
 		nicknames.getPrimary().hide();
 	}

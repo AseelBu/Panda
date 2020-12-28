@@ -128,6 +128,7 @@ public class QuestionGUI extends Application{
 		loadDifficultyLabel(diff);
 
 		Label ques = new Label(question);
+		ques.setWrapText(true);
 		ques.setLayoutX(29);
 		ques.setLayoutY(64);
 		ques.setPrefHeight(77);
@@ -136,6 +137,7 @@ public class QuestionGUI extends Application{
 		mainAnchor.getChildren().add(ques);
 
 		btn.setOnAction(new EventHandler<ActionEvent>() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void handle(ActionEvent event) {
 				
@@ -298,6 +300,7 @@ public class QuestionGUI extends Application{
 			pane.getChildren().add(rb);
 
 			Label lbl = new Label(answers.get(i));
+			lbl.setWrapText(true);
 			lbl.setLayoutX(74.0);
 			lbl.setLayoutY(2.0);
 			lbl.setPrefHeight(56.0);

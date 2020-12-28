@@ -318,7 +318,6 @@ public class Board {
 			this.replaceTileInSameTileLocation(tile);
 			return true;
 		} catch (LocationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -341,7 +340,6 @@ public class Board {
 			tile.setColor2(color);
 			this.replaceTileInSameTileLocation(tile);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		return tile;
@@ -363,7 +361,6 @@ public class Board {
 			this.replaceTileInSameTileLocation(tile);
 			return true;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}

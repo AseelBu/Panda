@@ -8,7 +8,6 @@ import Controller.DisplayController;
 import Controller.QuestionMgmtController;
 import Model.Answer;
 import Model.Question;
-import Model.SysData;
 import Utils.DifficultyLevel;
 import Utils.QuestionListCell;
 import javafx.animation.PauseTransition;
@@ -144,8 +143,8 @@ public class ManageQuestions extends Application {
 		
 		
 		Rectangle red = new Rectangle(10,180,25,5);
-		red.setFill(Color.RED);
-		Label red1 = new Label("HARD");
+		red.setFill(Color.ORANGE);
+		Label red1 = new Label("INTERMEDIATE");
 		red1.setFont(new Font("verdana",12.0));
 		red1.setStyle("-fx-font-weight: bold;");
 		red1.setLayoutX(5);
@@ -154,8 +153,8 @@ public class ManageQuestions extends Application {
 		mainAnchor.getChildren().add(red1);
 		
 		Rectangle orange = new Rectangle(10,210,25,5);
-		orange.setFill(Color.ORANGE);
-		Label orange1 = new Label("INTERMEDIATE");
+		orange.setFill(Color.RED);
+		Label orange1 = new Label("HARD");
 		orange1.setFont(new Font("verdana",12.0));
 		orange1.setStyle("-fx-font-weight: bold;");
 		orange1.setLayoutX(5);

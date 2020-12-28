@@ -474,17 +474,9 @@ public class BoardController {
 		return null;
 	}
 
-	//TODO keep or remove??
-	//	public Question getIdQuestion(int row,char col)
-	//	{
-	//		Question q = ((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion();
-	//		
-	//		return q;
-	//	}
-
 	/**
 	 * 
-	 * @return
+	 * @return ArrayList<Tile> colored tiles
 	 */
 	public ArrayList<Tile> getAllColoredTiles(){
 		return Board.getInstance().getColoredTilesList();
@@ -492,7 +484,7 @@ public class BoardController {
 
 	/**
 	 * 
-	 * @return
+	 * @return HashMap of available retrievals locations by row and column as Integer and Character respectively 
 	 */
 	public HashMap<Integer,ArrayList<Character>> getAllAvailableRetrievals() {
 		HashMap<Integer,ArrayList<Character>> tiles = new HashMap<>();
@@ -573,12 +565,12 @@ public class BoardController {
 	}
 
 	/**
-	 * TODO what is the difference between this and getDirection??
+	 * 
 	 * @param fromRow
 	 * @param fromCol
 	 * @param toRow
 	 * @param toCol
-	 * @return
+	 * @return direction by the selected source and target locations
 	 */
 	public Directions getMoveDirection(int fromRow, char fromCol, int toRow, char toCol) {
 		Location from = null;
@@ -593,10 +585,11 @@ public class BoardController {
 	}
 
 	/**
-	 * TODO document , why it creates pieces again they are already made in start game?
-	 * to be used only when game is off
+	 * This method is used to create Piece for Edit mode
+	 * Will add tile only in View's side
+	 * 
 	 * @param allPieces pieces HashMap, key is the location (row_col), Value is the type i.e. Soldier_BLACK
-	 * @returnArrayList<Piece>
+	 * @return ArrayList<Piece>
 	 */
 	public ArrayList<Piece> createPieces(HashMap<String,String> allPieces) {
 		ArrayList<Piece> pieces = new ArrayList<>();
@@ -626,11 +619,12 @@ public class BoardController {
 	}
 
 	/**
-	 * TODO document ,why Tiles are created here they are already made in board??
+	 * This method is used to create tile for Edit mode
+	 * Will add tile only in View's side
 	 * @param pieces
 	 * @param row
 	 * @param col
-	 * @return
+	 * @return the added tile
 	 */
 	public Tile createTile(ArrayList<Piece> pieces, int row, char col) {
 		Tile tile = null;

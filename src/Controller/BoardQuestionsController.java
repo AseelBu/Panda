@@ -1,8 +1,4 @@
-/**
- * 
- */
 package Controller;
-
 
 import Exceptions.QuestionException;
 import Model.Game;
@@ -22,23 +18,20 @@ public class BoardQuestionsController {
 	private final static int WRONG_MEDIOCRE_POINTS=100;
 	private final static int WRONG_HARD_POINTS=50;
 	
-	private static BoardQuestionsController instance=null;
 
-	private SysData sysData;
+	private static BoardQuestionsController instance=null;
 	
 	/**
 	 * 
 	 */
 	private BoardQuestionsController() {
 		
-		//this.sysData = SysData.getInstance();
 	}
 	
 	/**
 	 * Get Instance
 	 * @return  BoardQuestionController's instance
 	 */
-
 	public static BoardQuestionsController getInstance() 
 	{ 
 		if (instance == null) 
