@@ -14,6 +14,7 @@ public class TurnTimerController extends Thread{
 	boolean addedGreen ;
 	boolean addedOrange;
 
+	
 	public void run() 
 	{ 
 
@@ -28,50 +29,54 @@ public class TurnTimerController extends Thread{
 					public void run() {
 
 						int seconds = (int) Game.getInstance().getTurn().getTimer().getSeconds();
-                    	if(Game.getInstance().getTimer().getPauseTime() != -1)
-                    		return;
+						if(Game.getInstance().getTimer().getPauseTime() != -1)
+							return;
 						DisplayController.boardGUI.updateTurnTimer(seconds);
 
-						
+
 						if(!addedOrange && seconds >=90) {
-							
+
 							boardGUI.removeAllColoredTiles();
 							//add to board model
 							Board.getInstance().addOrangeTiles();
 							//add to board Gui
 							Board.getInstance().updateColoredTileListAfterOrange();
 							BoardController.getInstance().loadTilesColors();
-							
+
 							System.out.println("adding orange tile");
 
 							addedOrange = true;
-							
-						
-					}else if(!addedGreen && seconds >= 30) {
-						
-						//add to board model
-						Tile addedTile = Board.getInstance().AddGreenTile();
-						if(addedTile!=null) {
-							//add to board Gui
-							boardGUI.addColoredTileToBoard(addedTile.getLocation().getRow(), addedTile.getLocation().getColumn(), SeconderyTileColor.GREEN);
-							System.out.println("adding greeen tile");
-						}		
-						addedGreen=true;
+
+
+						}else if(!addedGreen && seconds >= 30) {
+
+							//add to board model
+							Tile addedTile = Board.getInstance().AddGreenTile();
+							if(addedTile!=null) {
+								//add to board Gui
+								boardGUI.addColoredTileToBoard(addedTile.getLocation().getRow(), addedTile.getLocation().getColumn(), SeconderyTileColor.GREEN);
+								System.out.println("adding greeen tile");
+							}		
+							addedGreen=true;
+						}
 					}
-				}
-			});
+				});
 				TurnTimerController.sleep(1000);
-		}
+			}
 
-	} 
-	catch (Exception e) 
-	{
-		System.out.println ("Exception is caught"); 
-	} 
-}
-public void resetColors() {
-	addedOrange = false;
-	addedGreen = false;
+		} 
+		catch (Exception e) 
+		{
+			System.out.println ("Exception is caught"); 
+		} 
+	}
+	
+	/**
+	 * resets added colored tiles flags
+	 */
+	public void resetColors() {
+		addedOrange = false;
+		addedGreen = false;
 
-}
+	}
 }

@@ -953,9 +953,11 @@ public class BoardGUI extends Application {
 			}else {
 				notifyByWarning("Please try moving the piece again!\nSomething went wrong while trying to move the piece!");
 			}
-		} catch (IllegalMoveException | LocationException e) {
+		} catch (LocationException e) {
 			notifyByError(e.getMessage());
 
+		}catch(IllegalMoveException e) {
+			notifyByWarning(e.getMessage());
 		}
 	}
 
