@@ -8,12 +8,10 @@ import Controller.DisplayController;
 import Controller.ScoreBoardController;
 import Model.Player;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.ColorAdjust;
@@ -43,7 +41,6 @@ public class Scoreboard extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
-//		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("pictures/logo.png")));
 		
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -151,7 +148,7 @@ public class Scoreboard extends Application {
 				first_name.setFont(new Font("verdana",20));
 				first_name.setTextFill(Color.web("#ffffff"));
 				mainAnchor.getChildren().add(first_name);
-				first_name.setLayoutX(110);
+				first_name.setLayoutX(90);
 				first_name.setLayoutY(105);
 				
 				

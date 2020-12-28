@@ -93,4 +93,12 @@ public class GameController {
 		Game.getInstance().getTimer().unpauseTimer();
 		Game.getInstance().getTurn().getTimer().unpauseTimer();
 	}
+	
+	public void unpauseGame2() {
+		Game.getInstance().getTimer().unpauseTimer();
+	}
+	
+	public void resetTurn() {
+		Game.getInstance().getTurn().getTimer().resetTimer();
+	}
 }
