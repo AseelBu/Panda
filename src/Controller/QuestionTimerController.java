@@ -4,6 +4,10 @@ import Model.Game;
 import Model.Timer;
 import javafx.application.Platform;
 
+/**
+ * Thread for question's timer
+ *
+ */
 public class QuestionTimerController  extends Thread{
 
 	private Timer timer;

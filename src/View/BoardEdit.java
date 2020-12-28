@@ -47,8 +47,8 @@ public class BoardEdit extends Application {
 
 	private static AnchorPane mainAnchor;
 	private Stage primary;
-	private char selectedCol = '_';
-	private int selectedRow = -1;
+//	private char selectedCol = '_';
+//	private int selectedRow = -1;
 	private PrimaryColor turn;
 	private HashSet<String> whitePieces;
 	private HashSet<String> blackPieces;
@@ -225,7 +225,6 @@ public class BoardEdit extends Application {
 		circleBlack.setStrokeType(StrokeType.INSIDE);
 		circleBlack.setFill(new ImagePattern(new Image(
 				getClass().getResource("pictures/" + PieceType.Queen_BLACK + ".png").toString())));
-//		circleBlack.setEffect(new DropShadow(+25d, 0d, +2d, Color.BLACK));
 		circleBlack.setCursor(Cursor.HAND);
 		mainAnchor.getChildren().add(circleBlack);
 		
@@ -237,7 +236,6 @@ public class BoardEdit extends Application {
 		circleWhite.setStrokeType(StrokeType.INSIDE);
 		circleWhite.setFill(new ImagePattern(new Image(
 				getClass().getResource("pictures/" + PieceType.Queen_WHITE + ".png").toString())));
-//		circleWhite.setEffect(new DropShadow(+25d, 0d, +2d, Color.BLACK));
 		circleWhite.setCursor(Cursor.HAND);
 		mainAnchor.getChildren().add(circleWhite);
 
@@ -444,6 +442,9 @@ public class BoardEdit extends Application {
 		}
 	}
 	
+	/**
+	 * loads buttons
+	 */
 	public void loadButtons() {
 		Hyperlink saveHL = new Hyperlink("Save Game");
 		saveHL.setId("SaveHL");
@@ -533,6 +534,17 @@ public class BoardEdit extends Application {
 		mainAnchor.getChildren().add(backbutton);
 	}
 	
+	/**
+	 * add a label to the screen
+	 * @param text
+	 * @param height
+	 * @param width
+	 * @param layoutX
+	 * @param layoutY
+	 * @param font
+	 * @param id
+	 * @param style
+	 */
 	public void addLabel(String text, double height, double width, double layoutX, double layoutY
 			, Font font, String id, String style) {
 		Label label = new Label(text);
@@ -570,6 +582,9 @@ public class BoardEdit extends Application {
 		refreshPiecesCount();
 	}
 	
+	/**
+	 * refreshes piece's count
+	 */
 	public void refreshPiecesCount() {
 		Label white = ((Label) mainAnchor.lookup("#COUNT_WHITE"));
 		Label black = ((Label) mainAnchor.lookup("#COUNT_BLACK"));
@@ -633,6 +648,11 @@ public class BoardEdit extends Application {
 		return !whitePieces.contains(location) && !blackPieces.contains(location);
 	}
 	
+	/**
+	 * removes pieces from tile
+	 * @param row
+	 * @param col
+	 */
 	public void removePieceFromTile(int row, char col) {
 		String location = String.valueOf(row + "_" + col);
 		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
@@ -647,7 +667,7 @@ public class BoardEdit extends Application {
 	
 	/**
 	 * Alert on exit
-	 * @return
+	 * @return true if user selected to exit, false otherwise
 	 */
 	public boolean exitAlert() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -672,6 +692,12 @@ public class BoardEdit extends Application {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 * @return tile color
+	 */
 	public PrimaryColor getTileColor(int row, char col) {
 		if(row % 2 == 1) {
 			if(((int) col - 'A' + 1) % 2 == 1) {
@@ -688,6 +714,10 @@ public class BoardEdit extends Application {
 		}
 	}
 	
+	/**
+	 * shows save position dialog
+	 * @return true if succeeded, false otherwise
+	 */
 	public boolean saveDialog() {
 		FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Game as text");
@@ -701,7 +731,6 @@ public class BoardEdit extends Application {
     		for(int i = 8 ; i >= 1 ; i--) {
     			for(char j = 'A' ; j <= 'H' ; j+=2) {
     				if(i % 2 == 0 && j == 'A') j = 'B';
-    				String str = i + "_" + j;
     				tiles.add(BoardController.getInstance().createTile(pieces, i, j));
     			}
     		}
@@ -711,6 +740,10 @@ public class BoardEdit extends Application {
         return false;
 	}
 	
+	/**
+	 * shows temp selection while dragging
+	 * @param tiles
+	 */
 	public void showTempSelection(ArrayList<String> tiles) {
 		AnchorPane tempBoard = new AnchorPane();
 		tempBoard.setId("tempBoard");
@@ -746,6 +779,10 @@ public class BoardEdit extends Application {
 		}
 	}
 	
+	/**
+	 * gets piece hash to be used to get available tiles
+	 * @return
+	 */
 	public HashMap<String,String> getPiecesHash(){
 		HashMap<String, String> pieces = new HashMap<>();
 		ArrayList<String> strPieces = new ArrayList<>();
@@ -763,6 +800,10 @@ public class BoardEdit extends Application {
 		return pieces;
 	}
 	
+	/**
+	 * sets whether the buttons are disabled or not
+	 * @param disable
+	 */
 	public void btnsToDisable(boolean disable) {
 		Hyperlink saveHL = (Hyperlink) mainAnchor.lookup("#SaveHL");
 		Hyperlink startHL = (Hyperlink) mainAnchor.lookup("#StartHL");

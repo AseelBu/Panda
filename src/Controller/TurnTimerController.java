@@ -7,6 +7,11 @@ import Utils.SeconderyTileColor;
 import View.BoardGUI;
 import javafx.application.Platform;
 
+/**
+ * 
+ * Thread to control turn timer in GUI
+ *
+ */
 public class TurnTimerController extends Thread{
 
 

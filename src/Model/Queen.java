@@ -941,7 +941,6 @@ public class Queen extends Piece{
 			DL =pieceLoc.addToLocationDiagonally(Directions.DOWN_LEFT, 1);
 			DR =pieceLoc.addToLocationDiagonally(Directions.DOWN_RIGHT, 1);
 		} catch (LocationException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -1011,7 +1010,6 @@ public class Queen extends Piece{
 
 		}
 		catch (LocationException e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 

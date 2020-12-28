@@ -107,7 +107,7 @@ public class Location {
 	 * @param direction UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT
 	 * @param steps The number of steps to add diagonally
 	 * @return The new location if it's within board boundaries, else returns null
-	 * @throws LocationException  -Location is out of board boundries
+	 * @throws LocationException  -Location is out of board boundaries
 	 */
 	public Location addToLocationDiagonally(Directions dir,int steps) throws LocationException {
 		Board board = Board.getInstance();
@@ -148,7 +148,7 @@ public class Location {
 	}
 
 	/**
-	 * TODO document
+	 * By a given location on the one of the sides of the board, returns the location of a tile that linked diagonally to the current location
 	 * @param direction
 	 * @return Location 
 	 * @throws LocationException 
@@ -249,28 +249,8 @@ public class Location {
 		int steps = -1;
 		int curRow =this.row;
 		int targetRow = targetLocation.getRow();
-		
-
 		int rowCmp = targetRow-curRow;
-		//		int colCmp = targetCol-curCol;
-
 		Directions dir = getRelativeDirection(targetLocation);
-		//		switch (dir) {
-		//		case DOWN_STRAIGHT: 
-		//		case UP_STRAIGHT:{
-		//			if(rowCmp%2==0) {
-		//				steps = Math.abs(rowCmp)-(Math.abs(rowCmp)/2);
-		//			}
-		//			break;
-		//		}
-		//		case LEFT_STRAIGHT:
-		//		case RIGHT_STRAIGHT:{
-		//			if(colCmp%2==0) {
-		//				steps = Math.abs(colCmp)-(Math.abs(colCmp)/2);
-		//			}
-		//			break;
-		//		}
-		//diagonal location
 		if(dir!=null) {
 			steps = Math.abs(rowCmp);
 		}

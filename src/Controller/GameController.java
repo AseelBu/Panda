@@ -17,11 +17,6 @@ public class GameController {
 
 	private GameController() {
 
-		// TODO can inside be removed?
-		//		this.sysData = SysData.getInstance();
-		//		this.highscores_screen = new Scoreboard();
-
-
 	}
 
 	/**
@@ -45,14 +40,10 @@ public class GameController {
 	public boolean switchTurn() {
 		Board board= Board.getInstance();
 		Game game= Game.getInstance();
-		boolean didSwitch=false;
-		
-		//DisplayController.boardGUI.setPlayerScore(game.getCurrentPlayerColor(),BoardController.getInstance().getPlayerScore(game.getCurrentPlayerColor()));
-		
+		boolean didSwitch=false;		
 		
 		if(game.getTurn().getMoveCounter() == 0) {
-			Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
-			
+			Game.getInstance().switchTurn();
 			didSwitch=true;
 		}
 
@@ -87,17 +78,21 @@ public class GameController {
 	}
 
 	/**
-	 * un-pauses the game
+	 * unpauses the game
 	 */
 	public void unpauseGame() {
 		Game.getInstance().getTimer().unpauseTimer();
 		Game.getInstance().getTurn().getTimer().unpauseTimer();
 	}
-	
+	/**
+	 * unpauses the game only, without turn
+	 */
 	public void unpauseGame2() {
 		Game.getInstance().getTimer().unpauseTimer();
 	}
-	
+	/**
+	 * resets turn's timer
+	 */
 	public void resetTurn() {
 		Game.getInstance().getTurn().getTimer().resetTimer();
 	}

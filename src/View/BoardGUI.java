@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import Controller.BoardController;
 import Controller.DisplayController;
 import Controller.GameController;
@@ -24,20 +21,17 @@ import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
@@ -303,9 +297,6 @@ public class BoardGUI extends Application {
 
 		setupStandardColsRows();
 
-
-		//		mainAnchor.getChildren().add(totalTimeF);
-
 	}	
 
 	/**
@@ -411,13 +402,6 @@ public class BoardGUI extends Application {
 		tileImage.setFitWidth(65.0);
 		tileImage.setPickOnBounds(true);
 		tileImage.setPreserveRatio(true);
-		//		tileImage.setOnMouseReleased(new EventHandler<MouseEvent>() {
-		//			@Override
-		//			public void handle(MouseEvent event) {
-		//				BoardController.getInstance().stepOnColorTile(row,col,tileColor);
-		//			}
-		//			
-		//		});
 
 		tile.getChildren().add(tileImage);
 		return true;
@@ -468,7 +452,6 @@ public class BoardGUI extends Application {
 
 		//remove color from 
 
-		//TODO check piece existence in tile
 		ImageView pieceImage;
 		if(isSoldier) {
 			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Soldier_" + pieceColor + ".png").toString()));
@@ -517,7 +500,6 @@ public class BoardGUI extends Application {
 				}
 			}
 		});
-		//		pieceImage.setOnMousePressed(value);
 
 		pieceImage.setOnMousePressed(new EventHandler<MouseEvent>() {
 
@@ -528,8 +510,6 @@ public class BoardGUI extends Application {
 				}
 				if (primary != null) {
 					if((ImageView) mainAnchor.lookup("#drag") != null) {
-//						if((ImageView) mainAnchor.lookup("#tempDirections") != null)
-//							mainAnchor.getChildren().remove((ImageView) mainAnchor.lookup("#tempDirections"));
 						mainAnchor.getChildren().remove((ImageView) mainAnchor.lookup("#drag"));
 					}
 					ImageView image = (ImageView) event.getSource();
@@ -645,8 +625,6 @@ public class BoardGUI extends Application {
 							BoardController.getInstance().getMoveDirection(selectedRow2, selectedCol2
 									, 8-relativeY, (char) ((char) relativeX + 'A')));
 
-					//					movePiece(selectedRow2, selectedCol2
-					//							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2, isSoldier));
 					if(mainAnchor != null)
 						mainAnchor.getChildren().remove(tempImage);
 					dragCol = '_';
@@ -656,8 +634,6 @@ public class BoardGUI extends Application {
 				}
 			}
 		});
-		//		pieceImage.setOnDragDropped(drag);
-		//		pieceImage.setOnDragExited(drag);
 
 		tile.getChildren().add(pieceImage);
 		return true;
@@ -712,25 +688,20 @@ public class BoardGUI extends Application {
 	 */
 	public void initiateGamePlayers(String whiteName, String blackName) {
 		Pane playerPaneW = new Pane() ;
-//		playerPaneW.getStyleClass().add("playerInfo");
 		playerPaneW.setId("playerPaneWHITE");
 		playerPaneW.setPrefSize(171,99);
 		playerPaneW.setLayoutX(115);
 		playerPaneW.setLayoutY(100);
 		Pane playerPaneB = new Pane() ;
-//		playerPaneB.getStyleClass().add("playerInfo");
 		playerPaneB.setId("playerPaneBLACK");
 		playerPaneB.setPrefSize(171,99);
 		playerPaneB.setLayoutX(115);
 		playerPaneB.setLayoutY(295);
-//		playerPaneB.getStyleClass().remove("playerInfo");
 		
 		//white player
 
 		Label lp1 = new Label(whiteName);
 		lp1.setId("Name_WHITE");
-//		lp1.setLayoutX(105.0);
-//		lp1.setLayoutY(121.0);
 		lp1.setLayoutX(11.0);
 		lp1.setLayoutY(5.0);
 		lp1.setFont(new Font(24.0));
@@ -845,6 +816,14 @@ public class BoardGUI extends Application {
 
 	}
 
+	/**
+	 * moves the piece
+	 * @param fromRow
+	 * @param fromCol
+	 * @param toRow
+	 * @param toCol
+	 * @param direction
+	 */
 	public void movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
 		SeconderyTileColor toTileColor=boardController.getTile(toRow, toCol).getColor2();
 		final boolean isToTileYellow= (toTileColor==SeconderyTileColor.YELLOW ||
@@ -867,9 +846,6 @@ public class BoardGUI extends Application {
 				
 				if(!burnt) {
 					SoundController.getInstance().playMove();
-					//					int pieceIndexInToTile = isToTileYellow? 1:0;
-					//TODO should burning piece have the powers of colored tile???
-					//if tile is colored in any color that is not yellow
 					if(toTileColor!= null && !isToTileYellow) {
 						//step on color
 						removeAllColoredTiles();
@@ -903,8 +879,6 @@ public class BoardGUI extends Application {
 					
 					SoundController.getInstance().playBurn();
 					fromTile.getChildren().clear();
-//					showBurn(fromRow, fromCol);
-//					showBurn(fromRow, fromCol);
 
 				}
 
@@ -968,6 +942,12 @@ public class BoardGUI extends Application {
 		}
 	}
 
+	/**
+	 * removes piece
+	 * @param row
+	 * @param col
+	 * @param isBurnt
+	 */
 	public void removePiece(int row, char col, boolean isBurnt) {
 		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
 		String temp = String.valueOf("#" + row + "_" + col);
@@ -982,6 +962,10 @@ public class BoardGUI extends Application {
 		}
 	}
 
+	/**
+	 * upgrades to queen
+	 * @param checkTile
+	 */
 	public void upgradeToQueen(FlowPane checkTile) {
 
 		String[] id = checkTile.getChildren().get(0).getId().split("_");
@@ -1022,8 +1006,16 @@ public class BoardGUI extends Application {
 
 	}
 
+
 	/**
-	 * adds arrow image to anchor
+	 * shows arrows display on queen movement
+	 * @param anchor
+	 * @param image
+	 * @param direction
+	 * @param layoutX
+	 * @param layoutY
+	 * @param toRow
+	 * @param toCol
 	 */
 	private void addArrowImgToAnchor(AnchorPane anchor, ImageView image, Directions direction,
 			double layoutX, double layoutY, int toRow, char toCol) {
@@ -1073,6 +1065,10 @@ public class BoardGUI extends Application {
 		((TextField) mainAnchor.lookup("#TotalTime")).setText(str);;
 	}
 
+	/**
+	 * updates turn timer, used in turn timer controller thread
+	 * @param seconds
+	 */
 	public void updateTurnTimer(int seconds) {
 		int minute = 0;
 		int second = 0;
@@ -1089,6 +1085,10 @@ public class BoardGUI extends Application {
 		((TextField) mainAnchor.lookup("#Turn_Timer")).setText(str);;
 	}
 
+	/**
+	 * notifies on upgrading in game
+	 * @param info
+	 */
 	public void notifyUpgradeInGame(String info) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Congrats");
@@ -1096,6 +1096,10 @@ public class BoardGUI extends Application {
 		alert.showAndWait();
 	}
 
+	/**
+	 * notifies on warning
+	 * @param warning
+	 */
 	public void notifyByWarning(String warning) {
 		
 		Alert alert = new Alert(AlertType.WARNING);
@@ -1103,7 +1107,10 @@ public class BoardGUI extends Application {
 		alert.setHeaderText(warning);
 		alert.showAndWait();
 	}
-	
+	/**
+	 * notifies of error
+	 * @param err
+	 */
 	public void notifyByError(String err) {
 		
 		Alert alert = new Alert(AlertType.ERROR);
@@ -1112,26 +1119,18 @@ public class BoardGUI extends Application {
 		alert.showAndWait();
 	}
 
+	/**
+	 * shows the winner
+	 * @param name
+	 * @param score
+	 * @param color
+	 */
 	public void notifyWinner(String name, int score, PrimaryColor color) {
-		//		Alert alert = new Alert(AlertType.NONE);
-		//		alert.setTitle("Game Finished");
-		//		alert.setHeaderText(name);
-		//		alert.setContentText("Congratulations,you are the winner!");
-		//		ButtonType button = new ButtonType("Close");
-		//		alert.getButtonTypes().clear();
-		//		alert.getButtonTypes().setAll(button);
-		//
-		//		Optional<ButtonType> result = alert.showAndWait();
-		//		if (result.get() == button){
-		//			alert.close();
-		//			DisplayController.getInstance().closeBoard();
-		//			DisplayController.getInstance().showMainScreen();
-		//		}
 		DisplayController.getInstance().showWinner(name, score, color);
 	}
 
 	/**
-	 * 
+	 * checks if the board matches the model's board
 	 */
 	public void checkToBurnPiece() {
 		try {
@@ -1192,6 +1191,10 @@ public class BoardGUI extends Application {
 		primary = null;
 	}
 
+	/**
+	 * shows soldier retrieval selection
+	 * @param tiles
+	 */
 	public void showRetrievalSelection(HashMap<Integer, ArrayList<Character>> tiles) {
 		for(Integer i : tiles.keySet()) {
 			for(Character c : tiles.get(i)) {
@@ -1258,10 +1261,17 @@ public class BoardGUI extends Application {
 		}
 	}
 
+	/**
+	 * getter for turn timer
+	 * @return turn timer thread
+	 */
 	public TurnTimerController getTurnTimer() {
 		return turnTimer;
 	}
 
+	/**
+	 * shows pause display
+	 */
 	public void pauseDisplay() {
 		AnchorPane pause = new AnchorPane();
 		pause.setId("pausePane");
@@ -1297,6 +1307,10 @@ public class BoardGUI extends Application {
 	}
 
 
+	/**
+	 * shows exit alert
+	 * @return true if user decided to exit, false otherwise
+	 */
 	public boolean exitAlert() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Exit Confirmation");
@@ -1322,6 +1336,9 @@ public class BoardGUI extends Application {
 		}
 	}
 
+	/**
+	 * shows save game dialog
+	 */
 	public void saveGameDialog() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save Game as text");
@@ -1336,6 +1353,11 @@ public class BoardGUI extends Application {
 	
 
 
+	/**
+	 * Shows fire effect on burning piece
+	 * @param i location's row
+	 * @param c location's column
+	 */
 	public void showBurn(int i, char c) {
 		AnchorPane burn = new AnchorPane();
 		burn.setId("burnPane");
@@ -1348,7 +1370,6 @@ public class BoardGUI extends Application {
 		
 		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
 		String tileId = String.valueOf("#" + i + "_" + c);
-		System.out.println("=============  " + tileId);
 		FlowPane toTile = (FlowPane) board.lookup(tileId);
 		
 		double lx = board.getLayoutX() + toTile.getLayoutX();
@@ -1374,33 +1395,10 @@ public class BoardGUI extends Application {
         visiblePause.setOnFinished(t1 -> {
 			mainAnchor.getChildren().remove(burn);
 			Game.getInstance().getTurn().getTimer().unpauseTimer();
-//			turnTimer = new TurnTimerController();
-//			turnTimer.start();
 	        GameController.getInstance().resetTurn();
 	        GameController.getInstance().unpauseGame2();
         });
         
         visiblePause.play();
 	}
-	
-	//	public void removeTileColor(int row, char col, SeconderyTileColor tileColor){
-	//		if(mainAnchor == null) return;
-	//		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
-	//		String tileId = String.valueOf("#" + row + "_" + col);
-	//		FlowPane toTile = (FlowPane) board.lookup(tileId);
-	//		
-	//		try {
-	//			//step on color
-	//			boardController.stepOnColorTile(row, col, tileColor);
-	//			//remove to tile color
-	//			toTile.getChildren().clear();
-	//		} catch (GameUpgradeException e) {
-	//			// TODO Auto-generated catch block
-	//			notifyUpgradeInGame(e.getMessage());;
-	//		}
-	//		
-	//		
-	//	}
-
-
 }
