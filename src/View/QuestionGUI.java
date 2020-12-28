@@ -10,6 +10,7 @@ import Controller.DisplayController;
 import Controller.GameController;
 import Controller.QuestionTimerController;
 import Controller.SoundController;
+import Exceptions.QuestionException;
 import Utils.DifficultyLevel;
 import Utils.PrimaryColor;
 import javafx.application.Application;
@@ -85,11 +86,11 @@ public class QuestionGUI extends Application{
 	/**
 	 * Loads Screen Design
 	 */
-	public void loadDesign(int questionId, String question, HashMap<Integer, String> answers, DifficultyLevel diff) throws Exception{
-		if(question.matches("")) throw new Exception("Invalid Question");
-		if(answers.isEmpty()) throw new Exception("Question has no Answers");
+	public void loadDesign(int questionId, String question, HashMap<Integer, String> answers, DifficultyLevel diff) throws QuestionException{
+		if(question.matches("")) throw new QuestionException("Invalid Question");
+		if(answers.isEmpty()) throw new QuestionException("Question has no Answers");
 		for(String s : answers.values())
-			if(s.matches("")) throw new Exception("Invalid Answer");
+			if(s.matches("")) throw new QuestionException("Invalid Answer");
 		this.questionId = questionId;
 		this.diff = diff;
 		// loads background
@@ -132,7 +133,7 @@ public class QuestionGUI extends Application{
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-
+				try {
 				if(((Button) event.getSource()).getText().equals("Submit")) {
 					
 					SoundController.getInstance().stopQues();
@@ -161,16 +162,18 @@ public class QuestionGUI extends Application{
 					BoardController.getInstance().setAnsweringQuestion(false);
 					DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
 					if(GameController.getInstance().isGameRunning()) {
-						PrimaryColor newColor = BoardController.getInstance().getPlayerTurn();
+						PrimaryColor newColor = BoardController.getInstance().getCurrentPlayerColor();
 						if(newColor != turnColor) {
-							DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getPlayerTurn());
+							DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getCurrentPlayerColor());
 							DisplayController.boardGUI.getTurnTimer().resetColors();
 						}
 					}
 					questionThread.stop();
 					primary.close();
 				}
-
+				}catch(QuestionException e){
+					DisplayController.boardGUI.notifyByError(e.getMessage());
+				}
 			}
 		});
 
@@ -328,7 +331,7 @@ public class QuestionGUI extends Application{
 
 
 	public void outOfTime() {
-		
+		try {
 		SoundController.getInstance().stopQues();
 		if(BoardQuestionsController.checkQuestionAnswer(questionId,-1))
 		{
@@ -353,11 +356,14 @@ public class QuestionGUI extends Application{
 		BoardController.getInstance().setAnsweringQuestion(false);
 		DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
 		if(GameController.getInstance().isGameRunning()) {
-			PrimaryColor newColor = BoardController.getInstance().getPlayerTurn();
+			PrimaryColor newColor = BoardController.getInstance().getCurrentPlayerColor();
 			if(newColor != turnColor) {
-				DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getPlayerTurn());
+				DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getCurrentPlayerColor());
 				DisplayController.boardGUI.getTurnTimer().resetColors();
 			}
+		}
+		}catch(QuestionException e){
+			DisplayController.boardGUI.notifyByError(e.getMessage());
 		}
 		primary.close();
 	}

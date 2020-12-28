@@ -42,6 +42,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -171,11 +173,11 @@ public class BoardGUI extends Application {
 		totalTimeF.setStyle("-fx-opacity: 1;");
 		totalTimeF.setFont(new Font(24.0));
 		mainAnchor.getChildren().add(totalTimeF);
-		
+
 		ImageView pause = new ImageView(new Image(getClass().getResource("pictures/pause.png").toString()));
 		pause.setFitHeight(36);
 		pause.setFitWidth(38);
-		
+
 		FlowPane pausePane = new FlowPane();
 		pausePane.setId("pause");
 		pausePane.setPrefHeight(36);
@@ -191,14 +193,14 @@ public class BoardGUI extends Application {
 			}
 		});
 		Tooltip.install(pausePane, new Tooltip("Pause Game"));
-		
+
 		pausePane.getChildren().add(pause);
 		mainAnchor.getChildren().add(pausePane);
-		
+
 		ImageView save = new ImageView(new Image(getClass().getResource("pictures/save.png").toString()));
 		save.setFitHeight(36);
 		save.setFitWidth(38);
-		
+
 		FlowPane savePane = new FlowPane();
 		savePane.setId("save");
 		savePane.setPrefHeight(36);
@@ -216,30 +218,32 @@ public class BoardGUI extends Application {
 		savePane.getChildren().add(save);
 		mainAnchor.getChildren().add(savePane);
 
-		ImageView whiteImg = new ImageView(new Image(getClass().getResource("pictures/Queen_WHITE.png").toString()));
-		whiteImg.setFitHeight(90);
-		whiteImg.setFitWidth(90);
-		whiteImg.setLayoutX(16);
-		whiteImg.setLayoutY(102);
-
-		ImageView blackImg = new ImageView(new Image(getClass().getResource("pictures/Queen_BLACK.png").toString()));
-		blackImg.setFitHeight(90);
-		blackImg.setFitWidth(90);
-		blackImg.setLayoutX(16);
-		blackImg.setLayoutY(300);
-
-		mainAnchor.getChildren().add(whiteImg);
-		mainAnchor.getChildren().add(blackImg);
+				ImageView whiteImg = new ImageView(new Image(getClass().getResource("pictures/Queen_WHITE.png").toString()));
+				whiteImg.setFitHeight(90);
+				whiteImg.setFitWidth(90);
+//				whiteImg.setLayoutX(16);
+//				whiteImg.setLayoutY(102);
+				whiteImg.setLayoutX(16);
+				whiteImg.setLayoutY(97);
+		
+				ImageView blackImg = new ImageView(new Image(getClass().getResource("pictures/Queen_BLACK.png").toString()));
+				blackImg.setFitHeight(90);
+				blackImg.setFitWidth(90);
+				blackImg.setLayoutX(16);
+				blackImg.setLayoutY(286);
+		
+				mainAnchor.getChildren().add(whiteImg);
+				mainAnchor.getChildren().add(blackImg);
 
 		Label vsLbl = new Label("VS");
 		vsLbl.setLayoutX(183.0);
-		vsLbl.setLayoutY(260.0);
+		vsLbl.setLayoutY(230.0);
 		vsLbl.setFont(new Font(24));
 
 		TextField timeField = new TextField("00:00");
 		timeField.setId("Turn_Timer");
 		timeField.setLayoutX(266.0);
-		timeField.setLayoutY(250.0);	
+		timeField.setLayoutY(220.0);	
 		timeField.setPrefHeight(40.0);
 		timeField.setPrefWidth(108.0);
 		timeField.setEditable(false);
@@ -301,7 +305,7 @@ public class BoardGUI extends Application {
 		if(board.getChildren().size() > 0) return;
 		for(int i = 8 ; i >= 1 ; i--) {
 			for(char j = 'A' ; j <= 'H' ; j++) {
-				PrimaryColor color = boardController.getTileColor(i, j);
+				
 				FlowPane tilePane = new FlowPane(); 
 				tilePane.setPrefHeight(65.0);
 				tilePane.setPrefWidth(65.0);
@@ -341,18 +345,18 @@ public class BoardGUI extends Application {
 			System.out.println("Error: Board doesn't contain requested tile");
 			return false;
 		}
-		
+
 		if(tileColor==SeconderyTileColor.ORANGE || tileColor==SeconderyTileColor.YELLOW_ORANGE) {
-			 InnerShadow innerShadow = new InnerShadow(); 
-		     		      
-		      innerShadow.setChoke(0.25); 
-		      innerShadow.setWidth(110);
-		      innerShadow.setWidth(110); 
-		      innerShadow.setRadius(54.5);
-		      innerShadow.setColor(Color.rgb(255, 122, 6));        
-		      tile.setEffect(innerShadow);      
+			InnerShadow innerShadow = new InnerShadow(); 
+
+			innerShadow.setChoke(0.25); 
+			innerShadow.setWidth(110);
+			innerShadow.setWidth(110); 
+			innerShadow.setRadius(54.5);
+			innerShadow.setColor(Color.rgb(255, 122, 6));        
+			tile.setEffect(innerShadow);      
 			if(tileColor==SeconderyTileColor.YELLOW_ORANGE) {
-			tileColor= SeconderyTileColor.YELLOW;
+				tileColor= SeconderyTileColor.YELLOW;
 			}else {
 				return true;
 			}
@@ -396,7 +400,7 @@ public class BoardGUI extends Application {
 			}
 			if(!t.getColor2().equals(SeconderyTileColor.ORANGE)){
 				System.out.println("removing "+t.getColor2()+ "from loc "+t.getLocation());
-			tile.getChildren().remove(0);
+				tile.getChildren().remove(0);
 			}
 
 		}
@@ -572,13 +576,13 @@ public class BoardGUI extends Application {
 
 						return;
 					}
-					
+
 					movePiece(selectedRow2, selectedCol2 , 8-relativeY, (char) ((char) relativeX + 'A'),
 							BoardController.getInstance().getMoveDirection(selectedRow2, selectedCol2
 									, 8-relativeY, (char) ((char) relativeX + 'A')));
-					
-//					movePiece(selectedRow2, selectedCol2
-//							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2, isSoldier));
+
+					//					movePiece(selectedRow2, selectedCol2
+					//							, 8-relativeY, (char) ((char) relativeX + 'A'), getDirectionByDrag(selectedRow2, selectedCol2, isSoldier));
 					if(mainAnchor != null)
 						mainAnchor.getChildren().remove(tempImage);
 					dragCol = '_';
@@ -643,62 +647,98 @@ public class BoardGUI extends Application {
 	 * @param blackName Player 2 name
 	 */
 	public void initiateGamePlayers(String whiteName, String blackName) {
+		Pane playerPaneW = new Pane() ;
+//		playerPaneW.getStyleClass().add("playerInfo");
+		playerPaneW.setId("playerPaneWHITE");
+		playerPaneW.setPrefSize(171,99);
+		playerPaneW.setLayoutX(115);
+		playerPaneW.setLayoutY(100);
+		Pane playerPaneB = new Pane() ;
+//		playerPaneB.getStyleClass().add("playerInfo");
+		playerPaneB.setId("playerPaneBLACK");
+		playerPaneB.setPrefSize(171,99);
+		playerPaneB.setLayoutX(115);
+		playerPaneB.setLayoutY(295);
+//		playerPaneB.getStyleClass().remove("playerInfo");
+		
+		//white player
+
 		Label lp1 = new Label(whiteName);
 		lp1.setId("Name_WHITE");
-		lp1.setLayoutX(105.0);
-		lp1.setLayoutY(121.0);
+//		lp1.setLayoutX(105.0);
+//		lp1.setLayoutY(121.0);
+		lp1.setLayoutX(11.0);
+		lp1.setLayoutY(5.0);
 		lp1.setFont(new Font(24.0));
 
 		ColorAdjust colorAdjust = new ColorAdjust();
 
-		Label label1 = new Label("Points:");
-		label1.setLayoutX(106.0);
-		label1.setLayoutY(165.0);
-		label1.setEffect(colorAdjust);
-		label1.setFont(new Font(20.0));
+		Label pointsLabelW = new Label("Points:");
+//		pointsLabelW.setLayoutX(106.0);
+//		pointsLabelW.setLayoutY(165.0);
+		pointsLabelW.setLayoutX(15.0);
+		pointsLabelW.setLayoutY(51.0);
+		pointsLabelW.setEffect(colorAdjust);
+		pointsLabelW.setFont(new Font(20.0));
 
 		TextField pointsWhite = new TextField("0");
 		pointsWhite.setId("Points_WHITE");
 		pointsWhite.setAlignment(Pos.CENTER);
 		pointsWhite.setDisable(true);
 		pointsWhite.setEditable(false);
-		pointsWhite.setLayoutX(175.0);
-		pointsWhite.setLayoutY(161.0);
+//		pointsWhite.setLayoutX(175.0);
+//		pointsWhite.setLayoutY(161.0);
+		pointsWhite.setLayoutX(80.0);
+		pointsWhite.setLayoutY(49.0);
 		pointsWhite.setPrefHeight(24.0);
 		pointsWhite.setPrefWidth(81.0);
 		pointsWhite.setStyle("-fx-opacity: 1;");
 		pointsWhite.setFont(new Font(17.0));
 
+		//black player
+
 		Label lp2 = new Label(blackName);
 		lp2.setId("Name_BLACK");
-		lp2.setLayoutX(105.0);
-		lp2.setLayoutY(319.0);
+//		lp2.setLayoutX(105.0);
+//		lp2.setLayoutY(319.0);
+		lp2.setLayoutX(11.0);
+		lp2.setLayoutY(5.0);
 		lp2.setFont(new Font(24.0));
 
-		Label label2 = new Label("Points:");
-		label2.setLayoutX(106.0);
-		label2.setLayoutY(359.0);
-		label2.setEffect(colorAdjust);
-		label2.setFont(new Font(20.0));
+		Label pointsLabelB = new Label("Points:");
+//		pointsLabelB.setLayoutX(106.0);
+//		pointsLabelB.setLayoutY(359.0);
+		pointsLabelB.setLayoutX(15.0);
+		pointsLabelB.setLayoutY(51.0);
+		pointsLabelB.setEffect(colorAdjust);
+		pointsLabelB.setFont(new Font(20.0));
 
 		TextField pointsBlack = new TextField("0");
 		pointsBlack.setId("Points_BLACK");
 		pointsBlack.setAlignment(Pos.CENTER);
 		pointsBlack.setDisable(true);
 		pointsBlack.setEditable(false);
-		pointsBlack.setLayoutX(175.0);
-		pointsBlack.setLayoutY(355.0);
+//		pointsBlack.setLayoutX(175.0);
+//		pointsBlack.setLayoutY(355.0);
+		pointsBlack.setLayoutX(80.0);
+		pointsBlack.setLayoutY(49.0);
 		pointsBlack.setPrefHeight(24.0);
 		pointsBlack.setPrefWidth(81.0);
 		pointsBlack.setStyle("-fx-opacity: 1;");
 		pointsBlack.setFont(new Font(17.0));
 
-		mainAnchor.getChildren().add(lp1);
-		mainAnchor.getChildren().add(lp2);
-		mainAnchor.getChildren().add(label1);
-		mainAnchor.getChildren().add(label2);
-		mainAnchor.getChildren().add(pointsWhite);
-		mainAnchor.getChildren().add(pointsBlack);
+		
+		
+		playerPaneW.getChildren().add(lp1);
+		playerPaneB.getChildren().add(lp2);
+		playerPaneW.getChildren().add(pointsLabelW);
+		playerPaneB.getChildren().add(pointsLabelB);
+		playerPaneW.getChildren().add(pointsWhite);
+		playerPaneB.getChildren().add(pointsBlack);
+
+		mainAnchor.getChildren().add(playerPaneW);
+		
+		mainAnchor.getChildren().add(playerPaneB);
 
 	}
 
@@ -714,9 +754,9 @@ public class BoardGUI extends Application {
 	}
 
 	/**
-	 * implement Turn Changing
-	 * set new turn
-	 * @param color
+	 * implement Turn Changing in the GUI,
+	 * called after turn switched in model
+	 * @param color of new turn player
 	 */
 	public void setNewTurn(PrimaryColor color) {
 		boolean running = (turnTimer == null ? false : true);
@@ -724,34 +764,45 @@ public class BoardGUI extends Application {
 			turnTimer = new TurnTimerController();
 			turnTimer.start();
 		}
-		String id = "#Name_" + color;
-		Label name = (Label) mainAnchor.lookup(id);
-		DropShadow ds = new DropShadow();
-		ds.setColor(Color.RED);
-		ds.setHeight(134.41);
-		ds.setRadius(66.52);
-		ds.setWidth(133.67);
-		ds.setSpread(0.85);
+//		String id = "#Name_" + color;
+//		Label name = (Label) mainAnchor.lookup(id);
+		String newId = "#playerPane" + color;
+		System.out.println("newID= "+newId);
+		String oldId = "";
+		Pane newPlayerPane =(Pane) mainAnchor.lookup(newId);
+//		DropShadow ds = new DropShadow();
+//		ds.setColor(Color.RED);
+//		ds.setHeight(134.41);
+//		ds.setRadius(66.52);
+//		ds.setWidth(133.67);
+//		ds.setSpread(0.85);
 		if(color.equals(PrimaryColor.WHITE))
 		{
-			String id2 = "#Name_BLACK"; 
-			Label name2 = (Label) mainAnchor.lookup(id2);
-			name2.setEffect(null);
-			name2.setFont(new Font(28));
-			name.setEffect(ds);
+			
+			oldId =  "#playerPaneBLACK"; 
+			
+//			String id2 = "#Name_BLACK"; 
+//			Label name2 = (Label) mainAnchor.lookup(id2);
+//			name2.setEffect(null);
+//			name2.setFont(new Font(28));
+//			name.setEffect(ds);
 
 		}
 		else
 		{
-			String id2 = "#Name_WHITE"; 
-			Label name2 = (Label) mainAnchor.lookup(id2);
-			name2.setEffect(null);
-			name2.setFont(new Font(28));
-			name.setEffect(ds);
+			oldId =  "#playerPaneWHITE"; 
+//			String id2 = "#Name_WHITE"; 
+//			Label name2 = (Label) mainAnchor.lookup(id2);
+//			name2.setEffect(null);
+//			name2.setFont(new Font(28));
+//			name.setEffect(ds);
 		}
+		Pane oldPlayerPane = (Pane) mainAnchor.lookup(oldId);
+		newPlayerPane.getStyleClass().add("playerInfo");
+		oldPlayerPane.getStyleClass().remove("playerInfo");
 		//System.out.println(color);
 		this.turnColor = color;
-	
+
 	}
 
 	public void movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction) {
@@ -771,9 +822,9 @@ public class BoardGUI extends Application {
 				removeSelectionFromPiece((ImageView) fromTile.getChildren().get(0));
 				selectedRow = -1;
 				selectedCol = '_';
-
+ 
 				boolean burnt = boardController.checkBurnCurrent(toRow, toCol);
-				//System.out.println("BURNTTTTTTTTTTTT" + burnt);
+				
 				if(!burnt) {
 					SoundController.getInstance().playMove();
 					//					int pieceIndexInToTile = isToTileYellow? 1:0;
@@ -812,7 +863,7 @@ public class BoardGUI extends Application {
 					SoundController.getInstance().playBurn();
 					fromTile.getChildren().clear();
 				}
-				
+
 
 				//if piece still on board,check if it needs to become  queen
 				if(!burnt) {
@@ -831,7 +882,7 @@ public class BoardGUI extends Application {
 						fromTile.getChildren().clear();
 
 						checkToBurnPiece();
-						
+
 						if(toRow == 1 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("BLACK")) {
 							this.upgradeToQueen(toTile);
 						}else if(toRow == 8 && String.valueOf(toTile.getChildren().get(0).getId().split("_")[1]).matches("WHITE")) {
@@ -856,14 +907,14 @@ public class BoardGUI extends Application {
 				GameController.getInstance().switchTurn();
 				this.setPlayerScore(turnColor,boardController.getPlayerScore(turnColor));
 				if(GameController.getInstance().isGameRunning()) {
-					PrimaryColor newColor = boardController.getPlayerTurn();
+					PrimaryColor newColor = boardController.getCurrentPlayerColor();
 					if(newColor != turnColor) {
-						setNewTurn(boardController.getPlayerTurn());
+						setNewTurn(boardController.getCurrentPlayerColor());
 						turnTimer.resetColors();
 					}
 				}
 			}else {
-				notifyByError("Please try moving the piece again!\nSomething went wrong while trying to move the piece!");
+				notifyByWarning("Please try moving the piece again!\nSomething went wrong while trying to move the piece!");
 			}
 		} catch (IllegalMoveException | LocationException e) {
 			notifyByError(e.getMessage());
@@ -886,7 +937,7 @@ public class BoardGUI extends Application {
 	}
 
 	public void upgradeToQueen(FlowPane checkTile) {
-		
+
 		String[] id = checkTile.getChildren().get(0).getId().split("_");
 
 		if(id.length == 2 && (id[0].matches("Soldier") || id[0].matches("Queen"))) {
@@ -999,10 +1050,18 @@ public class BoardGUI extends Application {
 		alert.showAndWait();
 	}
 
-	public void notifyByError(String err) {
-		//TODO use this method to show exception message
+	public void notifyByWarning(String warning) {
+		
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Warning");
+		alert.setHeaderText(warning);
+		alert.showAndWait();
+	}
+	
+	public void notifyByError(String err) {
+		
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
 		alert.setHeaderText(err);
 		alert.showAndWait();
 	}
@@ -1029,6 +1088,7 @@ public class BoardGUI extends Application {
 	 * 
 	 */
 	public void checkToBurnPiece() {
+		try {
 		for(int i = 1 ; i <= 8 ; i+=2) {
 			for(char c = 'A' ; c <= 'H' ; c+=2) {
 				FlowPane board = (FlowPane) mainAnchor.lookup("#board");
@@ -1062,6 +1122,9 @@ public class BoardGUI extends Application {
 					}
 				}
 			}
+		}
+		}catch(LocationException e) {
+			notifyByError(e.getMessage());
 		}
 	}
 
@@ -1124,13 +1187,13 @@ public class BoardGUI extends Application {
 								BoardController.getInstance().refreshScoreInBoardGUI();
 								Game.getInstance().getTimer().unpauseTimer();
 								Game.getInstance().getTurn().getTimer().unpauseTimer();
-								
+
 								GameController.getInstance().switchTurn();
 								DisplayController.boardGUI.setPlayerScore(turnColor,BoardController.getInstance().getPlayerScore(turnColor));
 								if(GameController.getInstance().isGameRunning()) {
-									PrimaryColor newColor = BoardController.getInstance().getPlayerTurn();
+									PrimaryColor newColor = BoardController.getInstance().getCurrentPlayerColor();
 									if(newColor != turnColor) {
-										DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getPlayerTurn());
+										DisplayController.boardGUI.setNewTurn(BoardController.getInstance().getCurrentPlayerColor());
 										DisplayController.boardGUI.getTurnTimer().resetColors();
 									}
 								}
@@ -1155,11 +1218,11 @@ public class BoardGUI extends Application {
 		AnchorPane.setTopAnchor(pause, 0.0);
 		pause.setStyle("-fx-background-color: #dbdbdb88;");
 		mainAnchor.getChildren().add(pause);
-		
+
 		ImageView play = new ImageView(new Image(getClass().getResource("pictures/play.png").toString()));
 		play.setFitHeight(200);
 		play.setFitWidth(200);
-		
+
 		FlowPane pausePane = new FlowPane();
 		pausePane.setId("playPane");
 		pausePane.setPrefHeight(200);
@@ -1174,13 +1237,13 @@ public class BoardGUI extends Application {
 				mainAnchor.getChildren().remove(pause);
 			}
 		});
-		
+
 		pausePane.getChildren().add(play);
 		pause.getChildren().add(pausePane);
-		
+
 	}
 
-	
+
 	public boolean exitAlert() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Exit Confirmation");
@@ -1193,24 +1256,24 @@ public class BoardGUI extends Application {
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.YES){
 			alert.close();
-			System.out.println("LOOOOOOOOOOOOOL");
+			
 			BoardController.getInstance().forceFinishGame();
 			return true;
 		} else {
-		    return false;
+			return false;
 		}
 	}
-	
+
 	public void saveGameDialog() {
 		FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Game as text");
-        fileChooser.setInitialFileName("Game_Backup.txt");
-        fileChooser.getExtensionFilters().clear();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text", "*.txt"));
-        File file = fileChooser.showSaveDialog(primary);
-        if (file != null) {
-        	MiscController.getInstance().saveGame(file);
-        }
+		fileChooser.setTitle("Save Game as text");
+		fileChooser.setInitialFileName("Game_Backup.txt");
+		fileChooser.getExtensionFilters().clear();
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text", "*.txt"));
+		File file = fileChooser.showSaveDialog(primary);
+		if (file != null) {
+			MiscController.getInstance().saveGame(file);
+		}
 	}
 
 	//	public void removeTileColor(int row, char col, SeconderyTileColor tileColor){

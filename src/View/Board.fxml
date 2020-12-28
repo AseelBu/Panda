@@ -11,14 +11,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="858.0" prefWidth="1218.0" stylesheets="@board.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-         <AnchorPane fx:id="background" layoutX="238.0" layoutY="35.0" prefHeight="958.0" prefWidth="1327.0" style="-fx-border-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <FlowPane layoutX="322.0" layoutY="39.0" prefHeight="38.0" prefWidth="36.0" />
-         </children></AnchorPane>
+         <AnchorPane fx:id="background" layoutX="238.0" layoutY="35.0" prefHeight="958.0" prefWidth="1327.0" style="-fx-border-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
   
       <FlowPane layoutX="477.0" layoutY="80.0" prefHeight="800.0" prefWidth="800.0">
          <children>
@@ -372,17 +370,10 @@
             <Font size="28.0" />
          </font>
       </TextField>
-      <Label layoutX="105.0" layoutY="151.0" text="Player1">
-         <font>
-            <Font size="28.0" />
-         </font>
-         <effect>
-            <DropShadow color="RED" height="134.41" radius="66.52" spread="0.71" width="133.67" />
-         </effect>
-      </Label>
-      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+      <Pane prefHeight="200.0" prefWidth="200.0" />
+      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@pictures/Pieace_4.png" />
+            <Image url="@pictures/Queen_WHITE.png" />
          </image>
          <effect>
             <DropShadow color="RED" height="134.41" radius="66.705" spread="0.27" width="134.41" />
@@ -431,50 +422,41 @@
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@pictures/Pieace_2.png" />
+            <Image url="@pictures/Queen_BLACK.png" />
          </image>
       </ImageView>
-      <Label layoutX="105.0" layoutY="349.0" text="Player2">
-         <font>
-            <Font size="28.0" />
-         </font>
-         <effect>
-            <ColorAdjust />
-         </effect>
-      </Label>
+      <Pane layoutX="115.0" layoutY="353.0" prefHeight="99.0" prefWidth="171.0" styleClass="playerInfo">
+         <children>
+            <Label layoutX="11.0" layoutY="5.0" text="Player2">
+               <font>
+                  <Font size="28.0" />
+               </font>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </Label>
+            <Label layoutX="12.0" layoutY="54.0" text="Points:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </Label>
+            <TextField alignment="CENTER" disable="true" editable="false" layoutX="76.0" layoutY="50.0" prefHeight="24.0" prefWidth="81.0" style="-fx-opacity: 1;" text="1200">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
+         </children>
+      </Pane>
       <Label layoutX="183.0" layoutY="280.0" text="vs">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label layoutX="106.0" layoutY="195.0" text="Points:">
-         <font>
-            <Font size="20.0" />
-         </font>
-         <effect>
-            <ColorAdjust />
-         </effect>
-      </Label>
-      <Label layoutX="106.0" layoutY="389.0" text="Points:">
-         <font>
-            <Font size="20.0" />
-         </font>
-         <effect>
-            <ColorAdjust />
-         </effect>
-      </Label>
-      <TextField alignment="CENTER" disable="true" editable="false" layoutX="175.0" layoutY="191.0" prefHeight="24.0" prefWidth="81.0" style="-fx-opacity: 1;" text="1500">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </TextField>
-      <TextField alignment="CENTER" disable="true" editable="false" layoutX="175.0" layoutY="385.0" prefHeight="24.0" prefWidth="81.0" style="-fx-opacity: 1;" text="1200">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </TextField>
       <TextField alignment="CENTER" disable="true" editable="false" layoutX="166.0" layoutY="25.0" prefHeight="60.0" prefWidth="144.0" style="-fx-opacity: 1;" text="01:25:22">
          <font>
             <Font size="28.0" />
@@ -490,5 +472,30 @@
             <Font size="17.0" />
          </font>
       </Button>
+      <Pane layoutX="115.0" layoutY="150.0" prefHeight="99.0" prefWidth="171.0" styleClass="playerInfo">
+         <children>
+            <Label layoutX="11.0" layoutY="5.0" text="Player1">
+               <font>
+                  <Font size="28.0" />
+               </font>
+               <effect>
+                  <DropShadow color="RED" height="134.41" radius="66.52" spread="0.71" width="133.67" />
+               </effect>
+            </Label>
+            <Label layoutX="15.0" layoutY="51.0" text="Points:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </Label>
+            <TextField alignment="CENTER" disable="true" editable="false" layoutX="80.0" layoutY="49.0" prefHeight="24.0" prefWidth="81.0" style="-fx-opacity: 1;" text="1500">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextField>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
