@@ -181,8 +181,8 @@ public class ManageQuestions extends Application {
 		    }
 		});
 		
-		questionList.setPrefHeight(230);
-		questionList.setPrefWidth(780);
+		questionList.setPrefHeight(228);
+		questionList.setPrefWidth(778);
 		
 		questionList.getItems().addAll(data);
 		listScroll.setContent(questionList);
