@@ -2,6 +2,7 @@ package Utils;
 
 import Model.Question;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -18,13 +19,17 @@ public class QuestionListCell extends ListCell<Question> {
         }
         setText(item.getContent());
         this.setFont(new Font("verdana", 16));
-        if(item.getDifficulty().equals(DifficultyLevel.EASY))
+        if(item.getDifficulty().equals(DifficultyLevel.EASY)) {
         	setTextFill(Color.GREEN);
+
+        }
         else if(item.getDifficulty().equals(DifficultyLevel.MEDIOCRE)) {
         	setTextFill(Color.ORANGE);
+        	
         }
         else if(item.getDifficulty().equals(DifficultyLevel.HARD)) {
         	setTextFill(Color.RED);
+        	
         }
         
     }
