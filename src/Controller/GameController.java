@@ -24,7 +24,7 @@ public class GameController {
 	private GameController() {
 
 	}
-
+ 
 	/**
 	 * Get Game Controller Instance
 	 * @return - Controller's instance
