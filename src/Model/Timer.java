@@ -73,6 +73,7 @@ public class Timer {
 	 * unpause timer
 	 */
 	public void unpauseTimer() {
+		if(getPauseTime() == -1) return;
 		long temp = anonStartTime + (System.currentTimeMillis() - getPauseTime());
 		setAnonStartTime(temp);
 		setPauseTime(-1);

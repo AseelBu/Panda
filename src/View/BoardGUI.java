@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import Controller.BoardController;
 import Controller.DisplayController;
@@ -20,12 +22,15 @@ import Utils.Config;
 import Utils.Directions;
 import Utils.PrimaryColor;
 import Utils.SeconderyTileColor;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -49,6 +54,7 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class BoardGUI extends Application {
 
@@ -899,6 +905,9 @@ public class BoardGUI extends Application {
 				else {
 					SoundController.getInstance().playBurn();
 					fromTile.getChildren().clear();
+//					showBurn(fromRow, fromCol);
+					showBurn(fromRow, fromCol, board.getLayoutX() + fromTile.getLayoutX(), board.getLayoutY() + fromTile.getLayoutY());
+
 				}
 
 
@@ -1141,6 +1150,7 @@ public class BoardGUI extends Application {
 									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 								SoundController.getInstance().playBurn();
 								this.removePiece(i, c, true);
+								showBurn(i, c, board.getLayoutX() + tile.getLayoutX(), board.getLayoutY() + tile.getLayoutY());
 							}
 						}
 					}
@@ -1160,6 +1170,7 @@ public class BoardGUI extends Application {
 									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 								this.removePiece(i, c, true);
 								SoundController.getInstance().playBurn();
+								showBurn(i, c, board.getLayoutX() + tile.getLayoutX(), board.getLayoutY() + tile.getLayoutY());
 							}
 						}
 					}
@@ -1240,6 +1251,7 @@ public class BoardGUI extends Application {
 										DisplayController.boardGUI.getTurnTimer().resetColors();
 									}
 								}
+								checkToBurnPiece();
 							}
 						});
 					}
@@ -1323,6 +1335,50 @@ public class BoardGUI extends Application {
 		}
 	}
 
+	public void showBurn(int i, char c, double lx, double ly) {
+		AnchorPane burn = new AnchorPane();
+		burn.setId("burnPane");
+		AnchorPane.setBottomAnchor(burn, 0.0);
+		AnchorPane.setLeftAnchor(burn, 0.0);
+		AnchorPane.setRightAnchor(burn, 0.0);
+		AnchorPane.setTopAnchor(burn, 0.0);
+		burn.setStyle("-fx-background-color: #dbdbdb00;");
+		mainAnchor.getChildren().add(burn);
+		
+//		double lx = ((FlowPane) mainAnchor.lookup("#board")).getLayoutX();
+//		double ly = ((FlowPane) mainAnchor.lookup("#board")).getLayoutY();
+//		lx += 65*i;
+//		ly += 65*(c-'A');
+		
+		
+		ImageView fireImage = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/fire.png")));
+        fireImage.setId("fire");
+        fireImage.setLayoutX(lx);
+        fireImage.setLayoutY(ly);
+        fireImage.setFitHeight(60.0);
+        fireImage.setFitWidth(60.0);
+        fireImage.setPickOnBounds(true);
+        fireImage.setPreserveRatio(true);
+        burn.getChildren().add(fireImage);
+        
+        fireImage.setVisible(true);
+        
+        GameController.getInstance().pauseGame();
+        PauseTransition visiblePause = new PauseTransition(
+                Duration.seconds(2)
+        );
+        visiblePause.setOnFinished(t1 -> {
+			mainAnchor.getChildren().remove(burn);
+			Game.getInstance().getTurn().getTimer().unpauseTimer();
+//			turnTimer = new TurnTimerController();
+//			turnTimer.start();
+	        GameController.getInstance().resetTurn();
+	        GameController.getInstance().unpauseGame2();
+        });
+        
+        visiblePause.play();
+	}
+	
 	//	public void removeTileColor(int row, char col, SeconderyTileColor tileColor){
 	//		if(mainAnchor == null) return;
 	//		FlowPane board = (FlowPane) mainAnchor.lookup("#board");

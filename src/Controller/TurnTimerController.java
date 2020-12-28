@@ -29,8 +29,11 @@ public class TurnTimerController extends Thread{
 					public void run() {
 
 						int seconds = (int) Game.getInstance().getTurn().getTimer().getSeconds();
-						if(Game.getInstance().getTimer().getPauseTime() != -1)
+						System.out.print(seconds + " +++ ");
+						if(Game.getInstance().getTimer().getPauseTime() != -1) {
 							return;
+						}
+						System.out.println(seconds);
 						DisplayController.boardGUI.updateTurnTimer(seconds);
 
 
@@ -77,6 +80,5 @@ public class TurnTimerController extends Thread{
 	public void resetColors() {
 		addedOrange = false;
 		addedGreen = false;
-
 	}
 }
