@@ -265,7 +265,7 @@ public class BoardGUI extends Application {
 				whiteImg.setFitWidth(90);
 				whiteImg.setLayoutX(16);
 				whiteImg.setLayoutY(97);
-		
+	
 				ImageView blackImg = new ImageView(new Image(getClass().getResource("pictures/Queen_BLACK.png").toString()));
 				blackImg.setFitHeight(90);
 				blackImg.setFitWidth(90);

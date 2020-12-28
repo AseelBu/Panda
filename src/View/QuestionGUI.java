@@ -85,6 +85,11 @@ public class QuestionGUI extends Application{
 
 	/**
 	 * Loads Screen Design
+	 * @param questionId the question Id
+	 * @param question the question content
+	 * @param answers the question answers
+	 * @param diff question difficulty level
+	 * @throws QuestionException problem with loading the question
 	 */
 	public void loadDesign(int questionId, String question, HashMap<Integer, String> answers, DifficultyLevel diff) throws QuestionException{
 		if(question.matches("")) throw new QuestionException("Invalid Question");
@@ -194,7 +199,7 @@ public class QuestionGUI extends Application{
 
 	/**
 	 * loads question difficulty label
-	 * @param diff
+	 * @param diff the difficulty level 
 	 */
 	public void loadDifficultyLabel(DifficultyLevel diff) {
 		Label lbl = new Label();
@@ -224,7 +229,7 @@ public class QuestionGUI extends Application{
 		case MEDIOCRE:{
 
 			img.setImage(new Image(getClass().getResource("pictures/intermediate_question.png").toString()));
-			lbl.setText("Medicore Question");
+			lbl.setText("Intermediate Question");
 			lbl.setTextFill(Color.ORANGE);
 			break;
 		}
@@ -243,7 +248,7 @@ public class QuestionGUI extends Application{
 
 	/**
 	 * Pop up notification for true answer
-	 * @param info
+	 * @param info the message
 	 */
 	public void notifyTrueAnswer(String info) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -254,9 +259,10 @@ public class QuestionGUI extends Application{
 			GameController.getInstance().unpauseGame();
 		} 	
 	}
+	
 	/**
 	 * Pop up notification for false answer
-	 * @param info
+	 * @param info the message
 	 */
 	public void notifyFalseAnswer(String info) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -269,7 +275,7 @@ public class QuestionGUI extends Application{
 	}
 	/**
 	 * load answers
-	 * @param answers
+	 * @param answers for the question
 	 */
 	public void loadAnswers(HashMap<Integer, String> answers) {
 		GridPane grid = (GridPane) mainAnchor.lookup("#Answers");
@@ -309,7 +315,7 @@ public class QuestionGUI extends Application{
 
 
 	/**
-	 * 
+	 *  gets the index of the selected answer from the screen
 	 * @return index of the selected answer, if not found returns -1
 	 */
 	public int getSelectedAnswerIndex() {
@@ -319,6 +325,10 @@ public class QuestionGUI extends Application{
 		return -1;
 	}
 
+	/**
+	 * get primary screen
+	 * @return Stage the window 
+	 */
 	public Stage getPrimary() {
 		if(primary == null) {
 			primary = new Stage();
@@ -326,12 +336,18 @@ public class QuestionGUI extends Application{
 		return primary;
 	}
 
+	/**
+	 * destructs the Question screen
+	 */
 	public void destruct() {
 		mainAnchor = null;
 		primary = null;
 	}
 
 
+	/**
+	 * 
+	 */
 	public void outOfTime() {
 		try {
 		SoundController.getInstance().stopQues();
