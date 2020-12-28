@@ -1,7 +1,7 @@
 {
   "questions": [
     {
-      "question": "By “GoF Design Pattern” book, what are the 3 types/classifications of Design Patterns?",
+      "question": "By 'GoF Design Pattern' book, what are the 3 types/classifications of Design Patterns?",
       "answers": [
         "Construction,Interfaces,Operations",
         "Creational,Structural,Behavioral",
@@ -12,7 +12,7 @@
       "team": "animal"
     },
     {
-      "question": "When the “Mediator” Design Pattern is used?",
+      "question": "When the 'Mediator' Design Pattern is used?",
       "answers": [
         "When you need to ensure that only K instance of the object exists throughout runtime ",
         "When you have classes that can’t work together because of incompatible interfaces ",
@@ -24,7 +24,7 @@
       "team": "animal"
     },
     {
-      "question": "What is the goal of “Validation testing”?",
+      "question": "What is the goal of 'Validation testing' ?",
       "answers": [
         "To demonstrate to the developer and the system customer that the software meets its requirements",
         "To demonstrate to the developer and the system customer that the software conform to its specification",
@@ -35,7 +35,7 @@
       "team": "animal"
     },
     {
-      "question": "What is the definition of “Unit testing”?",
+      "question": "What is the definition of 'Unit testing' ?",
       "answers": [
         "The application system that provides the business services .",
         "The process that starts when you create an initial project plan during the project startup phase. ",
