@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Exceptions.QuestionException;
 import Model.Answer;
 import Model.Board;
 import Model.Game;
@@ -70,13 +71,13 @@ public class DisplayController {
 		}
 		
 		boardGUI = new BoardGUI();
-		BoardController.getInstance().setBoard(boardGUI);
+		BoardController.getInstance().setBoardGUI(boardGUI);
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
-		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
+		boardGUI.setNewTurn(Game.getInstance().getCurrentPlayerColor());
 		GameTimerController fullTimer = new GameTimerController();
 		game.getTimer().startTimer();
-		fullTimer.start(); //TODO thread should be killed
+		fullTimer.start();
 	}
 	
 	public void showBoard(Player[] players,File file) {
@@ -114,12 +115,12 @@ public class DisplayController {
 		}
 		
 		boardGUI = new BoardGUI();
-		BoardController.getInstance().setBoard(boardGUI);
+		BoardController.getInstance().setBoardGUI(boardGUI);
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
-		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
+		boardGUI.setNewTurn(Game.getInstance().getCurrentPlayerColor());
 		
-		if(Board.getInstance().isPlayerStuck(Game.getInstance().getTurn().getCurrentPlayer().getColor())) {
+		if(Board.getInstance().isPlayerStuck(Game.getInstance().getCurrentPlayerColor())) {
 			Player player = BoardController.getInstance().getWinner();
 			if(player != null)
 				DisplayController.boardGUI.notifyWinner(player.getNickname(), player.getCurrentScore(), player.getColor());
@@ -157,7 +158,7 @@ public class DisplayController {
 		}
 		DisplayController.getInstance().closeBoardEit();
 		boardGUI = new BoardGUI();
-		BoardController.getInstance().setBoard(boardGUI);
+		BoardController.getInstance().setBoardGUI(boardGUI);
 		boardGUI.start(boardGUI.getPrimary());
 		boardGUI.initiateGamePlayers(Player.getInstance(0).getNickname(), Player.getInstance(1).getNickname());
 		boardGUI.setNewTurn(Game.getInstance().getTurn().getCurrentPlayer().getColor());
@@ -229,7 +230,7 @@ public class DisplayController {
 
 	}
 	
-	public void showQuestion(Question question, PrimaryColor turnColor) throws Exception {
+	public void showQuestion(Question question, PrimaryColor turnColor) throws QuestionException {
 		questions = new QuestionGUI(turnColor);
 		questions.start(questions.getPrimary());
 		HashMap<Integer, String> answers = new HashMap<>();

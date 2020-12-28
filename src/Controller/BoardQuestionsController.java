@@ -4,6 +4,7 @@
 package Controller;
 
 
+import Exceptions.QuestionException;
 import Model.Game;
 import Model.Question;
 import Model.SysData;
@@ -29,13 +30,13 @@ public class BoardQuestionsController {
 	 * 
 	 */
 	private BoardQuestionsController() {
-		// TODO Auto-generated constructor stub
-		this.sysData = SysData.getInstance();
+		
+		//this.sysData = SysData.getInstance();
 	}
 	
 	/**
 	 * Get Instance
-	 * @return - Controller's instance
+	 * @return  BoardQuestionController's instance
 	 */
 
 	public static BoardQuestionsController getInstance() 
@@ -50,20 +51,19 @@ public class BoardQuestionsController {
 
 	/**
 	 * checks with model if answer is correct or not based on chosen answer
-	 * @param questionId
-	 * @param chosenAnswer
+	 * @param questionId the question id
+	 * @param chosenAnswer the chosen answer to check
 	 * @return true if the answer is correct, false otherwise
+	 * @throws QuestionException  wasn't able to retrieve question from system data
 	 */
-	
-	public static boolean checkQuestionAnswer(int qId,int chosenAnswer) {
+	public static boolean checkQuestionAnswer(int qId,int chosenAnswer) throws QuestionException {
 		int questionId = qId;
 		
-		//**on close the question pop up ->get from boardGUI the chosen answer**
 		Question currentQuestion=SysData.getInstance().getQuesById(questionId);
-		
-		//TODO something went wrong add exception
-		if(currentQuestion==null) return false;
-		
+
+		if(currentQuestion==null) 
+			throw new QuestionException("Error getting the question data from system");
+					
 		//if answer is correct add points according to qu difficulty
 		if(currentQuestion.getCorrectAnswer() == chosenAnswer) {
 			addPointsForCorrectAnswer(currentQuestion.getDifficulty());
@@ -76,21 +76,28 @@ public class BoardQuestionsController {
 		}	
 		
 	}
-	//return difficulty of question
-	public static DifficultyLevel Diffeculty(int qId){
+	/**
+	 * TODO why static?
+	 * return difficulty of question by question id
+	 * @param qId the question id
+	 * @return DifficultyLevel the difficulty level of the question
+	 * @throws QuestionException wasn't able to retrieve question from system data
+	 */
+	public static DifficultyLevel Diffeculty(int qId) throws QuestionException{
 	int questionId = qId;
 		
-		//**on close the question pop up ->get from boardGUI the chosen answer**
 		Question currentQuestion=SysData.getInstance().getQuesById(questionId);
 		
-		
-		//TODO something went wrong add exception
+		if(currentQuestion==null) 
+			throw new QuestionException("Error getting the question data from system");
 		
 	return currentQuestion.getDifficulty();
 	}
+	
 	/**
+	 *  TODO why static?
 	 * adds point for current player according to question difficulty
-	 * @param quDifficulty
+	 * @param quDifficulty the question difficulty
 	 */
 	public static void addPointsForCorrectAnswer(DifficultyLevel quDifficulty){
 		int score=Game.getInstance().getPlayerr().getCurrentScore();
@@ -106,8 +113,9 @@ public class BoardQuestionsController {
 	
 	
 	/**
+	 *  TODO why static?
 	 * removes points from current player according to question difficulty
-	 * @param quDifficulty
+	 * @param quDifficulty the question difficulty
 	 */
 	public static void removePointsForWrongAnswer(DifficultyLevel quDifficulty){
 		int score=Game.getInstance().getPlayerr().getCurrentScore();

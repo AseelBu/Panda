@@ -17,7 +17,7 @@ public class GameController {
 
 	private GameController() {
 
-
+		// TODO can inside be removed?
 		//		this.sysData = SysData.getInstance();
 		//		this.highscores_screen = new Scoreboard();
 
@@ -25,10 +25,9 @@ public class GameController {
 	}
 
 	/**
-	 * Get Instance
+	 * Get Game Controller Instance
 	 * @return - Controller's instance
 	 */
-
 	public static GameController getInstance() 
 	{ 
 		if (instance == null) 
@@ -71,15 +70,25 @@ public class GameController {
 		return didSwitch;
 	}
 	
+	/**
+	 * checks if the game is still running
+	 * @return true if the game is running, false otherwise
+	 */
 	public boolean isGameRunning() {
 		return Game.getInstance().isGameRunning();
 	}
 
+	/*
+	 * pauses the game
+	 */
 	public void pauseGame() {
 		Game.getInstance().getTimer().pauseTimer();
 		Game.getInstance().getTurn().getTimer().pauseTimer();
 	}
 
+	/**
+	 * un-pauses the game
+	 */
 	public void unpauseGame() {
 		Game.getInstance().getTimer().unpauseTimer();
 		Game.getInstance().getTurn().getTimer().unpauseTimer();

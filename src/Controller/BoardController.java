@@ -7,6 +7,7 @@ import java.util.TreeSet;
 import Exceptions.GameUpgradeException;
 import Exceptions.IllegalMoveException;
 import Exceptions.LocationException;
+import Exceptions.QuestionException;
 import Model.Board;
 import Model.Game;
 import Model.Location;
@@ -24,16 +25,21 @@ import View.BoardGUI;
 
 public class BoardController {
 
-	private static BoardController instance;
+	private static BoardController instance=null;
 	private BoardGUI boardGUI;
 	private int retrievals;
 	private boolean answeringQuestion=false;
-	
+
+	//private constructor
 	private BoardController() {
 		boardGUI = DisplayController.boardGUI;
 		retrievals = 0;
 	}
 
+	/**
+	 * constructor for singleton pattern
+	 * @return Instance of the board controller
+	 */
 	public static BoardController getInstance() 
 	{ 
 		if (instance == null) 
@@ -42,17 +48,43 @@ public class BoardController {
 		} 
 		return instance; 
 	}
-	
+
+	/**
+	 * sets players instances nickname
+	 * @param name1 the white player nickname 
+	 * @param name2 the black player nickname
+	 */
 	public void setPlayersNicknames(String name1, String name2) {
 		Player.getInstance(0).setNickname(name1);
 		Player.getInstance(1).setNickname(name2);
 	}
-	
+
+	/**
+	 * gets the instances of the 2 players of the current game
+	 * @return Player[] of the current game
+	 */
 	public Player[] getPlayers() {
 		return new Player[] {Player.getInstance(0), Player.getInstance(1)};
 	}
 
 	/**
+	 * 
+	 * @return BoardGUI the boardGUI instance
+	 */
+	public BoardGUI getBoardGUI() {
+		return boardGUI;
+	}
+
+	/**
+	 * 
+	 * @param board the boardGUI instance to be set
+	 */
+	public void setBoardGUI(BoardGUI board) {
+		this.boardGUI = board;
+	}
+
+	/**
+	 * checks if question window is currently open
 	 * @return the answeringQuestion
 	 */
 	public boolean isAnsweringQuestion() {
@@ -60,6 +92,7 @@ public class BoardController {
 	}
 
 	/**
+	 * updates controller that question window is open or closed
 	 * @param answeringQuestion the answeringQuestion to set
 	 */
 	public void setAnsweringQuestion(boolean answeringQuestion) {
@@ -68,9 +101,9 @@ public class BoardController {
 
 	/**
 	 * used to get a specific tile from board by its location
-	 * @param row
-	 * @param col
-	 * @return a tile
+	 * @param row the tile row
+	 * @param col the tile column
+	 * @return Tile the tile in (row,col)
 	 */
 	public Tile getTile(int row, char col) {
 		if(Board.getInstance() == null) return null;
@@ -79,16 +112,22 @@ public class BoardController {
 		return tilesInRow.get(col - 'A');
 	}
 
+	/**
+	 * Gets the tile color
+	 * @param row the tile row
+	 * @param col the tile column
+	 * @return PrimaryColor of the tile 
+	 */
 	public PrimaryColor getTileColor(int row, char col) {
 		Tile tile = getTile(row,col);
 		if(tile == null) return null;
 		return tile.getColor1();
 	}
 
-	
+
 	/**
 	 * method to add piece to board's display
-	 * @param piece
+	 * @param piece the piece to add to board
 	 * @return true if added, otherwise false
 	 */
 	public boolean addPieceToBoard(Piece piece) {
@@ -103,6 +142,9 @@ public class BoardController {
 			boardGUI.addPieceToBoard(p.getLocation().getRow(), p.getLocation().getColumn(), p.getColor(), (p instanceof Soldier));
 	}
 
+	/**
+	 * loads the tile colors from the board model to the board gui
+	 */
 	public void loadTilesColors(){
 		for(Tile t: Board.getInstance().getColoredTilesList()) {
 			boardGUI.addColoredTileToBoard(t.getLocation().getRow(), t.getLocation().getColumn(), t.getColor2());
@@ -118,8 +160,8 @@ public class BoardController {
 	 * @param toCol
 	 * @param direction
 	 * @return true if moved, otherwise false
-	 * @throws LocationException-location is out game bord bounds
-	 * @throws IllegalMoveException 
+	 * @throws LocationException location is out game board bounds
+	 * @throws IllegalMoveException the move wasn't legal for some reason
 	 */
 	public boolean movePiece(int fromRow, char fromCol, int toRow, char toCol, Directions direction)throws LocationException, IllegalMoveException {
 		Board board =Board.getInstance();
@@ -150,7 +192,7 @@ public class BoardController {
 		if(currPlayer.getColor() != piece.getColor()) {
 			throw new IllegalMoveException("You cannot move your opponent's piece");
 		}
-		
+
 		if(Game.getInstance().getTurn().getLastPieceMoved() != null) {
 			if(Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0) {
 				if(!Game.getInstance().getTurn().getLastPieceMoved().equals(piece)) {
@@ -158,7 +200,7 @@ public class BoardController {
 				}
 			}
 		}
-		
+
 		if(Game.getInstance().getTurn().isLastTileRed() && !Game.getInstance().getTurn().getLastPieceMoved().equals(piece)) {
 			throw new IllegalMoveException("You can only move the piece in tile "+Game.getInstance().getTurn().getLastPieceMoved().getLocation());
 		}
@@ -176,7 +218,7 @@ public class BoardController {
 				Game.getInstance().getTurn().decrementMoveCounter();
 			}
 
-		
+
 
 			if(piece.getLocation() != null)
 				if(piece instanceof Queen) System.out.println("Queen has been moved!");
@@ -190,30 +232,20 @@ public class BoardController {
 					Game.getInstance().getTurn().IncrementMoveCounter();
 				} catch (GameUpgradeException e) {
 					System.out.println(e.getMessage());
-//					boardGUI.notifyUpgradeInGame(e.getMessage());
+					//					boardGUI.notifyUpgradeInGame(e.getMessage());
 				}
 
-
 			}
-			//TODO check removing this doesn't affect any thing
-			//			if(turn.getMoveCounter() == 0) {
-			//				Game.getInstance().switchTurn(); // TODO Add conditions on move counter - move piece more than once
-			//			}
-			//
-			//			if(board.getColorPieces(PrimaryColor.WHITE).size() == 0 || board.getColorPieces(PrimaryColor.BLACK).size() == 0)
-			//				Game.getInstance().finishGame();
+
 			return true;
 		}
-
-
 		return false;
-		//return Board.getInstance().movePiece(fromLocation, toLocation, direction);
 	}
 
 	/**
 	 * removes piece from board's display
-	 * @param location
-	 * @param isBurnt
+	 * @param location of the piece 
+	 * @param isBurnt boolean parameter,true if the removing caused by burning ,false if it's caused by eating or something else
 	 */
 	public void removePiece(Location location, boolean isBurnt) {
 		boardGUI.removePiece(location.getRow(), location.getColumn(), isBurnt);
@@ -221,19 +253,21 @@ public class BoardController {
 
 	/**
 	 * checks if the current piece should be burnt after moving it
-	 * @param row
-	 * @param col
+	 * @param row the row of piece location
+	 * @param col the column of piece location
 	 * @return true if should be burnt in display, otherwise false
+	 * @throws LocationException given location is out of board boundaries
 	 */
-	public boolean checkBurnCurrent(int row, char col) {
-		if(Board.getInstance().getTilesMap().get(row).get(col - 'A').getPiece() == null) return true;
+	public boolean checkBurnCurrent(int row, char col) throws LocationException {
+		Piece pieceInLoc = Board.getInstance().getTileInLocation(new Location(row, col)).getPiece();
+		if(pieceInLoc == null) return true;
 		return false;
 	}
 
 	/**
-	 * Updates score in display
-	 * @param score
-	 * @return 
+	 * gets player score from Model to be Used in GUI
+	 * @param color the player color
+	 * @return int the score of the player
 	 */
 	public int getPlayerScore(PrimaryColor color) {
 		int index = (color == PrimaryColor.WHITE ? 0 : 1);
@@ -241,24 +275,28 @@ public class BoardController {
 	}
 
 	/**
-	 * Method to switch turn in GUI
-	 * @param color
+	 * gets current turn player color from Model.
+	 * used to switch turn in GUI
+	 * @return color
 	 */
-	public PrimaryColor getPlayerTurn() {
-		return Game.getInstance().getTurn().getCurrentPlayer().getColor();
+	public PrimaryColor getCurrentPlayerColor() {
+		return Game.getInstance().getCurrentPlayerColor();
 	}
 
 	/**
 	 * returns direction by specified move locations
-	 * @param fromRow
-	 * @param fromCol
-	 * @param toRow
-	 * @param toCol
-	 * @return
+	 * @param fromRow the current location row of the piece
+	 * @param fromCol the current location column of the piece
+	 * @param toRow the target location row of the move
+	 * @param toCol the target location column of the move
+	 * @return Directions the direction of the move
 	 */
 	public Directions getDirection(int fromRow, char fromCol, int toRow, char toCol, boolean isSoldier) {
 		int diffCol = toCol - fromCol;
 		int diffRow = toRow - fromRow;
+		int boardSize = Board.getInstance().getBoardSize();
+		char columnLowerBound=Board.getInstance().getColumnLowerBound();
+		char columnUpperBound=Board.getInstance().getColumnUpperBound();
 
 		if(isSoldier) {
 			if(diffCol > 0 && diffRow > 0) return Directions.UP_RIGHT;
@@ -266,20 +304,20 @@ public class BoardController {
 			if(diffCol < 0 && diffRow > 0) return Directions.UP_LEFT;
 			if(diffCol < 0 && diffRow < 0) return Directions.DOWN_LEFT;
 		}else {
-			if(fromCol == 'H' && toCol == 'A') {
-				if(fromRow == 8 && toRow == 1) return Directions.UP_RIGHT;
+			if(fromCol == columnUpperBound && toCol == columnLowerBound) {
+				if(fromRow == boardSize && toRow == 1) return Directions.UP_RIGHT;
 				if(diffRow > 0) return Directions.UP_RIGHT;
 				else if(diffRow < 0) return Directions.DOWN_RIGHT;
-			}else if(fromCol == 'A' && toCol == 'H') {
-				if(fromRow == 1 && toRow == 8) return Directions.DOWN_LEFT; 
+			}else if(fromCol == columnLowerBound && toCol == columnUpperBound) {
+				if(fromRow == 1 && toRow == boardSize) return Directions.DOWN_LEFT; 
 				if(diffRow > 0) return Directions.UP_LEFT;
 				else if(diffRow < 0) return Directions.DOWN_LEFT;
-			}else if(fromRow == 1 && toRow == 8) {
-				if(fromCol == 'H' && toCol == 'A') return Directions.DOWN_RIGHT;
+			}else if(fromRow == 1 && toRow == boardSize) {
+				if(fromCol == columnUpperBound && toCol ==columnLowerBound) return Directions.DOWN_RIGHT;
 				if(diffCol > 0) return Directions.DOWN_RIGHT;
 				else if(diffCol < 0) return Directions.DOWN_LEFT;
-			}else if(fromRow == 8 && toRow == 1) {
-				if(fromCol == 'A' && toCol == 'H') return Directions.UP_LEFT;
+			}else if(fromRow == boardSize && toRow == 1) {
+				if(fromCol == columnLowerBound && toCol == columnUpperBound) return Directions.UP_LEFT;
 				if(diffCol > 0) return Directions.UP_RIGHT;
 				else if(diffCol < 0) return Directions.DOWN_RIGHT;
 			}else {
@@ -291,8 +329,8 @@ public class BoardController {
 
 	/**
 	 * Method to validate location is within the board bounds
-	 * @param row
-	 * @param col
+	 * @param row the location row
+	 * @param col the location column
 	 * @return true if the location is valid, otherwise false;
 	 */
 	public boolean validateLocation(int row, char col) {
@@ -303,27 +341,37 @@ public class BoardController {
 		return false;
 	}
 
-	public boolean pieceExists(int row, char col, PrimaryColor color) {
-		try {
-			Location location = new Location(row, col);
-		} catch (Exception e) {
-			return false;
-		}
-		Piece piece = ((Tile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getPiece();
+	/**
+	 *  checks if tile in specific location contains a piece of current player or not
+	 * @param row the location row
+	 * @param col the location column
+	 * @param color the current player color
+	 * @return true if the piece in location exists and it's for the current player
+	 * @throws LocationException the location is out of board boundaries
+	 */
+	public boolean pieceExists(int row, char col, PrimaryColor color) throws LocationException {
+
+		Piece piece = Board.getInstance().getTileInLocation(new Location(row, col)).getPiece();
 		if(piece == null) return false;
 		if(piece.getColor() != color) return false;
 		return true;
 	}
 
-	//TODO finish game without winner always
+	/**
+	 * triggers window opening to notify who won the game
+	 * @param Winname the name of the game winner
+	 * @param score the score of the winner player
+	 * @param color the color of the winner player
+	 */
 	public void finishGame(String Winname, int score, PrimaryColor color) {
 		boardGUI.notifyWinner(Winname, score, color);
-//		boardGUI.destruct();
+
 	}
-	
+
 	/**
-	 * This method is only called on initial open of winner display 
-	 * @return winner score
+	 * This method is only called on initial open of winner display.
+	 * It get's the winner of the game.  
+	 * @return Player the winner player
 	 */
 	public Player getWinner() {
 		if(Game.getInstance().isGameRunning()) return null;
@@ -334,10 +382,10 @@ public class BoardController {
 			winner = 2;
 		if(winner == -1) {
 			if(Game.getInstance().getBoard().getColorPieces(PrimaryColor.WHITE).size() > 
-					Game.getInstance().getBoard().getColorPieces(PrimaryColor.BLACK).size()){
+			Game.getInstance().getBoard().getColorPieces(PrimaryColor.BLACK).size()){
 				winner = 1;
 			}else if(Game.getInstance().getBoard().getColorPieces(PrimaryColor.WHITE).size() < 
-						Game.getInstance().getBoard().getColorPieces(PrimaryColor.BLACK).size()) {
+					Game.getInstance().getBoard().getColorPieces(PrimaryColor.BLACK).size()) {
 				winner = 2;
 			}
 		}
@@ -358,87 +406,90 @@ public class BoardController {
 		boardGUI.destruct();
 	}
 
-	public BoardGUI getBoard() {
-		return boardGUI;
-	}
-
-	public void setBoard(BoardGUI board) {
-		this.boardGUI = board;
-	}
 
 
 	/**
 	 * activates the powers of the colored tile based on it's color
-	 * @param row
-	 * @param col
-	 * @param tileColor
-
+	 * @param row the row of the tile
+	 * @param col the column of the tile
+	 * @param tileColor the secondary color of the tile
 	 */
 	public String stepOnColorTile(int row,char col,SeconderyTileColor tileColor) {
-		System.out.println(tileColor);
+
+
+		System.out.println("stepping on "+tileColor+" tile");
 		try {
-			System.out.println("stepping on "+tileColor+" tile");
-
 			switch(tileColor) {
-				case RED: {		
-					Game.getInstance().getTurn().setLastTileRed(true);
-					try {
-						Game.getInstance().getTurn().IncrementMoveCounter();						
-					}catch (GameUpgradeException e) {
-						return null;
-					}					
+			case RED: {		
+				Game.getInstance().getTurn().setLastTileRed(true);
+				try {
+					Game.getInstance().getTurn().IncrementMoveCounter();						
+				}catch (GameUpgradeException e) {
 					return null;
-				}
-				case GREEN: {
-					Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
-					return null;
-				}
+				}					
+				return null;
+			}
+			case GREEN: {
+				Game.getInstance().getTurn().getCurrentPlayer().AddScore(50);
+				return null;
+			}
 
 
-				case YELLOW:
-				case YELLOW_ORANGE:{
-					// QuestionPOPUP
-					//call boardGUI to open pop up question with blur on screen
-					//continue in checkQuestionAnswer
-					YellowTile yt = ((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col)));
-					yt.drawQuestion(); 
-					
-					SoundController.getInstance().play30();
-					DisplayController.getInstance().showQuestion(yt.getQuestion(), Game.getInstance().getCurrentPlayerColor());
-					this.answeringQuestion = true;
-				
-					return null;
+			case YELLOW:
+			case YELLOW_ORANGE:{
+				YellowTile yt;
+
+				yt = ((YellowTile) Board.getInstance().getTileInLocation(new Location(row, col)));
+
+				yt.drawQuestion(); 
+
+				SoundController.getInstance().play30();
+
+				DisplayController.getInstance().showQuestion(yt.getQuestion(), Game.getInstance().getCurrentPlayerColor());
+
+				this.answeringQuestion = true;
+
+				return null;
+			}
+			case BLUE:{
+				HashMap<Integer, ArrayList<Character>> tiles = getAllAvailableRetrievals();
+				if(!tiles.keySet().isEmpty()) {
+					Game.getInstance().getTimer().pauseTimer();
+					Game.getInstance().getTurn().getTimer().pauseTimer();
+					DisplayController.boardGUI.showRetrievalSelection(tiles);
 				}
-				case BLUE:{
-					HashMap<Integer, ArrayList<Character>> tiles = getAllAvailableRetrievals();
-					if(!tiles.keySet().isEmpty()) {
-						Game.getInstance().getTimer().pauseTimer();
-						Game.getInstance().getTurn().getTimer().pauseTimer();
-						DisplayController.boardGUI.showRetrievalSelection(tiles);
-					}
-					return "BLUE";
-				}
+				return "BLUE";
+			}
 			default:
 				break;
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		}catch (LocationException |QuestionException e) {
+			boardGUI.notifyByError(e.getMessage());
+		}
+
 		return null;
 	}
-	
-//	public Question getIdQuestion(int row,char col)
-//	{
-//		Question q = ((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion();
-//		
-//		return q;
-//	}
 
+	//TODO keep or remove??
+	//	public Question getIdQuestion(int row,char col)
+	//	{
+	//		Question q = ((YellowTile) Board.getInstance().getTilesMap().get(row).get(col - 'A')).getQuestion();
+	//		
+	//		return q;
+	//	}
+
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<Tile> getAllColoredTiles(){
 		return Board.getInstance().getColoredTilesList();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public HashMap<Integer,ArrayList<Character>> getAllAvailableRetrievals() {
 		HashMap<Integer,ArrayList<Character>> tiles = new HashMap<>();
 		TreeSet<Tile> unavailable = new TreeSet<>();
@@ -447,8 +498,7 @@ public class BoardController {
 			try {
 				unavailable.add(Board.getInstance().getTileInLocation(piece.getLocation()));
 			} catch (LocationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				continue;
 			}
 			int row = piece.getLocation().getRow();
 			char col = piece.getLocation().getColumn();
@@ -467,7 +517,7 @@ public class BoardController {
 				}
 			}
 		}
-		
+
 		for(int i = 1 ; i <= Board.getInstance().getBoardSize() ; i++) {
 			for(char c = Board.getInstance().getColumnLowerBound() ; c <= Board.getInstance().getColumnUpperBound() ; c++) {
 				Tile tile = null;
@@ -494,12 +544,12 @@ public class BoardController {
 		}
 		return tiles;
 	}
-	
+
 	/**
 	 * Provide location by row & column as parameters to add them to the boardGUI and actual board
-	 * @param row
-	 * @param col
-	 * @param pieceColor
+	 * @param row the location row of retrieval
+	 * @param col the location column of retrieval
+	 * @param pieceColor the color of the retrieved piece 
 	 */
 	public void retrieveSoldier(int row, char col, PrimaryColor pieceColor) {
 		try {
@@ -510,11 +560,22 @@ public class BoardController {
 		DisplayController.boardGUI.addPieceToBoard(row, col, pieceColor, true);
 	}
 
+	/**
+	 * updates players scores in view
+	 */
 	public void refreshScoreInBoardGUI() {
 		DisplayController.boardGUI.setPlayerScore(Player.getInstance(0).getColor(), Player.getInstance(0).getCurrentScore());
 		DisplayController.boardGUI.setPlayerScore(Player.getInstance(1).getColor(), Player.getInstance(1).getCurrentScore());
 	}
-	
+
+	/**
+	 * TODO what is the difference between this and getDirection??
+	 * @param fromRow
+	 * @param fromCol
+	 * @param toRow
+	 * @param toCol
+	 * @return
+	 */
 	public Directions getMoveDirection(int fromRow, char fromCol, int toRow, char toCol) {
 		Location from = null;
 		Location to = null;
@@ -528,9 +589,10 @@ public class BoardController {
 	}
 
 	/**
+	 * TODO document , why it creates pieces again they are already made in start game?
 	 * to be used only when game is off
-	 * @param pieces HashMap, key is the location (row_col), Value is the type i.e. Soldier_BLACK
-	 * @return
+	 * @param allPieces pieces HashMap, key is the location (row_col), Value is the type i.e. Soldier_BLACK
+	 * @returnArrayList<Piece>
 	 */
 	public ArrayList<Piece> createPieces(HashMap<String,String> allPieces) {
 		ArrayList<Piece> pieces = new ArrayList<>();
@@ -558,7 +620,14 @@ public class BoardController {
 		}
 		return pieces;
 	}
-	
+
+	/**
+	 * TODO document ,why Tiles are created here they are already made in board??
+	 * @param pieces
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	public Tile createTile(ArrayList<Piece> pieces, int row, char col) {
 		Tile tile = null;
 		try {
@@ -579,7 +648,7 @@ public class BoardController {
 				}
 			}
 			tile.setPiece(piece);
-			
+
 		} catch (LocationException e) {
 			return tile;
 		}

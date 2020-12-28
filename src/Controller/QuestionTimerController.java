@@ -1,12 +1,12 @@
 package Controller;
 
 import Model.Game;
-import Model.GameTimer;
+import Model.Timer;
 import javafx.application.Platform;
 
 public class QuestionTimerController  extends Thread{
 
-	private GameTimer timer;
+	private Timer timer;
 	
 	public void run() 
 	{
@@ -35,7 +35,7 @@ public class QuestionTimerController  extends Thread{
 	}
 	
 	private void initiateTimer() {
-		timer = new GameTimer();
+		timer = new Timer();
 		timer.startTimer();
 	}
 	
