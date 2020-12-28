@@ -8,7 +8,6 @@ import Controller.DisplayController;
 import Controller.QuestionMgmtController;
 import Model.Answer;
 import Model.Question;
-import Model.SysData;
 import Utils.DifficultyLevel;
 import Utils.QuestionListCell;
 import javafx.animation.PauseTransition;
