@@ -12,6 +12,7 @@ import Controller.DisplayController;
 import Controller.ScoreBoardController;
 import Controller.SoundController;
 import Utils.Config;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -36,6 +37,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MainscreenGUI extends Application {
 
@@ -215,6 +217,23 @@ public class MainscreenGUI extends Application {
 							File myObj = new File("highscores.ser"); 
 							ScoreBoardController.getInstance().getSysData().getScoreboard().clear();
 							myObj.delete();
+							
+							Label notfiaction = new Label("Highscores Rest ✓");
+							notfiaction.setFont(new Font("verdana", 20));
+							notfiaction.setLayoutX(127);
+							notfiaction.setLayoutY(360);
+							notfiaction.setStyle("-fx-font-weight: bold");
+							notfiaction.setStyle("-fx-text-fill: WHITE;");
+							mainBorder.getChildren().add(notfiaction);
+							
+							notfiaction.setVisible(true);
+							PauseTransition visiblePause = new PauseTransition(
+							        Duration.seconds(3)
+							);
+							visiblePause.setOnFinished(t -> notfiaction.setVisible(false)
+							         
+							);
+							visiblePause.play();
 							
 						}
 							

@@ -31,6 +31,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -302,15 +303,19 @@ public class ManageQuestions extends Application {
 		
 		btnCancel.setGraphic(cancel);
 		btnCancel.setFont(new Font("verdana", 16));
+		btnCancel.setTooltip(new Tooltip("Cancel Current Edit"));
 		Button btnSaveOrAdd = new Button();
 		btnSaveOrAdd.setId("Add");
+		btnSaveOrAdd.setTooltip(new Tooltip("Add New Question"));
 		btnSaveOrAdd.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/add.png"))));
 		btnSaveOrAdd.setFont(new Font("verdana", 16));
 		Button btnDelete = new Button();
 		btnDelete.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/delete.png"))));
 		btnDelete.setFont(new Font("verdana", 16));
+		btnDelete.setTooltip(new Tooltip("Delete Question"));
 		Button btnNew = new Button("New");
 		btnNew.setFont(new Font("verdana", 16));
+		btnNew.setTooltip(new Tooltip("Write New Question"));
 		
 		btnDelete.setVisible(false);
 		btnNew.setVisible(false);
@@ -323,6 +328,7 @@ public class ManageQuestions extends Application {
 				error.setTextFill(Color.web("#FF0000"));
 				
 				btnSaveOrAdd.setId("Add");
+				btnSaveOrAdd.setTooltip(new Tooltip("Add New Question"));
 				btnSaveOrAdd.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/add.png"))));
 				btnSaveOrAdd.setFont(new Font("verdana", 16));
 	    		btnSaveOrAdd.setDisable(false);
@@ -376,6 +382,8 @@ public class ManageQuestions extends Application {
 				
 				
 	    		btnSaveOrAdd.setDisable(false);
+	    		btnSaveOrAdd.setTooltip(new Tooltip("Add New Question"));
+	    		btnSaveOrAdd.setId("Add");
 	    		btnDelete.setVisible(false);
 	    		
 	    		ans1.setSelected(false);
@@ -411,6 +419,7 @@ public class ManageQuestions extends Application {
 		    	if(newValue == null) {
 		    		btnSaveOrAdd.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/add.png"))));
 		    		btnSaveOrAdd.setId("Add");
+		    		btnSaveOrAdd.setTooltip(new Tooltip("Add New Question"));
 		    		btnDelete.setVisible(false);
 		    		btnNew.setVisible(false);
 		    		ta1.setText("");
@@ -424,6 +433,7 @@ public class ManageQuestions extends Application {
 		    		
 		    	}else if(!newValue.equals(oldValue)){
 		    		btnSaveOrAdd.setId("Save");
+		    		btnSaveOrAdd.setTooltip(new Tooltip("Save Current Question"));
 		    		btnSaveOrAdd.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/save.png"))));
 		    		btnNew.setVisible(true);
 		    		
@@ -504,6 +514,7 @@ public class ManageQuestions extends Application {
 						public void handle(ActionEvent event) {
 							
 							btnSaveOrAdd.setId("Add");
+							btnSaveOrAdd.setTooltip(new Tooltip("Add New Question"));
 							btnSaveOrAdd.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/add.png"))));
 							btnSaveOrAdd.setFont(new Font("verdana", 16));
 				    		btnSaveOrAdd.setDisable(false);
