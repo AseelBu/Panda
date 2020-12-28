@@ -81,9 +81,9 @@
     {
       "question": "Which of the following can be considered regarding client and server?",
       "answers": [
-        "Cient and server is an architectural model",
-        "Cient and server can be architectural model",
-        "Cient and server is not an architectural model"
+        "Client and server is an architectural model",
+        "Client and server can be architectural model",
+        "Client and server is not an architectural model"
       ],
       "correct_ans": "1",
       "level": "1",
@@ -103,7 +103,7 @@
     {
       "question": "what is right about code reviews ?",
       "answers": [
-        "code reviews depends on the reviewer skills and motivess",
+        "code reviews depends on the reviewer skills and motives",
         "code reviews dont fix anything",
         "code reviews require a big team",
         "code reviews fixes all of the defects"

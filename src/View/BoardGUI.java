@@ -177,10 +177,10 @@ public class BoardGUI extends Application {
 		
 		
 		ImageView help = new ImageView(new Image(getClass().getResourceAsStream("pictures/help.png")));
-		help.setLayoutX(997.5);
-		help.setLayoutY(3);
-		help.setFitWidth(40);
-		help.setFitHeight(40);
+		help.setLayoutX(10);
+		help.setLayoutY(530);
+		help.setFitWidth(70);
+		help.setFitHeight(50);
 		help.setPickOnBounds(true);
 		help.setPreserveRatio(true);
 		help.setCursor(Cursor.HAND);
@@ -198,17 +198,6 @@ public class BoardGUI extends Application {
 					
 		});
 		
-//		help.setOnMouseExited(new EventHandler<MouseEvent>() {
-//
-//			@Override
-//			public void handle(MouseEvent event) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//			
-//			
-//				
-//		});
 		
 		mainAnchor.getChildren().add(help);
 		
