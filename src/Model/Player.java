@@ -15,6 +15,8 @@ public class Player implements Serializable {
 	 * Class Serial
 	 */
 	private static final long serialVersionUID = 6221768933754989694L;
+	private static final int WHITE = 0;
+	private static final int BLACK = 1;
 	private String nickname;
 	private PrimaryColor color;
 	private int currentScore;
@@ -22,8 +24,55 @@ public class Player implements Serializable {
 	private static Boolean initiated = false;
 
 	/**
+	 * Gets the Single instance of player based on index
+	 * @param index 0 or 1, 0 for white player and 1 for black
+	 * @return Player instance based on the index
+	 */
+	public static Player getInstance(int index)
+	{
+		if(index > BLACK ) return null;
+
+		tryInitiate();
+
+		if(instances[index] == null)
+		{
+			if(index == WHITE)
+				instances[index] = new Player(PrimaryColor.WHITE);
+			else
+				instances[index] = new Player(PrimaryColor.BLACK);
+		}
+
+		return instances[index];
+	}
+
+	/**
+	 * destructor for this class
+	 */
+	public static void destruct() {
+		instances = null;
+		initiated = false;
+	}
+
+	//helping method to initiate players Singleton instances
+	private static Boolean tryInitiate()
+	{
+		if(initiated) return false;
+
+		instances = new Player[2];
+
+		for (int i = 0; i < instances.length; i++)
+		{
+			instances[i] = null;
+		}
+
+		initiated = true;
+
+		return true;
+	}
+
+	/**
 	 * Player class constructor
-	 * @param color
+	 * @param color of the player BLACK or WHITE
 	 */
 	private Player(PrimaryColor color) {
 		setColor(color);
@@ -49,28 +98,28 @@ public class Player implements Serializable {
 	public void setCurrentScore(int currentScore) {
 		this.currentScore = currentScore;
 	}
-	@Override
-	public String toString() {
-		return nickname + "|" + color + ": " + currentScore ;
-	}
+
 
 	/**
+	 * add score to this player
 	 * 
-	 * @param scoreToAdd
-	 * @add score to CurrentScore
+	 * @param scoreToAdd the score to add for this player
+	 * @return long the updated score for this player
+	 * 
 	 */
 	public long AddScore(float scoreToAdd) 
 	{
 		int newScore;
 		newScore=(int) (getCurrentScore()+scoreToAdd);
 		setCurrentScore(newScore);
-//	TODO move to controller
+
 		return getCurrentScore();
 	}
+
 	/**
-	 * 
-	 * @param score to deduce
-	 * @deduct score from CurrentScore
+	 * deducts score from this player
+	 * @param score the amount of scores to deduct
+	 * @return long the updated score for this player
 	 */
 	public long DeductScore(float score) {
 		int newScore;
@@ -78,51 +127,10 @@ public class Player implements Serializable {
 		setCurrentScore(newScore);
 		return getCurrentScore();
 	}
-	
-	/**
-	 * Class Instance
-	 * @param index 0 or 1 - 0 for white player, 1 for black
-	 * @return 
-	 */
-	public static Player getInstance(int index)
-	{
-		if(index > 1 ) return null;
 
-		tryInitiate();
 
-		if(instances[index] == null)
-		{
-			if(index == 0)
-				instances[index] = new Player(PrimaryColor.WHITE);
-			else
-				instances[index] = new Player(PrimaryColor.BLACK);
-		}
-
-		return instances[index];
+	@Override
+	public String toString() {
+		return nickname + "|" + color + ": " + currentScore ;
 	}
-	
-	/**
-	 * destructor for this class
-	 */
-	public static void destruct() {
-		instances = null;
-		initiated = false;
-	}
-
-	private static Boolean tryInitiate()
-	{
-		if(initiated) return false;
-		
-		instances = new Player[2];
-
-		for (int i = 0; i < instances.length; i++)
-		{
-			instances[i] = null;
-		}
-
-		initiated = true;
-
-		return true;
-	}
-
 }

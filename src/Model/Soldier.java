@@ -8,10 +8,16 @@ import Exceptions.LocationException;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
+/**
+ * 
+ * @author aseel
+ * This class is a concrete subclass that extends Piece class.
+ * The class describes attributes and actions of Soldier game piece. 
+ */
 public class Soldier extends Piece{
 
 	/**
-	 * Constructor
+	 * Soldier Constructor
 	 * 
 	 * @param id
 	 * @param color
@@ -24,7 +30,6 @@ public class Soldier extends Piece{
 
 
 	@Override
-
 	public boolean move(Tile targetTile,Directions direction) throws LocationException, IllegalMoveException {
 
 		Board board = Board.getInstance();
@@ -111,12 +116,6 @@ public class Soldier extends Piece{
 		return false;
 	}
 
-
-	/**
-	 * gets all edible pieces around this piece
-	 * @param piece that we want to check
-	 * @return list of pieces that are edible for specific piece, null if piece can't eat
-	 */
 	@Override
 	public ArrayList<Piece> getMustEdiblePieces() {
 		ArrayList<Piece> ediblePieces = new ArrayList<Piece>();
@@ -198,14 +197,8 @@ public class Soldier extends Piece{
 
 
 	@Override
-	/**
-	 * gets the piece that is going be eaten by soldier if it moves to direction
-	 * 
-	 * @param direction
-	 * @return Piece that is going to be eaten by moving in direction, null if no piece was found
-	 */
 	public Piece getEdiblePieceByDirection( Directions direction) {
-		// TODO Auto-generated method stub
+
 		ArrayList<Piece> ediblePieces= getEdiblePieces();
 		Location newLocal = null;
 		try {
@@ -227,19 +220,13 @@ public class Soldier extends Piece{
 	}
 
 	@Override
-	/**
-	 * 
-	 * @param targetLocation
-	 * @param direction
-	 * @return Piece edible piece
-	 */
 	public Piece getEdiblePieceByDirection(Location targetLocation, Directions direction) {
 		return getEdiblePieceByDirection(direction);
 	}
 
 	@Override
 	public boolean canEatPiece(Piece targetPiece) {
-		// TODO Auto-generated method stub
+
 		Location pieceLoc = this.getLocation();
 		Location targetPieceLoc = targetPiece.getLocation();
 		Directions targetDir =pieceLoc.getRelativeDirection(targetPieceLoc);
@@ -251,21 +238,10 @@ public class Soldier extends Piece{
 		return false;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Soldier-"+this.getColor()+" in "+getLocation();
-	}
-
-
-
 	@Override
 	public ArrayList<Piece> getEdiblePieces() {
 		return getMustEdiblePieces();
 	}
-
-
 
 	@Override
 	public ArrayList<Tile> getPossibleMoves(PrimaryColor playerColor) {
@@ -327,12 +303,9 @@ public class Soldier extends Piece{
 	}
 
 
-
-
-
-
-
-
-
+	@Override
+	public String toString() {
+		return "Soldier-"+this.getColor()+" in "+getLocation();
+	}
 
 }

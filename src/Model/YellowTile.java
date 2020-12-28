@@ -2,33 +2,40 @@ package Model;
 
 import Utils.PrimaryColor;
 
+
+/**
+ * 
+ * @author aseel
+ * class describes yellow tile in board.
+ * it inherits Tile attributes and actions
+ */
 public class YellowTile extends Tile  {
 
 
 	private  Question question=null;
 
-
+	/**
+	 * 
+	 * this YellowTile builder
+	 *
+	 * @param <T>
+	 */
 	protected static abstract class Init <T extends Init<T>> extends Tile.Init<T>{
-
-	//	private Question question=null;
-
-		/**
-		 * Draws an available random question
-		 */
-		//		public T drawQuestion() {
-		//			Question q = Game.getInstance().getAvailableRandomQuestion();
-		//			System.out.println("drawn question is "+q);
-		//			this.question = q;
-		//			return self();
-		//		}
-
+	
 		public YellowTile build() {
-			//			drawQuestion();
 			return new YellowTile(this);
 		}
 	}
-
+	
+	/**
+	 * inner Builder class to build superclass
+	 */
 	public static class Builder extends Init<Builder>{
+		/**
+		 * Builder class constructor
+		 * @param location the location of the tile
+		 * @param color1 the primary color of the tile black/white
+		 */
 		public Builder(Location location,PrimaryColor color1) {
 			super.location = location;
 			super.color1 = color1;	
@@ -42,22 +49,18 @@ public class YellowTile extends Tile  {
 
 	/**
 	 * Constructor
-	 * @param init
+	 * @param init superclass object
 	 */
 	protected YellowTile(Init<?> init) {
 		super(init);
-		//		this.question=init.question;
 
 	}
 
 
-
-
 	//getters & setters
-
 	/**
 	 * 
-	 * @return question in Tile
+	 * @return Question the question in Tile
 	 */
 	public Question getQuestion() {
 		return question;
@@ -73,7 +76,7 @@ public class YellowTile extends Tile  {
 
 
 	/**
-	 * Draws an available random question
+	 * Draws an available random question from current game
 	 */
 	public void drawQuestion() {
 
@@ -101,8 +104,7 @@ public class YellowTile extends Tile  {
 		return result;
 	}
 
-
-
+	
 	@Override
 	public String toString() {
 		return "YellowTile: "+super.getLocation()+" secondaryColor:"+getColor2()+"\nquestion=" + question +"\n";

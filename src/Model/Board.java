@@ -1,6 +1,3 @@
-/**
- * 
- */
 package Model;
 
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ public class Board {
 	private ArrayList<Tile> orangeTiles;
 	//Singleton Class
 
-	private static Board instance;
+	private static Board instance=null;
 
 	/**
 	 * Board class constructor
@@ -51,6 +48,7 @@ public class Board {
 		} 
 		return instance; 
 	}
+
 	/**
 	 * destructor for this class
 	 */
@@ -78,6 +76,7 @@ public class Board {
 	public char getColumnLowerBound(){
 		return 'A';
 	}
+
 	//Methods
 
 	/**
@@ -87,7 +86,7 @@ public class Board {
 		try {
 			for(int i = 1 ; i <= BOARD_SIZE ; i+=2) {
 				for(char c = getColumnLowerBound() ; c <= getColumnUpperBound() ; c+=2) {
-					
+
 					addTile(new Tile.Builder(new Location(i, c), PrimaryColor.BLACK).build());
 					addTile(new Tile.Builder(new Location(i, (char) ( c + 1)), PrimaryColor.WHITE).build());
 				}
@@ -107,11 +106,11 @@ public class Board {
 
 
 	/**
-	 * returns all tiles in the board
+	 * Gets all tiles in the board
 	 * @return ArrayList of Tile all tiles in board
 	 */
 	public ArrayList<Tile> getAllBoardTiles() {
-		// TODO Auto-generated method stub
+
 		ArrayList<ArrayList<Tile>> tilesMapValues=new ArrayList<ArrayList<Tile>>(getTilesMap().values()) ;
 		ArrayList<Tile> allTiles =new ArrayList<Tile>() ;
 		for(ArrayList<Tile> tileList : tilesMapValues) {
@@ -121,44 +120,27 @@ public class Board {
 		return allTiles;
 	}
 
-	//helping method to get all black tiles on the board
-	private ArrayList<Tile> getBlackBoardTiles() {
-		ArrayList<Tile> blackTiles = new ArrayList<Tile>();
-
-		for(Tile t :getAllBoardTiles()) {
-			if(t.getColor1()== PrimaryColor.BLACK) {
-				blackTiles.add(t);
-			}
-		}
-		return blackTiles;
-
-	}
-
 	/**
+	 * Gets the list of colored tiles list
 	 * @return the coloredTilesList
 	 */
 	public ArrayList<Tile> getColoredTilesList() {
 		return coloredTilesList;
 	}
 
+	/**
+	 * gets this board orange tile
+	 * @return ArrayList<Tile> of orange tiles on board
+	 */
 	public ArrayList<Tile> getOrangeTiles() {
 		return orangeTiles;
-	}
-
-
-	//helping method to get random black tile on the board
-	private Tile getRandomBlackTile() {
-		Random random = new Random();
-		ArrayList<Tile> blackTiles = getBlackBoardTiles();
-		Tile randomTile  = blackTiles.get( random.nextInt(blackTiles.size()));
-		return randomTile;
 	}
 
 
 	/**
 	 * Given row returns all the tiles in specified row
 	 * 
-	 * @param row -wanted tiles' row number
+	 * @param row wanted tiles' row number
 	 * @return ArrayList of Tile of tiles in given row
 	 */
 	public ArrayList<Tile> getTilesinRow(int row) {
@@ -186,9 +168,9 @@ public class Board {
 	/**
 	 * Given location returns the tile in specified location
 	 * 
-	 * @param location object
+	 * @param location the location of the tile
 	 * @return Tile-tile in the requested location
-	 * @throws Exception - row number in board doesn't have tiles
+	 * @throws LocationException - row number in board doesn't have tiles
 	 */
 	public Tile getTileInLocation(Location location) throws LocationException {
 
@@ -205,7 +187,7 @@ public class Board {
 	/**
 	 * Adds tile to tiles map 
 	 * 
-	 * @param tile
+	 * @param tile the tile to add
 	 * @return true if added successfully,otherwise false
 	 */
 	public boolean addTile(Tile tile) {
@@ -240,9 +222,9 @@ public class Board {
 	}
 
 	/**
-	 * Replaces tile in tiles map 
+	 * Replaces tile in this tiles map in the same location of newTileInstance
 	 * 
-	 * @param tile
+	 * @param newTileInstance the new tile to be replaced with
 	 * @return true if replaced successfully,otherwise false
 	 */
 	public boolean replaceTileInSameTileLocation(Tile newTileInstance) {
@@ -258,15 +240,12 @@ public class Board {
 		isSuccess = true;
 
 		return isSuccess;
-
 	}
-
-
 
 	/**
 	 * adds piece to board
 	 * 
-	 * @param piece
+	 * @param piece the piece to add
 	 * @return true if added successfully,otherwise false
 	 */
 	public boolean addPiece(Piece piece) {
@@ -275,10 +254,10 @@ public class Board {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * adds given pieces list to game board
-	 * @param pieces to add
+	 * @param pieces the pieces to add
 	 * @return true if input was'nt null or empty,false otherwise
 	 */
 	public boolean addPiecesToBoard(ArrayList<Piece> pieces) {
@@ -292,7 +271,7 @@ public class Board {
 	/**
 	 * remove piece from board
 	 * 
-	 * @param piece
+	 * @param piece the piece to remove
 	 * @return true if added successfully,otherwise false
 	 */
 	public boolean removePiece(Piece piece) {
@@ -301,11 +280,16 @@ public class Board {
 		result= this.pieces.remove(piece);
 
 		//remove from board tile
-
 		result = result && removePieceFromBoardTile(piece);
 		return result;
 	}
 
+	/**
+	 * replace pieceToReplace with pieceToReplaceWith on the board
+	 * @param pieceToReplace the piece on board to be replaced
+	 * @param pieceToReplaceWith the new piece to be replaced with
+	 * @return true if the piece was replaced, false otherwise
+	 */
 	public boolean replacePiece(Piece pieceToReplace,Piece pieceToReplaceWith) {
 		if(removePiece(pieceToReplace)){
 			return addPiece(pieceToReplaceWith);
@@ -316,10 +300,10 @@ public class Board {
 
 	/**
 	 * adds piece to tile in board
-	 * NOTE - assumes tile already exist in board
 	 * 
-	 * @param piece
+	 * @param piece the piece to add
 	 * @return true if added successfully, false otherwise
+	 * @throws LocationException thrown if the tile doesn't already exist in board
 	 */
 	public boolean addPieceToBoardTile(Piece piece) {
 
@@ -327,24 +311,26 @@ public class Board {
 		Location pieceLoc = piece.getLocation();
 
 		Tile tile=null;
+
 		try {
 			tile = getTileInLocation(pieceLoc);
 			tile.setPiece(piece);
 			this.replaceTileInSameTileLocation(tile);
 			return true;
-		} catch (Exception e) {
+		} catch (LocationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+
 	}
 
 
 	/**
 	 * add color to board tile
-	 * @param tile
-	 * @param color
-	 * @return added Tile
+	 * @param tile the tile to color
+	 * @param color the color to be added
+	 * @return Tile added Tile with the color
 	 */
 	public Tile addSeconderyColorToBoardTile(Tile tilee,SeconderyTileColor color) {
 		Location tLoc =tilee.getLocation();
@@ -386,8 +372,8 @@ public class Board {
 
 	/**
 	 * checks if the piece can move to targetLocation depending on all pieces locations on board
-	 * @param piece
-	 * @param targetLocation
+	 * @param piece the piece trying to move
+	 * @param targetLocation the target location of the move
 	 * @return true if it's legal to move the piece ,otherwise false
 	 * @throws LocationException 
 	 * @throws IllegalMoveException 
@@ -445,6 +431,7 @@ public class Board {
 				return false;
 			}
 		}
+		//Queen handling
 		else if (piece instanceof Queen) {
 
 			if(!((Queen) piece).isMoveLegalByDirection(targetLocation, direction)) {
@@ -458,15 +445,13 @@ public class Board {
 			}
 
 		}
-
 		return true;
-
 	}
 
 
 	/**
 	 * gets all the color pieces on the board
-	 * @param PrimaryColor color-black/white
+	 * @param PrimaryColor the color of the pieces, black or white
 	 * @return ArrayList<Piece> of color pieces on the board
 	 */
 	public ArrayList<Piece> getColorPieces(PrimaryColor color){
@@ -511,22 +496,8 @@ public class Board {
 		for (Tile t : emptyTiles) {
 
 			emptyLocations.add(t.getLocation());
-
 		}
 		return emptyLocations;
-	}
-
-
-	/**
-	 * gets a piece free random black location on board
-	 * @return Location- random black location without pieces
-	 */
-	public Location getRandomFreeLocation() {
-
-		Random random = new Random();
-		ArrayList<Location> emptyLocations = getEmptyLocations();
-		Location randomLocation = emptyLocations.get( random.nextInt(emptyLocations.size()));
-		return randomLocation;
 	}
 
 
@@ -543,20 +514,19 @@ public class Board {
 	}
 
 	/**
-	 * returs random tile on board that is legal for current color
-	 * @return Tile- randm board tile that is legal for current player to step on
+	 * Gets random tile on board that is legal for current player color
+	 * @return Tile- random board tile that is legal for current player to step on
 	 */
 	public Tile getRandomLegalTile(){
 		Random random = new Random();
 		ArrayList<Tile> legalTiles = getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
 		Tile randomTile  = legalTiles.get( random.nextInt(legalTiles.size()));
-		System.out.println("random legal Tile = "+randomTile);
 		return randomTile;
 	}
 
 	/**
-	 * upgrade soldier to queen
-	 * @param Soldier-soldier we want to upgrade
+	 * upgrade soldier to queen on board
+	 * @param Soldier The soldier we want to upgrade
 	 */
 	public void upgradeSoldier(Soldier soldier) {
 
@@ -567,7 +537,6 @@ public class Board {
 		//replace soldier with queen on board
 		this.pieces.set(this.pieces.indexOf(soldier), newQueen);
 
-
 		//update in tiles map
 		addPieceToBoardTile(soldier);
 
@@ -576,22 +545,18 @@ public class Board {
 	}
 
 	/**
-	 * gets all possible moves (tiles to move to) for certain color (player)
+	 * gets all possible moves (tiles to move to) for certain player color
 	 * 
-	 * @param PrimaryColor color-BLACK/WHITE
+	 * @param PrimaryColor the color of the player, black or white
 	 * @return ArrayList<Tile> of legal moves for the color
 	 */
 	public ArrayList<Tile> getAllLegalMoves(PrimaryColor playerColor) {
-
-		
 
 		LinkedHashSet<Tile> possibleTileSet = new LinkedHashSet<Tile>();
 
 		ArrayList<Piece> colorPieces = getColorPieces(playerColor);
 		for(Piece p : colorPieces) {
-			
-				possibleTileSet.addAll(p.getPossibleMoves(playerColor));
-			
+			possibleTileSet.addAll(p.getPossibleMoves(playerColor));
 		}
 		ArrayList<Tile> possibleTiles= new ArrayList<Tile>(possibleTileSet);
 		return possibleTiles;
@@ -600,7 +565,7 @@ public class Board {
 
 	/**
 	 * gets all the pieces that can be eaten by specific player color
-	 * @param player color PrimaryColor BLACK,WHITE
+	 * @param playerColor the color of the pieces, black or white
 	 * @return ArrayList<Piece> that are edible for color player
 	 */
 	public ArrayList<Piece> getAllEdiblePiecesByColor(PrimaryColor playerColor){
@@ -617,7 +582,7 @@ public class Board {
 
 	/**
 	 * gets all the pieces that must eat, for specific player color
-	 * @param player color PrimaryColor BLACK,WHITE
+	 * @param playerColor the color of the player, black or white
 	 * @return ArrayList<Piece> that are must eat for color player
 	 */
 	public ArrayList<Piece> getAllNeedToEatPieces(PrimaryColor playerColor){
@@ -628,7 +593,6 @@ public class Board {
 			if(!p.getMustEdiblePieces().isEmpty()) {
 				needToEatPieces.add(p);
 			}
-
 		}
 
 		return needToEatPieces;
@@ -636,7 +600,7 @@ public class Board {
 
 	/**
 	 * removes piece from board pieces and from board tiles
-	 * @param piece burning piece
+	 * @param piece the burning piece
 	 * @return true if removed successfully from board, false otherwise
 	 */
 	public boolean burn(Piece piece, boolean isEaten) {
@@ -654,20 +618,18 @@ public class Board {
 		else System.out.println("Error: wasn't able to burn piece "+ piece);
 
 		return result;
-
 	}
 
 
 	/**
-	 * 
-	 * @param pieceEatig
-	 * @param targetPiece
-	 * @return Piece eaten if eating was successful ,null otherwise
+	 * Eats (removes) the targetPiece by the PieceEating
+	 * @param pieceEatig the moving piece that is eating
+	 * @param targetPiece that must be eaten
+	 * @return Piece The eaten piece if eating was successful ,null otherwise
 	 * @throws IllegalMoveException 
 	 */
 	public Piece eat(Piece pieceEatig, Piece targetPiece) throws IllegalMoveException {
 		if(pieceEatig == null || targetPiece == null) {
-			System.out.println("null arguments in Board.eat method call");
 			return null;
 		}
 		Turn turn =Game.getInstance().getTurn();
@@ -789,7 +751,7 @@ public class Board {
 		}else{
 			if(Game.getInstance().getTurn().isLastTileRed()) return;
 		}
-		
+
 
 		if(toBurn.keySet().size() > 0) {
 			Random r = new Random();
@@ -840,8 +802,7 @@ public class Board {
 	public void initiateBoardSecondaryColors(){
 		removeAllSeconderyColorsFromBoard();
 		ColoredTilesFactory coloredTilesFactory =  new ColoredTilesFactory();
-		// add yellow tiles
-
+		// add 3 yellow tiles
 		for(int i=0 ; i<YELLOW_TILES_AMOUNT;i++) {
 			Tile randTile=null;
 			do {
@@ -850,15 +811,12 @@ public class Board {
 			YellowTile yTile= (YellowTile) coloredTilesFactory.getColoredTile(randTile, SeconderyTileColor.YELLOW);
 			replaceTileInSameTileLocation(yTile);
 			coloredTilesList.add(yTile);
-			System.out.println("adding yellow in "+randTile);
+
 		}
 
 
 		//add red tiles
-
 		if(canAddRedTile() && isThereLegalTilesNotColored()){
-
-			System.out.println("adding red");
 			ArrayList<Tile> possibleRed=getPossibleRedTiles();
 			Tile randTile=null;
 			if(possibleRed.size() > 0) {
@@ -871,18 +829,13 @@ public class Board {
 				Tile rTile =coloredTilesFactory.getColoredTile(randTile, SeconderyTileColor.RED);
 				replaceTileInSameTileLocation(rTile);
 				coloredTilesList.add(rTile);
-				System.out.println("adding red in "+randTile);
-			}else {
-				System.out.println("not adding red");
 			}
-		}else {
-			System.out.println("not adding red");
 		}
 
 
 		// add blue tiles
 		if(canAddBlueTile()){
-			System.out.println("adding red");
+
 			Tile randTile=null;
 			do {
 				randTile = getRandomFreeTile();
@@ -890,22 +843,8 @@ public class Board {
 			BlueTile bTile =(BlueTile)coloredTilesFactory.getColoredTile(randTile, SeconderyTileColor.BLUE);
 			replaceTileInSameTileLocation(bTile);
 			coloredTilesList.add(bTile);
-		}else {
-			System.out.println("not adding blue");
 		}
 
-
-		//		System.out.println("board  tiles in init secondary:\n");
-		//		for(Tile t :Game.getInstance().getBoard().getAllBoardTiles()) {
-		//			System.out.println(t);
-		//
-		//		}
-		//		
-		//		
-		//		System.out.println("colored list after init: ");
-		//		for(Tile t:this.coloredTilesList) {
-		//			System.out.println(t);
-		//		}
 	}
 
 	//helping method for checking if red tile can be added to board or not
@@ -913,7 +852,6 @@ public class Board {
 
 		if(isAllPiecesEaten(Game.getInstance().getCurrentPlayerColor())) {
 			return true;
-
 		}
 		return false;
 	}
@@ -951,12 +889,13 @@ public class Board {
 
 	/**
 	 * A green tile to Board
+	 * @return Tile the added green tile if added, else return null
 	 */
 	public Tile AddGreenTile(){
 		ColoredTilesFactory coloredTilesFactory =  new ColoredTilesFactory();
 
 		if(!isThereLegalTilesNotColored()) return null;
-		
+
 		Tile randTile=null;
 		if(Game.getInstance().getTurn().getLastPieceMoved() != null) {
 			if(Game.getInstance().getTurn().getLastPieceMoved().getEatingCntr() > 0 || Game.getInstance().getTurn().isLastTileRed()) {
@@ -965,7 +904,7 @@ public class Board {
 				if(tiles.isEmpty()) {
 					return null;
 				}
-				
+
 				if(tiles.size() > 0) {
 					Random random = new Random();
 					do {
@@ -978,14 +917,10 @@ public class Board {
 		}else {
 			do {
 				randTile= getRandomLegalTile();
-				System.out.println("doing do while");
-				System.out.println("randTile= "+randTile);
-				System.out.println("coloredTiles List \n"+coloredTilesList.size());
-				//TODO ask what to do when all possible tiles are taken by other colors
 			}while(coloredTilesList.contains(randTile));
 		}
 		if(randTile == null) return null;
-		
+
 		Tile gTile =coloredTilesFactory.getColoredTile(randTile, SeconderyTileColor.GREEN);
 		if(replaceTileInSameTileLocation(gTile)) {
 			coloredTilesList.add(gTile);
@@ -1010,9 +945,9 @@ public class Board {
 			}
 		}else {
 			tiles = Board.getInstance().getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
-			
+
 		}
-		
+
 		for(Tile tile:tiles)
 		{
 			SeconderyTileColor newSecColor= tile.getColor2()==SeconderyTileColor.YELLOW ? SeconderyTileColor.YELLOW_ORANGE:SeconderyTileColor.ORANGE ;
@@ -1022,9 +957,9 @@ public class Board {
 		}
 	}
 
+	// helping method for preparing the board to add orange tiles. 
+	//It removes all colored tiles from board except for yellow in the location of orange tiles
 	private boolean updateBoardToAddingOrange(){
-		
-
 		ArrayList<Tile> tiles = null;
 
 		if(Game.getInstance().getTurn().getLastPieceMoved() != null) {
@@ -1033,10 +968,10 @@ public class Board {
 			}
 		}else {
 			tiles = Board.getInstance().getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
-			
+
 		}
-		
-		
+
+
 		for(Tile t:this.coloredTilesList) {
 			if(tiles.contains(t) && !(t instanceof YellowTile)) {
 				//blue transfer to regular tile
@@ -1048,15 +983,15 @@ public class Board {
 					t.setColor2(null);
 					replaceTileInSameTileLocation(t);
 				}
-
 			}
-
 		}
 
 		return true;
-
 	}
 
+	/**
+	 * removes previous colors in coloredTileList and replaces them with orange and yellowOrange tiles
+	 */
 	public void updateColoredTileListAfterOrange(){
 		ArrayList<Tile> tiles = null;
 		if(Game.getInstance().getTurn().getLastPieceMoved() != null) {
@@ -1065,9 +1000,9 @@ public class Board {
 			}
 		}else {
 			tiles = Board.getInstance().getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
-			
+
 		}
-		
+
 		ArrayList<Tile> coloredTilesToRemove=new ArrayList<Tile>();		
 		for(Tile t:this.coloredTilesList) {
 			if(tiles.contains(t)) {
@@ -1076,7 +1011,7 @@ public class Board {
 			}
 
 		}
-		System.out.println("colored Tiles To remove:\n"+coloredTilesToRemove);
+
 		this.coloredTilesList.removeAll(coloredTilesToRemove);
 		this.coloredTilesList.addAll(this.orangeTiles);
 		this.orangeTiles=null;
@@ -1090,13 +1025,12 @@ public class Board {
 	 */
 	private ArrayList<Tile> getPossibleRedTiles(){
 		ArrayList<Tile> toReturn = new ArrayList<>();
-		
+
 		Game game=Game.getInstance();
-		//final Directions[] upDir= {Directions.UP_LEFT,Directions.UP_RIGHT};
-		//final Directions[] downDir= {Directions.DOWN_LEFT,Directions.DOWN_RIGHT};
 		ArrayList<Tile> legalTiles= getAllLegalMoves(Game.getInstance().getCurrentPlayerColor());
 		ArrayList<Tile> blockedTiles=new ArrayList<Tile>();
 		legalTiles.removeAll(coloredTilesList);
+
 		//		only one soldier can move
 		if(game.getTurn().isLastTileRed()) {
 			Piece lastPMoved = game.getTurn().getLastPieceMoved();
@@ -1120,7 +1054,7 @@ public class Board {
 		}
 		else {
 			HashMap<Tile, ArrayList<Piece>> tempCollection = new HashMap<>();
-			
+
 			for(Tile t:legalTiles) {
 				for(Piece p : getColorPieces(Game.getInstance().getCurrentPlayerColor())){
 					boolean canMove = false;
@@ -1164,9 +1098,9 @@ public class Board {
 					}
 				}
 			}
-			
+
 			ArrayList<Tile> tilesToRemove = new ArrayList<>();
-			
+
 			for(Tile t : tempCollection.keySet()) {
 				ArrayList<Piece> pieces= tempCollection.get(t);
 				for(Piece p : pieces) {
@@ -1182,11 +1116,11 @@ public class Board {
 					}
 				}
 			}
-			
+
 			for(Tile t : tilesToRemove) {
 				tempCollection.remove(t);
 			}
-			
+
 			toReturn =  new ArrayList<Tile>(tempCollection.keySet());	
 		}
 		return toReturn;

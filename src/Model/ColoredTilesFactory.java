@@ -8,7 +8,7 @@ import Utils.SeconderyTileColor;
 
 /**
  * @author aseel
- *
+ * this class implements factory method design pattern for creating colored tiles
  */
 public class ColoredTilesFactory {
 
@@ -30,12 +30,12 @@ public class ColoredTilesFactory {
 		if(color2==null) {
 			return new Tile.Builder(location, color1).setPiece(pieceOnTile).build();
 		}
-		
+
 		switch(color2){
 		case YELLOW:
-			
+
 			YellowTile yTile = new YellowTile.Builder(location, color1).setColor2(color2).setPiece(pieceOnTile).build();
-//			yTile.drawQuestion();
+			//			yTile.drawQuestion();
 			return yTile;
 		case YELLOW_ORANGE:
 			tileToColor.setColor2(color2);
@@ -51,10 +51,10 @@ public class ColoredTilesFactory {
 			return new Tile.Builder(location, color1).setColor2(color2).setPiece(pieceOnTile).build();
 
 		default:{
-			
+
 			return null;
 		}
-		
+
 		}
 
 	}

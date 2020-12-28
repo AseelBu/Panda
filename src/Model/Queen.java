@@ -9,10 +9,16 @@ import Exceptions.LocationException;
 import Utils.Directions;
 import Utils.PrimaryColor;
 
+/**
+ * 
+ * @author aseel
+ * This class is a concrete subclass that extends Piece class.
+ * The class describes attributes and actions of Queen game piece. 
+ */
 public class Queen extends Piece{
 
 	/**
-	 * Constructor
+	 * Queen Constructor
 	 * 
 	 * @param id
 	 * @param color
@@ -20,18 +26,10 @@ public class Queen extends Piece{
 	 */
 	public Queen(int id,PrimaryColor color, Location location) {
 		super(id,color, location);
-		// TODO Auto-generated constructor stub
 	}
 
-
-	/**
-	 * Method used to move a piece by selected direction
-	 * @param targetTile
-	 * @param direction
-	 * @return 
-	 * @throws IllegalMoveException 
-	 * @throws LocationException 
-	 */
+	
+	@Override
 	public boolean move(Tile targetTile, Directions direction) throws IllegalMoveException, LocationException {
 		Board board = Board.getInstance();	
 		Location targetLocation = targetTile.getLocation();
@@ -69,6 +67,7 @@ public class Queen extends Piece{
 		return true;
 
 	}
+	
 	/**
 	 * Checks whether the move is legal by direction
 	 * @param targetLocation
@@ -171,11 +170,6 @@ public class Queen extends Piece{
 		return pieces;
 	}
 
-	/**
-	 * 
-	 * @param direction
-	 * @return Object of Edible Piece, otherwise null
-	 */
 	@Override
 	public Piece getEdiblePieceByDirection(Directions direction){
 		Board board = Board.getInstance();
@@ -245,7 +239,7 @@ public class Queen extends Piece{
 
 			break;
 		}
-		case DOWN_LEFT:{//
+		case DOWN_LEFT:{
 
 			int i = getLocation().getRow();
 			int c = getLocation().getColumn();
@@ -311,12 +305,7 @@ public class Queen extends Piece{
 		return null;
 	}
 
-	/**
-	 * 
-	 * @param targetLocation
-	 * @param direction of eating/moving
-	 * @return Piece -edible piece
-	 */
+	@Override 
 	public Piece getEdiblePieceByDirection(Location targetLocation, Directions direction) {
 		Board board = Board.getInstance();
 		HashMap<Integer, ArrayList<Tile>> boardMap = board.getTilesMap();
@@ -826,9 +815,9 @@ public class Queen extends Piece{
 	}
 
 	/**
-	 *  
-	 * @param targetLocation 
-	 * @param direction
+	 * counts the number of pieces between this queen location and targetLocation in the direction
+	 * @param targetLocation of planned move
+	 * @param direction the direction of the planned move
 	 * @return Pieces count in a specific direction (excluding this object)
 	 * @throws LocationException 
 	 */

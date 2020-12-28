@@ -6,7 +6,7 @@ package Model;
  * This class describes a timer that is used in a game.
  * It can be used for total game time, turn time
  */
-public class GameTimer {
+public class Timer {
 
 	private long startTime;
 	private long anonStartTime;
@@ -15,8 +15,7 @@ public class GameTimer {
 	/**
 	 * Class Constructor
 	 */
-	public GameTimer() {
-		super();
+	public Timer() {
 		setPauseTime(-1);
 		setStartTime(-1);
 		setAnonStartTime(-1);
@@ -92,9 +91,7 @@ public class GameTimer {
 		}
 	}
 	
-	/**
-	 * getters/setters for internal use
-	 */
+	//getters/setters for internal use 
 	public long getStartTime() {
 		return startTime;
 	}

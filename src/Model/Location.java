@@ -14,10 +14,9 @@ import Utils.PrimaryColor;
  *
  */
 public class Location {
+
 	private int row;
 	private char column;
-
-	
 
 	/**
 	 * location Constructor
@@ -67,11 +66,17 @@ public class Location {
 		return row;
 	}
 
-	
+	/**
+	 * @return the column
+	 */
+	public char getColumn() {
+		return column;
+	}
+
 	/**
 	 * sets row with checking if set is in board boundaries
 	 * @param row the row to set
-	 * @throws Exception - row out of board boundaries
+	 * @throws LocationException - row out of board boundaries
 	 */
 	public void setRow(int row) throws LocationException {
 		Board board = Board.getInstance();
@@ -82,16 +87,11 @@ public class Location {
 		}
 	}
 
-	/**
-	 * @return the column
-	 */
-	public char getColumn() {
-		return column;
-	}
+
 
 	/**
 	 * @param column the column to set
-	 * @throws Exception- column out of board boundaries
+	 * @throws LocationException- column out of board boundaries
 	 */
 	public void setColumn(char column) throws LocationException {
 		Board board = Board.getInstance();
@@ -105,9 +105,9 @@ public class Location {
 	/**
 	 * updates location values to new location that exists diagonally from current location within board limits.
 	 * @param direction UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT
-	 * @param steps- number of steps diagonally
-	 * @return new location if it's within board boundaries, else returns null
-	 * @throws Exception 
+	 * @param steps The number of steps to add diagonally
+	 * @return The new location if it's within board boundaries, else returns null
+	 * @throws LocationException  -Location is out of board boundries
 	 */
 	public Location addToLocationDiagonally(Directions dir,int steps) throws LocationException {
 		Board board = Board.getInstance();
@@ -146,81 +146,88 @@ public class Location {
 		}
 		return updatedLocation;
 	}
-	
-	public Location rotateLocation(Directions direction) throws Exception {
+
+	/**
+	 * TODO document
+	 * @param direction
+	 * @return Location 
+	 * @throws LocationException 
+	 */
+	public Location rotateLocation(Directions direction) throws LocationException {
 		Board board = Board.getInstance();
-		
+
 		if((this.getColumn() != board.getColumnLowerBound())
 				&&
-			(this.getColumn() != board.getColumnUpperBound())
+				(this.getColumn() != board.getColumnUpperBound())
 				&&
-			(this.getRow() != 1)
+				(this.getRow() != 1)
 				&&
-			(this.getRow() != board.getBoardSize())){
-			
-				return null;
-			}
-		
-		switch(direction) {
-			case UP_LEFT:{
-				int i = this.getRow();
-				int c = this.getColumn();
-	
-				i++;
-				c--;
-				if(i > board.getBoardSize()) i = 1;
-				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-	
-				return new Location(i,(char) c);
-			}
-			case UP_RIGHT:{
-				
-				int i = this.getRow();
-				int c = this.getColumn();
-					
-				i++;
-				c++;
-				if(i > board.getBoardSize()) i = 1;
-				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+				(this.getRow() != board.getBoardSize())){
 
-				
-				return new Location(i,(char) c);
-			}
-			case DOWN_LEFT:{
-				
-				int i = this.getRow();
-				int c = this.getColumn();
-	
-				i--;
-				c--;
-				if(i < 1) i = board.getBoardSize();
-				if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
-
-				
-				return new Location(i,(char) c);
-			}
-			case DOWN_RIGHT:{//
-				
-				int i = this.getRow();
-				int c = this.getColumn();
-	
-				i--;
-				c++;
-				if(i < 1) i = board.getBoardSize();
-				if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
-
-				
-				return new Location(i,(char) c);
-			}
-			default: return null;
+			return null;
 		}
-		
+
+		switch(direction) {
+		case UP_LEFT:{
+			int i = this.getRow();
+			int c = this.getColumn();
+
+			i++;
+			c--;
+			if(i > board.getBoardSize()) i = 1;
+			if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+
+			return new Location(i,(char) c);
+		}
+		case UP_RIGHT:{
+
+			int i = this.getRow();
+			int c = this.getColumn();
+
+			i++;
+			c++;
+			if(i > board.getBoardSize()) i = 1;
+			if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+
+
+			return new Location(i,(char) c);
+		}
+		case DOWN_LEFT:{
+
+			int i = this.getRow();
+			int c = this.getColumn();
+
+			i--;
+			c--;
+			if(i < 1) i = board.getBoardSize();
+			if(c < board.getColumnLowerBound()) c = board.getColumnUpperBound();
+
+
+			return new Location(i,(char) c);
+		}
+		case DOWN_RIGHT:{
+
+			int i = this.getRow();
+			int c = this.getColumn();
+
+			i--;
+			c++;
+			if(i < 1) i = board.getBoardSize();
+			if(c > board.getColumnUpperBound()) c = board.getColumnLowerBound();
+
+			return new Location(i,(char) c);
+		}
+		default: return null;
+		}
+
 	}
 
 	/**
-	 * works only on current black tiles
-	 * @param targetLocation
-	 * @return HashMap<Directions,Integer> 
+	 * calculates the relative location between this location and target location
+	 *
+	 * @param targetLocation to calculate direction and steps from
+	 * @return HashMap<Directions,Integer> key is relative direction and value is number of relative absolute number of steps ,
+	 * between this location and target location
 	 */
 	public HashMap<Directions,Integer>relativeLocationTo(Location targetLocation) {
 		HashMap<Directions,Integer> result= new HashMap<Directions,Integer>();
@@ -232,39 +239,37 @@ public class Location {
 		return result;
 	}
 
-	/**
+	/** 
+	 * gets the number of steps between this location and targetLocation
 	 * 
-	 * works for current black tiles only
-	 * 
-	 * @param targetLocation -black tile location
-	 * @return int Absolute number of steps on black tiles between locations, if target location is white return -1
+	 * @param targetLocation to calculate number of steps from
+	 * @return int absolute number of steps skipping on black tiles between locations, if target location is white return -1
 	 */
 	public int getRelativeNumberOfSteps(Location targetLocation) {
 		int steps = -1;
 		int curRow =this.row;
-		char curCol = this.column;
 		int targetRow = targetLocation.getRow();
-		char targetCol = targetLocation.getColumn();
+		
 
 		int rowCmp = targetRow-curRow;
-//		int colCmp = targetCol-curCol;
+		//		int colCmp = targetCol-curCol;
 
 		Directions dir = getRelativeDirection(targetLocation);
-//		switch (dir) {
-//		case DOWN_STRAIGHT: 
-//		case UP_STRAIGHT:{
-//			if(rowCmp%2==0) {
-//				steps = Math.abs(rowCmp)-(Math.abs(rowCmp)/2);
-//			}
-//			break;
-//		}
-//		case LEFT_STRAIGHT:
-//		case RIGHT_STRAIGHT:{
-//			if(colCmp%2==0) {
-//				steps = Math.abs(colCmp)-(Math.abs(colCmp)/2);
-//			}
-//			break;
-//		}
+		//		switch (dir) {
+		//		case DOWN_STRAIGHT: 
+		//		case UP_STRAIGHT:{
+		//			if(rowCmp%2==0) {
+		//				steps = Math.abs(rowCmp)-(Math.abs(rowCmp)/2);
+		//			}
+		//			break;
+		//		}
+		//		case LEFT_STRAIGHT:
+		//		case RIGHT_STRAIGHT:{
+		//			if(colCmp%2==0) {
+		//				steps = Math.abs(colCmp)-(Math.abs(colCmp)/2);
+		//			}
+		//			break;
+		//		}
 		//diagonal location
 		if(dir!=null) {
 			steps = Math.abs(rowCmp);
@@ -274,8 +279,8 @@ public class Location {
 
 
 	/**
-	 * gets the direction from this Location to targetLocation
-	 * @param targetLocation
+	 * calculates the direction from this Location to target Location
+	 * @param targetLocation to calculate relative location from
 	 * @return Directions Enum values, null if direction is not a defined Directions value
 	 */
 	public Directions getRelativeDirection(Location targetLocation) {
@@ -298,11 +303,7 @@ public class Location {
 			else if(colCmp<0) {
 				direction = Directions.UP_LEFT;
 			}
-//			//forward
-//			else if(colCmp==0) {
-//				direction = Directions.UP_STRAIGHT;
-//			}
-
+			
 		}//down
 		else if(rowCmp<0) {
 			//right
@@ -313,33 +314,16 @@ public class Location {
 			else if(colCmp<0) {
 				direction = Directions.DOWN_LEFT;
 			}
-//			//forward
-//			else if(colCmp==0) {
-//				direction = Directions.DOWN_STRAIGHT;
-//			}
-
-		}//same line
-//		else if(rowCmp==0) {
-//			//right
-//			if(colCmp>0) {
-//				direction=Directions.RIGHT_STRAIGHT;
-//			}
-//			//left
-//			else if(colCmp<0) {
-//				direction = Directions.LEFT_STRAIGHT;
-//			}
-//			//forward
-//			else if(colCmp==0) {
-//				direction = Directions.SAME_PLACE;
-//			}
-//		}
+			
+		}
+		
 		return direction;
-
 	};
 
 	/**
-	 * Checks if location is on end of board for each player to check for queen upgrade situation
-	 * @return
+	 * Checks if this location is on the end of board based on current player color
+	 * @return true if this location is located on last row in the board and current player is white or 
+	 * 			if this location is in the first row in the board and current player is black
 	 */
 	public boolean isEndOfBoard(){
 		Board board = Board.getInstance();
@@ -347,17 +331,14 @@ public class Location {
 		if((currPlayer.getColor()==PrimaryColor.WHITE && this.row == board.getBoardSize()) || (currPlayer.getColor()==PrimaryColor.BLACK && this.row == 1)) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Location :("+column+", "+row+")";
 	}
-
-
-
 
 
 }

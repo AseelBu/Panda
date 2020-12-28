@@ -12,13 +12,13 @@ import Utils.DifficultyLevel;
  *
  */
 public class Question {
-	
+
 	private int id;
 	private String content;
 	private DifficultyLevel difficulty;
 	private ArrayList<Answer> answers;
 	private String team;
-	
+
 	/**
 	 * Question class constructor
 	 * @param id - question ID
@@ -36,7 +36,44 @@ public class Question {
 		this.team = team;
 	}
 
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + ((difficulty == null) ? 0 : difficulty.hashCode());
+		return result;
+	}
+
+	/**
+	 * Equals
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Question other = (Question) obj;
+		if (answers == null) {
+			if (other.answers != null)
+				return false;
+		} else if (!answers.equals(other.answers))
+			return false;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
+		if (difficulty != other.difficulty)
+			return false;
+		return true;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -99,10 +136,10 @@ public class Question {
 	public ArrayList<Answer> getAnswers() {
 		return answers;
 	}
-	
+
 	/**
-	 * 
-	 * @param answer
+	 * adds answer to this question answers
+	 * @param answer to add to question
 	 * @return true if answer added successfully, false otherwise
 	 */
 	public Boolean addAnswer(Answer answer) {
@@ -110,13 +147,13 @@ public class Question {
 			return this.answers.add(answer);
 		}
 		return false;
-		
+
 	}
-	
-	
+
+
 	/**
-	 * 
-	 * @param answer
+	 * removes answer from this question answers
+	 * @param answer to be removed from this question
 	 * @return true if answer removed successfully, false otherwise
 	 */
 	public Boolean removeAnswer(Answer answer) {
@@ -124,23 +161,23 @@ public class Question {
 			return this.answers.remove(answer);
 		}
 		return false;
-		
+
 	}
-	
+
 	/**
-	 * Used to update answers
+	 * Updates this question answers with updatedAnswers
 	 * @param updatedAnswers
 	 */
 	public void updateAnswers(ArrayList<Answer> updatedAnswers) {
 		this.answers = new ArrayList<Answer>();
-		
+
 		for(Answer a : updatedAnswers) {
 			this.addAnswer(a);
 		}
 	}
-	
+
 	/**
-	 * returns the correct answer
+	 * returns the correct answer for this question
 	 * @return answer-the correct answer of the question
 	 */
 	public int getCorrectAnswer() {
@@ -150,60 +187,19 @@ public class Question {
 			}
 		}
 		return -1;
-		
-	}
 
-
-	
-	
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((answers == null) ? 0 : answers.hashCode());
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result + ((difficulty == null) ? 0 : difficulty.hashCode());
-		return result;
-	}
-
-	/**
-	 * Equals
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Question other = (Question) obj;
-		if (answers == null) {
-			if (other.answers != null)
-				return false;
-		} else if (!answers.equals(other.answers))
-			return false;
-		if (content == null) {
-			if (other.content != null)
-				return false;
-		} else if (!content.equals(other.content))
-			return false;
-		if (difficulty != other.difficulty)
-			return false;
-		return true;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Question: id=" + id + ", content=" + content + ", difficulty=" + difficulty + ", answers=" + answers
+		return "Question: id=" + id + ",\n content=" + content + ",\n difficulty=" + difficulty + ",\n answers=" + answers
 				+ ", team=" + team ;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 }

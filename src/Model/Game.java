@@ -18,7 +18,7 @@ public class Game {
 
 	private Board board;
 	private Player players[];
-	private GameTimer timer;
+	private Timer timer;
 	private Turn turn;
 	private ArrayList<Question> availableQuestions;
 	private ArrayList<Question> unavailableQuestions;
@@ -34,7 +34,7 @@ public class Game {
 		availableQuestions = new ArrayList<>();
 		availableQuestions.addAll(SysData.getInstance().getQuestions());
 		unavailableQuestions=new ArrayList<Question>();
-		timer = new GameTimer();
+		timer = new Timer();
 	}
 	/**
 	 * 
@@ -443,11 +443,11 @@ public class Game {
 		this.turn = turn;
 	}
 
-	public GameTimer getTimer() {
+	public Timer getTimer() {
 		return timer;
 	}
 
-	public void setTimer(GameTimer timer) {
+	public void setTimer(Timer timer) {
 		this.timer = timer;
 	}
 

@@ -4,15 +4,36 @@ import java.util.ArrayList;
 
 import Utils.PrimaryColor;
 
+/**
+ * 
+ * @author aseel
+ * 
+ * class describes blue tile in board.
+ * it inherits Tile attributes and actions
+ */
 public class BlueTile extends Tile{
 
+	/**
+	 * 
+	 * this BlueTile builder
+	 *
+	 * @param <T>
+	 */
 	protected static abstract class Init <T extends Init<T>> extends Tile.Init<T>{
 		public BlueTile build() {
 			return new BlueTile(this);
 		}
 	}
 
+	/**
+	 * inner Builder class to build superclass
+	 */
 	public static class Builder extends Init<Builder>{
+		/**
+		 * Builder class constructor
+		 * @param location the location of the tile
+		 * @param color1 the primary color of the tile black/white
+		 */
 		public Builder(Location location,PrimaryColor color1) {
 			super.location = location;
 			super.color1 = color1;	
@@ -72,23 +93,19 @@ public class BlueTile extends Tile{
 
 			System.out.println("Retrieved Soldier to pos : " + location);
 			Board.getInstance().addPiece(new Soldier(Board.getInstance().getPieces().size()+1,t,location));
-
-
-
 		}
-
 	}
 
 	/**
 	 * checks if proposed position is away at least 2 tiles from any other enemy's tile
-	 * @param K - proposed location
+	 * @param location - proposed location
 	 * @param enemy - the color of the enemy to identify pieces
 	 * @return can be placed or not
 	 */
-	public boolean isReturnPosLegal(Location K , PrimaryColor enemy) {
+	public boolean isReturnPosLegal(Location location , PrimaryColor enemy) {
 
-		int row = K.getRow();
-		char col = K.getColumn();
+		int row = location.getRow();
+		char col = location.getColumn();
 
 		ArrayList<Piece> enemy_positions = new ArrayList<Piece>();
 
@@ -113,10 +130,7 @@ public class BlueTile extends Tile{
 
 				return false;
 			}
-
-
 		}
-
 		return true;
 
 	}

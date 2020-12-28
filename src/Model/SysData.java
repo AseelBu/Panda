@@ -1,24 +1,19 @@
 package Model;
 
-
-
-
 import java.util.ArrayList;
 
 import java.util.Collections;
 import java.util.Comparator;
 
-
-
+/**
+ * @author Saleh
+ */
 public class SysData {
 
-	/**
-	 * @author saleh
-	 */
-
 	private static SysData instance = null;
+	private static final int HIGHSCORES_AMOUNT = 10;
 	private ArrayList<Question> questions = new ArrayList<Question>();
-	private ArrayList<Player> scoreboard = new ArrayList<>();
+	private ArrayList<Player> scoreboard = new ArrayList<Player>();
 
 	/**
 	 * Using this singleton instance to access data structures and methods
@@ -36,40 +31,40 @@ public class SysData {
 	/**
 	 * Question DataStructure
 	 * 
-	 * @return
+	 * @return ArrayList<Question> of Questions in the system
 	 */
 
 	public ArrayList<Question> getQuestions() {
 		return this.questions;
 	}
-	
-	
+
+
 	/**
-	 * Question Data Setter
-	 * @param t - Questions to replace
+	 * Questions Data Setter
+	 * @param questions  The questions to replace
 	 */
-	
-	public void setQuestions(ArrayList<Question> t) {
+
+	public void setQuestions(ArrayList<Question> questions) {
 		this.questions.clear();
-		this.questions.addAll(t);
+		this.questions.addAll(questions);
 	}
 
 
 	/**
-	 * ScoreBoard DataStructre
+	 * Gets ScoreBoard DataStructre
 	 * 
-	 * @return
+	 * @return ArrayList<Player> of players in score board
 	 */
 	public ArrayList<Player> getScoreboard() {
 		return this.scoreboard;
 	}
-	
+
 	/**
 	 * Scoreboard Data Setter
 	 * @param scoreboard = data to replace
 	 */
 	public void setScoreboard(ArrayList<Player> scoreboard) {
-		
+
 		this.scoreboard.clear();
 		this.scoreboard = scoreboard;
 	}
@@ -83,7 +78,7 @@ public class SysData {
 
 		this.sortHighscores();
 
-		if (this.getScoreboard().size() < 10) {
+		if (this.getScoreboard().size() < HIGHSCORES_AMOUNT) {
 			this.getScoreboard().add(hs);
 			this.sortHighscores();
 			return;
@@ -97,15 +92,12 @@ public class SysData {
 			this.getScoreboard().remove(0);
 			this.sortHighscores();
 			return;
-
 		}
-
 	}
 
 
-
 	/**
-	 * Add Question To Questions DataStructure
+	 * Add Question to system's questions
 	 * 
 	 * @param question to add
 	 */
@@ -118,9 +110,9 @@ public class SysData {
 	}
 
 	/**
-	 * remove a question from the DataStructure
+	 * removes a question from the system's questions
 	 * 
-	 * @param id - id of question to be removed
+	 * @param id the id of question to be removed
 	 */
 	public void removeQuestion(int id) {
 
@@ -133,30 +125,27 @@ public class SysData {
 
 				i = iterator;
 				break;
-
 			}
 
 			iterator++;
-
 		}
-		
+
 		if(i == -1) {
 			return;
 		}
 		for(int c = i + 1 ; c <  this.getQuestions().size(); c++) {
 			this.getQuestions().get(c).setId(id);
 			id++;
-			
+
 		}
 		if (i != -1) {
 			this.questions.remove(i);
 		}
-
 	}
 
 	/**
-	 * 
-	 * @param id               the id of the question to be updated
+	 * Updates question in the system's questions
+	 * @param id the id of the question to be updated
 	 * @param updated_question new question containing all updated details
 	 */
 	public void editQuestion(int id, Question updated_question) {
@@ -170,9 +159,7 @@ public class SysData {
 				q.setTeam(updated_question.getTeam());
 				q.updateAnswers(updated_question.getAnswers());
 			}
-
 		}
-
 	}
 
 	/**
@@ -185,21 +172,20 @@ public class SysData {
 				return Integer.valueOf(p1.getCurrentScore()).compareTo(Integer.valueOf(p2.getCurrentScore()));
 			}
 		});
-
 	}
-	
+
+	/**
+	 * returns question from the system by id
+	 * @param id the id of the question
+	 * @return Question the matching question for the id from the system's questions
+	 */
 	public Question getQuesById(int id) {
-		
-		
 		for(Question q : this.getQuestions()) {
-			
+
 			if(q.getId() == id){
 				return q;
 			}
-			
 		}
 		return null;
 	}
-
-
 }
