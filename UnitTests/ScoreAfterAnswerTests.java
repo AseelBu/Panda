@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import Controller.BoardQuestionsController;
 import Controller.QuestionMgmtController;
+import Exceptions.QuestionException;
 import Model.Answer;
 import Model.Game;
 import Model.Player;
@@ -62,7 +63,7 @@ public class ScoreAfterAnswerTests {
 				intermediateQuestions.add(q);
 			}
 		}
-		
+		try {
 		for(Question q : intermediateQuestions) {
 			
 			// answer correctly
@@ -86,6 +87,9 @@ public class ScoreAfterAnswerTests {
 						
 			
 		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -107,7 +111,7 @@ public class ScoreAfterAnswerTests {
 				easyQuestions.add(q);
 			}
 		}
-		
+		try {
 		for(Question q : easyQuestions) {
 			
 			// answer correctly
@@ -131,6 +135,9 @@ public class ScoreAfterAnswerTests {
 						
 			
 		}
+		}catch(QuestionException e){
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -150,7 +157,7 @@ public class ScoreAfterAnswerTests {
 				hardQuestions.add(q);
 			}
 		}
-		
+		try {
 		for(Question q : hardQuestions) {
 			
 			// answer correctly
@@ -173,6 +180,9 @@ public class ScoreAfterAnswerTests {
 			assertEquals(Game.getInstance().getPlayerr().getCurrentScore(),oldscore-50);
 						
 			
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
