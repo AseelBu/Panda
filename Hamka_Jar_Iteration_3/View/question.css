@@ -1,0 +1,7 @@
+#background{
+	/** -fx-background-image: url("pictures/question_background.png");**/
+	-fx-background-image: url("/View/pictures/qu_background2-cropped.jpg");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: cover;
+	-fx-opacity:0.62;
+}

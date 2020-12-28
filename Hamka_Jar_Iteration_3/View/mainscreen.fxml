@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="563.0" prefWidth="459.0" stylesheets="@mainscreen.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainscreenGUI">
+   <children>
+      <AnchorPane fx:id="mainPane" layoutX="40.0" layoutY="118.0" prefHeight="909.3333333333334" prefWidth="559.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <effect>
+            <ColorAdjust brightness="-0.64" />
+         </effect></AnchorPane>
+      <ImageView fx:id="instruct" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="title" fitHeight="61.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Pieace_6.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="loadgame" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="startgame" fitHeight="150.0" fitWidth="200.0" layoutX="114.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="mgmtques" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="scoreboard" fitHeight="150.0" fitWidth="200.0" layoutX="164.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="settings" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="settings1" fitHeight="150.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="exit" fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

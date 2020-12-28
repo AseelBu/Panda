@@ -1,0 +1,162 @@
+{
+  "questions": [
+    {
+      "question": "By 'GoF Design Pattern' book, what are the 3 types/classifications of Design Patterns?",
+      "answers": [
+        "Construction,Interfaces,Operations",
+        "Creational,Structural,Behavioral",
+        "Construction,Structural,Behavioral"
+      ],
+      "correct_ans": "2",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "When the 'Mediator' Design Pattern is used?",
+      "answers": [
+        "When you need to ensure that only K instance of the object exists throughout runtime ",
+        "When you have classes that can’t work together because of incompatible interfaces ",
+        "When you want to reduce the complexity and dependencies between tightly coupled objects communicating directly with one another",
+        "When you want to allow to create objects without specifying the exact class of object that will be created"
+      ],
+      "correct_ans": "3",
+      "level": "3",
+      "team": "animal"
+    },
+    {
+      "question": "What is the goal of 'Validation testing' ?",
+      "answers": [
+        "To demonstrate to the developer and the system customer that the software meets its requirements",
+        "To demonstrate to the developer and the system customer that the software conform to its specification",
+        "To expose defects in the system "
+      ],
+      "correct_ans": "1",
+      "level": "2",
+      "team": "animal"
+    },
+    {
+      "question": "What is the definition of 'Unit testing' ?",
+      "answers": [
+        "The application system that provides the business services .",
+        "The process that starts when you create an initial project plan during the project startup phase. ",
+        "The process of testing individual components in isolation."
+      ],
+      "correct_ans": "3",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "About 67% of the  total cost of a product accrues during the maintenance phase.",
+      "answers": [
+        "True",
+        "False"
+      ],
+      "correct_ans": "1",
+      "level": "2",
+      "team": "animal"
+    },
+    {
+      "question": "Overall, which has the most maintenance effort distribution?",
+      "answers": [
+        "Environmental adaptation.",
+        "Functionality addition or modification.",
+        "Fault  repair."
+      ],
+      "correct_ans": "2",
+      "level": "3",
+      "team": "animal"
+    },
+    {
+      "question": "MVC is composed of three components:",
+      "answers": [
+        "Model View Control",
+        "Model View Controller",
+        "Model Viewer Control",
+        "Model Variable Control"
+      ],
+      "correct_ans": "2",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "Which of the following can be considered regarding client and server?",
+      "answers": [
+        "Client and server is an architectural model",
+        "Client and server can be architectural model",
+        "Client and server is not an architectural model"
+      ],
+      "correct_ans": "1",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "What is not done in a review meeting ?",
+      "answers": [
+        "logging",
+        "discussion",
+        "fixing defects"
+      ],
+      "correct_ans": "3",
+      "level": "2",
+      "team": "animal"
+    },
+    {
+      "question": "what is right about code reviews ?",
+      "answers": [
+        "code reviews depends on the reviewer skills and motives",
+        "code reviews dont fix anything",
+        "code reviews require a big team",
+        "code reviews fixes all of the defects"
+      ],
+      "correct_ans": "1",
+      "level": "2",
+      "team": "animal"
+    },
+    {
+      "question": "Which of the following is not an example for non-functional requirements ?",
+      "answers": [
+        "System reliability",
+        "System response time",
+        "Storage requirement",
+        "System behaviour"
+      ],
+      "correct_ans": "4",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "What defines requirements validation ?",
+      "answers": [
+        "Make sure whether the developed product fulfills the requirements",
+        "Figure out requirements conflicts",
+        "Determine whether the requirements meet the customer’s needs",
+        "Check if the requirement can ever be implemented by the given budget"
+      ],
+      "correct_ans": "3",
+      "level": "3",
+      "team": "animal"
+    },
+    {
+      "question": "Waterfall methodology can easily handle changes unlike Agile methodology",
+      "answers": [
+        "True",
+        "False"
+      ],
+      "correct_ans": "2",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "What should be done right after creating user stories ?",
+      "answers": [
+        "Design the product",
+        "Prioritizing the user stories",
+        "Start the development process",
+        "Write tests"
+      ],
+      "correct_ans": "2",
+      "level": "2",
+      "team": "animal"
+    }
+  ]
+}

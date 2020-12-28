@@ -1,0 +1,13 @@
+#background{
+	-fx-background-image: url("/View/pictures/texture.jpeg");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: cover;
+}
+.playerInfo{
+	-fx-border-width:3 0 3 0;
+	-fx-border-style:solid;
+	-fx-border-color:#bd0000;
+	-fx-background-color:#d3d3d387;
+	-fx-border-radius: 15;
+	
+}

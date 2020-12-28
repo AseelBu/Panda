@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="991.0" stylesheets="@InstructionsGame.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.InstructionsGame">
+   <children>
+      <AnchorPane fx:id="mainPane" layoutX="-3.0" layoutY="-1.0" prefHeight="672.0" prefWidth="1000.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text layoutX="25.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gameboard and 24 playing pieces , 12 black -12 white." wrappingWidth="291.33335876464844" />
+            <ImageView fitHeight="113.0" fitWidth="127.0" layoutX="604.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/cute-panda-bear-sits-and-reads-book-in-hardcover-vector-20790591.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="383.0" layoutY="30.0" prefHeight="36.0" prefWidth="220.0" text="Hamka Instructions" textFill="#12b6cc">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Label>
+            <Label />
+            <Label layoutX="23.0" layoutY="66.0" prefHeight="36.0" prefWidth="82.0" text="CONTENS:" textFill="#12b6cc">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="55.0" layoutY="134.0" prefHeight="21.0" prefWidth="64.0" text="OBJECT:" textFill="#12b6cc">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="19.0" layoutY="181.0" prefHeight="17.0" prefWidth="91.0" text="GAME SETUP:" textFill="#12b6cc">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Text layoutX="22.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To End the Game with the largest possible number of points." />
+            <Text layoutX="20.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sart the game with 12 soldiers of some color arranged on the 3 rows closest to you in the black  tiles. " />
+            <Label layoutX="17.0" layoutY="249.0" prefHeight="20.0" prefWidth="112.0" text="HOW TO PLAY:" textFill="#12b6cc">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="59.0" layoutY="595.0" prefHeight="20.0" prefWidth="112.0" text="HOW TO WIN:" textFill="#12b6cc">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Text layoutX="17.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The winning player is the player with the most points." />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="145.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true" />
+            <Line endX="309.0" layoutX="142.0" layoutY="314.0" startX="-123.0" />
+            <Line endX="-16.0" endY="263.05078125" layoutX="165.0" layoutY="311.0" startX="-16.0" startY="-34.94921875" />
+            <Label layoutX="21.0" layoutY="280.0" text="Movement Solider Rules" textFill="#d61010">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
+            <Label layoutX="158.0" layoutY="280.0" prefHeight="17.0" prefWidth="304.0" text="Diagonally">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
+            <Label layoutX="28.0" layoutY="330.0" text="Eating Soldier Rules" textFill="#d61010" />
+            <Line endX="243.0" layoutX="209.0" layoutY="386.0" startX="-193.41419982910156" />
+            <Label layoutX="153.0" layoutY="322.0" text="If it is possible to perform an &quot;eating&quot; operation -" />
+            <Label layoutX="25.0" layoutY="400.0" text="Becoming a “Queen”" textFill="#d61010" />
+            <Label layoutX="154.0" layoutY="396.0" text="When a soldier reaches the last row and is stopped" />
+            <Label layoutX="20.0" layoutY="462.0" text="Movement Queen Rules" textFill="#d61010" />
+            <Label layoutX="156.0" layoutY="461.0" text="Can move diagonally in all directions ,and has " />
+            <Label layoutX="34.0" layoutY="530.0" text="Eating Queen  Rules" textFill="#d61010" />
+            <Label layoutX="154.0" layoutY="509.0" text="“Eat&quot; soldiers / queens at a long distance.A queen  " />
+            <Label layoutX="144.0" layoutY="241.0" textFill="#12b6cc">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="151.0" layoutY="339.0" text=" it must be performed, if the soldier who could have" />
+            <Label layoutX="151.0" layoutY="356.0" text=" performed it was not &quot;burned&quot; and left the game." />
+            <Label layoutX="154.0" layoutY="418.0" text="stopped there, he becomes a &quot;queen.&quot;" />
+            <Line endX="235.0" layoutX="217.0" layoutY="450.0" startX="-198.0" />
+            <Label layoutX="156.0" layoutY="478.0" text=" ability  to pass  through walls." />
+            <Line endX="245.0" layoutX="208.0" layoutY="505.0" startX="-189.0" />
+            <Label layoutX="159.0" layoutY="528.0" text="must perform &quot;eating&quot; only when an opponent's " />
+            <Label layoutX="158.0" layoutY="545.0" text="soldier is close to her." />
+            <Label layoutX="932.0" layoutY="630.0" />
+            <Line endX="-17.707111358642578" endY="259.84368896484375" layoutX="33.0" layoutY="314.0" startX="-15.499988555908203" startY="-38.5" />
+            <Line endX="-15.5" endY="251.05078125" layoutX="468.0" layoutY="324.0" startX="-15.5" startY="-49.5" />
+            <Line endX="243.0" endY="5.55078125" layoutX="209.0" layoutY="570.0" startX="-193.0" startY="4.55078125" />
+            <Line endX="245.0" layoutX="207.0" layoutY="275.0" startX="-189.0" />
+            <Line endX="309.0" layoutX="650.0" layoutY="322.0" startX="-170.29290771484375" />
+            <Line endX="-16.0" endY="243.25787353515625" layoutX="631.0" layoutY="328.0" startX="-16.0" startY="-34.94921875" />
+            <Label layoutX="511.0" layoutY="302.0" text="Special tile" textFill="#d61010">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="637.0" layoutY="302.0" prefHeight="17.0" prefWidth="119.0" text="When will it appear?" textFill="#d61010">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="485.0" layoutY="339.0" text="Yellow tile" textFill="#d61010" />
+            <Line endX="243.0" layoutX="718.0" layoutY="366.0" startX="-239.29290771484375" />
+            <Label layoutX="633.0" layoutY="336.0" text="3 yellow tiles in every turn " />
+            <Label layoutX="485.0" layoutY="380.0" text="Red tile" textFill="#d61010" />
+            <Label layoutX="624.0" layoutY="371.0" text="there are no options to eat " />
+            <Label layoutX="484.0" layoutY="478.0" text="Blue tile" textFill="#d61010" />
+            <Label layoutX="647.0" layoutY="495.0" />
+            <Label layoutX="483.0" layoutY="536.0" text="Orange tile" textFill="#d61010" />
+            <Label layoutX="616.0" layoutY="528.0" text=" If 90 seconds have passed  " />
+            <Label layoutX="629.0" layoutY="243.0" textFill="#12b6cc">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="624.0" layoutY="393.0" text="in the current turn" />
+            <Line endX="230.0" layoutX="730.0" layoutY="415.0" startX="-251.29290771484375" />
+            <Label layoutX="622.0" layoutY="474.0" text="If the player has one queen " />
+            <Line endX="245.0" layoutX="715.0" layoutY="522.0" startX="-236.29290771484375" />
+            <Label layoutX="677.0" layoutY="545.0" />
+            <Label layoutX="676.0" layoutY="562.0" />
+            <Line endX="-16.70709228515625" endY="243.25787353515625" layoutX="494.0" layoutY="327.0" startX="-16.0" startY="-34.94921875" />
+            <Line endX="-14.29290771484375" endY="230.25787353515625" layoutX="976.0" layoutY="341.0" startX="-15.5" startY="-49.5" />
+            <Line endX="243.0" endY="5.55078125" layoutX="718.0" layoutY="565.0" startX="-239.29290771484375" startY="5.9649658203125" />
+            <Line endX="245.0" layoutX="715.0" layoutY="292.0" startX="-236.29290771484375" startY="-0.65631103515625" />
+            <Line endX="231.0" layoutX="730.0" layoutY="465.0" startX="-251.29290771484375" />
+            <Label layoutX="486.0" layoutY="427.0" text="Green tile" textFill="#d61010" />
+            <Label layoutX="617.0" layoutY="550.0" text=" since the player's turn" />
+            <Label layoutX="624.0" layoutY="491.0" text="and 2  soldier on boards" />
+            <Label layoutX="622.0" layoutY="422.0" text=" If 30 seconds have passed  " />
+            <Label layoutX="618.0" layoutY="444.0" text=" since the player's turn" />
+            <Line endX="-14.29290771484375" endY="222.84368896484375" layoutX="802.0" layoutY="346.0" startX="-14.29290771484375" startY="-54.5" />
+            <Label layoutX="809.0" layoutY="336.0" text="A question appears" />
+            <Label layoutX="788.0" layoutY="380.0" text=" Another step in the same turn" />
+            <Label layoutX="795.0" layoutY="478.0" text="Return of one soldier for life" />
+            <Label layoutX="793.0" layoutY="536.0" text="Guide the player in the game" />
+            <Label layoutX="831.0" layoutY="427.0" text="+50 points" />
+            <Label layoutX="823.0" layoutY="302.0" prefHeight="17.0" prefWidth="91.0" text="What happens?" textFill="#d61010">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="39.0" fitWidth="38.0" layoutX="564.0" layoutY="527.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/Orange.JPG" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="43.0" fitWidth="38.0" layoutX="564.0" layoutY="471.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/blue.JPG" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="565.0" layoutY="421.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/green.JPG" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="564.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/red.JPG" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="36.0" fitWidth="37.0" layoutX="565.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/yellow.JPG" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="115.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/Queen_WHITE.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="109.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/Soldier_WHITE.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="72.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/Soldier_BLACK.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="77.0" layoutY="412.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/Queen_BLACK.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="19.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The first move is made by white player." wrappingWidth="236.68812561035156" />
+            <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="12.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/winner.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="39.0" fitWidth="40.0" layoutX="14.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@pictures/target.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
