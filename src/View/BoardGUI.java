@@ -366,10 +366,10 @@ public class BoardGUI extends Application {
 	}
 
 	/**
-	 * addds the tile secondary color to board GUI
-	 * @param row
-	 * @param col
-	 * @param tileColor
+	 * adds the tile secondary color to board GUI
+	 * @param row the tile row location
+	 * @param col the tile column location
+	 * @param tileColor the tile secondary color
 	 * @return true if added, false otherwise
 	 */
 	public boolean addColoredTileToBoard(int row, char col, SeconderyTileColor tileColor) {
@@ -1288,16 +1288,16 @@ public class BoardGUI extends Application {
 		alert.setHeaderText("Are you sure you want to quit the game ?");
 		alert.setContentText("");
 		alert.getButtonTypes().clear();
-		ButtonType bt1 = ButtonType.YES;
-		ButtonType bt2 = ButtonType.NO;
-		ButtonType bt3 = new ButtonType("Save Game");
-		alert.getButtonTypes().addAll(bt1,bt2,bt3);
+		ButtonType btYes = new ButtonType("Yes & Don't Save");
+		ButtonType btCancel = ButtonType.CANCEL;
+		ButtonType btSave = new ButtonType("Save Game");
+		alert.getButtonTypes().addAll(btYes,btCancel,btSave);
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.YES){
+		if (result.get() == btYes){
 			alert.close();
 			BoardController.getInstance().forceFinishGame();
 			return true;
-		} else if(result.get() == bt3) {
+		} else if(result.get() == btSave) {
 			saveGameDialog();
 			BoardController.getInstance().forceFinishGame();
 			return true;
