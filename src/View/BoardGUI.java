@@ -902,7 +902,7 @@ public class BoardGUI extends Application {
 					SoundController.getInstance().playBurn();
 					fromTile.getChildren().clear();
 //					showBurn(fromRow, fromCol);
-					showBurn(fromRow, fromCol, board.getLayoutX() + fromTile.getLayoutX(), board.getLayoutY() + fromTile.getLayoutY());
+//					showBurn(fromRow, fromCol);
 
 				}
 
@@ -1146,7 +1146,7 @@ public class BoardGUI extends Application {
 									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 								SoundController.getInstance().playBurn();
 								this.removePiece(i, c, true);
-								showBurn(i, c, board.getLayoutX() + tile.getLayoutX(), board.getLayoutY() + tile.getLayoutY());
+//								showBurn(i, c, board.getLayoutX() + tile.getLayoutX(), board.getLayoutY() + tile.getLayoutY());
 							}
 						}
 					}
@@ -1166,7 +1166,7 @@ public class BoardGUI extends Application {
 									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 								this.removePiece(i, c, true);
 								SoundController.getInstance().playBurn();
-								showBurn(i, c, board.getLayoutX() + tile.getLayoutX(), board.getLayoutY() + tile.getLayoutY());
+//								showBurn(i, c, board.getLayoutX() + tile.getLayoutX(), board.getLayoutY() + tile.getLayoutY());
 							}
 						}
 					}
@@ -1333,7 +1333,7 @@ public class BoardGUI extends Application {
 	
 
 
-	public void showBurn(int i, char c, double lx, double ly) {
+	public void showBurn(int i, char c) {
 		AnchorPane burn = new AnchorPane();
 		burn.setId("burnPane");
 		AnchorPane.setBottomAnchor(burn, 0.0);
@@ -1343,10 +1343,13 @@ public class BoardGUI extends Application {
 		burn.setStyle("-fx-background-color: #dbdbdb00;");
 		mainAnchor.getChildren().add(burn);
 		
-//		double lx = ((FlowPane) mainAnchor.lookup("#board")).getLayoutX();
-//		double ly = ((FlowPane) mainAnchor.lookup("#board")).getLayoutY();
-//		lx += 65*i;
-//		ly += 65*(c-'A');
+		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
+		String tileId = String.valueOf("#" + i + "_" + c);
+		System.out.println("=============  " + tileId);
+		FlowPane toTile = (FlowPane) board.lookup(tileId);
+		
+		double lx = board.getLayoutX() + toTile.getLayoutX();
+		double ly = board.getLayoutY() + toTile.getLayoutY();
 		
 		
 		ImageView fireImage = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/fire.png")));

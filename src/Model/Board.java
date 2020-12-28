@@ -743,13 +743,13 @@ public class Board {
 	 * Burns specific pieces 
 	 * @param toBurn a HashMap that contains every piece with its must eat pieces of the opponent
 	 */
-	public void burnAllPiecesMissedEating(HashMap<Piece, ArrayList<Piece>> toBurn) {
+	public Piece burnAllPiecesMissedEating(HashMap<Piece, ArrayList<Piece>> toBurn) {
 		Turn turn = Game.getInstance().getTurn();
 
 		if(toBurn.containsKey(turn.getLastPieceMoved())) {
-			if(toBurn.get(turn.getLastPieceMoved()).contains(turn.getEaten())) return;
+			if(toBurn.get(turn.getLastPieceMoved()).contains(turn.getEaten())) return null;
 		}else{
-			if(Game.getInstance().getTurn().isLastTileRed()) return;
+			if(Game.getInstance().getTurn().isLastTileRed()) return null;
 		}
 
 
@@ -758,7 +758,9 @@ public class Board {
 			ArrayList<Piece> temp = new ArrayList<>(toBurn.keySet());
 			int random = r.nextInt(temp.size());
 			burn(temp.get(random), false);
+			return temp.get(random);
 		}
+		return null;
 	}
 
 

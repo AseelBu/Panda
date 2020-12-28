@@ -212,7 +212,11 @@ public class BoardController {
 				toBurn.remove(piece);
 				toBurn.put(turn.getLastPieceMoved(), temp);
 			}
-			board.burnAllPiecesMissedEating(toBurn);
+			Piece burnt = board.burnAllPiecesMissedEating(toBurn);
+			if(burnt != null) {
+				System.out.println("===============++++++++" + burnt.getLocation());
+				DisplayController.boardGUI.showBurn(burnt.getLocation().getRow(), burnt.getLocation().getColumn());
+			}
 
 			if(turn.getMoveCounter()>0) {
 				Game.getInstance().getTurn().decrementMoveCounter();
