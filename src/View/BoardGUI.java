@@ -297,19 +297,7 @@ public class BoardGUI extends Application {
 		timeField.setStyle("-fx-opacity: 1;");
 		timeField.setAlignment(Pos.CENTER);
 		timeField.setFont(new Font(24));
-
-		TextArea MessagesArea = new TextArea();
-		MessagesArea.setId("Msgs_Area");
-		MessagesArea.setText("testing lllll");
-		MessagesArea.setLayoutX(1300.0);
-		MessagesArea.setLayoutY(80.0);	
-		MessagesArea.setPrefHeight(200.0);
-		MessagesArea.setPrefWidth(200.0);
-		MessagesArea.setEditable(false);
-		MessagesArea.setDisable(true);
-		MessagesArea.setFont(new Font(18));
-		
-		mainAnchor.getChildren().add(MessagesArea);		
+	
 		mainAnchor.getChildren().add(vsLbl);
 		mainAnchor.getChildren().add(timeField);
 
