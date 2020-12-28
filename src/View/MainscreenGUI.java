@@ -41,11 +41,11 @@ import javafx.util.Duration;
 
 public class MainscreenGUI extends Application {
 
-    private AnchorPane mainBorder;
+	private AnchorPane mainBorder;
 	private static Stage primary;	
 	private String mute;
 	private int firstRun = 0;
-    
+
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -57,17 +57,17 @@ public class MainscreenGUI extends Application {
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(mainBorder);
-//		scene.getStylesheets().add(getClass().getResource("/View/mainscreen.css").toExternalForm());
+		//		scene.getStylesheets().add(getClass().getResource("/View/mainscreen.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
-//		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
+		//		primaryStage.initStyle(StageStyle.UNDECORATED);  is Used to lock windows, wont be able to move the window
 		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/View/pictures/logo.png")));
 		primaryStage.show();
 		primary = primaryStage;
-		
-		
-		
+
+
+
 		loadesign(1);
 		SoundController.getInstance().playIntro();
 
@@ -86,7 +86,7 @@ public class MainscreenGUI extends Application {
 		background.setEffect(effect);
 		Properties prop=new Properties();
 		FileInputStream ip = null;
-		
+
 		try {
 			ip= new FileInputStream("config.properties");
 			prop.load(ip);
@@ -94,7 +94,7 @@ public class MainscreenGUI extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		if(prop.getProperty("ALWAYS_MUTE_SOUND").equals("TRUE")) {
 			if(firstRun == 0) {
 				SoundController.getInstance().muteSound();
@@ -102,13 +102,13 @@ public class MainscreenGUI extends Application {
 				this.firstRun++;
 			}
 			else {
-			if(SoundController.getInstance().isMuted()) {
-			SoundController.getInstance().muteSound();
-			mute = "Off";
-			}
-			else {
-				mute = "On";
-			}
+				if(SoundController.getInstance().isMuted()) {
+					SoundController.getInstance().muteSound();
+					mute = "Off";
+				}
+				else {
+					mute = "On";
+				}
 			}
 		}
 		else {
@@ -118,14 +118,14 @@ public class MainscreenGUI extends Application {
 				this.firstRun++;
 			}
 			if(!SoundController.getInstance().isMuted()) {
-			SoundController.getInstance().unmuteSound();
-			mute = "On";
+				SoundController.getInstance().unmuteSound();
+				mute = "On";
 			}
 			else {
 				mute = "Off";
 			}
 		}
-		
+
 		if(prop.getProperty("THEME_COLOR1").equals("#779556")) {
 			Config.THEME_COLOR1 = "#779556";
 			Config.THEME_COLOR2 = "#EBECD0";
@@ -146,11 +146,11 @@ public class MainscreenGUI extends Application {
 			Config.THEME_COLOR1 = "#000000";
 			Config.THEME_COLOR2 = "#ffffff";
 		}
-		
-	
-				
+
+
+
 		mainBorder.getChildren().add(background);
-		
+
 		ImageView title = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/Pieace_6.png")));
 		title.setId("title");
 		title.setFitHeight(61);
@@ -160,33 +160,27 @@ public class MainscreenGUI extends Application {
 		title.setPickOnBounds(true);
 		title.setPreserveRatio(true);
 		mainBorder.getChildren().add(title);
-		
+
 		addButton(new Image(getClass().getResourceAsStream("/View/pictures/settings.png"))
 				, 405, 5, 45, 45,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 					loadesign(3);
-					
-					
-					
-					
-					
-					
-					
+
 					ObservableList<String> colors = 
-					        FXCollections.observableArrayList(
-					          "#779556",
-					          "#48769A",
-					          "#B3B5B4",
-					          "#7C3937",
-					          "#000000"
-					          
-					        );
+							FXCollections.observableArrayList(
+									"#779556",
+									"#48769A",
+									"#B3B5B4",
+									"#7C3937",
+									"#000000"
+
+									);
 					ComboBox<String> theme = new ComboBox<String>(colors);
 					theme.setLayoutX(250);
 					theme.setLayoutY(150);
-					
+
 					Rectangle square = new Rectangle(250,180,90,60);
-					
-					
+
+
 					Label l = new Label("Change Theme :");
 					l.setFont(new Font("verdana", 20));
 					l.setLayoutX(80);
@@ -194,7 +188,7 @@ public class MainscreenGUI extends Application {
 					l.setStyle("-fx-font-weight: bold");
 					l.setStyle("-fx-text-fill: WHITE;");
 					mainBorder.getChildren().add(l);
-					
+
 					Label sound = new Label("Always Mute Sound :");
 					sound.setFont(new Font("verdana", 20));
 					sound.setLayoutX(80);
@@ -202,22 +196,22 @@ public class MainscreenGUI extends Application {
 					sound.setStyle("-fx-font-weight: bold");
 					sound.setStyle("-fx-text-fill: WHITE;");
 					mainBorder.getChildren().add(sound);
-					
+
 					Button reset = new Button("Reset Scoreboard");
 					reset.setFont(new Font("verdana", 14));
 					reset.setLayoutX(140);
 					reset.setLayoutY(320);
 					mainBorder.getChildren().add(reset);
-					
+
 					reset.setOnAction(new EventHandler<ActionEvent>() {
 
 						@Override
 						public void handle(ActionEvent event) {
-							
+
 							File myObj = new File("highscores.ser"); 
 							ScoreBoardController.getInstance().getSysData().getScoreboard().clear();
 							myObj.delete();
-							
+
 							Label notfiaction = new Label("Highscores Rest ✓");
 							notfiaction.setFont(new Font("verdana", 20));
 							notfiaction.setLayoutX(127);
@@ -225,20 +219,20 @@ public class MainscreenGUI extends Application {
 							notfiaction.setStyle("-fx-font-weight: bold");
 							notfiaction.setStyle("-fx-text-fill: WHITE;");
 							mainBorder.getChildren().add(notfiaction);
-							
+
 							notfiaction.setVisible(true);
 							PauseTransition visiblePause = new PauseTransition(
-							        Duration.seconds(3)
-							);
+									Duration.seconds(3)
+									);
 							visiblePause.setOnFinished(t -> notfiaction.setVisible(false)
-							         
-							);
+
+									);
 							visiblePause.play();
-							
+
 						}
-							
+
 					});
-					
+
 					CheckBox t = new CheckBox();
 					t.setLayoutY(250);
 					t.setLayoutX(310);
@@ -249,14 +243,14 @@ public class MainscreenGUI extends Application {
 						t.setSelected(false);
 					}
 					mainBorder.getChildren().add(t);
-					
+
 					t.setOnAction(new EventHandler<ActionEvent>() {
 
 						@Override
 						public void handle(ActionEvent event) {
-							
+
 							if(t.isSelected()) {
-								
+
 								SoundController.getInstance().muteSound();
 								prop.setProperty("ALWAYS_MUTE_SOUND", "TRUE");
 								try {
@@ -276,17 +270,17 @@ public class MainscreenGUI extends Application {
 									e.printStackTrace();
 								}
 							}
-							
+
 						}			
-						
-						
+
+
 					});
-					
+
 					mainBorder.getChildren().add(square);
-					
-					
-				
-					
+
+
+
+
 					if(prop.getProperty("THEME_COLOR1").equals("#779556")) {
 						theme.getSelectionModel().select(0);
 						square.setFill(Color.web("#779556"));
@@ -317,16 +311,16 @@ public class MainscreenGUI extends Application {
 						Config.THEME_COLOR1 = "#000000";
 						Config.THEME_COLOR2 = "#ffffff";
 					}
-					
-					
+
+
 					mainBorder.getChildren().add(theme);
-					
+
 					theme.setOnAction(new EventHandler<ActionEvent>() {
 
 						@Override
 						public void handle(ActionEvent event) {
-									
-						
+
+
 							if(theme.getSelectionModel().getSelectedItem().equals("#779556")) {
 								theme.getSelectionModel().select(0);
 								square.setFill(Color.web("#779556"));
@@ -356,8 +350,8 @@ public class MainscreenGUI extends Application {
 								Config.THEME_COLOR1 = "#000000";
 								Config.THEME_COLOR2 = "#ffffff";
 							}
-							
-							
+
+
 							square.setFill(Color.web((theme.getSelectionModel().getSelectedItem())));
 							prop.setProperty("THEME_COLOR1", theme.getSelectionModel().getSelectedItem());
 							try {
@@ -366,132 +360,132 @@ public class MainscreenGUI extends Application {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-				
-							
+
+
 						}
-										
+
 					});
-	    });
-		
+				});
+
 		switch(design) {
-			case 1:{
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))
-						, 150, 110, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-					loadesign(2);
-			        event.consume();
-			    });
-				
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/instructions_btn.png"))
-						, 150, 195, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			       this.InstructionsGame();
-			       event.consume();
-			    });
+		case 1:{
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))
+					, 150, 110, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						loadesign(2);
+						event.consume();
+					});
 
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/score_btn.png"))
-						, 150, 280, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-					this.scoreboard();
-			        event.consume();
-			    });
-				
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/mgmt_btn.png"))
-						, 150, 365, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			        this.manageQuestions();
-			        event.consume();
-			    });
-				
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png"))
-						, 5, 500, 70, 50,mute).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							
-							ImageView source = ((ImageView)event.getSource());
-							if(source.getId().equals("On")) {
-								
-								source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
-								source.setId("Off");
-								SoundController.getInstance().muteSound();
-							}
-							else {
-								source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
-								source.setId("On");
-								SoundController.getInstance().unmuteSound();
-							}
-							
-			
-				});
-				
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/exit.png"))
-						, 405, 500, 70, 50,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			        this.exit();
-			    });
-		
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/instructions_btn.png"))
+					, 150, 195, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						this.InstructionsGame();
+						event.consume();
+					});
+
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/score_btn.png"))
+					, 150, 280, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						this.scoreboard();
+						event.consume();
+					});
+
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/mgmt_btn.png"))
+					, 150, 365, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						this.manageQuestions();
+						event.consume();
+					});
+
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png"))
+					, 5, 500, 70, 50,mute).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+
+						ImageView source = ((ImageView)event.getSource());
+						if(source.getId().equals("On")) {
+
+							source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
+							source.setId("Off");
+							SoundController.getInstance().muteSound();
+						}
+						else {
+							source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+							source.setId("On");
+							SoundController.getInstance().unmuteSound();
+						}
 
 
+					});
 
-				break;
-			}
-			case 2:{
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/back.png"))
-						, 10, 5, 45, 45,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							loadesign(1);
-							event.consume();
-			    });
-				
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/normalgame_btn.png"))
-						, 150, 110, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							this.startGame();
-							event.consume();
-			    });
-				
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/load_btn.png"))
-						, 150, 195, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							this.loadGame();
-			       			event.consume();
-			    });
-				
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/customGame_btn.png"))
-						, 150, 280, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-					    	DisplayController.getInstance().closeMainscreen();
-							DisplayController.getInstance().showBoardEdit();
-							event.consume();
-			    });
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png"))
-						, 5, 500, 70, 50,mute).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							
-							ImageView source = ((ImageView)event.getSource());
-							if(source.getId().equals("On")) {
-								
-								source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
-								source.setId("Off");
-								SoundController.getInstance().muteSound();
-							}
-							else {
-								source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
-								source.setId("On");
-								SoundController.getInstance().unmuteSound();
-							}
-							
-			
-				});
-				
-				break;
-			}
-			case 3:{
-				addButton(new Image(getClass().getResourceAsStream("/View/pictures/back.png"))
-						, 10, 5, 45, 45,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-							loadesign(1);
-							
-							event.consume();
-			    });
-				
-				break;
-			}
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/exit.png"))
+					, 405, 500, 70, 50,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						this.exit();
+					});
+
+
+
+
+			break;
 		}
-		
-		
-		
-		
-		
+		case 2:{
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/back.png"))
+					, 10, 5, 45, 45,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						loadesign(1);
+						event.consume();
+					});
+
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/normalgame_btn.png"))
+					, 150, 110, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						this.startGame();
+						event.consume();
+					});
+
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/load_btn.png"))
+					, 150, 195, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						this.loadGame();
+						event.consume();
+					});
+
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/customGame_btn.png"))
+					, 150, 280, 310, 70,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						DisplayController.getInstance().closeMainscreen();
+						DisplayController.getInstance().showBoardEdit();
+						event.consume();
+					});
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png"))
+					, 5, 500, 70, 50,mute).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+
+						ImageView source = ((ImageView)event.getSource());
+						if(source.getId().equals("On")) {
+
+							source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
+							source.setId("Off");
+							SoundController.getInstance().muteSound();
+						}
+						else {
+							source.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+							source.setId("On");
+							SoundController.getInstance().unmuteSound();
+						}
+
+
+					});
+
+			break;
+		}
+		case 3:{
+			addButton(new Image(getClass().getResourceAsStream("/View/pictures/back.png"))
+					, 10, 5, 45, 45,null).addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+						loadesign(1);
+
+						event.consume();
+					});
+
+			break;
+		}
+		}
+
+
+
+
+
 	}
-	
+
 	public ImageView addButton(Image img, double layoutX, double layoutY, double width, double height,String id) {
 		ImageView button = new ImageView(img);
 		if(id != null) {
@@ -518,58 +512,58 @@ public class MainscreenGUI extends Application {
 		}
 		return primary;
 	}
-	
 
-	
-    void exit() {
-    	Platform.exit();
-    }
 
-   
-    void loadGame() {
-    	File file = null;
+
+	void exit() {
+		Platform.exit();
+	}
+
+
+	void loadGame() {
+		File file = null;
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text", "*.txt");
-	    FileChooser fileChooser = new FileChooser();
-    	fileChooser.getExtensionFilters().clear();
-    	fileChooser.getExtensionFilters().add(extFilter);
-    	
-    	file = fileChooser.showOpenDialog(primary);
-    	
-    	if (file != null) {        	
-//        	DisplayController.getInstance().closeMainscreen();
-//        	DisplayController.getInstance().showBoard(file);
-    		DisplayController.getInstance().showNicknames(file);
-        }
-    }
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().clear();
+		fileChooser.getExtensionFilters().add(extFilter);
 
-    
-    void manageQuestions() {
-    	DisplayController.getInstance().closeMainscreen();
-    	DisplayController.getInstance().showManageQuestions();
-    }
+		file = fileChooser.showOpenDialog(primary);
 
-    
-    void scoreboard() {
-    	
-    	DisplayController.getInstance().closeMainscreen();
-    	DisplayController.getInstance().showScoreboard();;
-    	
-    }
+		if (file != null) {        	
+			//        	DisplayController.getInstance().closeMainscreen();
+			//        	DisplayController.getInstance().showBoard(file);
+			DisplayController.getInstance().showNicknames(file);
+		}
+	}
 
-    
-    void startGame() {
-//		DisplayController.getInstance().closeMainscreen();
-//		DisplayController.getInstance().showBoard();
+
+	void manageQuestions() {
+		DisplayController.getInstance().closeMainscreen();
+		DisplayController.getInstance().showManageQuestions();
+	}
+
+
+	void scoreboard() {
+
+		DisplayController.getInstance().closeMainscreen();
+		DisplayController.getInstance().showScoreboard();;
+
+	}
+
+
+	void startGame() {
+		//		DisplayController.getInstance().closeMainscreen();
+		//		DisplayController.getInstance().showBoard();
 		DisplayController.getInstance().showNicknames();
-    }
-    
-    
-    void InstructionsGame() {
-    DisplayController.getInstance().showInstructionsGame();
-    }
+	}
 
-    void pointstable() {
-        DisplayController.getInstance().showPointsTable();
-        }
-	
+
+	void InstructionsGame() {
+		DisplayController.getInstance().showInstructionsGame();
+	}
+
+	void pointstable() {
+		DisplayController.getInstance().showPointsTable();
+	}
+
 }
