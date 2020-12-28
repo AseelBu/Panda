@@ -174,6 +174,47 @@ public class BoardGUI extends Application {
 		totalTimeF.setFont(new Font(24.0));
 		mainAnchor.getChildren().add(totalTimeF);
 
+		
+		ImageView mute = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+		if(SoundController.getInstance().isMuted()) {
+			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
+			mute.setId("Off");
+		}
+		else {
+			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+			mute.setId("On");
+		}
+		mute.setLayoutX(10);
+		mute.setLayoutY(590);
+		mute.setFitWidth(70);
+		mute.setFitHeight(50);
+		mute.setPickOnBounds(true);
+		mute.setPreserveRatio(true);
+		mute.setCursor(Cursor.HAND);
+		mainAnchor.getChildren().add(mute);
+		
+		mute.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				if(mute.getId().equals("Off")) {
+					mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+					mute.setId("On");
+					SoundController.getInstance().unmuteSound();
+				}
+				else {
+					mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
+					mute.setId("Off");
+					SoundController.getInstance().muteSound();
+				}
+				
+			}
+			
+			
+		});
+		
+
 		ImageView pause = new ImageView(new Image(getClass().getResource("pictures/pause.png").toString()));
 		pause.setFitHeight(36);
 		pause.setFitWidth(38);
@@ -674,8 +715,7 @@ public class BoardGUI extends Application {
 		ColorAdjust colorAdjust = new ColorAdjust();
 
 		Label pointsLabelW = new Label("Points:");
-//		pointsLabelW.setLayoutX(106.0);
-//		pointsLabelW.setLayoutY(165.0);
+
 		pointsLabelW.setLayoutX(15.0);
 		pointsLabelW.setLayoutY(51.0);
 		pointsLabelW.setEffect(colorAdjust);
@@ -686,8 +726,6 @@ public class BoardGUI extends Application {
 		pointsWhite.setAlignment(Pos.CENTER);
 		pointsWhite.setDisable(true);
 		pointsWhite.setEditable(false);
-//		pointsWhite.setLayoutX(175.0);
-//		pointsWhite.setLayoutY(161.0);
 		pointsWhite.setLayoutX(80.0);
 		pointsWhite.setLayoutY(49.0);
 		pointsWhite.setPrefHeight(24.0);
@@ -699,15 +737,11 @@ public class BoardGUI extends Application {
 
 		Label lp2 = new Label(blackName);
 		lp2.setId("Name_BLACK");
-//		lp2.setLayoutX(105.0);
-//		lp2.setLayoutY(319.0);
 		lp2.setLayoutX(11.0);
 		lp2.setLayoutY(5.0);
 		lp2.setFont(new Font(24.0));
 
 		Label pointsLabelB = new Label("Points:");
-//		pointsLabelB.setLayoutX(106.0);
-//		pointsLabelB.setLayoutY(359.0);
 		pointsLabelB.setLayoutX(15.0);
 		pointsLabelB.setLayoutY(51.0);
 		pointsLabelB.setEffect(colorAdjust);
@@ -718,8 +752,6 @@ public class BoardGUI extends Application {
 		pointsBlack.setAlignment(Pos.CENTER);
 		pointsBlack.setDisable(true);
 		pointsBlack.setEditable(false);
-//		pointsBlack.setLayoutX(175.0);
-//		pointsBlack.setLayoutY(355.0);
 		pointsBlack.setLayoutX(80.0);
 		pointsBlack.setLayoutY(49.0);
 		pointsBlack.setPrefHeight(24.0);
@@ -764,38 +796,23 @@ public class BoardGUI extends Application {
 			turnTimer = new TurnTimerController();
 			turnTimer.start();
 		}
-//		String id = "#Name_" + color;
-//		Label name = (Label) mainAnchor.lookup(id);
+
 		String newId = "#playerPane" + color;
 		System.out.println("newID= "+newId);
 		String oldId = "";
 		Pane newPlayerPane =(Pane) mainAnchor.lookup(newId);
-//		DropShadow ds = new DropShadow();
-//		ds.setColor(Color.RED);
-//		ds.setHeight(134.41);
-//		ds.setRadius(66.52);
-//		ds.setWidth(133.67);
-//		ds.setSpread(0.85);
+
 		if(color.equals(PrimaryColor.WHITE))
 		{
 			
 			oldId =  "#playerPaneBLACK"; 
-			
-//			String id2 = "#Name_BLACK"; 
-//			Label name2 = (Label) mainAnchor.lookup(id2);
-//			name2.setEffect(null);
-//			name2.setFont(new Font(28));
-//			name.setEffect(ds);
+
 
 		}
 		else
 		{
 			oldId =  "#playerPaneWHITE"; 
-//			String id2 = "#Name_WHITE"; 
-//			Label name2 = (Label) mainAnchor.lookup(id2);
-//			name2.setEffect(null);
-//			name2.setFont(new Font(28));
-//			name.setEffect(ds);
+
 		}
 		Pane oldPlayerPane = (Pane) mainAnchor.lookup(oldId);
 		newPlayerPane.getStyleClass().add("playerInfo");
@@ -1099,8 +1116,10 @@ public class BoardGUI extends Application {
 						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
 								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
 							if(!boardController.pieceExists(i, c, 
-									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
+									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
+								SoundController.getInstance().playBurn();
 								this.removePiece(i, c, true);
+							}
 						}
 					}
 				}
@@ -1116,8 +1135,10 @@ public class BoardGUI extends Application {
 						if(tile.getChildren().get(0).getId().split("_")[0].matches("Soldier") 
 								|| tile.getChildren().get(0).getId().split("_")[0].matches("Queen")) {
 							if(!boardController.pieceExists(i, c, 
-									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK))
+									(tile.getChildren().get(0).getId().split("_")[1].matches(PrimaryColor.WHITE.toString()) ) ? PrimaryColor.WHITE : PrimaryColor.BLACK)) {
 								this.removePiece(i, c, true);
+								SoundController.getInstance().playBurn();
+							}
 						}
 					}
 				}

@@ -1,15 +1,38 @@
 {
   "questions": [
     {
-      "question": "q12",
+      "question": "q1",
       "answers": [
-        "a",
-        "b",
-        "c",
-        "d"
+        "n5",
+        "n4",
+        "n3",
+        "n1"
       ],
       "correct_ans": "1",
       "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "q2",
+      "answers": [
+        "answer1",
+        "answer2",
+        "answer3"
+      ],
+      "correct_ans": "1",
+      "level": "1",
+      "team": "animal"
+    },
+    {
+      "question": "q5?",
+      "answers": [
+        "answer1",
+        "answer2",
+        "answer3",
+        "ka"
+      ],
+      "correct_ans": "1",
+      "level": "2",
       "team": "animal"
     }
   ]

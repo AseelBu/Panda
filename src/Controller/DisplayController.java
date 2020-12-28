@@ -21,12 +21,14 @@ import View.Nicknames;
 import View.QuestionGUI;
 import View.Scoreboard;
 import View.Winner;
+import View.pointsTable;
 
 public class DisplayController {
 
 	private static DisplayController instance;
 	public static MainscreenGUI mainscreen;
 	public static BoardGUI boardGUI;
+	public static pointsTable points;
 	public static ManageQuestions manageQuestions;
 	public static Scoreboard scoreboard;
 	public static Nicknames nicknames;
@@ -204,6 +206,13 @@ public class DisplayController {
 		instructions.start(instructions .getPrimary());
 		
 	}
+	public void showPointsTable() {
+		points = new pointsTable();
+		//System.out.println(instructions);
+
+		points.start(instructions .getPrimary());
+		
+	}
 	
 	public void showScoreboard() {
 		ScoreBoardController.getInstance().loadHistory();
@@ -285,6 +294,11 @@ public class DisplayController {
 	public void closeInstructionsGame() {
 		instructions.getPrimary().hide();
 		showMainScreen();
+
+	}
+	public void closePointstable() {
+		points.getPrimary().hide();
+		showInstructionsGame();
 
 	}
 	

@@ -261,6 +261,7 @@ public class BoardController {
 	public boolean checkBurnCurrent(int row, char col) throws LocationException {
 		Piece pieceInLoc = Board.getInstance().getTileInLocation(new Location(row, col)).getPiece();
 		if(pieceInLoc == null) return true;
+
 		return false;
 	}
 

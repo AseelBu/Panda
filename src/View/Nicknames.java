@@ -135,7 +135,7 @@ public class Nicknames extends Application {
 		lbl1.setLayoutY(102.0);
 		lbl1.setFont(new Font("Berlin Sans FB Demi Bold", 14.0));
 		
-		TextField txt1 = new TextField();
+		TextField txt1 = new TextField("Player 1");
 		txt1.setId("WHITE");
 		txt1.setLayoutX(33.0);
 		txt1.setLayoutY(125.0);
@@ -168,7 +168,7 @@ public class Nicknames extends Application {
 		lbl2.setLayoutY(102.0);
 		lbl2.setFont(new Font("Berlin Sans FB Demi Bold", 14.0));
 		
-		TextField txt2 = new TextField();
+		TextField txt2 = new TextField("Player 2");
 		txt2.setId("BLACK");
 		txt2.setLayoutX(409.0);
 		txt2.setLayoutY(125.0);

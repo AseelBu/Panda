@@ -140,7 +140,7 @@ public class Scoreboard extends Application {
 				first_score.setFont(new Font("verdana",16.0));
 				mainAnchor.getChildren().add(first_score);
 				first_score.setTextFill(Color.web("#ffffff"));
-				first_score.setLayoutX(223);
+				first_score.setLayoutX(214);
 				first_score.setLayoutY(105);
 				
 				
@@ -159,7 +159,7 @@ public class Scoreboard extends Application {
 				first_score.setFont(new Font("verdana",16.0));
 				mainAnchor.getChildren().add(first_score);
 				first_score.setTextFill(Color.web("#ffffff"));
-				first_score.setLayoutX(114);
+				first_score.setLayoutX(93);
 				first_score.setLayoutY(140);
 				
 			}
@@ -177,7 +177,7 @@ public class Scoreboard extends Application {
 				first_score.setFont(new Font("verdana",16.0));
 				mainAnchor.getChildren().add(first_score);
 				first_score.setTextFill(Color.web("#ffffff"));
-				first_score.setLayoutX(326);
+				first_score.setLayoutX(305);
 				first_score.setLayoutY(160);
 				
 			}
