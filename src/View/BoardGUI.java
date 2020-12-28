@@ -180,15 +180,51 @@ public class BoardGUI extends Application {
 		totalTimeF.setStyle("-fx-opacity: 1;");
 		totalTimeF.setFont(new Font(24.0));
 		mainAnchor.getChildren().add(totalTimeF);
-
 		
-		ImageView mute = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+		
+		ImageView help = new ImageView(new Image(getClass().getResourceAsStream("pictures/help.png")));
+		help.setLayoutX(997.5);
+		help.setLayoutY(3);
+		help.setFitWidth(40);
+		help.setFitHeight(40);
+		help.setPickOnBounds(true);
+		help.setPreserveRatio(true);
+		help.setCursor(Cursor.HAND);
+		
+		
+		help.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				InfoPane info = new InfoPane();
+				info.start(info.getPrimary());
+				
+			}
+					
+		});
+		
+//		help.setOnMouseExited(new EventHandler<MouseEvent>() {
+//
+//			@Override
+//			public void handle(MouseEvent event) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//			
+//				
+//		});
+		
+		mainAnchor.getChildren().add(help);
+		
+		ImageView mute = new ImageView(new Image(getClass().getResourceAsStream("pictures/music_on.png")));
 		if(SoundController.getInstance().isMuted()) {
-			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
+			mute.setImage(new Image(getClass().getResourceAsStream("pictures/music_off.png")));
 			mute.setId("Off");
 		}
 		else {
-			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+			mute.setImage(new Image(getClass().getResourceAsStream("pictures/music_on.png")));
 			mute.setId("On");
 		}
 		mute.setLayoutX(10);
