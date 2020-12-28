@@ -278,9 +278,6 @@ public class MainscreenGUI extends Application {
 
 					mainBorder.getChildren().add(square);
 
-
-
-
 					if(prop.getProperty("THEME_COLOR1").equals("#779556")) {
 						theme.getSelectionModel().select(0);
 						square.setFill(Color.web("#779556"));
@@ -366,7 +363,8 @@ public class MainscreenGUI extends Application {
 
 					});
 				});
-
+		
+		//TODO document
 		switch(design) {
 		case 1:{
 			addButton(new Image(getClass().getResourceAsStream("/View/pictures/startgame_btn.png"))

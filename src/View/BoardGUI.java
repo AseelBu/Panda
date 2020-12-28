@@ -37,6 +37,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
@@ -77,6 +78,7 @@ public class BoardGUI extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		//1048.0, 648.0
 		Scene scene = new Scene(mainAnchor,1048.0, 648.0);
 		scene.getStylesheets().add(getClass().getResource("/View/board.css").toExternalForm());
 		primaryStage.setScene(scene);
@@ -295,7 +297,7 @@ public class BoardGUI extends Application {
 		timeField.setStyle("-fx-opacity: 1;");
 		timeField.setAlignment(Pos.CENTER);
 		timeField.setFont(new Font(24));
-
+	
 		mainAnchor.getChildren().add(vsLbl);
 		mainAnchor.getChildren().add(timeField);
 
@@ -1298,13 +1300,14 @@ public class BoardGUI extends Application {
 	public boolean exitAlert() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Exit Confirmation");
-		alert.setHeaderText("Are you sure you want to quit the game ?");
+		alert.setHeaderText("Do you want to save the game before quitting?");
 		alert.setContentText("");
 		alert.getButtonTypes().clear();
-		ButtonType btYes = new ButtonType("Yes & Don't Save");
+		ButtonType btYes = new ButtonType("Quit & Don't Save");
 		ButtonType btCancel = ButtonType.CANCEL;
 		ButtonType btSave = new ButtonType("Save Game");
-		alert.getButtonTypes().addAll(btYes,btCancel,btSave);
+		
+		alert.getButtonTypes().addAll(btSave,btYes,btCancel);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == btYes){
 			alert.close();
