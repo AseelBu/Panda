@@ -43,7 +43,7 @@ public class MainscreenGUI extends Application {
 	private AnchorPane mainBorder;
 	private static Stage primary;	
 	private String mute;
-	private int firstRun = 0;
+	private static int firstRun = 0;
 
 
 	@Override
