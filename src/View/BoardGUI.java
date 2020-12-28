@@ -48,7 +48,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -268,8 +267,6 @@ public class BoardGUI extends Application {
 				ImageView whiteImg = new ImageView(new Image(getClass().getResource("pictures/Queen_WHITE.png").toString()));
 				whiteImg.setFitHeight(90);
 				whiteImg.setFitWidth(90);
-//				whiteImg.setLayoutX(16);
-//				whiteImg.setLayoutY(102);
 				whiteImg.setLayoutX(16);
 				whiteImg.setLayoutY(97);
 		
@@ -298,9 +295,6 @@ public class BoardGUI extends Application {
 		timeField.setStyle("-fx-opacity: 1;");
 		timeField.setAlignment(Pos.CENTER);
 		timeField.setFont(new Font(24));
-
-
-
 
 		mainAnchor.getChildren().add(vsLbl);
 		mainAnchor.getChildren().add(timeField);
@@ -377,10 +371,10 @@ public class BoardGUI extends Application {
 	}
 
 	/**
-	 * addds the tile secondary color to board GUI
-	 * @param row
-	 * @param col
-	 * @param tileColor
+	 * adds the tile secondary color to board GUI
+	 * @param row the tile row location
+	 * @param col the tile column location
+	 * @param tileColor the tile secondary color
 	 * @return true if added, false otherwise
 	 */
 	public boolean addColoredTileToBoard(int row, char col, SeconderyTileColor tileColor) {
@@ -422,6 +416,7 @@ public class BoardGUI extends Application {
 		//			}
 		//			
 		//		});
+
 		tile.getChildren().add(tileImage);
 		return true;
 	}
@@ -903,6 +898,7 @@ public class BoardGUI extends Application {
 
 				}//moved piece did burn
 				else {
+					
 					SoundController.getInstance().playBurn();
 					fromTile.getChildren().clear();
 //					showBurn(fromRow, fromCol);
@@ -1305,16 +1301,16 @@ public class BoardGUI extends Application {
 		alert.setHeaderText("Are you sure you want to quit the game ?");
 		alert.setContentText("");
 		alert.getButtonTypes().clear();
-		ButtonType bt1 = ButtonType.YES;
-		ButtonType bt2 = ButtonType.NO;
-		ButtonType bt3 = new ButtonType("Save Game");
-		alert.getButtonTypes().addAll(bt1,bt2,bt3);
+		ButtonType btYes = new ButtonType("Yes & Don't Save");
+		ButtonType btCancel = ButtonType.CANCEL;
+		ButtonType btSave = new ButtonType("Save Game");
+		alert.getButtonTypes().addAll(btYes,btCancel,btSave);
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.YES){
+		if (result.get() == btYes){
 			alert.close();
 			BoardController.getInstance().forceFinishGame();
 			return true;
-		} else if(result.get() == bt3) {
+		} else if(result.get() == btSave) {
 			saveGameDialog();
 			BoardController.getInstance().forceFinishGame();
 			return true;
@@ -1334,6 +1330,8 @@ public class BoardGUI extends Application {
 			MiscController.getInstance().saveGame(file);
 		}
 	}
+	
+
 
 	public void showBurn(int i, char c, double lx, double ly) {
 		AnchorPane burn = new AnchorPane();

@@ -52,6 +52,7 @@ public class ManageQuestions extends Application {
 	private ScrollPane listScroll;
 	private ChangeListener<Question> listener = null;
 	
+
 	/**
 	 * Starts the page
 	 */

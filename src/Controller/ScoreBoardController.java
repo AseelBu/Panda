@@ -83,10 +83,10 @@ public class ScoreBoardController {
 
 	}
 
-	/**
-	 * load HighScores from file
-	 */
 	@SuppressWarnings("unchecked")
+	/**
+	 * Load History From File 
+	 */
 	public void loadHistory() {
 
 		try {
