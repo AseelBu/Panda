@@ -222,7 +222,7 @@ public class BoardGUI extends Application {
 		FlowPane pausePane = new FlowPane();
 		pausePane.setId("pause");
 		pausePane.setPrefHeight(36);
-		pausePane.setPrefHeight(38);
+		pausePane.setPrefWidth(38);
 		pausePane.setLayoutX(322);
 		pausePane.setLayoutY(37);
 		pausePane.setCursor(Cursor.HAND);
@@ -245,7 +245,7 @@ public class BoardGUI extends Application {
 		FlowPane savePane = new FlowPane();
 		savePane.setId("save");
 		savePane.setPrefHeight(36);
-		savePane.setPrefHeight(38);
+		savePane.setPrefWidth(38);
 		savePane.setLayoutX(360);
 		savePane.setLayoutY(37);
 		savePane.setCursor(Cursor.HAND);
