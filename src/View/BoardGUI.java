@@ -174,15 +174,40 @@ public class BoardGUI extends Application {
 		totalTimeF.setStyle("-fx-opacity: 1;");
 		totalTimeF.setFont(new Font(24.0));
 		mainAnchor.getChildren().add(totalTimeF);
-
 		
-		ImageView mute = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+		
+		ImageView help = new ImageView(new Image(getClass().getResourceAsStream("pictures/help.png")));
+		help.setLayoutX(10);
+		help.setLayoutY(530);
+		help.setFitWidth(70);
+		help.setFitHeight(50);
+		help.setPickOnBounds(true);
+		help.setPreserveRatio(true);
+		help.setCursor(Cursor.HAND);
+		
+		
+		help.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				InfoPane info = new InfoPane();
+				info.start(info.getPrimary());
+				
+			}
+					
+		});
+		
+		
+		mainAnchor.getChildren().add(help);
+		
+		ImageView mute = new ImageView(new Image(getClass().getResourceAsStream("pictures/music_on.png")));
 		if(SoundController.getInstance().isMuted()) {
-			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
+			mute.setImage(new Image(getClass().getResourceAsStream("pictures/music_off.png")));
 			mute.setId("Off");
 		}
 		else {
-			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
+			mute.setImage(new Image(getClass().getResourceAsStream("pictures/music_on.png")));
 			mute.setId("On");
 		}
 		mute.setLayoutX(10);
@@ -265,7 +290,7 @@ public class BoardGUI extends Application {
 				whiteImg.setFitWidth(90);
 				whiteImg.setLayoutX(16);
 				whiteImg.setLayoutY(97);
-		
+	
 				ImageView blackImg = new ImageView(new Image(getClass().getResource("pictures/Queen_BLACK.png").toString()));
 				blackImg.setFitHeight(90);
 				blackImg.setFitWidth(90);
@@ -449,8 +474,6 @@ public class BoardGUI extends Application {
 			System.out.println("Board has no tile in piece's location");
 			return false;
 		}
-
-		//remove color from 
 
 		ImageView pieceImage;
 		if(isSoldier) {

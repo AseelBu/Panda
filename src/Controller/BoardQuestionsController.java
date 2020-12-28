@@ -1,8 +1,4 @@
-/**
- * 
- */
 package Controller;
-
 
 import Exceptions.QuestionException;
 import Model.Game;
@@ -22,7 +18,8 @@ public class BoardQuestionsController {
 	private final static int WRONG_MEDIOCRE_POINTS=100;
 	private final static int WRONG_HARD_POINTS=50;
 	
-	private static BoardQuestionsController instance;
+
+	private static BoardQuestionsController instance=null;
 	
 	/**
 	 * 
@@ -52,7 +49,7 @@ public class BoardQuestionsController {
 	 * @return true if the answer is correct, false otherwise
 	 * @throws QuestionException  wasn't able to retrieve question from system data
 	 */
-	public static boolean checkQuestionAnswer(int qId,int chosenAnswer) throws QuestionException {
+	public  boolean checkQuestionAnswer(int qId,int chosenAnswer) throws QuestionException {
 		int questionId = qId;
 		
 		Question currentQuestion=SysData.getInstance().getQuesById(questionId);
@@ -73,13 +70,12 @@ public class BoardQuestionsController {
 		
 	}
 	/**
-	 * TODO why static?
 	 * return difficulty of question by question id
 	 * @param qId the question id
 	 * @return DifficultyLevel the difficulty level of the question
 	 * @throws QuestionException wasn't able to retrieve question from system data
 	 */
-	public static DifficultyLevel Diffeculty(int qId) throws QuestionException{
+	public  DifficultyLevel Diffeculty(int qId) throws QuestionException{
 	int questionId = qId;
 		
 		Question currentQuestion=SysData.getInstance().getQuesById(questionId);
@@ -91,11 +87,10 @@ public class BoardQuestionsController {
 	}
 	
 	/**
-	 *  TODO why static?
 	 * adds point for current player according to question difficulty
 	 * @param quDifficulty the question difficulty
 	 */
-	public static void addPointsForCorrectAnswer(DifficultyLevel quDifficulty){
+	public  void addPointsForCorrectAnswer(DifficultyLevel quDifficulty){
 		int score=Game.getInstance().getPlayerr().getCurrentScore();
 		switch(quDifficulty){
 		case EASY:Game.getInstance().getPlayerr().setCurrentScore(score+CORRECT_EASY_POINTS);
@@ -109,11 +104,10 @@ public class BoardQuestionsController {
 	
 	
 	/**
-	 *  TODO why static?
 	 * removes points from current player according to question difficulty
 	 * @param quDifficulty the question difficulty
 	 */
-	public static void removePointsForWrongAnswer(DifficultyLevel quDifficulty){
+	public  void removePointsForWrongAnswer(DifficultyLevel quDifficulty){
 		int score=Game.getInstance().getPlayerr().getCurrentScore();
 		switch(quDifficulty){
 		case EASY:Game.getInstance().getPlayerr().setCurrentScore(score-WRONG_EASY_POINTS);

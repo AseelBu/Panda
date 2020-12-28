@@ -68,7 +68,7 @@ public class ScoreAfterAnswerTests {
 			
 			// answer correctly
 			int oldscore = Game.getInstance().getPlayerr().getCurrentScore();
-			BoardQuestionsController.checkQuestionAnswer(q.getId(), q.getCorrectAnswer());
+			BoardQuestionsController.getInstance().checkQuestionAnswer(q.getId(), q.getCorrectAnswer());
 			
 			// answer correctly
 			assertEquals(Game.getInstance().getPlayerr().getCurrentScore(),oldscore+200);
@@ -80,7 +80,7 @@ public class ScoreAfterAnswerTests {
 			
 			int answerId = getWrongAnswer(q);
 			
-			BoardQuestionsController.checkQuestionAnswer(q.getId(), answerId);
+			BoardQuestionsController.getInstance().checkQuestionAnswer(q.getId(), answerId);
 			
 			// answer incorrectly
 			assertEquals(Game.getInstance().getPlayerr().getCurrentScore(),oldscore-100);
@@ -116,7 +116,7 @@ public class ScoreAfterAnswerTests {
 			
 			// answer correctly
 			int oldscore = Game.getInstance().getPlayerr().getCurrentScore();
-			BoardQuestionsController.checkQuestionAnswer(q.getId(), q.getCorrectAnswer());
+			BoardQuestionsController.getInstance().checkQuestionAnswer(q.getId(), q.getCorrectAnswer());
 			
 			// answer correctly
 			assertEquals(Game.getInstance().getPlayerr().getCurrentScore(),oldscore+100);
@@ -128,7 +128,7 @@ public class ScoreAfterAnswerTests {
 			
 			int answerId = getWrongAnswer(q);
 			
-			BoardQuestionsController.checkQuestionAnswer(q.getId(), answerId);
+			BoardQuestionsController.getInstance().checkQuestionAnswer(q.getId(), answerId);
 			
 			// answer incorrectly
 			assertEquals(Game.getInstance().getPlayerr().getCurrentScore(),oldscore-250);
@@ -162,7 +162,7 @@ public class ScoreAfterAnswerTests {
 			
 			// answer correctly
 			int oldscore = Game.getInstance().getPlayerr().getCurrentScore();
-			BoardQuestionsController.checkQuestionAnswer(q.getId(), q.getCorrectAnswer());
+			BoardQuestionsController.getInstance().checkQuestionAnswer(q.getId(), q.getCorrectAnswer());
 			
 			// answer correctly
 			assertEquals(Game.getInstance().getPlayerr().getCurrentScore(),oldscore+500);
@@ -174,7 +174,7 @@ public class ScoreAfterAnswerTests {
 			
 			int answerId = getWrongAnswer(q);
 			
-			BoardQuestionsController.checkQuestionAnswer(q.getId(), answerId);
+			BoardQuestionsController.getInstance().checkQuestionAnswer(q.getId(), answerId);
 			
 			// answer incorrectly
 			assertEquals(Game.getInstance().getPlayerr().getCurrentScore(),oldscore-50);

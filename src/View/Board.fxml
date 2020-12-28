@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="858.0" prefWidth="1218.0" stylesheets="@board.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-         <AnchorPane fx:id="background" layoutX="238.0" layoutY="35.0" prefHeight="958.0" prefWidth="1327.0" style="-fx-border-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="background" layoutX="248.0" layoutY="45.0" prefHeight="1003.0" prefWidth="1575.3333333333333" style="-fx-border-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
   
       <FlowPane layoutX="477.0" layoutY="80.0" prefHeight="800.0" prefWidth="800.0">
          <children>
@@ -370,7 +370,6 @@
             <Font size="28.0" />
          </font>
       </TextField>
-      <Pane prefHeight="200.0" prefWidth="200.0" />
       <ImageView fitHeight="99.0" fitWidth="100.0" layoutX="16.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@pictures/Queen_WHITE.png" />
