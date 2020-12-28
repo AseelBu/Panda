@@ -1,5 +1,5 @@
 #mainPane{
-	-fx-background-image: url("pictures/background.png");
+	-fx-background-image: url("/View/pictures/background.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size: cover;
 }

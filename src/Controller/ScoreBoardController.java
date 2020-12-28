@@ -60,7 +60,7 @@ public class ScoreBoardController {
 	
 	/**
 	 * GUI Setter
-	 * @param questionScreen
+	 * @param score_screen
 	 */
 	public void setScoreScreen(Scoreboard score_screen) {
 		this.highscores_screen = score_screen;

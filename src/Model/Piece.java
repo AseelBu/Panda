@@ -134,7 +134,6 @@ public abstract class  Piece {
 	//Abstract methods
 	/**
 	 * gets all must edible pieces around this piece
-	 * @param piece that we want to check
 	 * @return list of pieces that are edible for specific piece, null if piece can't eat
 	 */
 	public abstract ArrayList<Piece> getMustEdiblePieces();
@@ -160,7 +159,6 @@ public abstract class  Piece {
 
 	/**
 	 * gets all edible pieces around this piece
-	 * @param piece that we want to check
 	 * @return list of pieces that are edible for specific piece, null if piece can't eat
 	 */
 	public abstract ArrayList<Piece> getEdiblePieces();
@@ -190,7 +188,7 @@ public abstract class  Piece {
 
 	/**
 	 * gets all possible tiles for this piece to move to
-	 * @return ArrayList<Tile> of possible tiles for this piece to move to
+	 * @return ArrayList of possible tiles for this piece to move to
 	 */
 	public abstract ArrayList<Tile> getPossibleMoves(PrimaryColor playerColor);
 

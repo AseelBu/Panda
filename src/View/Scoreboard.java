@@ -93,14 +93,14 @@ public class Scoreboard extends Application {
 		
 		
 	
-		ImageView back = new ImageView(new Image(getClass().getResource("pictures/icons8-back-arrow-64.png").toString()));
+		ImageView back = new ImageView(new Image(getClass().getResource("/View/pictures/icons8-back-arrow-64.png").toString()));
 		back.setFitWidth(45);
 		back.setFitHeight(45);
 	
 		
 		
 		
-		ImageView iv = new ImageView(new Image(getClass().getResource("pictures/stage1.png").toString()));
+		ImageView iv = new ImageView(new Image(getClass().getResource("/View/pictures/stage1.png").toString()));
 		
 		iv.setLayoutX(20);
 		iv.setLayoutY(105);

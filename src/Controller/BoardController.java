@@ -476,7 +476,7 @@ public class BoardController {
 
 	/**
 	 * 
-	 * @return ArrayList<Tile> colored tiles
+	 * @return ArrayList of colored tiles
 	 */
 	public ArrayList<Tile> getAllColoredTiles(){
 		return Board.getInstance().getColoredTilesList();
@@ -542,7 +542,7 @@ public class BoardController {
 	}
 
 	/**
-	 * Provide location by row & column as parameters to add them to the boardGUI and actual board
+	 * Provide location by row and column as parameters to add them to the boardGUI and actual board
 	 * @param row the location row of retrieval
 	 * @param col the location column of retrieval
 	 * @param pieceColor the color of the retrieved piece 
@@ -589,7 +589,7 @@ public class BoardController {
 	 * Will add tile only in View's side
 	 * 
 	 * @param allPieces pieces HashMap, key is the location (row_col), Value is the type i.e. Soldier_BLACK
-	 * @return ArrayList<Piece>
+	 * @return ArrayList  of pieces
 	 */
 	public ArrayList<Piece> createPieces(HashMap<String,String> allPieces) {
 		ArrayList<Piece> pieces = new ArrayList<>();

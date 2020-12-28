@@ -224,7 +224,7 @@ public class BoardEdit extends Application {
 		circleBlack.setStroke(Color.TRANSPARENT);
 		circleBlack.setStrokeType(StrokeType.INSIDE);
 		circleBlack.setFill(new ImagePattern(new Image(
-				getClass().getResource("pictures/" + PieceType.Queen_BLACK + ".png").toString())));
+				getClass().getResource("/View/pictures/" + PieceType.Queen_BLACK + ".png").toString())));
 		circleBlack.setCursor(Cursor.HAND);
 		mainAnchor.getChildren().add(circleBlack);
 		
@@ -235,7 +235,7 @@ public class BoardEdit extends Application {
 		circleWhite.setStroke(Color.TRANSPARENT);
 		circleWhite.setStrokeType(StrokeType.INSIDE);
 		circleWhite.setFill(new ImagePattern(new Image(
-				getClass().getResource("pictures/" + PieceType.Queen_WHITE + ".png").toString())));
+				getClass().getResource("/View/pictures/" + PieceType.Queen_WHITE + ".png").toString())));
 		circleWhite.setCursor(Cursor.HAND);
 		mainAnchor.getChildren().add(circleWhite);
 
@@ -274,7 +274,7 @@ public class BoardEdit extends Application {
 	 */
 	public void addStaticPiece(PieceType type, double height, double width, double layoutX, double layoutY) {
 		ImageView piece = new ImageView(new Image(
-				getClass().getResource("pictures/" + type + ".png").toString()));
+				getClass().getResource("/View/pictures/" + type + ".png").toString()));
 		String id = "add_" + type;
 		piece.setId(id);
 		piece.setFitHeight(height);
@@ -327,8 +327,7 @@ public class BoardEdit extends Application {
 	 * 
 	 * @param row
 	 * @param col
-	 * @param color
-	 * @param isSoldier
+	 * @param type
 	 */
 	public void addPieceToTile(int row, char col, PieceType type) {
 		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
@@ -339,7 +338,7 @@ public class BoardEdit extends Application {
 			return;
 		}
 		ImageView pieceImage = new ImageView(new Image(
-				getClass().getResource("pictures/" + type + ".png").toString()));
+				getClass().getResource("/View/pictures/" + type + ".png").toString()));
 		pieceImage.setFitHeight(65);
 		pieceImage.setFitWidth(65);
 		
@@ -459,7 +458,7 @@ public class BoardEdit extends Application {
 			}
 		});
 		ImageView saveImg = new ImageView(new Image(
-				getClass().getResource("pictures/save.png").toString()));
+				getClass().getResource("/View/pictures/save.png").toString()));
 		saveImg.setId("SaveImg");
 		saveImg.setFitHeight(40.0);
 		saveImg.setFitWidth(40.0);
@@ -490,7 +489,7 @@ public class BoardEdit extends Application {
 		});
 		
 		ImageView startImg = new ImageView(new Image(
-				getClass().getResource("pictures/play.png").toString()));
+				getClass().getResource("/View/pictures/play.png").toString()));
 		startImg.setId("StartImg");
 		startImg.setFitHeight(40.0);
 		startImg.setFitWidth(40.0);

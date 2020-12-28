@@ -120,7 +120,7 @@ public class Nicknames extends Application {
 			}
 		});
 		
-		ImageView pic = new ImageView(new Image(getClass().getResource("pictures/logo.png").toString()));
+		ImageView pic = new ImageView(new Image(getClass().getResource("/View/pictures/logo.png").toString()));
 		pic.setFitHeight(158.0);
 		pic.setFitWidth(162.0);
 		pic.setLayoutX(215.0);
@@ -144,7 +144,7 @@ public class Nicknames extends Application {
 				txt1.setText(oldValue);
 		});
 		
-		ImageView pic1 = new ImageView(new Image(getClass().getResource("pictures/Soldier_WHITE.png").toString()));
+		ImageView pic1 = new ImageView(new Image(getClass().getResource("/View/pictures/Soldier_WHITE.png").toString()));
 		pic1.setFitHeight(67.0);
 		pic1.setFitWidth(76.0);
 		pic1.setLayoutX(74.0);
@@ -177,7 +177,7 @@ public class Nicknames extends Application {
 				txt2.setText(oldValue);
 		});
 		
-		ImageView pic2 = new ImageView(new Image(getClass().getResource("pictures/Soldier_BLACK.png").toString()));
+		ImageView pic2 = new ImageView(new Image(getClass().getResource("/View/pictures/Soldier_BLACK.png").toString()));
 		pic2.setFitHeight(67.0);
 		pic2.setFitWidth(76.0);
 		pic2.setLayoutX(450.0);

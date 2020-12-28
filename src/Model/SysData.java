@@ -31,7 +31,7 @@ public class SysData {
 	/**
 	 * Question DataStructure
 	 * 
-	 * @return ArrayList<Question> of Questions in the system
+	 * @return ArrayList of Questions in the system
 	 */
 
 	public ArrayList<Question> getQuestions() {
@@ -53,7 +53,7 @@ public class SysData {
 	/**
 	 * Gets ScoreBoard DataStructre
 	 * 
-	 * @return ArrayList<Player> of players in score board
+	 * @return ArrayList of players in score board
 	 */
 	public ArrayList<Player> getScoreboard() {
 		return this.scoreboard;
@@ -99,7 +99,7 @@ public class SysData {
 	/**
 	 * Add Question to system's questions
 	 * 
-	 * @param question to add
+	 * @param q to add
 	 */
 	public void addQuestion(Question q) {
 

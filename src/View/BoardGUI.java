@@ -176,7 +176,7 @@ public class BoardGUI extends Application {
 		mainAnchor.getChildren().add(totalTimeF);
 		
 		
-		ImageView help = new ImageView(new Image(getClass().getResourceAsStream("pictures/help.png")));
+		ImageView help = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/help.png")));
 		help.setLayoutX(10);
 		help.setLayoutY(530);
 		help.setFitWidth(70);
@@ -201,13 +201,13 @@ public class BoardGUI extends Application {
 		
 		mainAnchor.getChildren().add(help);
 		
-		ImageView mute = new ImageView(new Image(getClass().getResourceAsStream("pictures/music_on.png")));
+		ImageView mute = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
 		if(SoundController.getInstance().isMuted()) {
-			mute.setImage(new Image(getClass().getResourceAsStream("pictures/music_off.png")));
+			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_off.png")));
 			mute.setId("Off");
 		}
 		else {
-			mute.setImage(new Image(getClass().getResourceAsStream("pictures/music_on.png")));
+			mute.setImage(new Image(getClass().getResourceAsStream("/View/pictures/music_on.png")));
 			mute.setId("On");
 		}
 		mute.setLayoutX(10);
@@ -241,7 +241,7 @@ public class BoardGUI extends Application {
 		});
 		
 
-		ImageView pause = new ImageView(new Image(getClass().getResource("pictures/pause.png").toString()));
+		ImageView pause = new ImageView(new Image(getClass().getResource("/View/pictures/pause.png").toString()));
 		pause.setFitHeight(36);
 		pause.setFitWidth(38);
 
@@ -264,7 +264,7 @@ public class BoardGUI extends Application {
 		pausePane.getChildren().add(pause);
 		mainAnchor.getChildren().add(pausePane);
 
-		ImageView save = new ImageView(new Image(getClass().getResource("pictures/save.png").toString()));
+		ImageView save = new ImageView(new Image(getClass().getResource("/View/pictures/save.png").toString()));
 		save.setFitHeight(36);
 		save.setFitWidth(38);
 
@@ -285,13 +285,13 @@ public class BoardGUI extends Application {
 		savePane.getChildren().add(save);
 		mainAnchor.getChildren().add(savePane);
 
-				ImageView whiteImg = new ImageView(new Image(getClass().getResource("pictures/Queen_WHITE.png").toString()));
+				ImageView whiteImg = new ImageView(new Image(getClass().getResource("/View/pictures/Queen_WHITE.png").toString()));
 				whiteImg.setFitHeight(90);
 				whiteImg.setFitWidth(90);
 				whiteImg.setLayoutX(16);
 				whiteImg.setLayoutY(97);
 	
-				ImageView blackImg = new ImageView(new Image(getClass().getResource("pictures/Queen_BLACK.png").toString()));
+				ImageView blackImg = new ImageView(new Image(getClass().getResource("/View/pictures/Queen_BLACK.png").toString()));
 				blackImg.setFitHeight(90);
 				blackImg.setFitWidth(90);
 				blackImg.setLayoutX(16);
@@ -421,7 +421,7 @@ public class BoardGUI extends Application {
 			}
 		}
 		ImageView tileImage;
-		tileImage = new ImageView(new Image(getClass().getResource("pictures/"+tileColor+"Tile.png").toString()));
+		tileImage = new ImageView(new Image(getClass().getResource("/View/pictures/"+tileColor+"Tile.png").toString()));
 		tileImage.setId("Tile_" + tileColor);
 		tileImage.setFitHeight(65.0);
 		tileImage.setFitWidth(65.0);
@@ -459,11 +459,14 @@ public class BoardGUI extends Application {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * used to add piece to the board
-	 * @param piece
-	 * @return
+	 * @param row
+	 * @param col
+	 * @param pieceColor
+	 * @param isSoldier
+	 * @return true if piece was added, false otherwise
 	 */
 	public boolean addPieceToBoard(int row, char col, PrimaryColor pieceColor, boolean isSoldier) {
 		FlowPane board = (FlowPane) mainAnchor.lookup("#board");
@@ -477,11 +480,11 @@ public class BoardGUI extends Application {
 
 		ImageView pieceImage;
 		if(isSoldier) {
-			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Soldier_" + pieceColor + ".png").toString()));
+			pieceImage = new ImageView(new Image(getClass().getResource("/View/pictures/Soldier_" + pieceColor + ".png").toString()));
 			pieceImage.setId("Soldier_" + pieceColor);
 		}
 		else {
-			pieceImage = new ImageView(new Image(getClass().getResource("pictures/Queen_" + pieceColor + ".png").toString()));
+			pieceImage = new ImageView(new Image(getClass().getResource("/View/pictures/Queen_" + pieceColor + ".png").toString()));
 			pieceImage.setId("Queen_" + pieceColor);
 		}
 		pieceImage.setFitHeight(65.0);
@@ -705,7 +708,7 @@ public class BoardGUI extends Application {
 	}
 
 	/**
-	 * Initiate Game players names & scores set to 0
+	 * Initiate Game players names and scores set to 0
 	 * @param whiteName Player 1 name
 	 * @param blackName Player 2 name
 	 */
@@ -994,7 +997,7 @@ public class BoardGUI extends Application {
 		String[] id = checkTile.getChildren().get(0).getId().split("_");
 
 		if(id.length == 2 && (id[0].matches("Soldier") || id[0].matches("Queen"))) {
-			((ImageView) checkTile.getChildren().get(0)).setImage(new Image(getClass().getResource("pictures/Queen_" + id[1] + ".png").toString()));
+			((ImageView) checkTile.getChildren().get(0)).setImage(new Image(getClass().getResource("View/pictures/Queen_" + id[1] + ".png").toString()));
 			((ImageView) checkTile.getChildren().get(0)).setId("Queen_" + id[1]);
 		}
 	}
@@ -1006,10 +1009,10 @@ public class BoardGUI extends Application {
 	 * @param toRow 
 	 */
 	private void openDirectionsWind(AnchorPane anchor, int toRow, char toCol) {
-		ImageView upLeft = new ImageView(new Image(getClass().getResource("pictures/up_left.png").toString()));
-		ImageView upRight = new ImageView(new Image(getClass().getResource("pictures/up_right.png").toString()));
-		ImageView downLeft = new ImageView(new Image(getClass().getResource("pictures/down_left.png").toString()));
-		ImageView downRight = new ImageView(new Image(getClass().getResource("pictures/down_right.png").toString()));
+		ImageView upLeft = new ImageView(new Image(getClass().getResource("/View/pictures/up_left.png").toString()));
+		ImageView upRight = new ImageView(new Image(getClass().getResource("/View/pictures/up_right.png").toString()));
+		ImageView downLeft = new ImageView(new Image(getClass().getResource("/View/pictures/down_left.png").toString()));
+		ImageView downRight = new ImageView(new Image(getClass().getResource("/View/pictures/down_right.png").toString()));
 		addArrowImgToAnchor(anchor, upLeft, Directions.UP_LEFT, 88, 385, toRow, toCol);
 		addArrowImgToAnchor(anchor, upRight, Directions.UP_RIGHT, 188,385, toRow, toCol);
 		addArrowImgToAnchor(anchor, downLeft, Directions.DOWN_LEFT, 88,484, toRow, toCol);
@@ -1305,7 +1308,7 @@ public class BoardGUI extends Application {
 		pause.setStyle("-fx-background-color: #dbdbdb88;");
 		mainAnchor.getChildren().add(pause);
 
-		ImageView play = new ImageView(new Image(getClass().getResource("pictures/play.png").toString()));
+		ImageView play = new ImageView(new Image(getClass().getResource("/View/pictures/play.png").toString()));
 		play.setFitHeight(200);
 		play.setFitWidth(200);
 

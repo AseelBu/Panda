@@ -130,7 +130,7 @@ public class Board {
 
 	/**
 	 * gets this board orange tile
-	 * @return ArrayList<Tile> of orange tiles on board
+	 * @return ArrayList of orange tiles on board
 	 */
 	public ArrayList<Tile> getOrangeTiles() {
 		return orangeTiles;
@@ -303,7 +303,6 @@ public class Board {
 	 * 
 	 * @param piece the piece to add
 	 * @return true if added successfully, false otherwise
-	 * @throws LocationException thrown if the tile doesn't already exist in board
 	 */
 	public boolean addPieceToBoardTile(Piece piece) {
 
@@ -327,7 +326,7 @@ public class Board {
 
 	/**
 	 * add color to board tile
-	 * @param tile the tile to color
+	 * @param tilee the tile to color
 	 * @param color the color to be added
 	 * @return Tile added Tile with the color
 	 */
@@ -448,8 +447,8 @@ public class Board {
 
 	/**
 	 * gets all the color pieces on the board
-	 * @param PrimaryColor the color of the pieces, black or white
-	 * @return ArrayList<Piece> of color pieces on the board
+	 * @param color the color of the pieces, black or white
+	 * @return ArrayList of color pieces on the board
 	 */
 	public ArrayList<Piece> getColorPieces(PrimaryColor color){
 		ArrayList<Piece> colorPieces = new ArrayList<Piece>();
@@ -466,7 +465,7 @@ public class Board {
 	/**
 	 * gets all black tiles on board the don't have a piece on them 
 	 * 
-	 * @return ArrayList<Tile> of empty tiles
+	 * @return ArrayList of empty tiles
 	 */
 	public ArrayList<Tile> getEmptyTiles(){
 		ArrayList<Tile> emptyTiles = new ArrayList<Tile>();
@@ -483,7 +482,7 @@ public class Board {
 	/**
 	 * gets all black locations on board the don't have a piece on them
 	 * 
-	 * @return ArrayList<Location> of empty locations
+	 * @return ArrayList of empty locations
 	 */
 	public ArrayList<Location> getEmptyLocations(){
 
@@ -523,7 +522,7 @@ public class Board {
 
 	/**
 	 * upgrade soldier to queen on board
-	 * @param Soldier The soldier we want to upgrade
+	 * @param soldier The soldier we want to upgrade
 	 */
 	public void upgradeSoldier(Soldier soldier) {
 
@@ -544,8 +543,8 @@ public class Board {
 	/**
 	 * gets all possible moves (tiles to move to) for certain player color
 	 * 
-	 * @param PrimaryColor the color of the player, black or white
-	 * @return ArrayList<Tile> of legal moves for the color
+	 * @param playerColor the color of the player, black or white
+	 * @return ArrayList of legal tile moves for the color
 	 */
 	public ArrayList<Tile> getAllLegalMoves(PrimaryColor playerColor) {
 
@@ -563,7 +562,7 @@ public class Board {
 	/**
 	 * gets all the pieces that can be eaten by specific player color
 	 * @param playerColor the color of the pieces, black or white
-	 * @return ArrayList<Piece> that are edible for color player
+	 * @return ArrayList of pieces that are edible for color player
 	 */
 	public ArrayList<Piece> getAllEdiblePiecesByColor(PrimaryColor playerColor){
 		ArrayList<Piece> ediblePieces= new ArrayList<Piece>();
@@ -580,7 +579,7 @@ public class Board {
 	/**
 	 * gets all the pieces that must eat, for specific player color
 	 * @param playerColor the color of the player, black or white
-	 * @return ArrayList<Piece> that are must eat for color player
+	 * @return ArrayList that are must eat for color player
 	 */
 	public ArrayList<Piece> getAllNeedToEatPieces(PrimaryColor playerColor){
 		ArrayList<Piece> needToEatPieces= new ArrayList<Piece>();
@@ -669,7 +668,7 @@ public class Board {
 	/**
 	 *  checks if there is more eating left for specific piece on board
 	 *  
-	 * @param playerColor PrimaryColor BLACK,WHITE
+	 * @param piece to be checked
 	 * @return true if there is no more eating left for color player,otherwise false
 	 */
 	public boolean isAllPiecesEaten(Piece piece) {

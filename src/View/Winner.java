@@ -66,7 +66,7 @@ public class Winner extends Application{
 			Label txt = (Label) mainAnchor.lookup("#txt");
 			txt.setText(name + " Has Won!");
 			ImageView img = (ImageView) mainAnchor.lookup("#img");
-			img.setImage(new Image(getClass().getResource("pictures/Queen_" + color + ".png").toString()));
+			img.setImage(new Image(getClass().getResource("/View/pictures/Queen_" + color + ".png").toString()));
 		}
 	}
 	

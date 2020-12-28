@@ -44,7 +44,7 @@ public class BoardQuestionsController {
 
 	/**
 	 * checks with model if answer is correct or not based on chosen answer
-	 * @param questionId the question id
+	 * @param qId the question id
 	 * @param chosenAnswer the chosen answer to check
 	 * @return true if the answer is correct, false otherwise
 	 * @throws QuestionException  wasn't able to retrieve question from system data

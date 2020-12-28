@@ -22,7 +22,7 @@ public class Location {
 	 * location Constructor
 	 * @param row
 	 * @param column
-	 * @throws Exception 
+	 * @throws LocationException 
 	 */
 	public Location(int row, char column) throws LocationException {
 		super();
@@ -91,7 +91,7 @@ public class Location {
 
 	/**
 	 * @param column the column to set
-	 * @throws LocationException- column out of board boundaries
+	 * @throws LocationException column out of board boundaries
 	 */
 	public void setColumn(char column) throws LocationException {
 		Board board = Board.getInstance();
@@ -104,10 +104,10 @@ public class Location {
 
 	/**
 	 * updates location values to new location that exists diagonally from current location within board limits.
-	 * @param direction UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT
+	 * @param dir UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT
 	 * @param steps The number of steps to add diagonally
 	 * @return The new location if it's within board boundaries, else returns null
-	 * @throws LocationException  -Location is out of board boundaries
+	 * @throws LocationException Location is out of board boundaries
 	 */
 	public Location addToLocationDiagonally(Directions dir,int steps) throws LocationException {
 		Board board = Board.getInstance();
@@ -226,7 +226,7 @@ public class Location {
 	 * calculates the relative location between this location and target location
 	 *
 	 * @param targetLocation to calculate direction and steps from
-	 * @return HashMap<Directions,Integer> key is relative direction and value is number of relative absolute number of steps ,
+	 * @return HashMap, key is relative direction and value is number of relative absolute number of steps ,
 	 * between this location and target location
 	 */
 	public HashMap<Directions,Integer>relativeLocationTo(Location targetLocation) {
