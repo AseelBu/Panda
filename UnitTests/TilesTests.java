@@ -25,19 +25,6 @@ public class TilesTests {
 	private Tile regularTile;
 	private ColoredTilesFactory factory;
 
-//	/**
-//	 * @throws java.lang.Exception
-//	 */
-//	@BeforeClass
-//	public static void setUpBeforeClass() throws Exception {
-//	}
-//
-//	/**
-//	 * @throws java.lang.Exception
-//	 */
-//	@AfterClass
-//	public static void tearDownAfterClass() throws Exception {
-//	}
 
 	/**
 	 * @throws java.lang.Exception
@@ -72,12 +59,6 @@ public class TilesTests {
 		
 	}
 	
-//	@Test
-//	public void tileInstanceChangesToYellowTile() {
-//		Tile newTile = factory.getColoredTile(regularTile, SeconderyTileColor.YELLOW);
-//		System.out.println(newTile);
-//		assertTrue("created Tile is not instance of YellowTile", newTile instanceof YellowTile);
-//		
-//	}
+
 
 }
