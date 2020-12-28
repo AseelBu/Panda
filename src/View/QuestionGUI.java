@@ -348,7 +348,10 @@ public class QuestionGUI extends Application{
 	}
 
 
-	
+	/**
+	 * Action on out of time
+	 * ends the question with a wrong answer
+	 */
 	public void outOfTime() {
 		try {
 		SoundController.getInstance().stopQues();
@@ -387,6 +390,9 @@ public class QuestionGUI extends Application{
 		primary.close();
 	}
 	
+	/**
+	 * loads the timer
+	 */
 	private void loadTimer() {
 		Label timerLbl = new Label();
 		timerLbl.setId("Timer");
@@ -400,7 +406,10 @@ public class QuestionGUI extends Application{
 		questionThread = new QuestionTimerController();
 		questionThread.start();
 	}
-	
+	/**
+	 * sets timer's seconds on display
+	 * @param seconds
+	 */
 	public void setTimerSeconds(int seconds) {
 		Label timerLbl = (Label) mainAnchor.lookup("#Timer");
 		if(seconds > 10) {
