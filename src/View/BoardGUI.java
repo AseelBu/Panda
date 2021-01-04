@@ -997,7 +997,7 @@ public class BoardGUI extends Application {
 		String[] id = checkTile.getChildren().get(0).getId().split("_");
 
 		if(id.length == 2 && (id[0].matches("Soldier") || id[0].matches("Queen"))) {
-			((ImageView) checkTile.getChildren().get(0)).setImage(new Image(getClass().getResource("View/pictures/Queen_" + id[1] + ".png").toString()));
+			((ImageView) checkTile.getChildren().get(0)).setImage(new Image(getClass().getResource("/View/pictures/Queen_" + id[1] + ".png").toString()));
 			((ImageView) checkTile.getChildren().get(0)).setId("Queen_" + id[1]);
 		}
 	}
