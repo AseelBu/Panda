@@ -64,17 +64,13 @@ public class ManageQuestions extends Application {
 		primaryStage.setTitle("Hamka");
 		primaryStage.setResizable(false);
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
 			@Override
 			public void handle(WindowEvent event) {
-				
 				DisplayController.getInstance().closeManageQuestions();
 				QuestionMgmtController.getInstance().WriteQuestions();
 				QuestionMgmtController.getInstance().LoadQuestions();
 				DisplayController.getInstance().showMainScreen();
-				
 			}
-			
 		});
 		primary = primaryStage;
 		primary.show();
@@ -114,7 +110,6 @@ public class ManageQuestions extends Application {
 		error.setVisible(false);
 		mainAnchor.getChildren().add(error);
 		
-		
 		mainAnchor.getChildren().add(l);
 		
 		AnchorPane background = new AnchorPane();
@@ -141,7 +136,6 @@ public class ManageQuestions extends Application {
 		mainAnchor.getChildren().add(greenl);
 		mainAnchor.getChildren().add(green);
 		
-		
 		Rectangle red = new Rectangle(10,180,25,5);
 		red.setFill(Color.ORANGE);
 		Label red1 = new Label("INTERMEDIATE");
@@ -163,14 +157,11 @@ public class ManageQuestions extends Application {
 
 		mainAnchor.getChildren().add(orange);
 		
-		
 		questionList = new ListView<Question>();
 		ObservableList<Question> data = FXCollections.observableArrayList();
 		
-		for(Question q : QuestionMgmtController.getInstance().getQuestions()) {
-			
+		for(Question q : QuestionMgmtController.getInstance().getQuestions()) {	
 			data.add(q);
-			
 		}
 		
 		questionList.setCellFactory(new Callback<ListView<Question>, ListCell<Question>>() {
@@ -231,7 +222,6 @@ public class ManageQuestions extends Application {
 		mainAnchor.getChildren().add(difficulty);
 		
 		ToggleGroup toggleGroup = new ToggleGroup();
-		
 		RadioButton ans1 = new RadioButton();
 		ans1.setLayoutX(150);
 		ans1.setLayoutY(345);
@@ -259,7 +249,6 @@ public class ManageQuestions extends Application {
 		String diffs[] = 
             { "EASY", "INTERMEDIATE", "HARD"
                              }; 
-		
 		ComboBox<String> diff_selector = new ComboBox<String>();
 		diff_selector.getItems().addAll(Arrays.asList(diffs));
 		diff_selector.setLayoutX(480);
@@ -270,32 +259,28 @@ public class ManageQuestions extends Application {
 		ta1.setLayoutX(175);
 		ta1.setLayoutY(342);
 		ta1.setPrefHeight(3);
-		ta1.setPrefWidth(300);
-			
+		ta1.setPrefWidth(300);	
 		mainAnchor.getChildren().add(ta1);
 		
 		TextField ta2 = new TextField();
 		ta2.setLayoutX(590);
 		ta2.setLayoutY(342);
 		ta2.setPrefHeight(3);
-		ta2.setPrefWidth(300);
-			
+		ta2.setPrefWidth(300);		
 		mainAnchor.getChildren().add(ta2);
 		
 		TextField ta3 = new TextField();
 		ta3.setLayoutX(175);
 		ta3.setLayoutY(403);
 		ta3.setPrefHeight(3);
-		ta3.setPrefWidth(300);
-			
+		ta3.setPrefWidth(300);		
 		mainAnchor.getChildren().add(ta3);
 		
 		TextField ta4 = new TextField();
 		ta4.setLayoutX(590);
 		ta4.setLayoutY(403);
 		ta4.setPrefHeight(3);
-		ta4.setPrefWidth(300);
-			
+		ta4.setPrefWidth(300);	
 		mainAnchor.getChildren().add(ta4);
 		
 		Button btnCancel = new Button();
@@ -316,7 +301,6 @@ public class ManageQuestions extends Application {
 		Button btnNew = new Button("New");
 		btnNew.setFont(new Font("verdana", 16));
 		btnNew.setTooltip(new Tooltip("Write New Question"));
-		
 		btnDelete.setVisible(false);
 		btnNew.setVisible(false);
 		
@@ -326,7 +310,6 @@ public class ManageQuestions extends Application {
 			public void handle(ActionEvent event) {
 				
 				error.setTextFill(Color.web("#FF0000"));
-				
 				btnSaveOrAdd.setId("Add");
 				btnSaveOrAdd.setTooltip(new Tooltip("Add New Question"));
 				btnSaveOrAdd.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/add.png"))));
@@ -379,8 +362,6 @@ public class ManageQuestions extends Application {
 			public void handle(ActionEvent event) {
 				
 				error.setTextFill(Color.web("#FF0000"));
-				
-				
 	    		btnSaveOrAdd.setDisable(false);
 	    		btnSaveOrAdd.setTooltip(new Tooltip("Add New Question"));
 	    		btnSaveOrAdd.setId("Add");
@@ -400,20 +381,11 @@ public class ManageQuestions extends Application {
 	    		
 	    		questionContent.setText("");
 	    		diff_selector.getSelectionModel().clearSelection();
-	    		
-	    		
 	    		questionList.getSelectionModel().clearSelection();
-				
-				
 			}
-			
-			
-			
-			
 		});
 		
 
-		
 		this.listener = (ObservableValue<? extends Question> observable, Question oldValue, Question newValue) -> {
 		    	
 		    	if(newValue == null) {
@@ -468,7 +440,6 @@ public class ManageQuestions extends Application {
 		    		questionContent.setText(q.getContent());
 		    		
 		    		int count = 0;		    		
-		    		
 		    		
 		    		for(Answer a : q.getAnswers()) {
 		    			
@@ -535,7 +506,6 @@ public class ManageQuestions extends Application {
 				    		diff_selector.getSelectionModel().clearSelection();
 				    		
 
-				    		
 				    		QuestionMgmtController.getInstance().removeQuestions(questionList.getSelectionModel().getSelectedItem().getId());
 				    		QuestionMgmtController.getInstance().WriteQuestions();
 				    		
@@ -570,17 +540,12 @@ public class ManageQuestions extends Application {
 							         
 							);
 							visiblePause.play();
-				    		
-							
-				    		
-							
 						}
 		    								    			
 		    		});
 		    		
 		    		btnSaveOrAdd.setOnAction(new EventHandler<ActionEvent>() {
-		    			
-		    			
+
 		    			@Override
 						public void handle(ActionEvent event) {
 		    				
@@ -589,43 +554,64 @@ public class ManageQuestions extends Application {
 		    				error.setTextFill(Color.web("#FF0000"));
 		    				
 		    				ArrayList<Integer> answers = new ArrayList<Integer>();
+		    				ArrayList <String> NonEmptyAnswers = new ArrayList<String>();
 		    				int count_answers = 0;
 		    				
-		    				if(ta1.getText().equals("") || ta1.getText() == null) {
-		    					
+		    				if(ta1.getText().equals("") || ta1.getText() == null) {	
 		    				}
 		    				else if(ta1.getText().length() != 0) {
+		    					NonEmptyAnswers.add(ta1.getText());
 		    					count_answers++;
 		    					answers.add(1);
 		    				}
-		    				if(ta2.getText().equals("") || ta2.getText() == null) {
-		    					
+		    				if(ta2.getText().equals("") || ta2.getText() == null) {	
 		    				}
 		    				else if(ta2.getText().length() != 0) {
+		    					NonEmptyAnswers.add(ta2.getText());
 		    					count_answers++;
 		    					answers.add(2);
 		    				}
 		    				if(ta3.getText().equals("") || ta3.getText() == null) {
-		    					
 		    				}
 		    				else if(ta3.getText().length() != 0) {
+		    					NonEmptyAnswers.add(ta3.getText());
 		    					count_answers++;
 		    					answers.add(3);
 		    				}
 		    				if(ta4.getText().equals("") || ta4.getText() == null) {
-		    					
 		    				}
 		    				else if(ta4.getText().length() != 0) {
+		    					NonEmptyAnswers.add(ta4.getText());
 		    					count_answers++;
 		    					answers.add(4);
 		    				}
 		    				
 		    				// at least two answers
-		    				
+		    					
 		    				if(count_answers < 2) {
 		    					error.setVisible(true);
 		    					error.setText("Fill In At Least Two Answers");
 		    					return;
+		    				}
+		    				
+		    				// if two empty answrs check other
+		    				if(count_answers == 2) {
+		    					if(NonEmptyAnswers.get(0).equals(NonEmptyAnswers.get(1))) {
+		    						error.setVisible(true);
+		    						error.setText("Two Or More Answers Are The Same!");
+		    						return;
+		    					}
+
+		    				}
+		    				
+		    				// same answers
+		    				if(count_answers != 2) {
+			    				if(ta4.getText().equals(ta3.getText()) || ta4.getText().equals(ta2.getText()) || ta4.getText().equals(ta1.getText()) ||
+			    						ta3.getText().equals(ta1.getText()) || ta3.getText().equals(ta2.getText()) || ta2.getText().equals(ta1.getText())) {
+			    					error.setVisible(true);
+			    					error.setText("Two Or More Answers Are The Same!");
+			    					return;
+			    				}
 		    				}
 		    				
 		    				// correct answer 
@@ -657,8 +643,7 @@ public class ManageQuestions extends Application {
 		    					return;
 		    					
 		    				}
-		    				
-		    		
+
 		    				DifficultyLevel dl = null;
 		    				
 		    				// fill in difficulty 
@@ -683,10 +668,11 @@ public class ManageQuestions extends Application {
 		    					error.setText("Choose Question Difficulty");
 		    					return;
 		    				}
-		    				
+		    				// answer array
 		    				ArrayList<Answer> new_Answers = new ArrayList<Answer>();
 		    				
 		    				int counter = 1;
+		    				// answer checker
 		    				for(Integer i : answers) {
 		    					
 		    					if(i == 1) {
@@ -716,11 +702,12 @@ public class ManageQuestions extends Application {
 		    					
 		    					counter++;
 		    				}
-		    				
+		    				// built question
 		    				Question updated_question = new Question(q.getId(),questionContent.getText(),dl,new_Answers,"panda");
 		    				
 		    				boolean foundCorrect = false;
 		    				
+		    				// if question already exists
 		    				for(Answer a : updated_question.getAnswers()) {
 		    					
 		    					if(a.isCorrect()) {
@@ -744,9 +731,13 @@ public class ManageQuestions extends Application {
 		    					return;
 		    				}
 		    				else {
+		    					
+		    					// update question
 		    					QuestionMgmtController.getInstance().getSysData().editQuestion(q.getId(), updated_question);
 		    					QuestionMgmtController.getInstance().WriteQuestions();
 		    					
+		    					
+		    					// update list
 		    					questionList = new ListView<Question>();
 		    					questionList.setCellFactory(new Callback<ListView<Question>, ListCell<Question>>() {
 		    					    @Override 
@@ -755,7 +746,7 @@ public class ManageQuestions extends Application {
 		    					    }
 		    					});
 		    					ObservableList<Question> data = FXCollections.observableArrayList();
-		    					
+		    					// add questions to list
 		    					for(Question q : QuestionMgmtController.getInstance().getQuestions()) {
 		    						
 		    						data.add(q);
@@ -770,6 +761,7 @@ public class ManageQuestions extends Application {
 		    					error.setText("Successfuly Saved!");
 		    					error.setTextFill(Color.web("#4A95FF"));
 		    					
+		    					// fade out error
 		    					PauseTransition visiblePause = new PauseTransition(
 		    					        Duration.seconds(3)
 		    					);
@@ -777,45 +769,44 @@ public class ManageQuestions extends Application {
 		    					         
 		    					);
 		    					visiblePause.play();
-		    					
-		    					
+
 		    				}
-		    				
-		    				
+
 		    			}
-		    			
+		    			// if pressed on add and not save
 		    			else if(((Button) event.getSource()).getId().equals("Add")) {
 		    				
 		    				error.setTextFill(Color.web("#FF0000"));
-		    				
+		    				ArrayList <String> NonEmptyAnswers = new ArrayList<String>();
 		    				ArrayList<Integer> answers = new ArrayList<Integer>();
 		    				int count_answers = 0;
 		    				
-		    				if(ta1.getText().equals("") || ta1.getText() == null) {
-		    					
+		    				// check if there's content in answers
+		    				if(ta1.getText().equals("") || ta1.getText() == null) {	
 		    				}
 		    				else if(ta1.getText().length() != 0) {
+		    					NonEmptyAnswers.add(ta1.getText());
 		    					count_answers++;
 		    					answers.add(1);
 		    				}
 		    				if(ta2.getText().equals("") || ta2.getText() == null) {
-		    					
 		    				}
 		    				else if(ta2.getText().length() != 0) {
+		    					NonEmptyAnswers.add(ta2.getText());
 		    					count_answers++;
 		    					answers.add(2);
 		    				}
 		    				if(ta3.getText().equals("") || ta3.getText() == null) {
-		    					
 		    				}
 		    				else if(ta3.getText().length() != 0) {
+		    					NonEmptyAnswers.add(ta3.getText());
 		    					count_answers++;
 		    					answers.add(3);
 		    				}
-		    				if(ta4.getText().equals("") || ta4.getText() == null) {
-		    					
+		    				if(ta4.getText().equals("") || ta4.getText() == null) {	
 		    				}
 		    				else if(ta4.getText().length() != 0) {
+		    					NonEmptyAnswers.add(ta4.getText());
 		    					count_answers++;
 		    					answers.add(4);
 		    				}
@@ -827,6 +818,29 @@ public class ManageQuestions extends Application {
 		    					error.setText("Fill In At Least Two Answers");
 		    					return;
 		    				}
+		    				
+		    				// if two answers are empty
+		    				if(count_answers == 2) {
+		    					if(NonEmptyAnswers.get(0).equals(NonEmptyAnswers.get(1))) {
+		    						error.setVisible(true);
+		    						error.setText("Two Or More Answers Are The Same!");
+		    						return;
+		    					}
+
+		    				}
+
+		    				
+		    				// check if matching answers
+		    				if(count_answers != 2) {
+			    				if(ta4.getText().equals(ta3.getText()) || ta4.getText().equals(ta2.getText()) || ta4.getText().equals(ta1.getText()) ||
+			    						ta3.getText().equals(ta1.getText()) || ta3.getText().equals(ta2.getText()) || ta2.getText().equals(ta1.getText())) {
+			    					error.setVisible(true);
+			    					error.setText("Two Or More Answers Are The Same!");
+			    					return;
+			    				}
+		    				}
+		    				
+		    				
 		    				
 		    				// correct answer 
 		    				
@@ -883,9 +897,10 @@ public class ManageQuestions extends Application {
 		    					error.setText("Choose Question Difficulty");
 		    					return;
 		    				}
-		    				
+		    				// answer array
 		    				ArrayList<Answer> new_Answers = new ArrayList<Answer>();
 		    				
+		    				// find correct answer
 		    				int counter = 1;
 		    				for(Integer i : answers) {
 		    					
@@ -916,7 +931,7 @@ public class ManageQuestions extends Application {
 		    					
 		    					counter++;
 		    				}
-		    				
+		    				// build new question
 		    				Question newQues = new Question(QuestionMgmtController.getInstance().getQuestions().size(),questionContent.getText(),dl,new_Answers,"panda");
 		    				
 		    				boolean foundCorrect = false;
@@ -948,7 +963,7 @@ public class ManageQuestions extends Application {
 		    						alreadyExists = true;
 		    					}
 		    				}
-		    				
+		    				// if question already exists
 		    				if(alreadyExists) {
 		    					error.setVisible(true);
 		    					error.setText("Question Already Exists");
@@ -956,11 +971,14 @@ public class ManageQuestions extends Application {
 		    				}
 		    				else {
 		    					System.out.println("Success");
+		    					// add question
 		    					QuestionMgmtController.getInstance().getSysData().addQuestion(newQues);
+		    					// write new content to file
 		    					QuestionMgmtController.getInstance().WriteQuestions();
 		    					questionList = new ListView<Question>();
 		    					questionList.setPrefHeight(230);
 		    					questionList.setPrefWidth(780);
+		    					// update list
 		    					questionList.setCellFactory(new Callback<ListView<Question>, ListCell<Question>>() {
 		    					    @Override 
 		    					    public ListCell<Question> call(ListView<Question> list) {
@@ -968,7 +986,7 @@ public class ManageQuestions extends Application {
 		    					    }
 		    					});
 		    					ObservableList<Question> data = FXCollections.observableArrayList();
-		    					
+		    					// add content to list
 		    					for(Question q : QuestionMgmtController.getInstance().getQuestions()) {
 		    						
 		    						data.add(q);
@@ -1010,13 +1028,12 @@ public class ManageQuestions extends Application {
 		    	}
 		    	
 		};
-		
+			
+			// on item selection
 			questionList.getSelectionModel().selectedItemProperty().addListener(listener);
-		
-		
+			// if clicked add button with no selection
 			btnSaveOrAdd.setOnAction(new EventHandler<ActionEvent>() {
-			
-			
+
 			@Override
 			public void handle(ActionEvent event) {
 				
@@ -1026,46 +1043,67 @@ public class ManageQuestions extends Application {
 				
 			if(((Button) event.getSource()).getId()=="Add") {
 				
+				ArrayList <String> NonEmptyAnswers = new ArrayList<String>();
 				ArrayList<Integer> answers = new ArrayList<Integer>();
-				int count_answers = 0;
 				
-				if(ta1.getText().equals("") || ta1.getText() == null) {
-					
+				int count_answers = 0;
+				// check content of answers
+				if(ta1.getText().equals("") || ta1.getText() == null) {	
 				}
 				else if(ta1.getText().length() != 0) {
+					NonEmptyAnswers.add(ta1.getText());
 					count_answers++;
 					answers.add(1);
 				}
 				if(ta2.getText().equals("") || ta2.getText() == null) {
-					
 				}
 				else if(ta2.getText().length() != 0) {
+					NonEmptyAnswers.add(ta2.getText());
 					count_answers++;
 					answers.add(2);
 				}
-				if(ta3.getText().equals("") || ta3.getText() == null) {
-					
+				if(ta3.getText().equals("") || ta3.getText() == null) {	
 				}
 				else if(ta3.getText().length() != 0) {
+					NonEmptyAnswers.add(ta3.getText());
 					count_answers++;
 					answers.add(3);
 				}
-				if(ta4.getText().equals("") || ta4.getText() == null) {
-					
+				if(ta4.getText().equals("") || ta4.getText() == null) {	
 				}
 				else if(ta4.getText().length() != 0) {
+					NonEmptyAnswers.add(ta4.getText());
 					count_answers++;
 					answers.add(4);
 				}
 				
 				// at least two answers
-				
 				if(count_answers < 2) {
 					error.setVisible(true);
 					error.setText("Fill In At Least Two Answers");
 					return;
 				}
 				
+				// check if two that are not empty dont match
+				if(count_answers == 2) {
+					if(NonEmptyAnswers.get(0).equals(NonEmptyAnswers.get(1))) {
+						error.setVisible(true);
+						error.setText("Two Or More Answers Are The Same!");
+						return;
+					}
+
+				}
+				
+				// check if matching answers
+				if(count_answers != 2) {
+					if(ta4.getText().equals(ta3.getText()) || ta4.getText().equals(ta2.getText()) || ta4.getText().equals(ta1.getText()) ||
+							ta3.getText().equals(ta1.getText()) || ta3.getText().equals(ta2.getText()) || ta2.getText().equals(ta1.getText())) {
+						error.setVisible(true);
+						error.setText("Two Or More Answers Are The Same!");
+						return;
+					}
+				}
+
 				// correct answer 
 				
 				int correctAnswer = 0;
@@ -1121,7 +1159,7 @@ public class ManageQuestions extends Application {
 					error.setText("Choose Question Difficulty");
 					return;
 				}
-				
+				// check answers
 				ArrayList<Answer> new_Answers = new ArrayList<Answer>();
 				
 				int counter = 1;
@@ -1154,7 +1192,7 @@ public class ManageQuestions extends Application {
 					
 					counter++;
 				}
-				
+				// build new question
 				Question newQues = new Question(QuestionMgmtController.getInstance().getQuestions().size(),questionContent.getText(),dl,new_Answers,"panda");
 				
 				boolean foundCorrect = false;
@@ -1194,6 +1232,7 @@ public class ManageQuestions extends Application {
 					QuestionMgmtController.getInstance().getSysData().addQuestion(newQues);
 					QuestionMgmtController.getInstance().WriteQuestions();
 					questionList = new ListView<Question>();
+					// update list of content
 					questionList.setCellFactory(new Callback<ListView<Question>, ListCell<Question>>() {
 					    @Override 
 					    public ListCell<Question> call(ListView<Question> list) {
@@ -1201,7 +1240,7 @@ public class ManageQuestions extends Application {
 					    }
 					});
 					ObservableList<Question> data = FXCollections.observableArrayList();
-					
+					// add questions to list
 					for(Question q : QuestionMgmtController.getInstance().getQuestions()) {
 						
 						data.add(q);
@@ -1223,7 +1262,7 @@ public class ManageQuestions extends Application {
 		    		error.setVisible(true);
 					error.setText("Successfuly Added!");
 					error.setTextFill(Color.web("#4A95FF"));
-					
+					// fade out error
 					PauseTransition visiblePause = new PauseTransition(
 					        Duration.seconds(3)
 					);
@@ -1231,20 +1270,15 @@ public class ManageQuestions extends Application {
 					         
 					);
 					visiblePause.play();
-				
-				
-				
+
 			}
 			
 			}
 			}
 		});
 		
-		
-		
-		
-		
-		
+
+		// back button
 		ImageView backbutton = new ImageView(new Image(getClass().getResourceAsStream("/View/pictures/back.png")));
 		backbutton.setLayoutX(10.0);
 		backbutton.setLayoutY(5.0);
@@ -1262,6 +1296,5 @@ public class ManageQuestions extends Application {
 					
 
 	}
-	
 
 }

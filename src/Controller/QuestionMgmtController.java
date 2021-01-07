@@ -202,6 +202,38 @@ public class QuestionMgmtController {
 
 			int correctAnswer_Checker = 0;
 			
+			
+			if(answers.size() < 2) {
+				continue;
+			}
+			
+			boolean foundMatching = false;
+			for(int i = 0; i < answers.size(); i ++) {
+				
+				for(int j = 0; j < answers.size(); j++) {
+					if( i != j) {
+						
+						if(answers.get(i).equals(answers.get(j))) {
+							
+							foundMatching = true;
+							break;
+							
+						}
+
+					}
+				
+				}
+				
+				if(foundMatching == true) {
+					break;
+				}
+				
+				
+			}
+			
+			if(foundMatching == true) {
+				continue;
+			}
 
 			for (String s : answers) {
 				correctAnswer_Checker++;
